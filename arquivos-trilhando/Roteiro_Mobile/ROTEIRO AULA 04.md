@@ -1,7 +1,7 @@
 # 📜 Roteiro de Aula — Aula 04 (Trilha Mobile)
-## Retorno do Intervalo: Feira dos Projetos + Estrutura de Dados (Listas no Celular)
+## Estruturas de Dados: Listas no Celular e Terminal (`list`, `append`, `len`, `for`, `pop`)
 
-**Data:** 04 de novembro de 2026 (quarta-feira) — **Horário:** 15h00 às 18h00  
+**Data:** 07 de outubro de 2026 (quarta-feira) — **Horário:** 15h00 às 18h00  
 **Duração total:** 180 minutos (3h00)  
 **Público-alvo:** Estudantes do Ensino Médio  
 **Ferramenta de execução:** Pydroid 3 (smartphone) / VS Code + IA (Gemini/ChatGPT)  
@@ -19,7 +19,7 @@
 
 | Bloco | Atividade | Duração | Horário |
 |-------|-----------|---------|---------|
-| 1 | **⚡ Quiz da Aula Anterior** — Reagrupamento Pós-Intervalo e Revisão | 15 min | 15h00 – 15h15 |
+| 1 | **⚡ Quiz da Aula Anterior** — Revisão de Laços/Exceções e Checagem da Tarefa | 15 min | 15h00 – 15h15 |
 | 2 | **⌨️ Digitando Enquanto Acompanha na Lousa**: Criando e Manipulando Listas (`list`, `append`, `len`, `for`) + **Mini Exercícios** | 35 min | 15h15 – 15h50 |
 | 3 | **🔍 Analisar um Código Pronto** (Engenharia Reversa Guiada: Inventário de RPG/Gamer) | 25 min | 15h50 – 16h15 |
 | **☕** | **Intervalo / Pausa para Lanche** | **15 min** | **16h15 – 16h30** |
@@ -30,23 +30,23 @@
 
 ---
 
-## 🟢 Bloco 1: Quiz da Aula Anterior e Reagrupamento (15 min)
+## 🟢 Bloco 1: Quiz da Aula Anterior e Abertura (15 min)
 
-> **Objetivo:** Acolher os alunos após as 4 semanas de intervalo de outubro, resgatar os conceitos da Aula 03 (`try/except`, `while`, `for`) e conectar os projetos feitos em casa com a necessidade de guardar coleções de dados.
+> **Objetivo:** Recapitular os conceitos da Aula 03 (`try/except`, `while`, `for`), verificar rapidamente a micro-tarefa semanal e conectar a necessidade de guardar múltiplas informações com a criação de Listas (`list`).
 
-### ⏱️ [0–3 min] Boas-vindas ao Retorno
+### ⏱️ [0–3 min] Boas-vindas e Abertura
 
 Projete no telão:
 ```
-"Bem-vindos de volta! Hoje o seu código vai aprender a guardar COLEÇÕES de informações numa caixinha mágica chamada LISTA!"
+"Hoje o seu código vai aprender a guardar COLEÇÕES de informações numa caixinha mágica chamada LISTA!"
 ```
 
 Diga:
-> *"Que alegria ver todo mundo de volta! Durante o mês de outubro vocês praticaram no celular a lógica de jogos e apps. Hoje daremos um salto gigante: em vez de criar 10 variáveis para 10 itens, aprenderemos a usar LISTAS — a estrutura essencial para qualquer aplicativo de celular!"*
+> *"Sejam muito bem-vindos à Aula 04! Na aula passada aprendemos a dar resiliência ao código com `try/except` e a repetir comandos com `while` e `for`. Hoje daremos um salto gigante: em vez de criar 10 variáveis isoladas para guardar 10 itens, aprenderemos a usar LISTAS — a estrutura essencial para qualquer aplicativo de celular!"*
 
 ---
 
-### ⏱️ [3–15 min] ⚡ Quiz da Aula 03 (Revisão Expressa)
+### ⏱️ [3–12 min] ⚡ Quiz da Aula 03 (Revisão Expressa)
 
 `[SLIDE]` — Projete no telão:
 
@@ -69,10 +69,22 @@ Diga:
 
 ---
 
-#### ❓ Pergunta 3: Resgate dos Projetos do Mês 📱
+#### ❓ Pergunta 3: Múltipla Escolha — Controle de Fluxo
+O que acontece quando o comando `break` é executado dentro de um loop `while True`?
+- A) O código volta ao início do programa
+- B) O laço de repetição é encerrado imediatamente e a execução segue após o bloco
+- C) O programa dispara um erro `ValueError`
+- D) O laço continua rodando indefinidamente
+
+**🔑 Gabarito:** **Alternativa B!** 🛑 O `break` força a saída imediata do laço de repetição.
+
+---
+
+### ⏱️ [12–15 min] 🏠 Checagem Rápida da Micro-Tarefa Semanal
+
 `[❓ ENGAJAMENTO]`
-> **"Quem conseguiu rodar o Tamagotchi, o RPG ou o Quiz no celular durante o intervalo? Levanta a mão!"**  
-> *(Deixe 2 ou 3 alunos mostrarem a tela do celular brevemente. Valorize o esforço de todos!)*
+> **"Quem conseguiu rodar o Caixa Eletrônico ou o Jogo de Adivinhação no celular durante a semana? Alguém precisou do try/except para evitar o crash quando digitou errado?"**  
+> *(Momento rápido de 3 minutos para valorizar quem fez a tarefa e conectar que hoje aprenderemos a guardar históricos de palpites ou extratos usando Listas!)*
 
 ---
 

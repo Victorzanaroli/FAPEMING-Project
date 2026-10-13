@@ -68,7 +68,7 @@ Entrega dos certificados, foto oficial da turma e mensagem final sobre o poder d
 | Artefato | Origem | Finalidade |
 |---|---|---|
 | T0 (Aula 1) vs T1 (Aula 9) | Formulário Digital | Artigo 1 (Medição de ΔPC e ΔCPSES) |
-| Mini-Projeto do Intervalo (Aula 4) | Pydroid 3 / Terminal | Artigo 1 (Autonomia no período de hiato) |
+| Micro-Tarefas e Exercícios Práticos | Pydroid 3 / Terminal | Artigo 1 (Autonomia e Resolução de Problemas) |
 | Logs de Prompt (.jsonl) | Pydroid / Gemini | Artigo 2 (Taxonomia de Prompts P1–P5) |
 | Código-Fonte do App Final | Arquivos Python (.py) | Artigo 2 (Maturidade de Código e Modularidade) |
 

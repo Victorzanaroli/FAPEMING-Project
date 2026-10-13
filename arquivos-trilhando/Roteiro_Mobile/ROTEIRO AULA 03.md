@@ -1,10 +1,10 @@
 # 🔁 Roteiro de Aula — Aula 03 (Trilha Mobile)
-## Tratamento de Erros (`try/except`) + Repetição (`while`, `for`) + Lançamento dos Projetos do Intervalo
+## Tratamento de Erros (`try/except`) + Repetição (`while`, `for`)
 
 **Data:** 30 de setembro de 2026 (quarta-feira) — **Horário:** 15h00 às 18h00  
 **Duração total:** 180 minutos (3h00)  
 **Público-alvo:** Estudantes do Ensino Médio  
-**Ferramenta de execução:** VS Code (desktop) + IA (Gemini/ChatGPT) como auxiliar de código  
+**Ferramenta de execução:** VS Code (desktop) / Pydroid 3 + IA (Gemini/ChatGPT) como auxiliar de código  
 **Pré-requisitos da aula anterior:** Variáveis, tipos de dados (`str`, `int`, `float`), `print()`, `input()`, `if/elif/else`
 
 > **🔑 Legenda do Roteiro:**
@@ -25,7 +25,7 @@
 | **☕** | **Intervalo / Pausa para Lanche** | **15 min** | **16h15 – 16h30** |
 | 4 | **🤖 3 Exercícios Práticos Solo / Engenharia Reversa com IA** (Desafio do Dia - Missões A, B e C) | 50 min | 16h30 – 17h20 |
 | 5 | **🔨 Quebrando o Código para Investigar Erros** (Teste de Estresse & Debugging) | 25 min | 17h20 – 17h45 |
-| 6 | **🎯 Resumão e Conclusão das Sintaxes Aprendidas no Dia** + Lançamento do Projeto do Intervalo | 15 min | 17h45 – 18h00 |
+| 6 | **🎯 Resumão e Conclusão das Sintaxes Aprendidas no Dia** + Micro-Tarefa de Casa Semanal | 15 min | 17h45 – 18h00 |
 | **Total** | | **180 min (3h00)** | **15h00 – 18h00** |
 
 ---
@@ -349,9 +349,9 @@ Explique em apenas 2 frases:
 
 ---
 
-## 🔴 Bloco 6: Resumão, Conclusão e Lançamento do Projeto do Mês (15 min)
+## 🔴 Bloco 6: Resumão, Conclusão e Tarefa de Casa Semanal (15 min)
 
-### ⏱️ [0–7 min] Resumão e Conclusão das Sintaxes
+### ⏱️ [0–8 min] Resumão e Conclusão das Sintaxes
 
 `[SLIDE]` — Projete o resumo de sintaxes aprendidas:
 
@@ -368,31 +368,18 @@ Explique em apenas 2 frases:
 
 ---
 
-### ⏱️ [7–15 min] 🚀 Lançamento Oficial dos Projetos do Intervalo de Outubro (1 Mês)
+### ⏱️ [8–15 min] 🏠 Apresentação da Micro-Tarefa de Casa Semanal
 
-> **Contexto:** Durante o mês de outubro não haverá aulas presenciais. Os alunos levarão o desafio para desenvolver no smartphone (usando o app **Pydroid 3**) ou no computador.
+`[SLIDE]` — Projete os desafios para a próxima aula:
 
-`[SLIDE]` — Projete os 3 Projetos Integrados (Conteúdo Aulas 1, 2 e 3):
-
----
-
-#### 👾 Opção 1 — "Tamagotchi Escolar" (Bichinho Virtual)
-- **O que faz:** Cuida de um pet virtual controlando `energia`, `conhecimento` e `estresse`.
-- **Requisitos:** Menu `while True`, `try/except` para opções, `if/elif/else` para testar se o pet sobreviveu ou venceu.
-
-#### ⚔️ Opção 2 — "A Jornada do Herói" (RPG Textual)
-- **O que faz:** Jogo de aventura em texto por salas de um castelo/escola.
-- **Requisitos:** Loop `while` de navegação, `vida = 100`, `try/except` para comandos inválidos, `for` para exibir itens.
-
-#### 📊 Opção 3 — "Quiz de Perfil Buzzfeed"
-- **O que faz:** Teste interativo que descobre qual perfil de estudante você é.
-- **Requisitos:** Loop `for` para as perguntas, `while` + `try/except` para validar respostas (A, B ou C), `if/elif/else` para revelar o resultado final.
+Diga:
+> *"Parabéns, turma! Hoje o código de vocês aprendeu a se defender de falhas e a executar tarefas repetitivas em frações de segundo. Para fixar isso para a nossa próxima quarta-feira, escolham uma das micro-missões abaixo para fazer no celular (Pydroid 3) ou no computador. Leva só de 10 a 15 minutinhos!"*
 
 ---
 
 ## ✅ Conceitos de Programação Absorvidos
 
-- [x] Tratamento de exceções com `try/except` no VS Code
+- [x] Tratamento de exceções com `try/except` no VS Code e Pydroid 3
 - [x] Captura de exceções específicas (`ValueError`, `ZeroDivisionError`)
 - [x] Laço `while` com condição de parada e laço infinito com `break`
 - [x] Laço `for` com a função `range()`
@@ -413,6 +400,21 @@ Explique em apenas 2 frases:
 
 ---
 
-## 🏠 Tarefa de Casa — Instruções do Projeto do Intervalo
+## 🏠 Micro-Missão de Casa (Entregar na Aula 04)
 
-> **Entrega na Aula 04 (Novembro).** Os alunos devem escolher UMA das 3 opções (Tamagotchi, RPG ou Quiz) e guardar o arquivo `.py` salvo no celular (Pydroid 3) ou no computador para apresentar na feira de projetos no retorno!
+> **Escolha UMA das duas opções abaixo para realizar no Pydroid 3 do celular ou no VS Code (10 a 15 min):**
+
+### 🏧 Opção A — "O Caixa Eletrônico Seguro"
+Crie um simulador de caixa eletrônico no Pydroid 3:
+1. Defina um saldo inicial (ex: `saldo = 500.0`).
+2. Crie um laço `while True` que solicita o valor do saque.
+3. Utilize `try/except ValueError` para garantir que o usuário digite apenas números válidos.
+4. Se o valor for maior que o saldo, exiba `"⚠️ Saldo insuficiente! Seu saldo atual é R$ [saldo]"`.
+5. Se o saque for bem-sucedido, deduza do saldo e pergunte se ele quer sacar de novo ou sair (use `break` para encerrar).
+
+### 🎯 Opção B — "O Jogo da Adivinhação com 3 Chances"
+Crie um jogo no qual o computador guarda um número secreto (ex: `numero_secreto = 7`):
+1. Crie um laço `for tentativa in range(1, 4):` dando 3 chances para o jogador adivinhar.
+2. Utilize `try/except ValueError` para caso o jogador digite uma letra por engano.
+3. Use `if/elif/else` para dar dicas: `"Muito alto!"`, `"Muito baixo!"` ou `"Acertou!"`.
+4. Se ele acertar antes das 3 chances, encerre o jogo comemorando usando `break`.

@@ -6,8 +6,8 @@
 **Público-alvo:** Estudantes do Ensino Médio (sem conhecimento prévio em programação)  
 **Carga Horária Total:** 30 horas (10 aulas × 3h cada)  
 **Periodicidade:** Quartas-feiras, das 15h00 às 18h00  
-**Período de Realização:** Setembro a Dezembro de 2026  
-**Observação:** Sem aulas no mês de outubro (hiato para desenvolvimento dos projetos do intervalo)  
+**Período de Realização:** Setembro a Novembro de 2026  
+**Observação:** Aulas contínuas semanais presenciais no laboratório (sem hiato de afastamento)  
 **Responsável Geral:** Prof. Lázaro Eduardo da Silva  
 **Ministrantes / Tutores:** Victor Couto Zanaroli, Rafael Oliveira Zanelato e Kaique Araújo Xavier  
 
@@ -38,15 +38,14 @@
 |----|------|-------------|
 | 01 | 16/09/2026 | Abertura, Pré-teste (T0), Showcase Tecnológico e Engenharia de Prompt |
 | 02 | 23/09/2026 | Variáveis, Tipos de Dados e Tomada de Decisão (if, elif, else) |
-| 03 | 30/09/2026 | Tratamento de Erros (try/except) + Laços (while, for) + Lançamento dos Projetos |
-| — | Outubro/2026 | HIATO DE 1 MÊS — Alunos desenvolvem os projetos do intervalo no Pydroid 3 |
-| 04 | 04/11/2026 | Retorno: Feira dos Projetos do Intervalo + Listas (list, append, len, for) |
-| 05 | 11/11/2026 | Modularização e Funções (def, parâmetros e return) |
-| 06 | 18/11/2026 | Consolidação: Dicionários (dict) + Integração Completa da Lógica |
-| 07 | 25/11/2026 | Prototipagem de Apps Mobile: Interface Gráfica com Flet (Layout & Componentes) + Projetos Finais |
-| 08 | 02/12/2026 | Sprint de Desenvolvimento + Flet Avançado (Navegação, Cards, Mídia e Feedback) |
-| 09 | 09/12/2026 | Sprint Final: Polimento do App + Testes de Qualidade + Ensaio Geral da Apresentação |
-| 10 | 16/12/2026 | Feira Final de Soluções Mobile + Pós-teste (T1) + Encerramento e Certificação |
+| 03 | 30/09/2026 | Tratamento de Erros (try/except) + Laços de Repetição (while, for) |
+| 04 | 07/10/2026 | Estruturas de Dados: Listas (list, append, len, for) |
+| 05 | 14/10/2026 | Modularização e Funções (def, parâmetros e return) |
+| 06 | 21/10/2026 | Consolidação: Dicionários (dict) + Integração Completa da Lógica |
+| 07 | 28/10/2026 | Prototipagem de Apps Mobile: Interface Gráfica com Flet (Layout & Componentes) + Projetos Finais |
+| 08 | 04/11/2026 | Sprint de Desenvolvimento + Flet Avançado (Navegação, Cards, Mídia e Feedback) |
+| 09 | 11/11/2026 | Sprint Final: Polimento do App + Testes de Qualidade + Ensaio Geral da Apresentação |
+| 10 | 18/11/2026 | Feira Final de Soluções Mobile + Pós-teste (T1) + Encerramento e Certificação |
 
 ---
 
@@ -97,53 +96,42 @@
 
 ### AULA 03 — 30 de setembro de 2026 (quarta-feira)
 
-**Tema:** Tratamento de Erros (try/except) + Laços de Repetição (while, for) + Lançamento dos Projetos do Intervalo  
+**Tema:** Tratamento de Erros (try/except) + Laços de Repetição (while, for)  
 **Duração:** 3h00 (15h00 às 18h00)  
 
-> ÚLTIMA AULA ANTES DO HIATO. Estrutura pedagógica padronizada com Quiz, Live Coding, Engenharia Reversa, Desafio com IA, Teste de Estresse e Lançamento do Projeto Integrado do Mês.
+> Estrutura pedagógica padronizada com Quiz, Live Coding, Engenharia Reversa, Desafio com IA, Teste de Estresse e Micro-Tarefa de Casa.
 
-**Objetivos:** Ensinar resiliência de código com try/except; dominar laços while e for; lançar o Projeto Integrado do Intervalo (Aulas 1, 2 e 3).
+**Objetivos:** Ensinar resiliência de código com try/except; dominar laços while e for; aplicar repetições com validação de dados em problemas práticos do dia a dia.
 
 **Conteúdo abordado (Formato Padrão):**
-- Bloco 1 (15 min): **Quiz da Aula Anterior** — 3 questões de revisão sobre condicionais e conversão de tipos com gabarito ao vivo.
-- Bloco 2 (35 min): **Digitando Enquanto Acompanha na Lousa** — try/except (ValueError, ZeroDivisionError), while com contador/break, for com range()/enumerate() + **Mini Exercícios Pós-Teoria**.
-- Bloco 3 (25 min): **Analisar um Código Pronto (Engenharia Reversa)** — inspeção do script "Arcade Passatempo", analisando tratamento de erros e loops.
+- Bloco 1 (15 min): **Quiz da Aula Anterior** — 3 questões de revisão sobre condicionais e conversão de tipos com gabarito ao vivo (15h00 – 15h15).
+- Bloco 2 (35 min): **Digitando Enquanto Acompanha na Lousa** — try/except (ValueError, ZeroDivisionError), while com contador/break, for com range()/enumerate() + **Mini Exercícios Pós-Teoria** (15h15 – 15h50).
+- Bloco 3 (25 min): **Analisar um Código Pronto (Engenharia Reversa)** — inspeção do script "Arcade Passatempo", analisando tratamento de erros e loops (15h50 – 16h15).
 - **Intervalo (15 min):** Pausa para lanche (16h15 às 16h30).
-- Bloco 4 (50 min): **3 Exercícios Práticos Solo com IA (Desafio do Dia)** — Missão A (Caixa Eletrônico Blindado), Missão B (Quiz Implacável), Missão C (Monitor de Saúde).
-- Bloco 5 (25 min): **Quebrando o Código para Investigar Erros** — Provocar exceções propositais (texto em número, divisão por zero) e debugar com IA.
-- Bloco 6 (15 min): **Resumão e Conclusão das Sintaxes** + **Lançamento do Projeto do Intervalo** (Tamagotchi, RPG ou Quiz Buzzfeed) para o mês de outubro.
+- Bloco 4 (50 min): **3 Exercícios Práticos Solo com IA (Desafio do Dia)** — Missão A (Caixa Eletrônico Blindado), Missão B (Quiz Implacável), Missão C (Monitor de Saúde) (16h30 – 17h20).
+- Bloco 5 (25 min): **Quebrando o Código para Investigar Erros** — Provocar exceções propositais (texto em número, divisão por zero) e debugar com IA (17h20 – 17h45).
+- Bloco 6 (15 min): **Resumão e Conclusão das Sintaxes** — Síntese das estruturas aprendidas e apresentação da micro-tarefa semanal (17h45 – 18h00).
 
 **Conceitos introduzidos:** try/except, ValueError, ZeroDivisionError, else/finally, while, for, range(), enumerate(), break  
-
-**TAREFA DE CASA — PROJETO INTEGRADO DO INTERVALO (Aulas 1+2+3):**  
-Desenvolver no Pydroid 3 durante outubro. Apresentar na Aula 04. O aluno escolhe 1 opção:  
-- Opção 1 — Tamagotchi Escolar: bichinho virtual com status, menu while True + try/except e condicionais if/elif/else.  
-- Opção 2 — A Jornada do Herói (RPG): navegação por 3+ salas com escolhas (if/elif/else), acúmulo de vida/pontos, laço while com try/except e for com range().  
-- Opção 3 — Quiz Buzzfeed: 5+ perguntas em for, validação em while + try/except e cálculo do perfil final.  
+**Tarefa de Casa:** Caixa Eletrônico Seguro ou Jogo de Adivinhação com Tentativas (10 a 15 min no celular/computador)
 
 ---
 
-### OUTUBRO/2026 — HIATO DE 1 MÊS (Sem Aulas)
+### AULA 04 — 07 de outubro de 2026 (quarta-feira)
 
-> Período de desenvolvimento autônomo no smartphone com Pydroid 3. Suporte remoto do tutor via WhatsApp.
-
----
-
-### AULA 04 — 04 de novembro de 2026 (quarta-feira)
-
-**Tema:** Retorno do Hiato: Feira dos Projetos do Intervalo + Estruturas de Dados: Listas  
+**Tema:** Estruturas de Dados: Listas (list, append, len, for, pop)  
 **Duração:** 3h00 (15h00 às 18h00)  
 
-**Objetivos:** Celebrar o retorno pós-intervalo; auditar os projetos do mês; ensinar coleções de dados com Listas (list), append(), len() e percurso com for.
+**Objetivos:** Ensinar manipulação e armazenamento de coleções de dados com Listas (list); dominar índices de base zero, métodos append() e pop(), medição de tamanho com len() e percurso iterativo com for; prevenir exceções IndexError.
 
 **Conteúdo abordado (Formato Padrão):**
-- Bloco 1 (15 min): **Quiz da Aula Anterior** — Resgate sobre try/except, while e for + acolhida do retorno das 4 semanas.
-- Bloco 2 (35 min): **Digitando Enquanto Acompanha na Lousa** — Criando listas `[]`, índices de base 0, append(), len(), percurso com for e remoção com pop() + **Mini Exercícios Pós-Teoria**.
-- Bloco 3 (25 min): **Analisar um Código Pronto (Engenharia Reversa)** — Análise do "Gerenciador de Playlist Musical", identificando manipulação da lista.
+- Bloco 1 (15 min): **Quiz da Aula Anterior** — 3 questões sobre try/except, while e for + acolhida e checagem rápida da micro-tarefa da Aula 03 (15h00 – 15h15).
+- Bloco 2 (35 min): **Digitando Enquanto Acompanha na Lousa** — Criando listas `[]`, índices de base 0, append(), len(), percurso com for e remoção com pop() + **Mini Exercícios Pós-Teoria** (15h15 – 15h50).
+- Bloco 3 (25 min): **Analisar um Código Pronto (Engenharia Reversa)** — Análise do "Gerenciador de Playlist Musical", identificando manipulação dinâmica da lista (15h50 – 16h15).
 - **Intervalo (15 min):** Pausa para lanche (16h15 às 16h30).
-- Bloco 4 (50 min): **3 Exercícios Práticos Solo com IA (Desafio do Dia)** — Missão A (Carrinho de Compras), Missão B (Hall da Fama Gamer), Missão C (Diário de Chamada).
-- Bloco 5 (25 min): **Quebrando o Código para Investigar Erros** — Testes de estresse com `IndexError` (acesso fora dos limites da lista) e debug com IA.
-- Bloco 6 (15 min): **Resumão e Conclusão das Sintaxes** — Síntese das coleções de dados e indicação da micro-tarefa.
+- Bloco 4 (50 min): **3 Exercícios Práticos Solo com IA (Desafio do Dia)** — Missão A (Carrinho de Compras), Missão B (Hall da Fama Gamer), Missão C (Diário de Chamada) (16h30 – 17h20).
+- Bloco 5 (25 min): **Quebrando o Código para Investigar Erros** — Testes de estresse com `IndexError` (acesso fora dos limites da lista) e debug com IA (17h20 – 17h45).
+- Bloco 6 (15 min): **Resumão e Conclusão das Sintaxes** — Síntese das coleções de dados e indicação da micro-tarefa semanal (17h45 – 18h00).
 
 **Conceitos introduzidos:** list, índices (base 0), append(), len(), pop(), percurso com for, IndexError  
 **Tarefa de Casa:** Lista de Compras do Futuro ou Playlist dos Meus Sonhos  
@@ -297,10 +285,9 @@ Desenvolver no Pydroid 3 durante outubro. Apresentar na Aula 04. O aluno escolhe
 | Instrumento | Momento | Finalidade |
 |-------------|---------|------------|
 | Pré-teste T0 | Aula 01 | Linha de base — dados de pesquisa |
-| Tarefas de Casa (Aulas 2–9) | Final de cada aula | Prática autônoma e fixação |
-| Projeto Integrado do Intervalo | Apresentado na Aula 4 | Avaliação integradora (Aulas 1, 2 e 3) |
+| Tarefas de Casa (Aulas 2–9) | Final de cada aula | Prática autônoma e fixação contínua |
 | Projeto Final (App Mobile Flet) | Feira de Soluções — Aula 10 | Avaliação somativa de todos os conteúdos |
-| Auditoria Viva nas Apresentações | Aulas 4 e 10 | Verificação de autoria e compreensão real do código |
+| Auditoria Viva nas Apresentações | Aula 10 | Verificação de autoria e compreensão real do código |
 | Pós-teste T1 | Aula 10 | Medição do delta de aprendizagem — dados de pesquisa |
 
 ---
@@ -327,4 +314,4 @@ Este plano didático integra três dimensões formativas simultaneamente:
 ---
 
 *Documento elaborado pelo Projeto Trilhando o Caminho do Código — FAPEMING 2026*  
-*Versão 1.2 — Setembro/2026 (10 aulas, encerramento em 16/12/2026)*  
+*Versão 2.0 — Outubro/2026 (10 aulas contínuas semanais, encerramento em 18/11/2026)*  
