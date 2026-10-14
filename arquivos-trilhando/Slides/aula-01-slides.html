@@ -94,46 +94,51 @@
 
         <!-- Slide 1: Capa & Apresentação -->
         <section class="slide active"
-            data-notes="<strong>Abertura (10 min):</strong> Dar boas-vindas aos alunos e mentores do CEFET/FAPEMING. Apresentar a equipe de extensão, a visão do curso e o impacto de aprender a construir tecnologia.">
+            data-notes="<strong>Abertura (10 min):</strong> Dar boas-vindas aos alunos e mentores do CEFET/FAPEMING. Apresentar a equipe de extensão, a visão do curso e o impacto de aprender a construir tecnologia. Quem quiser acompanhar os slides no próprio celular, basta apontar a câmera para o QR Code à direita!">
             <div class="slide-header">
                 <span class="slide-step">AULA 01 • INTRODUÇÃO & PROMPTS</span>
                 <h1 class="slide-title">Trilhando o Caminho do Código</h1>
-                <p class="slide-subtitle">Construindo tecnologia, jogos e automações com Python & Inteligência
+                <p class="slide-subtitle">Construindo tecnologia, jogos e automações com Python &amp; Inteligência
                     Artificial</p>
             </div>
             <div class="slide-body">
-                <div class="grid-3">
-                    <div class="content-box accent-box">
-                        <div class="big-icon">👥</div>
-                        <h4 style="color:var(--cefet-cyan)">Quem Somos</h4>
-                        <p>Equipe de extensão universitária apaixonada por tecnologia, computação e transformação
-                            educacional.</p>
-                    </div>
-                    <div class="content-box accent-box">
-                        <div class="big-icon">🎯</div>
-                        <h4 style="color:var(--cefet-blue)">Nosso Propósito</h4>
-                        <p>Capacitar você a criar seus próprios softwares e dominar a ferramenta mais poderosa do mundo:
-                            a IA.</p>
-                    </div>
-                    <div class="content-box accent-box">
-                        <div class="big-icon">⚡</div>
-                        <h4 style="color:var(--cefet-gold)">Metodologia Prática</h4>
-                        <p>Sem enrolação teórica: aprendizado mão na massa vendo o código rodar, jogando e construindo
-                            na prática!</p>
-                    </div>
-                </div>
+                <div class="grid-2" style="gap:20px; align-items:stretch;">
+                    <!-- Coluna da Esquerda: Propósito e Metodologia -->
+                    <div style="display:flex; flex-direction:column; justify-content:space-between; gap:10px;">
+                        <div class="content-box accent-box" style="padding:12px 14px;">
+                            <h4 style="color:var(--cefet-cyan); font-size:0.9rem; margin-bottom:4px;">👥 Quem Somos</h4>
+                            <p style="font-size:0.8rem; line-height:1.4;">Equipe de extensão universitária apaixonada por tecnologia, computação e transformação educacional.</p>
+                        </div>
+                        <div class="content-box accent-box" style="padding:12px 14px;">
+                            <h4 style="color:var(--cefet-blue); font-size:0.9rem; margin-bottom:4px;">🎯 Nosso Propósito</h4>
+                            <p style="font-size:0.8rem; line-height:1.4;">Capacitar você a criar seus próprios softwares e dominar a ferramenta mais poderosa do mundo: a IA.</p>
+                        </div>
+                        <div class="content-box accent-box" style="padding:12px 14px;">
+                            <h4 style="color:var(--cefet-gold); font-size:0.9rem; margin-bottom:4px;">⚡ Metodologia Prática</h4>
+                            <p style="font-size:0.8rem; line-height:1.4;">Sem enrolação teórica: aprendizado mão na massa vendo o código rodar, jogando e construindo na prática!</p>
+                        </div>
 
-                <!-- Banner Institucional CEFET & FAPEMIG -->
-                <div class="capa-institution-banner">
-                    <img src="../Imagens/logo-cefet.jpg" alt="Logo CEFET-MG" class="capa-inst-img" title="CEFET-MG">
-                    <div
-                        style="font-size:0.82rem; color:var(--text-secondary); font-weight:600; text-align:center; line-height:1.4;">
-                        Projeto de Extensão & Pesquisa Aplicada<br>
-                        <span style="color:var(--cefet-cyan); font-weight:700;">CEFET-MG • Varginha | FAPEMIG (Projetos
-                            2026-2027)</span>
+                        <!-- Banner Institucional CEFET & FAPEMIG -->
+                        <div class="capa-institution-banner" style="margin-top:4px; padding:8px 12px;">
+                            <img src="../Imagens/logo-cefet.jpg" alt="Logo CEFET-MG" class="capa-inst-img" title="CEFET-MG" style="height:36px;">
+                            <div style="font-size:0.75rem; color:var(--text-secondary); font-weight:600; text-align:center; line-height:1.3;">
+                                Projeto de Extensão &amp; Pesquisa Aplicada<br>
+                                <span style="color:var(--cefet-cyan); font-weight:700;">CEFET-MG • Varginha | FAPEMIG (2026-2027)</span>
+                            </div>
+                            <img src="../Imagens/logo-fapemig.jpg" alt="Selo FAPEMIG" class="capa-inst-img fapemig-circle" title="FAPEMIG 2026-2027" style="height:36px; width:36px;">
+                        </div>
                     </div>
-                    <img src="../Imagens/logo-fapemig.jpg" alt="Selo FAPEMIG" class="capa-inst-img fapemig-circle"
-                        title="FAPEMIG 2026-2027">
+
+                    <!-- Coluna da Direita: Card QR Code dos Slides -->
+                    <div class="content-box accent-box" style="padding:18px; text-align:center; display:flex; flex-direction:column; align-items:center; justify-content:center; border:1.5px solid rgba(0,229,255,0.4); background:rgba(0,229,255,0.05); box-shadow:0 0 25px rgba(0,229,255,0.15);">
+                        <div style="font-size:0.78rem; font-weight:800; color:var(--cefet-cyan); letter-spacing:0.06em; text-transform:uppercase; margin-bottom:6px;">📱 Acompanhe no seu Celular</div>
+                        <p style="font-size:0.75rem; color:var(--text-secondary); margin-bottom:10px; max-width:280px; line-height:1.4;">Aponte a câmera para abrir esta apresentação no seu dispositivo e acompanhar de perto!</p>
+                        <div class="qrcode-container" title="Clique para expandir o QR Code dos Slides" style="background:#ffffff; padding:10px; border-radius:14px; border:2px solid var(--cefet-cyan); box-shadow:0 0 20px rgba(0,229,255,0.4); cursor:pointer; margin-bottom:8px;">
+                            <img src="../Imagens/qrcode-slides-aula01.png" alt="QR Code — Slides da Aula 01" class="qrcode-img" style="width:130px; height:130px; display:block;">
+                        </div>
+                        <p style="font-size:0.72rem; color:var(--cefet-cyan); font-weight:700; margin-bottom:6px;">📲 Clique na imagem para expandir</p>
+                        <a href="https://victorzanaroli.github.io/Project-FAPEMING/arquivos-trilhando/Slides/aula-01-slides.html" target="_blank" class="form-link-btn" style="font-size:0.75rem; padding:8px 16px;">🌐 Link direto dos Slides</a>
+                    </div>
                 </div>
             </div>
         </section>
