@@ -1,4 +1,5 @@
 import os
+import time
 import threading
 import requests
 import base64
@@ -550,6 +551,45 @@ def get_generative_model():
 model = get_generative_model()
 
 # ==============================================================================
+# CHAMADA COM RETRY AUTOMATICO E BACKOFF PROGRESSIVO (ERRO 429 / QUOTA)
+# ==============================================================================
+def generate_response_with_retry(chat_session, prompt: str, max_retries: int = 4):
+    """
+    Envia a mensagem para a API do Gemini com sistema de Espera Automatica (Retry com Backoff).
+    Lida com limites de requisicoes (429 / Quota / Resource Exhausted) pausando progressivamente.
+    """
+    retries = 0
+    backoff_times = [5, 10, 15, 20]
+    status_placeholder = st.empty()
+
+    while retries <= max_retries:
+        try:
+            response = chat_session.send_message(prompt)
+            status_placeholder.empty()
+            return response.text
+        except Exception as e:
+            err_str = str(e).lower()
+            is_quota_error = any(kw in err_str for kw in ["429", "quota", "resource exhausted", "resourceexhausted"])
+
+            if is_quota_error:
+                if retries < max_retries:
+                    wait_time = backoff_times[retries] if retries < len(backoff_times) else 15
+                    retries += 1
+                    status_placeholder.info(f"\u23f3 A IA esta ocupada com a turma! Aguardando {wait_time}s para tentar novamente (tentativa {retries} de {max_retries})...")
+                    time.sleep(wait_time)
+                else:
+                    status_placeholder.empty()
+                    st.warning("A IA est\u00e1 processando muitos c\u00f3digos da turma. Aguarde um minuto e tente enviar novamente.")
+                    return None
+            else:
+                status_placeholder.empty()
+                st.error(f"Erro ao processar resposta da IA: {e}")
+                return None
+
+    status_placeholder.empty()
+    return None
+
+# ==============================================================================
 # MEMORIA DE SESSAO & EXIBICAO DO CHAT
 # ==============================================================================
 if "chat_session" not in st.session_state:
@@ -576,33 +616,15 @@ if prompt:
 
     with st.chat_message("assistant", avatar="\U0001f916"):
         with st.spinner("\U0001f916 GEMINI IA gerando a resposta..."):
-            try:
-                response = st.session_state.chat_session.send_message(prompt)
-                response_text = response.text
-            except Exception as first_err:
-                try:
-                    fallback_model = genai.GenerativeModel(
-                        model_name="gemini-3.1-flash-lite",
-                        generation_config=GENERATION_CONFIG,
-                        system_instruction=SYSTEM_INSTRUCTION
-                    )
-                    st.session_state.chat_session = fallback_model.start_chat(history=[])
-                    response = st.session_state.chat_session.send_message(prompt)
-                    response_text = response.text
-                except Exception as final_err:
-                    if "429" in str(final_err) or "Quota exceeded" in str(final_err):
-                        st.warning("\u26a0\ufe0f Limite de requisições temporariamente atingido. Por favor, aguarde cerca de 1 minuto e tente novamente.")
-                    else:
-                        st.error(f"Erro ao processar resposta da IA: {final_err}")
-                    response_text = None
+            response_text = generate_response_with_retry(st.session_state.chat_session, prompt)
 
-            if response_text:
-                st.markdown(f"**\U0001f916 GEMINI-1.5-FLASH**")
-                st.markdown(response_text)
-                
-                # MINERACAO DE DADOS (WEBHOOK INVISIVEL EM BACKGROUND)
-                send_to_google_forms(
-                    student_name=student_name,
-                    prompt=prompt,
-                    response=response_text
-                )
+        if response_text:
+            st.markdown(f"**\U0001f916 GEMINI-1.5-FLASH**")
+            st.markdown(response_text)
+            
+            # MINERACAO DE DADOS (WEBHOOK INVISIVEL EM BACKGROUND)
+            send_to_google_forms(
+                student_name=student_name,
+                prompt=prompt,
+                response=response_text
+            )
