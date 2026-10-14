@@ -12,6 +12,14 @@
         rel="stylesheet">
     <link rel="stylesheet" href="slides-style.css">
     <style>
+        /* Mini-desafios (mesmo padrão da Aula 02) */
+        .challenge-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.15); border: 1px solid rgba(236,72,153,.4); border-radius: 100px; padding: 4px 14px; font-size: .73rem; font-weight: 800; color: #f472b6; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px; }
+        .challenge-box { background: rgba(236,72,153,.07); border: 1.5px solid rgba(236,72,153,.35); border-radius: 14px; padding: 16px 18px; }
+        .challenge-box h4 { color: #f472b6; font-size: .9rem; margin-bottom: 8px; }
+        .challenge-box p, .challenge-box li { font-size: .82rem; color: #e2e8f0; line-height: 1.6; }
+        .challenge-box ul { padding-left: 16px; }
+        .timer-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.2); border-radius: 100px; padding: 3px 12px; font-size: .72rem; font-weight: 700; color: #f472b6; margin-bottom: 8px; }
+
         .media-compare-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -566,6 +574,101 @@
             </div>
         </section>
 
+        <!-- Slide 9B: Mini-Desafio PRINT -->
+        <section class="slide"
+            data-notes="<strong>Mini-Desafio print() (3 min):</strong> Dê 3 minutos para a turma criar o arquivo 'pratica_print.py' e escrever o próprio cartão de visitas com print(). Circule pela sala. Desafio Detetive: tirar uma aspa e ver o erro.">
+            <div class="slide-header">
+                <span class="challenge-label">🎯 Mini-Desafio print() — 3 minutos</span>
+                <h2 class="slide-title">Sua vez com <code>print()</code>!</h2>
+                <p class="slide-subtitle">Crie um <strong>novo arquivo</strong> e escreva o código do zero — sem copiar!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="challenge-box">
+                            <div class="timer-badge">⏱️ 3 minutos</div>
+                            <h4>🪪 Desafio: Meu Cartão de Visitas</h4>
+                            <p>Crie o arquivo <code>pratica_print.py</code> e use <code>print()</code> para exibir:</p>
+                            <ul>
+                                <li>Uma <strong>linha decorativa</strong> (ex: <code>"====="</code>)</li>
+                                <li>Seu <strong>nome</strong> e seu <strong>jogo/hobby favorito</strong></li>
+                                <li>Uma <strong>frase divertida</strong> com emoji</li>
+                            </ul>
+                            <p style="margin-top:10px;color:#94a3b8;font-size:.78rem">💡 Lembre: só o que está entre aspas pode ser modificado!</p>
+                        </div>
+                        <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:12px 14px">
+                            <h4 style="font-size:.82rem;color:#f59e0b;margin-bottom:6px">🕵️ Desafio Detetive:</h4>
+                            <ul style="font-size:.78rem;color:#cbd5e1;line-height:1.6;padding-left:16px;margin:0">
+                                <li>O que acontece se você apagar uma das aspas?</li>
+                                <li>O que acontece se escrever <code>Print()</code> com P maiúsculo?</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="content-box" style="padding:14px;background:rgba(0,0,0,.4)">
+                            <h4 style="font-size:.82rem;color:#64748b;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">ESTRUTURA DO PRINT:</h4>
+                            <div class="prompt-code" style="font-size:.8rem;line-height:1.8">
+<span class="cm"># Linha decorativa</span>
+<span class="fn">print</span>(<span class="str">"=============="</span>)
+
+<span class="cm"># Suas informações</span>
+<span class="fn">print</span>(<span class="str">"Nome: seu nome aqui"</span>)
+<span class="fn">print</span>(<span class="str">"Hobby: seu hobby aqui"</span>)
+
+<span class="cm"># Frase final</span>
+<span class="fn">print</span>(<span class="str">"Sua frase com emoji 🚀"</span>)
+<span class="fn">print</span>(<span class="str">"=============="</span>)
+                            </div>
+                        </div>
+                        <div class="content-box tip-box" style="padding:12px;font-size:.8rem">
+                            <strong>Terminou antes?</strong><br>
+                            <span style="color:#94a3b8">Faça um desenho ASCII (um gato, uma casa...) usando vários <code>print()</code>!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 9C: VARIÁVEIS -->
+        <section class="slide"
+            data-notes="<strong>Variáveis:</strong> Use a analogia da caixa com etiqueta: o nome da variável é a etiqueta e o valor é o conteúdo. Mostre que dá para trocar o valor e que o print() usa o conteúdo atual. Destaque: = significa 'guarde isso aí', não 'igual' da matemática.">
+            <div class="slide-header">
+                <span class="slide-step">DECIFRANDO O CÓDIGO • VARIÁVEIS</span>
+                <h2 class="slide-title">Decifrando o Código: Variáveis</h2>
+                <p class="slide-subtitle">A caixa com etiqueta que guarda informações para usar depois</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2-1">
+                    <div class="content-box good-box">
+                        <h4>📦 A Caixa com Etiqueta</h4>
+                        <ul>
+                            <li>Uma <strong>variável</strong> guarda um valor na memória do computador para usarmos depois.</li>
+                            <li>O sinal <code>=</code> significa <strong>"guarde isso aqui"</strong> (não é o "igual" da matemática).</li>
+                            <li>Você escolhe o nome (a etiqueta): <code>nome</code>, <code>idade</code>, <code>pontos</code>. Sem espaços e sem acentos!</li>
+                            <li>Pode trocar o conteúdo a qualquer momento: <code>pontos = pontos + 10</code>.</li>
+                        </ul>
+                    </div>
+                    <div class="code-preview-card" data-title="🐍 Exemplo Didático: Variáveis"
+                        data-explanation="Criamos as variáveis <code>jogador</code> e <code>pontos</code>. Depois atualizamos <code>pontos</code> e usamos <code>print()</code> com f-string para mostrar o conteúdo atual."
+                        data-terminal="Jogador: Lucas | Pontos: 0&#10;Jogador: Lucas | Pontos: 50">
+                        <div class="code-card-header">
+                            <span class="code-card-title">🐍 variaveis.py</span>
+                            <button class="expand-demo-btn">🔍 Expandir Exemplo</button>
+                        </div>
+                        <div class="prompt-code"><span class="cm"># Criando variáveis</span>
+                            <span class="var">jogador</span> <span class="op">=</span> <span class="str">"Lucas"</span>
+                            <span class="var">pontos</span> <span class="op">=</span> <span class="num">0</span>
+                            <span class="fn">print</span>(<span class="str">f"Jogador: <span class="op">{</span><span class="var">jogador</span><span class="op">}</span> | Pontos: <span class="op">{</span><span class="var">pontos</span><span class="op">}</span>"</span>)
+
+                            <span class="cm"># Trocando o valor da caixa</span>
+                            <span class="var">pontos</span> <span class="op">=</span> <span class="num">50</span>
+                            <span class="fn">print</span>(<span class="str">f"Jogador: <span class="op">{</span><span class="var">jogador</span><span class="op">}</span> | Pontos: <span class="op">{</span><span class="var">pontos</span><span class="op">}</span>"</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Slide 10: O Comando INPUT (Captura de Entrada de Dados) -->
         <section class="slide"
             data-notes="<strong>O Comando input():</strong> Explicar a captura de dados do usuário via teclado, a regra da String e a conversão com int() ou float().">
@@ -613,6 +716,59 @@
                                     class="var">nome</span><span class="op">}</span>! Em 2026 você completa <span
                                     class="op">{</span><span class="var">idade</span><span class="op">}</span>
                                 anos."</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Slide 10B: Mini-Desafio INPUT + VARIÁVEL -->
+        <section class="slide"
+            data-notes="<strong>Mini-Desafio input() + variável (3 min):</strong> Dê 3 minutos para a turma criar 'pratica_input.py'. Todos usam input(), guardam em variáveis e mostram com print() e f-string. Desafio Detetive: tirar o int() e ver o erro.">
+            <div class="slide-header">
+                <span class="challenge-label">🎯 Mini-Desafio input() + Variáveis — 3 minutos</span>
+                <h2 class="slide-title">Sua vez com <code>input()</code> e variáveis!</h2>
+                <p class="slide-subtitle">Crie um <strong>novo arquivo</strong> e escreva o código do zero — sem copiar!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="challenge-box">
+                            <div class="timer-badge">⏱️ 3 minutos</div>
+                            <h4>🍕 Desafio: Pergunte e Responda</h4>
+                            <p>Crie o arquivo <code>pratica_input.py</code> e escolha uma opção:</p>
+                            <ul>
+                                <li><strong>Opção A:</strong> Pergunte seu <strong>nome</strong> e seu <strong>animal favorito</strong> com <code>input()</code> e monte uma frase divertida com f-string.</li>
+                                <li><strong>Opção B:</strong> Pergunte o <strong>número de amigos</strong> e as <strong>fatias por pessoa</strong> com <code>int(input(...))</code> e mostre o total de fatias de pizza.</li>
+                            </ul>
+                            <p style="margin-top:10px;color:#94a3b8;font-size:.78rem">💡 Crie seus próprios nomes de variáveis e perguntas!</p>
+                        </div>
+                        <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:12px 14px">
+                            <h4 style="font-size:.82rem;color:#f59e0b;margin-bottom:6px">🕵️ Desafio Detetive:</h4>
+                            <ul style="font-size:.78rem;color:#cbd5e1;line-height:1.6;padding-left:16px;margin:0">
+                                <li>O que acontece se você remover o <code>int()</code> e tentar multiplicar?</li>
+                                <li>O que acontece se digitar uma letra onde o programa espera um número?</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="content-box" style="padding:14px;background:rgba(0,0,0,.4)">
+                            <h4 style="font-size:.82rem;color:#64748b;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">ESTRUTURA DE REFERÊNCIA:</h4>
+                            <div class="prompt-code" style="font-size:.8rem;line-height:1.8">
+<span class="cm"># Opção A (texto):</span>
+<span class="var">nome</span> = <span class="fn">input</span>(<span class="str">"Pergunta 1: "</span>)
+<span class="var">animal</span> = <span class="fn">input</span>(<span class="str">"Pergunta 2: "</span>)
+<span class="fn">print</span>(<span class="str">f"Mensagem: <span class="op">{</span><span class="var">nome</span><span class="op">}</span> e <span class="op">{</span><span class="var">animal</span><span class="op">}</span>"</span>)
+
+<span class="cm"># Opção B (número):</span>
+<span class="var">amigos</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Pergunta 3: "</span>))
+<span class="var">fatias</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Pergunta 4: "</span>))
+<span class="var">total</span> = amigos * fatias
+<span class="fn">print</span>(<span class="str">f"Total: <span class="op">{</span><span class="var">total</span><span class="op">}</span> fatias"</span>)
+                            </div>
+                        </div>
+                        <div class="content-box tip-box" style="padding:12px;font-size:.8rem">
+                            <strong>Terminou antes?</strong><br>
+                            <span style="color:#94a3b8">Faça as Opções A e B no mesmo arquivo!</span>
                         </div>
                     </div>
                 </div>
@@ -752,13 +908,13 @@
             <span style="opacity: 0.6">Pressione N para fechar</span>
         </div>
         <div class="notes-content" id="notesContent">
-            Boas-vindas à apresentação da Aula 01. Use as setas do teclado para navegar entre os 13 slides.
+            Boas-vindas à apresentação da Aula 01. Use as setas do teclado para navegar entre os 16 slides.
         </div>
     </div>
 
     <!-- Bottom Navigation Controls -->
     <footer class="bottom-nav">
-        <div class="slide-counter" id="slideCounter">1 / 13</div>
+        <div class="slide-counter" id="slideCounter">1 / 16</div>
         <div class="nav-buttons">
             <button class="nav-btn" id="prevBtn">← Anterior <span class="key-hint">←</span></button>
             <button class="nav-btn primary" id="nextBtn">Próximo → <span class="key-hint">→</span></button>
