@@ -12,6 +12,9 @@
         rel="stylesheet">
     <link rel="stylesheet" href="slides-style.css">
     <style>
+        /* Evita quebra de palavras no meio nos blocos de código/prompt */
+        .prompt-code { word-break: normal; overflow-wrap: break-word; }
+
         /* Mini-desafios (mesmo padrão da Aula 02) */
         .challenge-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.15); border: 1px solid rgba(236,72,153,.4); border-radius: 100px; padding: 4px 14px; font-size: .73rem; font-weight: 800; color: #f472b6; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px; }
         .challenge-box { background: rgba(236,72,153,.07); border: 1.5px solid rgba(236,72,153,.35); border-radius: 14px; padding: 16px 18px; }
@@ -453,12 +456,10 @@
                             <button class="expand-demo-btn">🔍 Ver Prompts</button>
                         </div>
                         <div class="prompt-code"><span class="cm"># PROMPT RUIM:</span>
-                            <span class="str">"faça um cachorro em python"</span>
+<span class="str">"faça um cachorro em python"</span>
 
-                            <span class="cm"># PROMPT BOM:</span>
-                            <span class="str">"Desenhe um cachorro usando apenas caracteres ASCII no terminal com
-                                print(), sem janelas externas."</span>
-                        </div>
+<span class="cm"># PROMPT BOM:</span>
+<span class="str">"Desenhe um cachorro usando apenas caracteres ASCII no terminal com print(), sem janelas externas."</span></div>
                     </div>
 
                     <div class="code-preview-card" data-title="🎲 2. Sorteio de Alunos (com 3 nomes via input)"
@@ -469,12 +470,10 @@
                             <button class="expand-demo-btn">🔍 Ver Prompts</button>
                         </div>
                         <div class="prompt-code"><span class="cm"># PROMPT RUIM:</span>
-                            <span class="str">"faça um sorteio em python"</span>
+<span class="str">"faça um sorteio em python"</span>
 
-                            <span class="cm"># PROMPT BOM:</span>
-                            <span class="str">"Peça 3 nomes de alunos com input(), faça um suspense de 3s no terminal e
-                                sorteie 1 dos 3 digitados."</span>
-                        </div>
+<span class="cm"># PROMPT BOM:</span>
+<span class="str">"Peça 3 nomes de alunos com input(), faça um suspense de 3s no terminal e sorteie 1 dos 3 digitados."</span></div>
                     </div>
 
                     <div class="code-preview-card" data-title="🔒 3. Criptografia Secreta"
@@ -485,12 +484,10 @@
                             <button class="expand-demo-btn">🔍 Ver Prompts</button>
                         </div>
                         <div class="prompt-code"><span class="cm"># PROMPT RUIM:</span>
-                            <span class="str">"criptografe mensagens"</span>
+<span class="str">"criptografe mensagens"</span>
 
-                            <span class="cm"># PROMPT BOM:</span>
-                            <span class="str">"Troque letras 'A' por '@' e 'E' por '3' de uma mensagem lida com input()
-                                e exiba com print()."</span>
-                        </div>
+<span class="cm"># PROMPT BOM:</span>
+<span class="str">"Troque letras 'A' por '@' e 'E' por '3' de uma mensagem lida com input() e exiba com print()."</span></div>
                     </div>
                 </div>
             </div>
@@ -559,16 +556,12 @@
                             <button class="expand-demo-btn">🔍 Expandir Exemplo</button>
                         </div>
                         <div class="prompt-code"><span class="cm"># Imprimindo linhas e mensagens</span>
-                            <span class="fn">print</span>(<span
-                                class="str">"========================================"</span>)
-                            <span class="fn">print</span>(<span class="str">"🚀 BEM-VINDO AO CEFET-MG!"</span>)
-                            <span class="fn">print</span>(<span
-                                class="str">"========================================"</span>)
+<span class="fn">print</span>(<span class="str">"========================================"</span>)
+<span class="fn">print</span>(<span class="str">"🚀 BEM-VINDO AO CEFET-MG!"</span>)
+<span class="fn">print</span>(<span class="str">"========================================"</span>)
 
-                            <span class="var">nome</span> <span class="op">=</span> <span class="str">"Ana Clara"</span>
-                            <span class="fn">print</span>(<span class="str">f"Estudante: <span class="op">{</span><span
-                                    class="var">nome</span><span class="op">}</span> | Módulo: Python 101"</span>)
-                        </div>
+<span class="var">nome</span> <span class="op">=</span> <span class="str">"Ana Clara"</span>
+<span class="fn">print</span>(<span class="str">f"Estudante: <span class="op">{</span><span class="var">nome</span><span class="op">}</span> | Módulo: Python 101"</span>)</div>
                     </div>
                 </div>
             </div>
@@ -607,8 +600,7 @@
                     <div style="display:flex;flex-direction:column;gap:10px">
                         <div class="content-box" style="padding:14px;background:rgba(0,0,0,.4)">
                             <h4 style="font-size:.82rem;color:#64748b;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">ESTRUTURA DO PRINT:</h4>
-                            <div class="prompt-code" style="font-size:.8rem;line-height:1.8">
-<span class="cm"># Linha decorativa</span>
+                            <div class="prompt-code" style="font-size:.8rem;line-height:1.8"><span class="cm"># Linha decorativa</span>
 <span class="fn">print</span>(<span class="str">"=============="</span>)
 
 <span class="cm"># Suas informações</span>
@@ -617,8 +609,7 @@
 
 <span class="cm"># Frase final</span>
 <span class="fn">print</span>(<span class="str">"Sua frase com emoji 🚀"</span>)
-<span class="fn">print</span>(<span class="str">"=============="</span>)
-                            </div>
+<span class="fn">print</span>(<span class="str">"=============="</span>)</div>
                         </div>
                         <div class="content-box tip-box" style="padding:12px;font-size:.8rem">
                             <strong>Terminou antes?</strong><br>
@@ -656,14 +647,13 @@
                             <button class="expand-demo-btn">🔍 Expandir Exemplo</button>
                         </div>
                         <div class="prompt-code"><span class="cm"># Criando variáveis</span>
-                            <span class="var">jogador</span> <span class="op">=</span> <span class="str">"Lucas"</span>
-                            <span class="var">pontos</span> <span class="op">=</span> <span class="num">0</span>
-                            <span class="fn">print</span>(<span class="str">f"Jogador: <span class="op">{</span><span class="var">jogador</span><span class="op">}</span> | Pontos: <span class="op">{</span><span class="var">pontos</span><span class="op">}</span>"</span>)
+<span class="var">jogador</span> <span class="op">=</span> <span class="str">"Lucas"</span>
+<span class="var">pontos</span> <span class="op">=</span> <span class="num">0</span>
+<span class="fn">print</span>(<span class="str">f"Jogador: <span class="op">{</span><span class="var">jogador</span><span class="op">}</span> | Pontos: <span class="op">{</span><span class="var">pontos</span><span class="op">}</span>"</span>)
 
-                            <span class="cm"># Trocando o valor da caixa</span>
-                            <span class="var">pontos</span> <span class="op">=</span> <span class="num">50</span>
-                            <span class="fn">print</span>(<span class="str">f"Jogador: <span class="op">{</span><span class="var">jogador</span><span class="op">}</span> | Pontos: <span class="op">{</span><span class="var">pontos</span><span class="op">}</span>"</span>)
-                        </div>
+<span class="cm"># Trocando o valor da caixa</span>
+<span class="var">pontos</span> <span class="op">=</span> <span class="num">50</span>
+<span class="fn">print</span>(<span class="str">f"Jogador: <span class="op">{</span><span class="var">jogador</span><span class="op">}</span> | Pontos: <span class="op">{</span><span class="var">pontos</span><span class="op">}</span>"</span>)</div>
                     </div>
                 </div>
             </div>
@@ -700,23 +690,15 @@
                             <button class="expand-demo-btn">🔍 Expandir Exemplo</button>
                         </div>
                         <div class="prompt-code"><span class="cm"># Lendo o nome (texto)</span>
-                            <span class="var">nome</span> <span class="op">=</span> <span class="fn">input</span>(<span
-                                class="str">"Qual o seu nome? "</span>)
+<span class="var">nome</span> <span class="op">=</span> <span class="fn">input</span>(<span class="str">"Qual o seu nome? "</span>)
 
-                            <span class="cm"># Lendo ano de nascimento e convertendo para int</span>
-                            <span class="var">ano_nasc</span> <span class="op">=</span> <span
-                                class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Qual seu ano de
-                                nascimento? "</span>))
+<span class="cm"># Lendo ano de nascimento e convertendo para int</span>
+<span class="var">ano_nasc</span> <span class="op">=</span> <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Qual seu ano de nascimento? "</span>))
 
-                            <span class="cm"># Calculando idade</span>
-                            <span class="var">idade</span> <span class="op">=</span> <span class="num">2026</span> <span
-                                class="op">-</span> <span class="var">ano_nasc</span>
+<span class="cm"># Calculando idade</span>
+<span class="var">idade</span> <span class="op">=</span> <span class="num">2026</span> <span class="op">-</span> <span class="var">ano_nasc</span>
 
-                            <span class="fn">print</span>(<span class="str">f"\nOlá <span class="op">{</span><span
-                                    class="var">nome</span><span class="op">}</span>! Em 2026 você completa <span
-                                    class="op">{</span><span class="var">idade</span><span class="op">}</span>
-                                anos."</span>)
-                        </div>
+<span class="fn">print</span>(<span class="str">f"\nOlá <span class="op">{</span><span class="var">nome</span><span class="op">}</span>! Em 2026 você completa <span class="op">{</span><span class="var">idade</span><span class="op">}</span> anos."</span>)</div>
                     </div>
                 </div>
             </div>
@@ -753,8 +735,7 @@
                     <div style="display:flex;flex-direction:column;gap:10px">
                         <div class="content-box" style="padding:14px;background:rgba(0,0,0,.4)">
                             <h4 style="font-size:.82rem;color:#64748b;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">ESTRUTURA DE REFERÊNCIA:</h4>
-                            <div class="prompt-code" style="font-size:.8rem;line-height:1.8">
-<span class="cm"># Opção A (texto):</span>
+                            <div class="prompt-code" style="font-size:.8rem;line-height:1.8"><span class="cm"># Opção A (texto):</span>
 <span class="var">nome</span> = <span class="fn">input</span>(<span class="str">"Pergunta 1: "</span>)
 <span class="var">animal</span> = <span class="fn">input</span>(<span class="str">"Pergunta 2: "</span>)
 <span class="fn">print</span>(<span class="str">f"Mensagem: <span class="op">{</span><span class="var">nome</span><span class="op">}</span> e <span class="op">{</span><span class="var">animal</span><span class="op">}</span>"</span>)
@@ -763,8 +744,7 @@
 <span class="var">amigos</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Pergunta 3: "</span>))
 <span class="var">fatias</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Pergunta 4: "</span>))
 <span class="var">total</span> = amigos * fatias
-<span class="fn">print</span>(<span class="str">f"Total: <span class="op">{</span><span class="var">total</span><span class="op">}</span> fatias"</span>)
-                            </div>
+<span class="fn">print</span>(<span class="str">f"Total: <span class="op">{</span><span class="var">total</span><span class="op">}</span> fatias"</span>)</div>
                         </div>
                         <div class="content-box tip-box" style="padding:12px;font-size:.8rem">
                             <strong>Terminou antes?</strong><br>
@@ -831,15 +811,8 @@
                             <span class="code-card-title">📌 MÉTODO P.R.R.E</span>
                             <button class="expand-demo-btn">🔍 Ver Exemplo Completo</button>
                         </div>
-                        <div class="prompt-code"><strong>• P - Personagem:</strong> Dê um papel de autoridade.<br>
-                            <strong>• R - Realizações:</strong> Defina a experiência prévia.<br>
-                            <strong>• R - Requisição:</strong> O que você precisa exatamente.<br>
-                            <strong>• E - Exemplo:</strong> Mostre um modelo do resultado.<br><br>
-                            <span class="cm"># PROMPT DE EXEMPLO COMPLETO:</span>
-                            <span class="str">"Atue como programador Python sênior com 10 anos de experiência. Crie um
-                                script simples que peça a idade com input() e imprima com print() quantos dias de vida a
-                                pessoa viveu aproximadamente (idade * 365)."</span>
-                        </div>
+                        <div class="prompt-code"><strong>• P - Personagem:</strong> Dê um papel de autoridade.<br><strong>• R - Realizações:</strong> Defina a experiência prévia.<br><strong>• R - Requisição:</strong> O que você precisa exatamente.<br><strong>• E - Exemplo:</strong> Mostre um modelo do resultado.<br><br><span class="cm"># PROMPT DE EXEMPLO COMPLETO:</span>
+<span class="str">"Atue como programador Python sênior com 10 anos de experiência. Crie um script simples que peça a idade com input() e imprima com print() quantos dias de vida a pessoa viveu aproximadamente (idade * 365)."</span></div>
                     </div>
 
                     <div class="code-preview-card"
@@ -850,14 +823,8 @@
                             <span class="code-card-title">⚙️ MÉTODO P.R.O.M.P.T</span>
                             <button class="expand-demo-btn">🔍 Ver Exemplo Completo</button>
                         </div>
-                        <div class="prompt-code"><strong>• Persona / Roteiro:</strong> Quem ela é e qual a tarefa.<br>
-                            <strong>• Objetivo / Modelo:</strong> Qual o propósito e formato final.<br>
-                            <strong>• Panorama / Transformar:</strong> O contexto e os ajustes.<br><br>
-                            <span class="cm"># PROMPT DE EXEMPLO COMPLETO:</span>
-                            <span class="str">"Atue como mentor didático de Python. Meu objetivo é aprender a usar
-                                input() e print(). Panorama: sou estudante do CEFET iniciando hoje. Formato: me dê 1
-                                exemplo prático comentado sem usar bibliotecas difíceis."</span>
-                        </div>
+                        <div class="prompt-code"><strong>• Persona / Roteiro:</strong> Quem ela é e qual a tarefa.<br><strong>• Objetivo / Modelo:</strong> Qual o propósito e formato final.<br><strong>• Panorama / Transformar:</strong> O contexto e os ajustes.<br><br><span class="cm"># PROMPT DE EXEMPLO COMPLETO:</span>
+<span class="str">"Atue como mentor didático de Python. Meu objetivo é aprender a usar input() e print(). Panorama: sou estudante do CEFET iniciando hoje. Formato: me dê 1 exemplo prático comentado sem usar bibliotecas difíceis."</span></div>
                     </div>
                 </div>
             </div>
