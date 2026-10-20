@@ -1,0 +1,7 @@
+# Ambientes Virtuais e Cache
+.venv/
+__pycache__/
+*.pyc
+
+# Arquivos temporários de teste e geração
+scratch/

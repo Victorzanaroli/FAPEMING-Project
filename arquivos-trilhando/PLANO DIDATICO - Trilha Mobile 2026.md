@@ -3,7 +3,7 @@
 
 **Instituição:** Projeto FAPEMING — Trilhando o Caminho do Código  
 **Modalidade:** Presencial — Laboratório de Informática  
-**Público-alvo:** Estudantes do Ensino Médio (sem conhecimento prévio em programação)  
+**Público-alvo:** Estudantes do Ensino Fundamental II — 7º ao 9º ano (sem conhecimento prévio em programação)  
 **Carga Horária Total:** 30 horas (10 aulas × 3h cada)  
 **Periodicidade:** Quartas-feiras, das 15h00 às 18h00  
 **Período de Realização:** Setembro a Novembro de 2026  
@@ -20,7 +20,6 @@
 3. Promover o letramento em Inteligência Artificial, ensinando engenharia de prompt e uso crítico e ético de IA.
 4. Coletar dados para pesquisa acadêmica sobre o impacto da IA no processo de aprendizagem (T0 e T1).
 5. Desenvolver soft skills de apresentação, trabalho em equipe e resolução de problemas vinculados aos ODS.
-
 ---
 
 ## 🗓️ Calendário de Aulas

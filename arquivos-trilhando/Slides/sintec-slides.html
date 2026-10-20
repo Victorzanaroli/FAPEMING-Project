@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>II SINTEC 2026 - Trilhando o Caminho do Código | CEFET-MG & FAPEMIG</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="slides-style.css">
+    <style>
+        .author-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 14px;
+        }
+        .author-card {
+            background: rgba(15, 23, 42, 0.78);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            border-radius: 16px;
+            padding: 16px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+        .author-card.highlight {
+            background: rgba(22, 34, 61, 0.9);
+            border-color: var(--cefet-green);
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.2);
+        }
+        .author-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: var(--author-accent, var(--cefet-blue));
+        }
+        .author-role {
+            font-size: 0.84rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--author-accent, var(--cefet-cyan));
+            margin-bottom: 6px;
+        }
+        .author-name {
+            font-size: 1.22rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+        .author-email {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.86rem;
+            color: var(--cefet-cyan);
+            margin-bottom: 8px;
+        }
+        .author-sub {
+            font-size: 0.86rem;
+            font-weight: 700;
+            color: var(--author-accent, var(--cefet-cyan));
+            margin-bottom: 4px;
+        }
+        .author-inst {
+            font-size: 0.80rem;
+            color: #cbd5e1;
+            line-height: 1.4;
+        }
+
+        /* Tipografia de Alta Visibilidade para Apresentação */
+        .content-box p, .content-box ul, .content-box li {
+            font-size: 0.94rem !important;
+            color: #f1f5f9 !important;
+            line-height: 1.55 !important;
+        }
+        .content-box h4 {
+            font-size: 1.12rem !important;
+            font-weight: 800 !important;
+        }
+        .slide-subtitle {
+            font-size: 1.15rem !important;
+            color: #cbd5e1 !important;
+        }
+
+
+        /* Banner de Parceiros no Slide 3 */
+        .partners-container {
+            background: rgba(13, 22, 44, 0.85);
+            border: 1px solid rgba(59, 130, 246, 0.25);
+            border-radius: 16px;
+            padding: 14px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .partners-sub {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .partners-sub-title {
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .partners-chips {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .logo-chip {
+            background: #ffffff;
+            border-radius: 8px;
+            padding: 4px 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+            height: 40px;
+        }
+        .logo-chip img {
+            max-height: 32px;
+            max-width: 85px;
+            object-fit: contain;
+        }
+
+        .showcase-frame {
+            border-radius: 18px;
+            border: 2px solid var(--cefet-cyan);
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.25);
+            overflow: hidden;
+            background: #000;
+        }
+        .showcase-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <div class="bg-glow">
+        <div class="glow-orb glow-orb-1"></div>
+        <div class="glow-orb glow-orb-2"></div>
+        <div class="glow-orb glow-orb-3"></div>
+    </div>
+
+    <!-- Top Navigation Bar -->
+    <header class="top-bar">
+        <div class="brand-badge">
+            <div class="top-bar-logos">
+                <img src="../Imagens/logo-cefet.jpg" alt="CEFET-MG" class="top-bar-logo-img">
+                <img src="../Imagens/logo-fapemig.jpg" alt="FAPEMIG" class="top-bar-logo-img fapemig-circle">
+            </div>
+            <span class="cefet-tag">CEFET-MG & FAPEMING</span>
+            <span style="opacity:0.3">|</span>
+            <span>II SINTEC 2026</span>
+            <span style="opacity:0.3">•</span>
+            <span style="color:var(--cefet-cyan)">TRILHANDO O CAMINHO DO CÓDIGO</span>
+        </div>
+        <div class="top-controls">
+            <a href="../../index.html" class="control-btn">🏠 Menu</a>
+            <button class="control-btn" id="notesToggle">📝 Notas (N)</button>
+            <button class="control-btn" id="fullscreenToggle">⛶ Tela Cheia (F)</button>
+        </div>
+    </header>
+
+    <!-- Main Presentation Stage -->
+    <main class="presentation-stage">
+
+        <!-- ========================================================================= -->
+        <!-- SLIDE 1: CAPA (CONFORME TEMPLATE + AUTORES DO RESUMO + APRESENTADOR VICTOR) -->
+        <!-- ========================================================================= -->
+        <section class="slide active"
+            data-notes="<strong>⏱️ TEMPO: 01:00 min</strong><br><br><strong>Roteiro do Apresentador (Victor Couto Zanaroli):</strong><br>1. Cumprimento inicial: 'Bom dia/boa tarde a todos os membros da banca examinadora, professores e comissão organizadora do II SINTEC 2026.'<br>2. Apresentação da equipe: 'Meu nome é Victor Couto Zanaroli, sou graduando em Sistemas de Informação no CEFET-MG Campus Varginha e tenho a honra de apresentar, como único apresentador, o projeto TRILHANDO O CAMINHO DO CÓDIGO, sob a orientação do Prof. Me. Lázaro Eduardo da Silva e em coautoria com os bolsistas Kaique Araújo Xavier e Rafael Oliveira Zanelato.'<br>3. Enquadramento: Trata-se de um Projeto de Extensão Universitária fomentado pela FAPEMIG.<br>4. Propósito: Capacitar discentes do Ensino Fundamental II (7º ao 9º ano) de escolas públicas em lógica de programação Python e IA generativa com o framework Flet.">
+            <div class="slide-header">
+                <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+                    <span class="slide-step">II SINTEC 2026 • SIMPÓSIO DE INOVAÇÃO, TECNOLOGIA, EMPREENDEDORISMO E CIÊNCIAS COMPUTACIONAIS</span>
+                    <div style="background:#ffffff; padding:4px 12px; border-radius:100px; border:1px solid var(--cefet-cyan); box-shadow:0 0 10px rgba(0,229,255,0.3);">
+                        <img src="../../assets/sintec/sintec-logo.png" alt="SINTEC 2026" style="height:26px; display:block;">
+                    </div>
+                </div>
+                <h1 class="slide-title">TRILHANDO O CAMINHO DO CÓDIGO:</h1>
+                <p class="slide-subtitle" style="font-size:1.2rem; font-weight:700; color:#ffffff; margin-top:4px;">
+                    Oficinas de Programação Python com Inteligência Artificial Generativa para Estudantes da Educação Básica
+                </p>
+                <div style="display:inline-flex; align-items:center; gap:8px; margin-top:8px; background:rgba(139,92,246,0.15); border:1px solid var(--cefet-purple); padding:4px 14px; border-radius:100px; font-size:0.75rem; font-weight:700; color:var(--text-primary);">
+                    <span style="color:var(--cefet-purple)">ÁREA TEMÁTICA:</span> Projeto de Extensão (Fomento FAPEMIG)
+                </div>
+            </div>
+
+            <div class="slide-body">
+                <div class="author-grid">
+                    <!-- Autor e Apresentador Victor -->
+                    <div class="author-card highlight" style="--author-accent: var(--cefet-green);">
+                        <div>
+                            <div class="author-role" style="color:var(--cefet-green);">⚡ AUTOR & APRESENTADOR</div>
+                            <div class="author-name">Victor Couto Zanaroli</div>
+                            <div class="author-email">victorzanaroli@gmail.com</div>
+                            <div class="author-sub" style="color:var(--cefet-green);">Apresentador Oficial</div>
+                        </div>
+                        <div class="author-inst">Graduando em Sistemas de Informação<br>CEFET-MG Campus Varginha</div>
+                    </div>
+
+                    <!-- Autor Kaique -->
+                    <div class="author-card" style="--author-accent: var(--cefet-cyan);">
+                        <div>
+                            <div class="author-role" style="color:var(--cefet-cyan);">⚡ AUTOR</div>
+                            <div class="author-name">Kaique Araújo Xavier</div>
+                            <div class="author-email">kaiquearaujo162@gmail.com</div>
+                            <div class="author-sub" style="color:var(--cefet-cyan);">Bolsista & Monitor da Trilha</div>
+                        </div>
+                        <div class="author-inst">Graduando em Sistemas de Informação<br>CEFET-MG Campus Varginha</div>
+                    </div>
+
+                    <!-- Autor Rafael -->
+                    <div class="author-card" style="--author-accent: var(--cefet-purple);">
+                        <div>
+                            <div class="author-role" style="color:var(--cefet-purple);">⚡ AUTOR</div>
+                            <div class="author-name">Rafael Oliveira Zanelato</div>
+                            <div class="author-email">evox.rafa@gmail.com</div>
+                            <div class="author-sub" style="color:var(--cefet-purple);">Bolsista & Monitor da Trilha</div>
+                        </div>
+                        <div class="author-inst">Graduando em Sistemas de Informação<br>CEFET-MG Campus Varginha</div>
+                    </div>
+
+                    <!-- Orientador Prof. Lázaro (À Direita) -->
+                    <div class="author-card" style="--author-accent: var(--cefet-gold);">
+                        <div>
+                            <div class="author-role" style="color:var(--cefet-gold);">⚡ ORIENTADOR</div>
+                            <div class="author-name">Prof. Me. Lázaro Eduardo da Silva</div>
+                            <div class="author-email">lazaro@cefetmg.br</div>
+                            <div class="author-sub" style="color:var(--cefet-gold);">Coordenador Geral do Projeto</div>
+                        </div>
+                        <div class="author-inst">Docente Dep. de Computação<br>CEFET-MG Campus Varginha</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- SLIDE 2: OBJETIVO (CONFORME TEMPLATE: "Objetivo") -->
+        <!-- ========================================================================= -->
+        <section class="slide"
+            data-notes="<strong>⏱️ TEMPO: 01:00 min</strong><br><br><strong>Roteiro do Apresentador (Victor):</strong><br>1. Apresentar o Objetivo Geral: O projeto visa democratizar a computação e a IA para discentes de escolas públicas de Varginha.<br>2. Percorrer os 4 Eixos Formativos:<br>- Eixo 1: Pensamento Computacional e habilidades de decomposição e algoritmos.<br>- Eixo 2: Letramento em IA com engenharia de prompt formal (P.R.R.E e P.R.O.M.P.T).<br>- Eixo 3: Prática real criando jogos arcade e apps móveis com Flet executáveis no smartphone (Pydroid 3).<br>- Eixo 4: Investigação científica com instrumento de pré e pós-teste pareado.">
+            <div class="slide-header">
+                <span class="slide-step">SLIDE 02 • OBJETIVOS DO PROJETO</span>
+                <h2 class="slide-title">Objetivo Geral & Metas Formativas</h2>
+                <p class="slide-subtitle">Democratizar a programação, o raciocínio algorítmico e o letramento em IA para a educação básica.</p>
+            </div>
+            <div class="slide-body">
+                <!-- Box Objetivo Geral -->
+                <div class="content-box accent-box" style="border: 1.5px solid var(--cefet-cyan); background: rgba(0, 229, 255, 0.05); padding: 18px 22px; margin-bottom: 14px;">
+                    <h4 style="color:var(--cefet-cyan); font-size:1.05rem; margin-bottom:6px;">🎯 Objetivo Geral (Conforme Resumo Submetido ao SINTEC)</h4>
+                    <p style="color:#ffffff; font-size:0.92rem; line-height:1.6;">
+                        Introduzir e consolidar conceitos fundamentais de programação em <strong>Python</strong> e <strong>Inteligência Artificial generativa</strong> para estudantes do <strong>Ensino Fundamental II (7º ao 9º ano)</strong> da rede pública, desenvolvendo o <strong>Pensamento Computacional</strong>, o letramento em IA e a autoeficácia através de metodologias ativas (Aprendizagem Baseada em Problemas) e criação de aplicativos móveis reais com o framework <strong>Flet</strong> vinculados aos <strong>Objetivos de Desenvolvimento Sustentável (ODS)</strong> da ONU.
+                    </p>
+                </div>
+
+                <!-- 4 Eixos -->
+                <div class="grid-4" style="gap:14px;">
+                    <div class="content-box" style="border-top:3px solid var(--cefet-cyan); padding:16px;">
+                        <div style="font-size:0.75rem; font-weight:800; color:var(--cefet-cyan); margin-bottom:4px;">EIXO 01</div>
+                        <h4 style="font-size:0.98rem; margin-bottom:8px;">🧠 Pensamento Computacional</h4>
+                        <ul style="font-size:0.82rem; line-height:1.65; margin:0; padding-left:16px;">
+                            <li><strong>4 Pilares:</strong> Decomposição, Padrões, Abstração e Algoritmos.</li>
+                            <li>Resolução prática de problemas, superando a memorização mecânica.</li>
+                        </ul>
+                    </div>
+                    <div class="content-box" style="border-top:3px solid var(--cefet-green); padding:16px;">
+                        <div style="font-size:0.75rem; font-weight:800; color:var(--cefet-green); margin-bottom:4px;">EIXO 02</div>
+                        <h4 style="font-size:0.98rem; margin-bottom:8px;">🤖 Letramento em IA & Prompts</h4>
+                        <ul style="font-size:0.82rem; line-height:1.65; margin:0; padding-left:16px;">
+                            <li>Engenharia de prompt com métodos P.R.R.E & P.R.O.M.P.T.</li>
+                            <li>IA como tutora socrática e copiloto de código (sem cópia passiva).</li>
+                        </ul>
+                    </div>
+                    <div class="content-box" style="border-top:3px solid var(--cefet-purple); padding:16px;">
+                        <div style="font-size:0.75rem; font-weight:800; color:var(--cefet-purple); margin-bottom:4px;">EIXO 03</div>
+                        <h4 style="font-size:0.98rem; margin-bottom:8px;">📱 Prática com Python & Flet</h4>
+                        <ul style="font-size:0.82rem; line-height:1.65; margin:0; padding-left:16px;">
+                            <li>Demonstrações lúdicas e interativas para ilustrar o código em ação.</li>
+                            <li>Prototipagem mobile com Flet executada no celular (Pydroid 3).</li>
+                        </ul>
+                    </div>
+                    <div class="content-box" style="border-top:3px solid var(--cefet-gold); padding:16px;">
+                        <div style="font-size:0.75rem; font-weight:800; color:var(--cefet-gold); margin-bottom:4px;">EIXO 04</div>
+                        <h4 style="font-size:0.98rem; margin-bottom:8px;">📊 Coleta Científica (T0/T1)</h4>
+                        <ul style="font-size:0.82rem; line-height:1.65; margin:0; padding-left:16px;">
+                            <li>Delineamento quase-experimental pareado (Aulas 01 e 10).</li>
+                            <li>Instrumentos: 10 itens Bebras/CTt e escala CPSES (Bandura).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- SLIDE 3: JUSTIFICATIVA (CONFORME TEMPLATE: "JUSTIFICATIVA" + PARCEIROS) -->
+        <!-- ========================================================================= -->
+        <section class="slide"
+            data-notes="<strong>⏱️ TEMPO: 01:30 min</strong><br><br><strong>Roteiro do Apresentador (Victor):</strong><br>1. O Desafio da BNCC: Em 2022 a computação se tornou obrigatória, mas quem está preparando as escolas públicas? Há escassez crítica de docentes de TI e de metodologias empolgantes.<br>2. A Oportunidade com a IA: A IA generativa não deve ser proibida, mas sim guiada pedagogicamente. Ela ajuda o aluno a superar o terror das mensagens de erro de sintaxe.<br>3. Compromisso Social FAPEMIG/CEFET: Os laboratórios do CEFET-MG acolhendo a comunidade de Varginha e promovendo equidade.<br>4. Agradecimento e destaque aos Realizadores e Apoiadores mostrados no rodapé do slide.">
+            <div class="slide-header">
+                <span class="slide-step">SLIDE 03 • JUSTIFICATIVA & CONTEXTO</span>
+                <h2 class="slide-title">Por que o Trilhando o Caminho do Código é Vital?</h2>
+                <p class="slide-subtitle">A urgência da BNCC Computação, a ascensão da IA Generativa e o impacto social da extensão universitária.</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-3" style="gap:16px;">
+                    <div class="content-box" style="border-top:3px solid var(--cefet-gold);">
+                        <div style="font-size:1.8rem; margin-bottom:6px;">🏫</div>
+                        <h4 style="color:var(--cefet-gold); font-size:1rem; margin-bottom:8px;">Desafio BNCC na Educação Básica</h4>
+                        <p style="font-size:0.84rem; line-height:1.5; color:var(--text-secondary);">
+                            A Resolução CNE/CEB nº 1/2022 incluiu as normas de Computação na Educação Básica.<br><br>
+                            ⚠️ <strong>Realidade Escolar:</strong> Escolas públicas sofrem com severa escassez de docentes habilitados e metodologias atraentes, gerando desinteresse discente e evasão tecnológica.
+                        </p>
+                    </div>
+
+                    <div class="content-box accent-box" style="border-top:3px solid var(--cefet-cyan); background:rgba(0, 229, 255, 0.06);">
+                        <div style="font-size:1.8rem; margin-bottom:6px;">⚡</div>
+                        <h4 style="color:var(--cefet-cyan); font-size:1rem; margin-bottom:8px;">A Era da IA Generativa como Copiloto</h4>
+                        <p style="font-size:0.84rem; line-height:1.5; color:var(--text-primary);">
+                            A explosão de modelos de linguagem grande (Gemini, Claude, ChatGPT) redefiniu a engenharia de software.<br><br>
+                            💡 <strong>Oportunidade Pedagógica:</strong> Em vez de vetar, ensina-se a IA como tutora socrática, reduzindo a frustração com mensagens de erro e acelerando o raciocínio autoral.
+                        </p>
+                    </div>
+
+                    <div class="content-box" style="border-top:3px solid var(--cefet-purple);">
+                        <div style="font-size:1.8rem; margin-bottom:6px;">🤝</div>
+                        <h4 style="color:var(--cefet-purple); font-size:1rem; margin-bottom:8px;">Compromisso Social CEFET & FAPEMIG</h4>
+                        <p style="font-size:0.84rem; line-height:1.5; color:var(--text-secondary);">
+                            Devolutiva concreta dos investimentos públicos à comunidade de Varginha e do Sul de Minas.<br><br>
+                            🌱 <strong>Inclusão & Vocações:</strong> Abertura dos laboratórios de informática universitários para estudantes da rede pública, fomentando equidade e despertar vocacional para carreiras STEM.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Rodapé Institucional Integrado (Realizadores e Apoiadores) -->
+                <div class="partners-container">
+                    <!-- Realizadores -->
+                    <div class="partners-sub">
+                        <div class="partners-sub-title" style="color:var(--cefet-cyan);">⚡ Realizadores do Projeto & do SINTEC 2026</div>
+                        <div class="partners-chips">
+                            <div class="logo-chip"><img src="../../assets/sintec/image1.png" alt="CEFET-MG"></div>
+                            <div class="logo-chip"><img src="../../assets/sintec/image2.png" alt="BSI CEFET"></div>
+                            <div class="logo-chip"><img src="../../assets/sintec/image8.png" alt="Site"></div>
+                            <div class="logo-chip"><img src="../../assets/sintec/image6.png" alt="DEDC"></div>
+                            <div class="logo-chip"><img src="../../assets/sintec/image7.png" alt="Porto Inovação"></div>
+                        </div>
+                    </div>
+                    <!-- Apoiadores -->
+                    <div class="partners-sub">
+                        <div class="partners-sub-title" style="color:var(--cefet-gold);">⚡ Apoiadores & Financiamento</div>
+                        <div class="partners-chips">
+                            <div class="logo-chip"><img src="../Imagens/logo-fapemig.jpg" alt="FAPEMIG"></div>
+                            <div class="logo-chip"><img src="../../assets/sintec/image5.png" alt="Nascente"></div>
+                            <div class="logo-chip"><img src="../../assets/sintec/image4.png" alt="Trens Dê"></div>
+                            <div class="logo-chip"><img src="../../assets/sintec/image3.png" alt="SEBRAE"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- SLIDE 4: METODOLOGIA (CONFORME TEMPLATE: "METODOLOGIA") -->
+        <!-- ========================================================================= -->
+        <section class="slide"
+            data-notes="<strong>⏱️ TEMPO: 01:30 min</strong><br><br><strong>Roteiro do Apresentador (Victor):</strong><br>1. Ciclo em 7 Passos: Destacar a engenharia didática com roteiro previsível e eficaz (aquecimento, live coding, engenharia reversa, desafio solo e teste de estresse).<br>2. Teste de Estresse: Explicar que ensinar a quebrar o código propositalmente remove o medo de errar.<br>3. Continuidade Mobile: O aluno usa o VS Code no laboratório e replica o código no celular com o Pydroid 3.<br>4. Rigor Científico: Teste T0 e T1 pareados para avaliação empírica do aprendizado.">
+            <div class="slide-header">
+                <span class="slide-step">SLIDE 04 • METODOLOGIA PEDAGÓGICA</span>
+                <h2 class="slide-title">Engenharia Didática Ativa & Delineamento Científico</h2>
+                <p class="slide-subtitle">Uma trilha imersiva de 30 horas com ciclo estruturado em 7 etapas e mensuração quase-experimental.</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2-1" style="gap:20px; align-items:stretch;">
+                    <!-- Coluna da Esquerda: Metodologia -->
+                    <div style="display:flex; flex-direction:column; gap:12px; justify-content:space-between;">
+                        <div class="content-box" style="border-left:4px solid var(--cefet-cyan); padding:14px 18px;">
+                            <h4 style="color:var(--cefet-cyan); font-size:1rem; margin-bottom:6px;">🔄 1. Ciclo Didático em 7 Etapas (Aulas 02 a 06)</h4>
+                            <ul style="font-size:0.86rem; line-height:1.6; margin:0; padding-left:18px;">
+                                <li><strong>Sequência Estruturada:</strong> Quiz inicial, Live Coding na lousa e Engenharia Reversa.</li>
+                                <li><strong>Autonomia & Desafio:</strong> Missões solo com IA, Teste de Estresse e Debugging.</li>
+                            </ul>
+                        </div>
+                        <div class="content-box" style="border-left:4px solid var(--cefet-green); padding:14px 18px;">
+                            <h4 style="color:var(--cefet-green); font-size:1rem; margin-bottom:6px;">💻 2. Laboratório Híbrido & Continuidade no Celular</h4>
+                            <ul style="font-size:0.86rem; line-height:1.6; margin:0; padding-left:18px;">
+                                <li><strong>Prática Presencial:</strong> 3h semanais nos laboratórios do CEFET-MG com VS Code.</li>
+                                <li><strong>Estudo em Casa:</strong> Execução no smartphone via Pydroid 3 (sem barreira de ter PC próprio).</li>
+                            </ul>
+                        </div>
+                        <div class="content-box" style="border-left:4px solid var(--cefet-purple); padding:14px 18px;">
+                            <h4 style="color:var(--cefet-purple); font-size:1rem; margin-bottom:6px;">📊 3. Delineamento Quase-Experimental Pareado (T0 vs. T1)</h4>
+                            <ul style="font-size:0.86rem; line-height:1.6; margin:0; padding-left:18px;">
+                                <li><strong>Avaliação Empírica:</strong> Coleta pareada na Aula 01 (T0) e Aula 10 (T1).</li>
+                                <li><strong>Instrumentos Validados:</strong> Raciocínio lógico (Bebras/CTt) e Autoeficácia (CPSES - Bandura).</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Coluna da Direita: Ficha Técnica -->
+                    <div class="content-box accent-box" style="border:1.5px solid var(--cefet-cyan); padding:20px; display:flex; flex-direction:column; justify-content:space-between;">
+                        <h4 style="color:var(--cefet-cyan); font-size:1.05rem; margin-bottom:12px; border-bottom:1px solid rgba(0,229,255,0.25); padding-bottom:8px;">📋 Ficha Técnica da Trilha</h4>
+                        <ul style="font-size:0.86rem; line-height:1.75; margin:0; padding-left:18px;">
+                            <li><strong>Carga Horária:</strong> 30 horas presenciais (10 oficinas de 3h).</li>
+                            <li><strong>Público-alvo:</strong> Ensino Fundamental II (7º ao 9º ano) da rede pública.</li>
+                            <li><strong>Pré-requisito:</strong> Zero conhecimento prévio exigido.</li>
+                            <li><strong>Linguagem & Lib:</strong> Python 3.12 + Flet (baseado em Flutter).</li>
+                            <li><strong>Ambiente Mobile:</strong> Pydroid 3 para smartphone Android/iOS.</li>
+                            <li><strong>IA Assistiva:</strong> Google Gemini com frameworks P.R.R.E e P.R.O.M.P.T.</li>
+                            <li><strong>Culminância:</strong> Feira de Soluções com foco nos ODS da ONU.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- SLIDE 5: DESCRIÇÃO DO PROJETO (CONFORME TEMPLATE: "DESCRIÇÃO DO PROJETO") -->
+        <!-- ========================================================================= -->
+        <section class="slide"
+            data-notes="<strong>⏱️ TEMPO: 02:00 min</strong><br><br><strong>Roteiro do Apresentador (Victor):</strong><br>1. Detalhar as 4 fases curriculares da trilha de 10 semanas:<br>- Fase 1: Primeiros contatos, variáveis, tomada de decisão e engenharia de prompt estruturada.<br>- Fase 2: O poder dos jogos retro (Tetris, Flappy Bird) para ensinar laços, condicionais e tratamento de erros (try/except).<br>- Fase 3: A transição para interface gráfica com Python Flet rodando direto nos celulares dos estudantes.<br>- Fase 4: O desenvolvimento dos aplicativos sociais vinculados aos ODS da ONU e a Feira Final de Soluções.">
+            <div class="slide-header">
+                <span class="slide-step">SLIDE 05 • DESCRIÇÃO DETALHADA DO PROJETO</span>
+                <h2 class="slide-title">A Jornada em 4 Fases: Do Zero ao Aplicativo Mobile</h2>
+                <p class="slide-subtitle">Progressão curricular contínua unindo raciocínio algorítmico, desenvolvimento e impacto social.</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-4" style="gap:14px; align-items:stretch;">
+                    <!-- Fase 1 -->
+                    <div class="content-box" style="border-top:3px solid var(--cefet-cyan); padding:16px;">
+                        <div style="font-size:0.75rem; font-weight:800; color:var(--cefet-cyan); margin-bottom:4px;">FASE 01 • AULAS 01-02</div>
+                        <h4 style="font-size:0.98rem; margin-bottom:8px;">🤖 Fundamentos & Prompts</h4>
+                        <ul style="font-size:0.82rem; line-height:1.65; margin:0; padding-left:16px;">
+                            <li>Diagnóstico inicial T0 (Bebras & CPSES)</li>
+                            <li>Engenharia de Prompt: P.R.R.E & P.R.O.M.P.T</li>
+                            <li>Sintaxe essencial: print(), input(), variáveis</li>
+                            <li>Tomada de decisão: if, elif, else</li>
+                        </ul>
+                    </div>
+
+                    <!-- Fase 2 -->
+                    <div class="content-box" style="border-top:3px solid var(--cefet-green); padding:16px;">
+                        <div style="font-size:0.75rem; font-weight:800; color:var(--cefet-green); margin-bottom:4px;">FASE 02 • AULAS 03-05</div>
+                        <h4 style="font-size:0.98rem; margin-bottom:8px;">⚙️ Lógica & Prática Dinâmica</h4>
+                        <ul style="font-size:0.82rem; line-height:1.65; margin:0; padding-left:16px;">
+                            <li>Laços de repetição: while e for</li>
+                            <li>Estruturas de dados: Listas (list)</li>
+                            <li>Prevenção de falhas com try / except</li>
+                            <li>Demonstrações dinâmicas (código em ação)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Fase 3 -->
+                    <div class="content-box" style="border-top:3px solid var(--cefet-gold); padding:16px;">
+                        <div style="font-size:0.75rem; font-weight:800; color:var(--cefet-gold); margin-bottom:4px;">FASE 03 • AULAS 06-08</div>
+                        <h4 style="font-size:0.98rem; margin-bottom:8px;">📱 Prototipagem Mobile Flet</h4>
+                        <ul style="font-size:0.82rem; line-height:1.65; margin:0; padding-left:16px;">
+                            <li>Modularização com funções (def) e dict</li>
+                            <li>Framework Flet: Column, Row e Containers</li>
+                            <li>Componentes: TextField e ElevatedButton</li>
+                            <li>Deploy mobile no smartphone (Pydroid 3)</li>
+                        </ul>
+                    </div>
+
+                    <!-- Fase 4 -->
+                    <div class="content-box" style="border-top:3px solid var(--cefet-purple); padding:16px;">
+                        <div style="font-size:0.75rem; font-weight:800; color:var(--cefet-purple); margin-bottom:4px;">FASE 04 • AULAS 09-10</div>
+                        <h4 style="font-size:0.98rem; margin-bottom:8px;">🌟 Sprints ODS & Feira Final</h4>
+                        <ul style="font-size:0.82rem; line-height:1.65; margin:0; padding-left:16px;">
+                            <li>Desenvolvimento de apps para os ODS da ONU</li>
+                            <li>Auditoria Viva: discentes explicam a lógica</li>
+                            <li>Aplicação pareada do Pós-teste T1</li>
+                            <li>Feira Final de Soluções, pitch e premiação</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- SLIDE 6: FOTOS OU PRINTS DE TELA (CONFORME TEMPLATE: "Fotos ou prints") -->
+        <!-- ========================================================================= -->
+        <section class="slide"
+            data-notes="<strong>⏱️ TEMPO: 01:30 min</strong><br><br><strong>Roteiro do Apresentador (Victor):</strong><br>1. Apresentar as evidências reais do projeto:<br>- À esquerda: Imagem do showcase consolidando a tela de programação Python no laboratório, demonstrações visuais e o smartphone rodando o aplicativo móvel com Flet.<br>- À direita: Destacar os três pilares tangíveis de resultado (ambiente profissional, dinâmicas visuais e interfaces móveis).<br>2. Frisar a autonomia dos alunos: Eles entendem o código que constroem e operam com confiança.">
+            <div class="slide-header">
+                <span class="slide-step">SLIDE 06 • EVIDÊNCIAS & ANDAMENTO DO PROJETO</span>
+                <h2 class="slide-title">Ambientes de Codificação, Práticas Dinâmicas e Apps no Celular</h2>
+                <p class="slide-subtitle">Demonstração visual dos artefatos construídos: VS Code, terminal Python, práticas dinâmicas e interface móvel Flet.</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2-1" style="gap:20px; align-items:stretch;">
+                    <!-- Imagem Showcase Central -->
+                    <div class="showcase-frame">
+                        <img src="../../assets/trilhando/trilhando_showcase.jpg" alt="Showcase do Projeto Trilhando o Caminho do Código">
+                    </div>
+
+                    <!-- Cards Analíticos -->
+                    <div style="display:flex; flex-direction:column; gap:12px; justify-content:space-between;">
+                        <div class="content-box" style="border-left:4px solid var(--cefet-cyan); padding:14px 18px;">
+                            <h4 style="color:var(--cefet-cyan); font-size:1rem; margin-bottom:6px;">💻 1. Codificação em Python & VS Code</h4>
+                            <ul style="font-size:0.86rem; line-height:1.6; margin:0; padding-left:18px;">
+                                <li>Prática no laboratório de informática do CEFET-MG.</li>
+                                <li>Desenvolvimento autoral, sintaxe limpa e depuração no terminal.</li>
+                            </ul>
+                        </div>
+                        <div class="content-box" style="border-left:4px solid var(--cefet-gold); padding:14px 18px;">
+                            <h4 style="color:var(--cefet-gold); font-size:1rem; margin-bottom:6px;">🕹️ 2. Demonstrações Lúdicas & Práticas</h4>
+                            <ul style="font-size:0.86rem; line-height:1.6; margin:0; padding-left:18px;">
+                                <li>Código em ação: visualização dinâmica de laços e condições.</li>
+                                <li>Exemplos interativos como recurso motivacional para engajar a turma.</li>
+                            </ul>
+                        </div>
+                        <div class="content-box" style="border-left:4px solid var(--cefet-green); padding:14px 18px;">
+                            <h4 style="color:var(--cefet-green); font-size:1rem; margin-bottom:6px;">📱 3. Apps Móveis com Flet no Celular</h4>
+                            <ul style="font-size:0.86rem; line-height:1.6; margin:0; padding-left:18px;">
+                                <li>Prototipagem de telas com botões e formulários visuais.</li>
+                                <li>Execução nativa no próprio smartphone dos discentes (Pydroid 3).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- SLIDE 7: CONSIDERAÇÕES FINAIS (CONFORME TEMPLATE: "CONSIDERAÇÕES FINAIS") -->
+        <!-- ========================================================================= -->
+        <section class="slide"
+            data-notes="<strong>⏱️ TEMPO: 01:00 min</strong><br><br><strong>Roteiro do Apresentador (Victor):</strong><br>1. Resultados Discentes: Superação do medo da computação, assiduidade elevada e empoderamento digital de estudantes de escola pública.<br>2. Validação da 'Auditoria Viva': Prova de que a IA generativa com método não estimula a 'preguiça', mas potencializa a compreensão lógica e o raciocínio crítico.<br>3. Extensão FAPEMIG/CEFET: Impacto duradouro no Sul de Minas e produção de artigo acadêmico com os dados científicos do T0 e T1.">
+            <div class="slide-header">
+                <span class="slide-step">SLIDE 07 • CONCLUSÕES & IMPACTO</span>
+                <h2 class="slide-title">Resultados Alcançados, Validação & Desdobramentos</h2>
+                <p class="slide-subtitle">Balanço das contribuições científicas, do empoderamento comunitário e dos próximos passos acadêmicos.</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-3" style="gap:16px;">
+                    <div class="content-box" style="border-top:3px solid var(--cefet-green); padding:20px;">
+                        <div style="font-size:2rem; margin-bottom:6px;">🏆</div>
+                        <h4 style="color:var(--cefet-green); font-size:1.05rem; margin-bottom:10px;">Resultados Discentes</h4>
+                        <ul style="font-size:0.86rem; line-height:1.65; margin:0; padding-left:18px;">
+                            <li><strong>Alta Retenção:</strong> Frequência e engajamento exemplares ao longo de 10 oficinas.</li>
+                            <li><strong>Desmistificação:</strong> Superação do bloqueio psicológico com computação.</li>
+                            <li><strong>Autonomia Criativa:</strong> Desenvolvimento autoral de soluções e aplicativos mobile reais.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-box accent-box" style="border-top:3px solid var(--cefet-cyan); padding:20px; background:rgba(0, 229, 255, 0.05);">
+                        <div style="font-size:2rem; margin-bottom:6px;">🔬</div>
+                        <h4 style="color:var(--cefet-cyan); font-size:1.05rem; margin-bottom:10px;">Validação com IA & Auditoria</h4>
+                        <ul style="font-size:0.86rem; line-height:1.65; margin:0; padding-left:18px;">
+                            <li><strong>Sem Cópia Passiva:</strong> Auditorias provam que discentes dominam a lógica.</li>
+                            <li><strong>Raciocínio Ativo:</strong> Alunos explicam, depuram e alteram suas funções.</li>
+                            <li><strong>IA como Copiloto:</strong> Aceleração da aprendizagem e foco na resolução de problemas.</li>
+                        </ul>
+                    </div>
+
+                    <div class="content-box" style="border-top:3px solid var(--cefet-purple); padding:20px;">
+                        <div style="font-size:2rem; margin-bottom:6px;">🚀</div>
+                        <h4 style="color:var(--cefet-purple); font-size:1.05rem; margin-bottom:10px;">Impacto da Extensão</h4>
+                        <ul style="font-size:0.86rem; line-height:1.65; margin:0; padding-left:18px;">
+                            <li><strong>Fomento FAPEMIG:</strong> Extensão transformando a comunidade de Varginha.</li>
+                            <li><strong>Despertar Vocacional:</strong> Incentivo ao ingresso de jovens em cursos de TI.</li>
+                            <li><strong>Produção Científica:</strong> Artigo acadêmico com tabulação pareada T0 vs. T1.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================================================= -->
+        <!-- SLIDE 8: REFERÊNCIAS (CONFORME TEMPLATE: "REFERÊNCIAS BIBLIOGRÁFICAS") -->
+        <!-- ========================================================================= -->
+        <section class="slide"
+            data-notes="<strong>⏱️ TEMPO: 00:30 min</strong><br><br><strong>Roteiro do Apresentador (Victor):</strong><br>1. Encerramento solene dentro do tempo regulamentar de 10 minutos cravados.<br>2. Agradecimento solene à FAPEMIG, ao CEFET-MG Campus Varginha, ao Prof. Lázaro e à equipe.<br>3. 'Encerro minha apresentação e coloco-me à inteira disposição da ilustre banca para perguntas e considerações. Muito obrigado!'">
+            <div class="slide-header">
+                <span class="slide-step">SLIDE 08 • REFERÊNCIAS & ENCERRAMENTO</span>
+                <h2 class="slide-title">Fundamentação Teórica & Agradecimentos Institucionais</h2>
+                <p class="slide-subtitle">Normas técnicas ABNT NBR 6023, literatura científica e reconhecimento aos apoiadores.</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2-1" style="gap:20px; align-items:stretch;">
+                    <!-- Coluna da Esquerda: Referências ABNT -->
+                    <div class="content-box" style="padding:18px 22px;">
+                        <h4 style="color:var(--cefet-cyan); font-size:1rem; margin-bottom:10px;">📚 Referências Bibliográficas e Normativas (ABNT NBR 6023)</h4>
+                        <ul style="font-size:0.75rem; line-height:1.55; color:var(--text-secondary);">
+                            <li><strong>BRASIL. Ministério da Educação.</strong> Normas sobre Computação na Educação Básica — Complemento à BNCC. Resolução CNE/CEB nº 1/2022. Brasília: MEC, 2022.</li>
+                            <li><strong>FLET.</strong> Flet: Build multi-platform apps in Python powered by Flutter. Disponível em: https://flet.dev/. Acesso em: 2026.</li>
+                            <li><strong>GOOGLE.</strong> Google Gemini API Documentation. Disponível em: https://ai.google.dev/. Acesso em: 2026.</li>
+                            <li><strong>RAABE, A. L. A.; BRACKMANN, C. P.; CAMPOS, F. R.</strong> Currículo de Referência em Tecnologia e Computação. São Paulo: CIEB, 2018.</li>
+                            <li><strong>WING, J. M.</strong> Computational thinking. Communications of the ACM, v. 49, n. 3, p. 33–35, 2006.</li>
+                            <li><strong>ROMÁN-GONZÁLEZ, M. et al.</strong> Which cognitive abilities underlie computational thinking? Criterion-referenced validation of CTt. Computers in Human Behavior, 2017.</li>
+                            <li><strong>BANDURA, A.</strong> Self-efficacy: The exercise of control. New York: W. H. Freeman, 1997.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Coluna da Direita: Agradecimentos e Contatos -->
+                    <div class="content-box accent-box" style="border:1.5px solid var(--cefet-cyan); padding:22px; text-align:center; display:flex; flex-direction:column; justify-content:space-between;">
+                        <div>
+                            <div style="font-size:2.2rem; margin-bottom:4px;">🤝</div>
+                            <h3 style="color:#ffffff; font-size:1.35rem; font-weight:800; margin-bottom:8px;">Muito Obrigado!</h3>
+                            <p style="font-size:0.80rem; color:var(--text-secondary); line-height:1.45; margin-bottom:12px;">
+                                Agradecimento especial à <strong>FAPEMIG</strong> pelo financiamento, ao <strong>CEFET-MG Campus Varginha</strong>, ao corpo docente de BSI, à DEDC, Porto Inovação, Nascente, Trens Dê, SEBRAE e à comissão do II SINTEC 2026.
+                            </p>
+                            <div style="background:rgba(0,229,255,0.1); border:1px solid var(--cefet-cyan); padding:8px 12px; border-radius:100px; font-size:0.82rem; font-weight:700; color:var(--cefet-cyan); margin-bottom:12px;">
+                                💬 Espaço Aberto para Arguição da Banca
+                            </div>
+                        </div>
+                        <div style="font-size:0.80rem; color:var(--text-muted); line-height:1.6; border-top:1px solid rgba(255,255,255,0.08); padding-top:10px;">
+                            <strong style="color:#ffffff;">Autores:</strong> Victor Couto Zanaroli (Apresentador) • <span style="font-family:'JetBrains Mono'; color:var(--cefet-cyan);">victorzanaroli@gmail.com</span><br>
+                            Kaique Araújo Xavier &amp; Rafael Oliveira Zanelato<br>
+                            <strong style="color:#ffffff;">Orientador:</strong> Prof. Me. Lázaro Eduardo da Silva • <span style="font-family:'JetBrains Mono';">lazaro@cefetmg.br</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Speaker Notes Panel -->
+    <div class="speaker-notes-panel" id="notesPanel">
+        <div class="notes-header">
+            <span>📝 NOTAS DO APRESENTADOR (VICTOR COUTO ZANAROLI)</span>
+            <span style="opacity: 0.6">Pressione N para fechar</span>
+        </div>
+        <div class="notes-content" id="notesContent">
+            Boas-vindas à apresentação do II SINTEC 2026. Pressione as setas do teclado (ou botões abaixo) para navegar pelos 8 slides.
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Controls -->
+    <footer class="bottom-nav">
+        <div class="slide-counter" id="slideCounter">1 / 8</div>
+        <div class="nav-buttons">
+            <button class="nav-btn" id="prevBtn">← Anterior <span class="key-hint">←</span></button>
+            <button class="nav-btn primary" id="nextBtn">Próximo → <span class="key-hint">→</span></button>
+        </div>
+    </footer>
+
+    <script src="slides-engine.js"></script>
+</body>
+
+</html>
