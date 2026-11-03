@@ -175,10 +175,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Keyboard Shortcuts
     document.addEventListener('keydown', e => {
+        const hwModal = document.getElementById('trilhandoHomeworkModal');
+        if (hwModal && hwModal.classList.contains('active')) {
+            if (e.key === 'Escape') hwModal.classList.remove('active');
+            return;
+        }
+
         if (modalOverlay && modalOverlay.classList.contains('active')) {
             if (e.key === 'Escape') closeCodeModal();
             return;
         }
+
+        const tag = (e.target && e.target.tagName) ? e.target.tagName.toUpperCase() : '';
+        if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
 
         if (e.key === 'ArrowRight' || e.key === ' ') {
             e.preventDefault();
@@ -218,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const deltaX = touchEndX - touchStartX;
         const deltaY = touchEndY - touchStartY;
         if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.4) {
-            const activeModal = document.querySelector('#missionModal[style*="display: flex"], #fsImgOverlay[style*="display: flex"], .code-modal-overlay.active, .media-modal-overlay.active');
+            const activeModal = document.querySelector('#missionModal[style*="display: flex"], #fsImgOverlay[style*="display: flex"], .code-modal-overlay.active, .media-modal-overlay.active, #trilhandoHomeworkModal.active');
             if (activeModal) return;
 
             if (deltaX < 0) {
@@ -387,8 +396,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Initialize slide
-    showSlide(0);
+    // Initialize slide (with optional query param jump)
+    const params = new URLSearchParams(window.location.search);
+    const targetParam = params.get('slide');
+    if (targetParam === 'last') {
+        showSlide(slides.length - 1);
+    } else if (targetParam === 'quiz') {
+        const quizSlideIdx = Array.from(slides).findIndex(s => s.querySelector('[data-trilhando-quiz]'));
+        showSlide(quizSlideIdx >= 0 ? quizSlideIdx : 0);
+    } else if (targetParam && !isNaN(parseInt(targetParam, 10))) {
+        const idx = Math.max(0, Math.min(slides.length - 1, parseInt(targetParam, 10) - 1));
+        showSlide(idx);
+    } else {
+        showSlide(0);
+    }
 });
 
 

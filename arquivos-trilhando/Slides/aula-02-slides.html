@@ -118,7 +118,8 @@
             <span style="color:#00e5ff">AULA 02</span>
         </div>
         <div class="top-controls">
-            <a href="../../index.html" class="control-btn">🏠 Menu</a>
+            <a href="../../index.html" class="control-btn">🏠 Classroom</a>
+            <button class="control-btn" data-open-homework="aula02" style="border-color:rgba(0,229,255,.45);color:#00e5ff">📝 Tarefa de Casa</button>
             <button class="control-btn" id="notesToggle">📝 Notas (N)</button>
             <button class="control-btn" id="fullscreenToggle">⛶ Tela Cheia (F)</button>
         </div>
@@ -836,7 +837,7 @@
             <div class="slide-body" style="display:flex;align-items:center;justify-content:center">
                 <div style="text-align:center;padding:30px">
                     <div style="font-size:5rem;margin-bottom:16px">☕</div>
-                    <div style="font-size:1.3rem;font-weight:700;color:#f8fafc;margin-bottom:10px">Pausa para Lanche</div>
+                    <div style="font-size:1.3rem;font-weight:700;color:#f8fafc;margin-bottom:10px">Pausa para Intervalo</div>
                     <div style="font-size:.9rem;color:#94a3b8;max-width:420px;margin:0 auto;line-height:1.6">Quando voltar, você vai usar a <strong style="color:#00e5ff">IA</strong> para criar um programa completo com <code>if/elif/else</code> e rodar no VS Code.</div>
                     <div style="margin-top:20px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.3);border-radius:12px;padding:14px 24px;display:inline-block">
                         <div style="font-size:.78rem;color:#94a3b8;margin-bottom:4px">DEIXE O VS CODE ABERTO</div>
@@ -996,6 +997,37 @@
             </div>
         </section>
 
+        <!-- SLIDE 21 — CAPA / TRAVA ANTI-SPOILER DA TAREFA DE CASA -->
+        <section class="slide"
+            data-notes="&lt;strong&gt;Tarefa de Casa (Sem Spoiler!):&lt;/strong&gt; Este slide funciona como uma capa protetora para que você não mostre as questões sem querer ao passar os slides na sala. Avise aos alunos que eles podem clicar no botão abaixo (em casa, pelo celular ou PC) ou acessar a aba Tarefas no Portal Classroom usando apenas Nome Completo e Senha!">
+            <div class="slide-header">
+                <span class="slide-step">🏠 ATIVIDADE PARA CASA • PROTEÇÃO ANTI-SPOILER</span>
+                <h2 class="slide-title">Tarefa de Casa — Aula 02</h2>
+                <p class="slide-subtitle">As questões estão ocultas nesta tela para não dar spoiler durante a aula!</p>
+            </div>
+            <div class="slide-body">
+                <div class="hw-gate-card">
+                    <div class="hw-gate-icon">🔒📝</div>
+                    <span class="tr-badge-cyan">5 QUESTÕES DE MÚLTIPLA ESCOLHA + 1 PRÁTICA DE CÓDIGO</span>
+                    <h3 style="font-size:1.45rem;color:#fff;font-weight:800;">Pronto para treinar em casa?</h3>
+                    <p style="font-size:0.92rem;color:#cbd5e1;max-width:600px;line-height:1.6;">
+                        Acesse pelo seu <strong>computador (VS Code)</strong> ou <strong>celular (Pydroid 3)</strong>. Basta informar seu <strong>Nome Completo e uma Senha</strong> para responder às 5 perguntas sobre <code>if / elif / else</code> e colar o seu código prático!
+                    </p>
+                    <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+                        <button type="button" class="hw-gate-btn" data-open-homework="aula02">
+                            🚀 Abrir Tarefa da Aula 02 Agora
+                        </button>
+                        <a href="../../index.html#tarefas" class="control-btn" style="padding:12px 20px;font-size:0.9rem;border-color:rgba(0,229,255,.4);color:#00e5ff;">
+                            📊 Ver Minhas Notas no Classroom
+                        </a>
+                    </div>
+                    <p style="font-size:0.76rem;color:#64748b;margin-top:4px;">
+                        💡 As questões só aparecem ao clicar no botão acima.
+                    </p>
+                </div>
+            </div>
+        </section>
+
 
     </main>
 
@@ -1010,7 +1042,7 @@
 
     <!-- ── Bottom Navigation ── -->
     <footer class="bottom-nav">
-        <div class="slide-counter" id="slideCounter">1 / 20</div>
+        <div class="slide-counter" id="slideCounter">1 / 21</div>
         <div class="nav-buttons">
             <button class="nav-btn" id="prevBtn">← Anterior <span class="key-hint">←</span></button>
             <button class="nav-btn primary" id="nextBtn">Próximo → <span class="key-hint">→</span></button>
@@ -1018,6 +1050,7 @@
     </footer>
 
     <script src="slides-engine.js"></script>
+    <script src="classroom-engine.js"></script>
 
     <!-- ── Mission Prompt Modal ── -->
     <div id="missionModal" style="

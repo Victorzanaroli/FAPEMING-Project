@@ -3,183 +3,673 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aula 03 - Tomada de Decisão com if, elif e else</title>
+    <title>Aula 03 — Tratamento de Erros (try/except) e Laços (while, for) | Trilhando o Caminho do Código</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="slides-style.css">
+    <style>
+        .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 10px; }
+        .pillar-card { background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 18px 14px; text-align: center; transition: transform .25s, box-shadow .25s; }
+        .pillar-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,229,255,.18); }
+        .pillar-icon { font-size: 2.2rem; margin-bottom: 8px; }
+        .pillar-name { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 700; color: #00e5ff; }
+        .pillar-label { font-size: .8rem; color: #94a3b8; margin-top: 4px; line-height: 1.4; }
+
+        .step-badge   { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,229,255,.12); border: 1px solid rgba(0,229,255,.35); border-radius: 100px; padding: 4px 14px; font-size: .75rem; font-weight: 800; color: #00e5ff; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+        .live-label   { display: inline-flex; align-items: center; gap: 6px; background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.4); border-radius: 100px; padding: 4px 14px; font-size: .73rem; font-weight: 800; color: #10b981; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+        .live-dot     { width: 7px; height: 7px; border-radius: 50%; background: #10b981; animation: pulse-dot 1.2s infinite; }
+        .engage-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.4); border-radius: 100px; padding: 4px 14px; font-size: .73rem; font-weight: 800; color: #f59e0b; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+        .challenge-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.15); border: 1px solid rgba(236,72,153,.4); border-radius: 100px; padding: 4px 14px; font-size: .73rem; font-weight: 800; color: #f472b6; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+        @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.5;transform:scale(1.4);} }
+
+        .challenge-box { background: rgba(236,72,153,.07); border: 1.5px solid rgba(236,72,153,.35); border-radius: 14px; padding: 16px 18px; }
+        .challenge-box h4 { color: #f472b6; font-size: .92rem; margin-bottom: 8px; }
+        .challenge-box p, .challenge-box li { font-size: .83rem; color: #e2e8f0; line-height: 1.6; }
+        .challenge-box ul { padding-left: 16px; }
+        .timer-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.2); border-radius: 100px; padding: 3px 12px; font-size: .72rem; font-weight: 700; color: #f472b6; margin-bottom: 8px; }
+
+        .mission-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 8px; }
+        .mission-card { border-radius: 14px; padding: 16px; border: 1.5px solid rgba(255,255,255,.08); transition: transform .25s, box-shadow .25s; cursor: pointer; }
+        .mission-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,.4); }
+        .mission-card h4 { font-size: .92rem; margin-bottom: 8px; }
+        .mission-card p  { font-size: .76rem; color: #94a3b8; line-height: 1.5; }
+        .mission-atm  { background: rgba(139,92,246,.12); border-color: rgba(139,92,246,.35); }
+        .mission-quiz { background: rgba(59,130,246,.12); border-color: rgba(59,130,246,.35); }
+        .mission-health { background: rgba(16,185,129,.10); border-color: rgba(16,185,129,.35); }
+
+        .stress-table { width: 100%; border-collapse: collapse; font-size: .82rem; margin-top: 8px; }
+        .stress-table th { background: rgba(255,255,255,.06); text-align: left; padding: 9px 12px; font-size: .73rem; color: #94a3b8; letter-spacing: .05em; text-transform: uppercase; }
+        .stress-table td { padding: 9px 12px; border-top: 1px solid rgba(255,255,255,.06); vertical-align: top; line-height: 1.45; }
+
+        .summary-item { display: flex; align-items: flex-start; gap: 10px; background: rgba(0,0,0,.3); border-radius: 10px; padding: 10px 14px; border: 1px solid rgba(255,255,255,.06); }
+        .summary-check { font-size: 1.15rem; flex-shrink: 0; }
+        .summary-text { font-size: .8rem; color: #cbd5e1; line-height: 1.4; }
+        .summary-text strong { color: #fff; display: block; margin-bottom: 2px; }
+    </style>
 </head>
 <body>
     <div class="progress-bar" id="progressBar"></div>
     <div class="bg-glow">
         <div class="glow-orb glow-orb-1"></div>
         <div class="glow-orb glow-orb-2"></div>
+        <div class="glow-orb glow-orb-3"></div>
     </div>
 
     <header class="top-bar">
         <div class="brand-badge">
-            <span>⚡ TRILHANDO O CAMINHO DO CÓDIGO</span>
-            <span style="opacity:0.4">|</span>
-            <span>AULA 03</span>
+            <div class="top-bar-logos">
+                <img src="../Imagens/logo-cefet.jpg"   alt="CEFET-MG" class="top-bar-logo-img">
+                <img src="../Imagens/logo-fapemig.jpg" alt="FAPEMIG"  class="top-bar-logo-img fapemig-circle">
+            </div>
+            <span class="cefet-tag">CEFET-MG &amp; FAPEMING</span>
+            <span style="opacity:.3">|</span>
+            <span>TRILHANDO O CAMINHO DO CÓDIGO</span>
+            <span style="opacity:.3">•</span>
+            <span style="color:#00e5ff">AULA 03</span>
         </div>
         <div class="top-controls">
-            <a href="../../index.html" class="control-btn">🏠 Menu</a>
+            <a href="../../index.html" class="control-btn">🏠 Classroom</a>
+            <button class="control-btn" data-open-homework="aula03" style="border-color:rgba(0,229,255,.45);color:#00e5ff">📝 Tarefa de Casa</button>
             <button class="control-btn" id="notesToggle">📝 Notas (N)</button>
             <button class="control-btn" id="fullscreenToggle">⛶ Tela Cheia (F)</button>
         </div>
     </header>
 
     <main class="presentation-stage">
-        <!-- Slide 1: Capa -->
-        <section class="slide active" data-notes="<strong>Abertura Aula 03:</strong> Apresentar como os programas tomam decisões baseadas em condições lógicas.">
+
+        <!-- SLIDE 1 — CAPA DA AULA 03 -->
+        <section class="slide active"
+            data-notes="&lt;strong&gt;Boas-vindas Aula 03 (0–3 min):&lt;/strong&gt; Diga: 'Sejam bem-vindos à Aula 3! Nas aulas anteriores ensinamos o computador a falar, ouvir e tomar decisões com if/else. Hoje vamos dar a ele superpoderes de defesa contra erros com try/except e a capacidade de repetir ações sem cansar com while e for!'">
             <div class="slide-header">
-                <span class="slide-step">MÓDULO 03 • CONTROLE DE FLUXO</span>
-                <h1 class="slide-title">Estruturas Condicionais</h1>
-                <p class="slide-subtitle">Ensinando o seu programa a tomar decisões inteligentes com <code>if</code>, <code>elif</code> e <code>else</code></p>
+                <span class="slide-step">MÓDULO 03 • BLINDAGEM DE ERROS E LAÇOS DE REPETIÇÃO</span>
+                <h1 class="slide-title">Repetir Sem Cansar &amp; Defender de Erros</h1>
+                <p class="slide-subtitle">Tratamento de Exceções (<code>try/except</code>) e Repetições Automáticas (<code>while</code> e <code>for</code>)</p>
             </div>
             <div class="slide-body">
-                <div class="grid-3">
-                    <div class="content-box accent-box">
-                        <div class="big-icon">🔀</div>
-                        <h4>Tomada de Decisão</h4>
-                        <p>Executar blocos de código diferentes dependendo do resultado de uma condição verdadeira ou falsa.</p>
+                <div class="pillar-grid">
+                    <div class="pillar-card" style="border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.06)">
+                        <div class="pillar-icon">🛡️</div>
+                        <div class="pillar-name">try / except</div>
+                        <div class="pillar-label">O escudo do programa: impede que o código quebre se o usuário digitar texto no lugar de número!</div>
                     </div>
-                    <div class="content-box accent-box">
-                        <div class="big-icon">⚖️</div>
-                        <h4>Operadores de Comparação</h4>
-                        <p>Comparando valores com <code>==</code>, <code>!=</code>, <code>></code>, <code><</code>, <code>>=</code> e <code><=</code>.</p>
+                    <div class="pillar-card" style="border-color:rgba(139,92,246,.4)">
+                        <div class="pillar-icon">🔁</div>
+                        <div class="pillar-name" style="color:#a78bfa">while</div>
+                        <div class="pillar-label">Repete um bloco <strong>enquanto</strong> uma condição for verdadeira (ex: pedir senha até acertar).</div>
                     </div>
+                    <div class="pillar-card" style="border-color:rgba(16,185,129,.4)">
+                        <div class="pillar-icon">🚀</div>
+                        <div class="pillar-name" style="color:#34d399">for + range()</div>
+                        <div class="pillar-label">Repete com contagem exata e programada (ex: contagem regressiva ou 3 tentativas).</div>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:12px;font-size:.8rem;color:#94a3b8">
+                    ⚡ Começaremos agora com o <strong>Quiz Interativo de Revisão (10 questões rápidas)</strong> das Aulas 01 e 02!
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2 — BLOCO 1: QUIZ ESTILO NOTEBOOK LM (10 QUESTÕES) -->
+        <section class="slide"
+            data-notes="&lt;strong&gt;Bloco 1 — Quiz da Aula Anterior (15h00–15h15):&lt;/strong&gt; Quiz no formato NotebookLM com 10 questões simples sobre print(), input(), variáveis, int/float e if/elif/else. Clique na alternativa escolhida pela turma: se acertarem, mostra em verde o porquê; se errarem, mostra em vermelho por que aquela está errada e destaca em verde qual era a certa!">
+            <div class="slide-header" style="margin-bottom:10px">
+                <span class="step-badge">⚡ Bloco 1 — Quiz Interativo de Aquecimento (10 Questões)</span>
+                <h2 class="slide-title" style="font-size:1.55rem">Relembrando: Variáveis, Tipos e <code>if / elif / else</code></h2>
+            </div>
+            <div class="slide-body" style="justify-content:flex-start">
+                <div id="quizAula03Container" data-trilhando-quiz="aula03"></div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3 — BLOCO 2 (PARTE 1): TRY / EXCEPT -->
+        <section class="slide"
+            data-notes="&lt;strong&gt;Bloco 2 — Live Coding 1: try/except (15h15–15h27):&lt;/strong&gt; Crie o arquivo 'aula03_try.py' no VS Code e digite junto com a turma. Explique: 'try significa TENTE rodar isso aqui. Se o usuário digitar letras no int(), em vez de travar com tela vermelha, o Python pula para o except ValueError (Plano B de emergência)!'">
+            <div class="slide-header">
+                <span class="live-label"><span class="live-dot"></span> Live Coding 1 — Abra o VS Code (aula03_try.py)</span>
+                <h2 class="slide-title">Escudo Anti-Erro: <code>try</code> e <code>except</code></h2>
+                <p class="slide-subtitle">O que acontece se o usuário digitar <code>"quinze"</code> por extenso dentro do <code>int()</code>?</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
                     <div class="content-box accent-box">
-                        <div class="big-icon">🔗</div>
-                        <h4>Lógica Composta</h4>
-                        <p>Combinando múltiplas condições usando operadores lógicos <code>and</code>, <code>or</code> e <code>not</code>.</p>
+                        <h4>💻 Código com Blindagem (<code>aula03_try.py</code>)</h4>
+                        <div class="prompt-code" style="font-size:.88rem;line-height:1.9">
+<span class="cm"># 🛡️ Protegendo o programa contra letras em campos numéricos</span>
+<span class="kw">try</span>:
+    <span class="kw">idade</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Digite sua idade em números: "</span>))
+    <span class="fn">print</span>(<span class="str">f"Ano que vem você terá <span class="kw">{idade + 1}</span> anos!"</span>)
+<span class="kw">except</span> <span class="fn">ValueError</span>:
+    <span class="fn">print</span>(<span class="str">"⚠️ Ei! Digite apenas números inteiros (ex: 14)."</span>)
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="content-box tip-box" style="padding:14px">
+                            <h4 style="font-size:.86rem;margin-bottom:6px">🧠 Como funciona?</h4>
+                            <ul>
+                                <li><code>try:</code> O Python <strong>tenta</strong> executar as linhas de dentro.</li>
+                                <li><code>except ValueError:</code> Só roda se der erro na conversão numérica!</li>
+                            </ul>
+                        </div>
+                        <div class="engage-label">❓ Pergunta para a Turma</div>
+                        <div class="content-box" style="padding:12px 14px;font-size:.84rem">
+                            <strong>Se eu digitar <code>14</code> certinho, a mensagem do <code>except</code> vai aparecer?</strong><br>
+                            <span style="color:#94a3b8;font-size:.8rem">→ Não! Quando não há erro no <code>try</code>, o <code>except</code> é totalmente ignorado!</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 2: Operadores Relacionais e Comparação -->
-        <section class="slide" data-notes="<strong>Operadores Relacionais:</strong> Explicar a diferença vital entre = (atribuição) e == (comparação de igualdade).">
+        <!-- SLIDE 4 — MINI-DESAFIO 1: TRY / EXCEPT -->
+        <section class="slide"
+            data-notes="&lt;strong&gt;Mini-Desafio 1 (3 min):&lt;/strong&gt; Peça para criarem um try/except que leia a altura com float(input()). Se digitar com vírgula (ex: 1,70) ou texto, cai no except ValueError!">
             <div class="slide-header">
-                <span class="slide-step">CONCEITO 1 • OPERADORES</span>
-                <h2 class="slide-title">Operadores de Comparação</h2>
-                <p class="slide-subtitle">Toda comparação retorna um valor Booleano (<code>True</code> ou <code>False</code>)</p>
+                <span class="challenge-label">🎯 Mini-Desafio 1 — 3 minutos</span>
+                <h2 class="slide-title">Sua vez com <code>try / except</code>!</h2>
+                <p class="slide-subtitle">Proteja um leitor de altura decimal contra erros de digitação</p>
             </div>
             <div class="slide-body">
-                <div class="grid-2">
-                    <div class="content-box">
-                        <h4>📋 Tabela de Operadores</h4>
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="challenge-box">
+                        <div class="timer-badge">⏱️ 3 minutos</div>
+                        <h4>🛡️ Desafio: Leitor de Altura Blindado</h4>
+                        <p>Crie um programa que:</p>
                         <ul>
-                            <li><code>==</code> Igual a (Atenção: não confunda com <code>=</code>!)</li>
-                            <li><code>!=</code> Diferente de</li>
-                            <li><code>></code> Maior que / <code><</code> Menor que</li>
-                            <li><code>>=</code> Maior ou igual / <code><=</code> Menor ou igual</li>
+                            <li>Dentro do <code>try:</code> peça a altura com <code>float(input("Sua altura: "))</code> e mostre na tela.</li>
+                            <li>Dentro do <code>except ValueError:</code> mostre <code>"⚠️ Digite apenas números usando ponto (ex: 1.65)!"</code></li>
                         </ul>
                     </div>
+                    <div class="content-box" style="padding:14px;background:rgba(0,0,0,.4)">
+                        <h4 style="font-size:.82rem;color:#64748b;margin-bottom:8px;text-transform:uppercase">Estrutura de Referência:</h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.85">
+<span class="kw">try</span>:
+    <span class="kw">altura</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">"Sua altura: "</span>))
+    <span class="fn">print</span>(<span class="str">f"Altura registrada: <span class="kw">{altura}</span>m"</span>)
+<span class="kw">except</span> <span class="fn">ValueError</span>:
+    <span class="fn">print</span>(<span class="str">"⚠️ Digite usando ponto (ex: 1.65)!"</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5 — BLOCO 2 (PARTE 2): LAÇO WHILE -->
+        <section class="slide"
+            data-notes="&lt;strong&gt;Bloco 2 — Live Coding 2: Laço while (15h30–15h40):&lt;/strong&gt; Crie 'aula03_loops.py'. Explique: 'O if testa uma vez só. O while significa ENQUANTO: enquanto a senha digitada for diferente da senha correta, ele continua perguntando sem parar!'">
+            <div class="slide-header">
+                <span class="live-label"><span class="live-dot"></span> Live Coding 2 — Repetição com Condição (aula03_loops.py)</span>
+                <h2 class="slide-title">Laço <code>while</code> — Repetir Enquanto...</h2>
+                <p class="slide-subtitle">Ideal para menus, jogos e validação de senha até o usuário acertar!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
                     <div class="content-box accent-box">
-                        <h4>💻 Exemplos Práticos</h4>
-                        <div class="prompt-code">idade = <span class="num">18</span>
+                        <h4>🔑 Exemplo: Cofre com Senha Secreta</h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.8">
+<span class="kw">senha_correta</span> = <span class="str">"python123"</span>
+<span class="kw">tentativa</span> = <span class="str">""</span>
 
-<span class="fn">print</span>(idade >= <span class="num">18</span>)  <span class="cm"># True</span>
-<span class="fn">print</span>(idade == <span class="num">20</span>)  <span class="cm"># False</span>
-<span class="fn">print</span>(idade != <span class="num">15</span>)  <span class="cm"># True</span></div>
+<span class="kw">while</span> tentativa != senha_correta:
+    tentativa = <span class="fn">input</span>(<span class="str">"🔑 Digite a senha secreta: "</span>)
+    <span class="kw">if</span> tentativa != senha_correta:
+        <span class="fn">print</span>(<span class="str">"❌ Senha incorreta! Tente de novo."</span>)
+
+<span class="fn">print</span>(<span class="str">"🔓 Acesso liberado com sucesso!"</span>)
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="content-box tip-box" style="padding:14px">
+                            <h4 style="font-size:.86rem;margin-bottom:6px">🛑 Comando <code>break</code> (Freio de Emergência)</h4>
+                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5">Se usarmos <code>while True:</code> (loop contínuo), podemos parar e sair do laço a qualquer momento usando o comando <code>break</code>!</p>
+                        </div>
+                        <div class="content-box warn-box" style="padding:12px 14px">
+                            <h4 style="font-size:.84rem;margin-bottom:4px">⚠️ Cuidado com o Loop Infinito!</h4>
+                            <p style="font-size:.78rem;color:#cbd5e1">Dentro do <code>while</code>, algo precisa mudar (como ler uma nova <code>tentativa</code> ou somar <code>cont += 1</code>) para o loop terminar!</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 3: Estrutura if / elif / else -->
-        <section class="slide" data-notes="<strong>Indentação:</strong> Em Python, o bloco de código dentro do if DEVE ter indentação (4 espaços ou 1 Tab). Se não tiver, o código dá IndentationError.">
+        <!-- SLIDE 6 — MINI-DESAFIO 2: WHILE -->
+        <section class="slide"
+            data-notes="&lt;strong&gt;Mini-Desafio 2 (3 min):&lt;/strong&gt; Criar um contador com while que mostre os números de 1 até 5 na tela.">
             <div class="slide-header">
-                <span class="slide-step">CONCEITO 2 • SINTAXE CONDICIONAL</span>
-                <h2 class="slide-title">A Estrutura <code>if</code>, <code>elif</code>, <code>else</code></h2>
-                <p class="slide-subtitle">A importância fundamental da <strong>indentação</strong> em Python</p>
+                <span class="challenge-label">🎯 Mini-Desafio 2 — 3 minutos</span>
+                <h2 class="slide-title">Sua vez com o <code>while</code>!</h2>
+                <p class="slide-subtitle">Crie um contador automático de 1 até 5</p>
             </div>
             <div class="slide-body">
-                <div class="content-box accent-box">
-                    <div class="prompt-code">nota = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">"Digite a nota: "</span>))
-
-<span class="kw">if</span> nota >= <span class="num">7.0</span>:
-    <span class="fn">print</span>(<span class="str">"🎉 Aprovado(a)!"</span>)
-<span class="kw">elif</span> nota >= <span class="num">5.0</span>:
-    <span class="fn">print</span>(<span class="str">"⚠️ Recuperação!"</span>)
-<span class="kw">else</span>:
-    <span class="fn">print</span>(<span class="str">"❌ Reprovado(a)."</span>)</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 4: Operadores Lógicos and, or, not -->
-        <section class="slide" data-notes="<strong>Operadores Lógicos:</strong> AND exige que ambas sejam verdadeiras. OR exige ao menos uma verdadeira. NOT inverte o valor.">
-            <div class="slide-header">
-                <span class="slide-step">CONCEITO 3 • LÓGICA BOOLEANA</span>
-                <h2 class="slide-title">Operadores Lógicos: <code>and</code>, <code>or</code>, <code>not</code></h2>
-                <p class="slide-subtitle">Construindo regras de negócio complexas no seu sistema</p>
-            </div>
-            <div class="slide-body">
-                <div class="grid-3">
-                    <div class="content-box">
-                        <h4 style="color:var(--accent-blue)"><code>and</code> (E)</h4>
-                        <p>Verdadeiro apenas se <strong>todas</strong> as condições forem verdadeiras.</p>
-                        <div class="prompt-code"><span class="kw">if</span> idade >= <span class="num">18</span> <span class="kw">and</span> cnh:
-    <span class="fn">print</span>(<span class="str">"Pode dirigir"</span>)</div>
-                    </div>
-                    <div class="content-box">
-                        <h4 style="color:var(--accent-purple)"><code>or</code> (OU)</h4>
-                        <p>Verdadeiro se <strong>pelo menos uma</strong> condição for verdadeira.</p>
-                        <div class="prompt-code"><span class="kw">if</span> estudante <span class="kw">or</span> idoso:
-    <span class="fn">print</span>(<span class="str">"Meia entrada"</span>)</div>
-                    </div>
-                    <div class="content-box">
-                        <h4 style="color:var(--accent-yellow)"><code>not</code> (NÃO)</h4>
-                        <p>Inverte o valor lógico (Verdadeiro vira Falso e vice-versa).</p>
-                        <div class="prompt-code"><span class="kw">if not</span> chovendo:
-    <span class="fn">print</span>(<span class="str">"Vamos ao parque"</span>)</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 5: Desafio Prático da Aula 03 -->
-        <section class="slide" data-notes="<strong>Prática:</strong> Sistema de triagem para projeto ODS (ex: triagem de lixo ou triagem de risco de saúde).">
-            <div class="slide-header">
-                <span class="slide-step">PRÁTICA • DESAFIO 03</span>
-                <h2 class="slide-title">Desafio: Validador de Empréstimo Escolar</h2>
-                <p class="slide-subtitle">Construindo um algoritmo de triagem condicional</p>
-            </div>
-            <div class="slide-body">
-                <div class="grid-2">
-                    <div class="content-box tip-box">
-                        <h4>🎯 Requisitos:</h4>
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="challenge-box">
+                        <div class="timer-badge">⏱️ 3 minutos</div>
+                        <h4>🔢 Desafio: Contador de 1 a 5</h4>
+                        <p>Crie um programa que:</p>
                         <ul>
-                            <li>Solicitar a idade e a quantidade de livros lidos no ano.</li>
-                            <li>Se a idade for >= 12 E os livros >= 5: Conceder "Selo Leitor Prata".</li>
-                            <li>Se os livros forem >= 10: Conceder "Selo Leitor Ouro".</li>
-                            <li>Caso contrário: Exibir mensagem incentivando a leitura.</li>
+                            <li>Comece com <code>contador = 1</code></li>
+                            <li>Use <code>while contador &lt;= 5:</code> para imprimir o número atual</li>
+                            <li>Some 1 a cada volta com <code>contador = contador + 1</code> (ou <code>contador += 1</code>)</li>
                         </ul>
                     </div>
-                    <div class="content-box accent-box">
-                        <h4>🤖 Exemplo de Prompt com Gemini CLI:</h4>
-                        <div class="prompt-code"><span class="str">"Como posso refatorar meu bloco de if/elif/else em Python para que as condições mais específicas (Ouro) fiquem no topo e não sejam atropeladas pelas genéricas (Prata)?"</span></div>
+                    <div class="content-box" style="padding:14px;background:rgba(0,0,0,.4)">
+                        <h4 style="font-size:.82rem;color:#64748b;margin-bottom:8px;text-transform:uppercase">Estrutura do Contador:</h4>
+                        <div class="prompt-code" style="font-size:.86rem;line-height:1.9">
+<span class="kw">contador</span> = <span class="num">1</span>
+<span class="kw">while</span> contador &lt;= <span class="num">5</span>:
+    <span class="fn">print</span>(<span class="str">f"Passo número <span class="kw">{contador}</span>"</span>)
+    <span class="kw">contador</span> += <span class="num">1</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- SLIDE 7 — BLOCO 2 (PARTE 3): LAÇO FOR E RANGE() -->
+        <section class="slide"
+            data-notes="&lt;strong&gt;Bloco 2 — Laço for + range() (15h43–15h50):&lt;/strong&gt; Explique: 'Quando já sabemos exatamente quantas vezes queremos repetir (ex: 3 chances ou contagem regressiva de 5 até 1), o for com range() faz tudo em 2 linhas!'">
+            <div class="slide-header">
+                <span class="live-label"><span class="live-dot"></span> Live Coding 3 — Contagem Programada</span>
+                <h2 class="slide-title">Laço <code>for</code> com <code>range()</code></h2>
+                <p class="slide-subtitle">Quando você sabe exatamente quantas vezes quer repetir!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box accent-box">
+                        <h4>🚀 Exemplo: Contagem Regressiva e Tentativas</h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.85">
+<span class="cm"># 1. Repetindo 3 vezes (1, 2 e 3)</span>
+<span class="kw">for</span> rodada <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">4</span>):
+    <span class="fn">print</span>(<span class="str">f"🎮 Rodada nº <span class="kw">{rodada}</span>"</span>)
+
+<span class="cm"># 2. Contagem regressiva (5 até 1)</span>
+<span class="fn">print</span>(<span class="str">"🚀 Lançamento em:"</span>)
+<span class="kw">for</span> seg <span class="kw">in</span> <span class="fn">range</span>(<span class="num">5</span>, <span class="num">0</span>, <span class="num">-1</span>):
+    <span class="fn">print</span>(<span class="str">f"<span class="kw">{seg}</span>..."</span>)
+<span class="fn">print</span>(<span class="str">"💥 DECOLAR!"</span>)
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="content-box tip-box" style="padding:14px">
+                            <h4 style="font-size:.86rem;margin-bottom:6px">📌 Regra de Ouro do <code>range(início, fim)</code></h4>
+                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5">O <code>range(1, 4)</code> começa no <strong>1</strong> e para <strong>ANTES do 4</strong> (gera <code>1, 2, 3</code>). Sempre coloque 1 número a mais no fim!</p>
+                        </div>
+                        <div class="challenge-box" style="padding:12px 14px">
+                            <h4>⚡ Mini-Desafio Rápido (2 min):</h4>
+                            <p style="font-size:.8rem">Use <code>for i in range(1, 4):</code> para imprimir 3 vezes no terminal: <code>"Minha mensagem nº X"</code>!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 8 — BLOCO 3: ENGENHARIA REVERSA (DETETIVE DE CÓDIGO) -->
+        <section class="slide"
+            data-notes="&lt;strong&gt;Bloco 3 — Engenharia Reversa (15h50–16h15):&lt;/strong&gt; Projete o código Arcade Passatempo. Peça para a turma analisar sem rodar primeiro e responder às 3 perguntas de detetive.">
+            <div class="slide-header">
+                <span class="step-badge">🔍 Bloco 3 — Engenharia Reversa (Missão Detetive)</span>
+                <h2 class="slide-title">Analisando o "Arcade Passatempo"</h2>
+                <p class="slide-subtitle">Descubra onde o loop se repete, onde o erro é tratado e quando o jogo acaba!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:14px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:14px">
+                        <div class="prompt-code" style="font-size:.75rem;line-height:1.7">
+<span class="kw">vidas</span> = <span class="num">3</span>
+<span class="kw">pontos</span> = <span class="num">0</span>
+<span class="fn">print</span>(<span class="str">"🎮 BEM-VINDO AO DESAFIO DA SORTE!"</span>)
+
+<span class="kw">while</span> vidas &gt; <span class="num">0</span>:
+    <span class="fn">print</span>(<span class="str">f"\n❤️ Vidas: <span class="kw">{vidas}</span> | ⭐ Pontos: <span class="kw">{pontos}</span>"</span>)
+    <span class="kw">try</span>:
+        <span class="kw">chute</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Adivinhe o número (1 a 5): "</span>))
+        <span class="kw">if</span> chute &lt; <span class="num">1</span> <span class="kw">or</span> chute &gt; <span class="num">5</span>:
+            <span class="fn">print</span>(<span class="str">"⚠️ Fora do intervalo (1 a 5)!"</span>)
+            <span class="kw">continue</span>
+        <span class="kw">if</span> chute == <span class="num">3</span>:
+            <span class="fn">print</span>(<span class="str">"🎉 ACERTOU! +100 pontos!"</span>)
+            pontos += <span class="num">100</span>
+        <span class="kw">else</span>:
+            <span class="fn">print</span>(<span class="str">"❌ Errou! Perdeu 1 vida."</span>)
+            vidas -= <span class="num">1</span>
+    <span class="kw">except</span> <span class="fn">ValueError</span>:
+        <span class="fn">print</span>(<span class="str">"🚨 Digite apenas números inteiros!"</span>)
+
+<span class="fn">print</span>(<span class="str">f"\n💥 GAME OVER! Pontuação: <span class="kw">{pontos}</span>"</span>)
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="engage-label">🕵️ Perguntas de Detetive</div>
+                        <div class="content-box" style="padding:12px 14px;font-size:.83rem">
+                            <strong>1. O que acontece se o jogador digitar <code>"três"</code> por extenso?</strong><br>
+                            <span style="color:#94a3b8;font-size:.78rem">→ Cai no <code>except ValueError</code>, mostra o alerta e <strong>não perde vida</strong>!</span>
+                        </div>
+                        <div class="content-box" style="padding:12px 14px;font-size:.83rem">
+                            <strong>2. Qual linha impede que o jogador perca vida se digitar <code>9</code>?</strong><br>
+                            <span style="color:#94a3b8;font-size:.78rem">→ O <code>if chute &lt; 1 or chute &gt; 5:</code> junto com o <code>continue</code>!</span>
+                        </div>
+                        <div class="content-box" style="padding:12px 14px;font-size:.83rem">
+                            <strong>3. O que faz o laço <code>while</code> parar de rodar?</strong><br>
+                            <span style="color:#94a3b8;font-size:.78rem">→ Quando a variável <code>vidas</code> chega a <code>0</code> após 3 chutes errados!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 9 — INTERVALO -->
+        <section class="slide"
+            data-notes="&lt;strong&gt;Intervalo (16h15–16h30):&lt;/strong&gt; 15 minutos de pausa. Mantenha esse slide na tela. Ao voltar, vá direto para o slide das missões com IA.">
+            <div class="slide-header">
+                <span class="slide-step">☕ PAUSA</span>
+                <h2 class="slide-title">Intervalo — 15 Minutos</h2>
+                <p class="slide-subtitle">Descanse, coma, tome água. Quando voltar: é hora de criar com IA!</p>
+            </div>
+            <div class="slide-body" style="display:flex;align-items:center;justify-content:center">
+                <div style="text-align:center;padding:30px">
+                    <div style="font-size:5rem;margin-bottom:16px">☕</div>
+                    <div style="font-size:1.3rem;font-weight:700;color:#f8fafc;margin-bottom:10px">Pausa para Intervalo</div>
+                    <div style="font-size:.9rem;color:#94a3b8;max-width:420px;margin:0 auto;line-height:1.6">Quando voltar, você vai usar a <strong style="color:#00e5ff">IA</strong> para criar um programa completo com <code>try/except</code> e laços de repetição no VS Code.</div>
+                    <div style="margin-top:20px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.3);border-radius:12px;padding:14px 24px;display:inline-block">
+                        <div style="font-size:.78rem;color:#94a3b8;margin-bottom:4px">DEIXE O VS CODE ABERTO</div>
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#00e5ff">aula03_loops.py</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 10 — BLOCO 4: 3 MISSÕES PRÁTICAS COM IA -->
+        <section class="slide"
+            data-notes="&lt;strong&gt;Bloco 4 — 3 Missões com IA (16h30–17h20):&lt;/strong&gt; Alunos escolhem uma das 3 missões (Caixa Eletrônico, Quiz Implacável ou Monitor de Saúde), clicam no card para copiar o prompt, geram com a IA e testam no VS Code!">
+            <div class="slide-header">
+                <span class="step-badge">🤖 Bloco 4 — Desafio do Dia com IA (50 min)</span>
+                <h2 class="slide-title">Escolha a Sua Missão Prática!</h2>
+                <p class="slide-subtitle">Clique no card da missão escolhida para copiar o Prompt estruturado</p>
+            </div>
+            <div class="slide-body">
+                <div class="mission-grid">
+                    <div class="mission-card mission-atm" onclick="openMissionModal('atm')">
+                        <div style="font-size:2rem;margin-bottom:8px">🏧</div>
+                        <h4 style="color:#a78bfa">MISSÃO A — Caixa Eletrônico Blindado</h4>
+                        <p>Menu interativo com <code>while True</code> (Ver Saldo, Sacar, Depositar e Sair) protegido contra erros com <code>try/except</code>.</p>
+                        <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.4);border-radius:100px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#c4b5fd">✨ Ver Prompt &amp; Instruções 🔍</div>
+                    </div>
+                    <div class="mission-card mission-quiz" onclick="openMissionModal('quiz_loop')">
+                        <div style="font-size:2rem;margin-bottom:8px">🎮</div>
+                        <h4 style="color:#60a5fa">MISSÃO B — O Quiz Implacável</h4>
+                        <p>Game show com 3 perguntas onde o laço <code>while</code> repete a pergunta se o jogador digitar uma opção inválida!</p>
+                        <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(96,165,250,.18);border:1px solid rgba(96,165,250,.4);border-radius:100px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#93c5fd">✨ Ver Prompt &amp; Instruções 🔍</div>
+                    </div>
+                    <div class="mission-card mission-health" onclick="openMissionModal('health')">
+                        <div style="font-size:2rem;margin-bottom:8px">❤️‍🩹</div>
+                        <h4 style="color:#34d399">MISSÃO C — Monitor Cardíaco</h4>
+                        <p>Usa laço <code>for</code> para ler 4 medições de batimentos (bpm) com <code>try/except</code>, calcula a média e classifica a saúde.</p>
+                        <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(52,211,153,.18);border:1px solid rgba(52,211,153,.4);border-radius:100px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#6ee7b7">✨ Ver Prompt &amp; Instruções 🔍</div>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:12px;font-size:.78rem;color:#94a3b8">
+                    💡 <strong>Dica:</strong> Clique em qualquer missão acima para copiar o Prompt e colar no Gemini ou ChatGPT!
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 11 — BLOCO 5: QUEBRANDO O CÓDIGO (TESTE DE ESTRESSE) -->
+        <section class="slide"
+            data-notes="&lt;strong&gt;Bloco 5 — Quebrando o Código (17h20–17h45):&lt;/strong&gt; Peça para os alunos tentarem quebrar os próprios programas digitando letras, zero ou apertando Enter vazio, e verificarem se o try/except segurou o impacto!">
+            <div class="slide-header">
+                <span class="step-badge">🔨 Bloco 5 — Operação Destruição (Teste de Estresse)</span>
+                <h2 class="slide-title">Tente Quebrar o Seu Código!</h2>
+                <p class="slide-subtitle">Verifique se o seu <code>try/except</code> e o seu <code>while</code> resistem a entradas malucas</p>
+            </div>
+            <div class="slide-body">
+                <table class="stress-table">
+                    <thead>
+                        <tr><th>Teste</th><th>O que fazer no terminal</th><th>Qual erro o Python dispara?</th><th>Como o seu código reagiu?</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1. Texto em Número</td><td>Digitar <code>"dez"</code> no campo numérico</td><td><code style="color:#fca5a5">ValueError</code></td><td>O <code>except</code> mostrou aviso sem fechar o programa?</td></tr>
+                        <tr><td>2. Divisão por Zero</td><td>Tentar dividir um número por <code>0</code></td><td><code style="color:#fca5a5">ZeroDivisionError</code></td><td>Tem proteção ou o programa travou?</td></tr>
+                        <tr><td>3. Enter Vazio</td><td>Apertar <kbd>Enter</kbd> sem digitar nada</td><td><code style="color:#fca5a5">ValueError</code></td><td>O laço <code>while</code> pediu para digitar novamente?</td></tr>
+                    </tbody>
+                </table>
+                <div class="content-box accent-box" style="margin-top:12px;padding:12px 16px">
+                    <h4 style="font-size:.86rem;margin-bottom:4px">🤖 Prompt de Debugging para usar na IA se aparecer erro vermelho:</h4>
+                    <div class="prompt-code" style="font-size:.76rem;padding:8px 12px">"Meu código Python gerou o seguinte erro no terminal: [COLE O ERRO AQUI]. Explique em 2 frases o que causou a falha e como adicionar um try/except para resolver."</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 12 — BLOCO 6: RESUMÃO DA AULA 03 -->
+        <section class="slide"
+            data-notes="&lt;strong&gt;Bloco 6 — Resumão (17h45–17h55):&lt;/strong&gt; Revise os 5 comandos dominados hoje e peça para salvarem os códigos na pasta Aula03.">
+            <div class="slide-header">
+                <span class="slide-step">BLOCO 6 • SÍNTESE DO DIA</span>
+                <h2 class="slide-title">Sintaxes Dominadas na Aula 03</h2>
+                <p class="slide-subtitle">Salve seus arquivos (<code>Ctrl + S</code>) na pasta da Aula 03!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:14px">
+                    <div style="display:flex;flex-direction:column;gap:8px">
+                        <div class="summary-item"><span class="summary-check">🛡️</span><div class="summary-text"><strong>try / except → Escudo Anti-Crash</strong>Tenta rodar o código e captura erros sem fechar o programa</div></div>
+                        <div class="summary-item"><span class="summary-check">⚠️</span><div class="summary-text"><strong>ValueError → Erro de Conversão</strong>Acontece quando tentamos converter letras em <code>int()</code> ou <code>float()</code></div></div>
+                        <div class="summary-item"><span class="summary-check">🔁</span><div class="summary-text"><strong>while condicao: → Repetição Condicional</strong>Repete o bloco enquanto a condição continuar verdadeira</div></div>
+                        <div class="summary-item"><span class="summary-check">🛑</span><div class="summary-text"><strong>break → Parada Imediata</strong>Encerra o laço <code>while</code> ou <code>for</code> na mesma hora</div></div>
+                        <div class="summary-item"><span class="summary-check">🚀</span><div class="summary-text"><strong>for i in range(início, fim): → Repetição Contada</strong>Executa um número programado de repetições</div></div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        <div class="content-box tip-box" style="padding:14px">
+                            <h4 style="font-size:.86rem;margin-bottom:6px">🚀 Próxima Aula (Aula 04):</h4>
+                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5"><strong>Estruturas de Dados: Listas (<code>list</code>)</strong> — Vamos aprender a guardar dezenas de itens, músicas ou produtos dentro de uma única variável!</p>
+                        </div>
+                        <div class="content-box accent-box" style="padding:14px">
+                            <h4 style="font-size:.86rem;margin-bottom:6px">🏠 Tarefa de Casa no Próximo Slide!</h4>
+                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5">5 questões rápidas sobre <code>try/except</code>, <code>while</code> e <code>for</code> + 1 desafio prático simples para colar no Classroom!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 13 — CAPA / TRAVA ANTI-SPOILER DA TAREFA DE CASA DA AULA 03 -->
+        <section class="slide"
+            data-notes="&lt;strong&gt;Tarefa de Casa da Aula 03 (Sem Spoiler!):&lt;/strong&gt; As questões e o desafio prático só abrem ao clicar no botão abaixo ou pelo Portal Classroom.">
+            <div class="slide-header">
+                <span class="slide-step">🏠 ATIVIDADE PARA CASA • PROTEÇÃO ANTI-SPOILER</span>
+                <h2 class="slide-title">Tarefa de Casa — Aula 03</h2>
+                <p class="slide-subtitle">As questões estão protegidas nesta tela para não dar spoiler durante a aula!</p>
+            </div>
+            <div class="slide-body">
+                <div class="hw-gate-card">
+                    <div class="hw-gate-icon">🔒🛡️</div>
+                    <span class="tr-badge-cyan">5 QUESTÕES DE MÚLTIPLA ESCOLHA + 1 PRÁTICA DE CÓDIGO</span>
+                    <h3 style="font-size:1.45rem;color:#fff;font-weight:800;">Missão de Casa: Blindagem &amp; Loops</h3>
+                    <p style="font-size:0.92rem;color:#cbd5e1;max-width:600px;line-height:1.6;">
+                        Entre com seu <strong>Nome Completo e Senha</strong> para responder às 5 questões sobre <code>try/except</code>, <code>while</code> e <code>for</code>, testar seu código no <strong>PC (VS Code)</strong> ou <strong>Celular (Pydroid 3)</strong> e enviar para correção!
+                    </p>
+                    <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+                        <button type="button" class="hw-gate-btn" data-open-homework="aula03">
+                            🚀 Abrir Tarefa da Aula 03 Agora
+                        </button>
+                        <a href="../../index.html#tarefas" class="control-btn" style="padding:12px 20px;font-size:0.9rem;border-color:rgba(0,229,255,.4);color:#00e5ff;">
+                            📊 Ver Minhas Notas no Classroom
+                        </a>
+                    </div>
+                    <p style="font-size:0.76rem;color:#64748b;margin-top:4px;">
+                        💡 As questões só aparecem ao clicar no botão acima.
+                    </p>
+                </div>
+            </div>
+        </section>
+
     </main>
 
+    <!-- Speaker Notes Panel -->
     <div class="speaker-notes-panel" id="notesPanel">
-        <div class="notes-header"><span>📝 NOTAS DO INSTRUTOR</span><span style="opacity:0.6">Pressione N para fechar</span></div>
-        <div class="notes-content" id="notesContent">Navegue com as setas do teclado.</div>
+        <div class="notes-header">
+            <span>📝 NOTAS DO INSTRUTOR</span>
+            <span style="opacity:.6">Pressione N para fechar</span>
+        </div>
+        <div class="notes-content" id="notesContent">Use as setas do teclado para navegar entre os slides.</div>
     </div>
 
+    <!-- Bottom Navigation -->
     <footer class="bottom-nav">
-        <div class="slide-counter" id="slideCounter">1 / 5</div>
+        <div class="slide-counter" id="slideCounter">1 / 13</div>
         <div class="nav-buttons">
             <button class="nav-btn" id="prevBtn">← Anterior <span class="key-hint">←</span></button>
             <button class="nav-btn primary" id="nextBtn">Próximo → <span class="key-hint">→</span></button>
         </div>
     </footer>
 
+    <!-- Mission Prompt Modal -->
+    <div id="missionModal" style="display:none;position:fixed;inset:0;z-index:99998;background:rgba(5,10,25,.90);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;">
+        <div id="missionModalCard" style="background:#0b1329;border:1.5px solid rgba(0,229,255,.3);border-radius:20px;max-width:720px;width:100%;max-height:88vh;overflow-y:auto;padding:24px 28px;box-shadow:0 25px 60px rgba(0,0,0,.8);position:relative;">
+            <button id="missionModalClose" title="Fechar (Esc)" style="position:absolute;top:18px;right:20px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1.2rem;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+            <div id="missionModalBody"></div>
+        </div>
+    </div>
+
     <script src="slides-engine.js"></script>
+    <script src="classroom-engine.js"></script>
+    <script>
+    (function() {
+        var missionModal = document.getElementById('missionModal');
+        var missionBody  = document.getElementById('missionModalBody');
+        var missionClose = document.getElementById('missionModalClose');
+
+        var missionData = {
+            atm: {
+                badge: '🏧 MISSÃO A — CAIXA ELETRÔNICO BLINDADO',
+                badgeBg: 'rgba(167,139,250,.15)',
+                badgeColor: '#a78bfa',
+                badgeBorder: 'rgba(167,139,250,.4)',
+                title: 'Simulador de Caixa Eletrônico Seguro',
+                subtitle: 'Crie um menu bancário com while True e proteção contra erros usando try/except!',
+                prompt: `Atue como professor de Python para iniciantes.
+Crie um programa de Caixa Eletrônico simples no terminal do VS Code.
+Regras:
+1. O programa deve ter um saldo inicial de R$ 500,00.
+2. Use um laço while True com o menu: 1-Ver Saldo | 2-Sacar | 3-Depositar | 4-Sair (usando break).
+3. Use try/except ValueError para tratar entradas não numéricas no saque e depósito.
+4. Não permita sacar mais do que o saldo disponível (use if/else para isso).
+5. Máximo 30 linhas, sem bibliotecas externas, com comentários explicativos em português.`,
+                steps: [
+                    'Clique em "📋 Copiar Prompt" e cole no Gemini ou ChatGPT.',
+                    'No VS Code, crie o arquivo <code>missao_caixa.py</code>.',
+                    'Cole o código gerado, salve (<code>Ctrl + S</code>) e teste no terminal ▶️!'
+                ],
+                questions: [
+                    'Onde está o <code>try/except</code> que impede o programa de travar se alguém digitar letras?',
+                    'Qual comando faz o programa sair do <code>while True</code> quando o usuário escolhe a opção 4?'
+                ]
+            },
+            quiz_loop: {
+                badge: '🎮 MISSÃO B — O QUIZ IMPLACÁVEL',
+                badgeBg: 'rgba(96,165,250,.15)',
+                badgeColor: '#60a5fa',
+                badgeBorder: 'rgba(96,165,250,.4)',
+                title: 'Game Show com Validação de Resposta',
+                subtitle: 'Crie um quiz que repete a pergunta enquanto o jogador não digitar uma alternativa válida!',
+                prompt: `Atue como um apresentador animado de game show.
+Crie um programa Python para rodar no terminal do VS Code com as regras:
+1. Faça 3 perguntas de múltipla escolha (A, B, C, D) para o usuário.
+2. Para cada pergunta, use um laço while que só aceita as letras A, B, C ou D.
+3. Se o usuário digitar algo diferente, avise e repita a pergunta até ele digitar uma opção válida.
+4. Ao final, use if/elif/else para dar um troféu de acordo com a nota (3 acertos, 2 acertos, etc.).
+5. Máximo 35 linhas, sem bibliotecas externas, com comentários em português.`,
+                steps: [
+                    'Clique em "📋 Copiar Prompt" e envie para a IA.',
+                    'No VS Code, crie o arquivo <code>missao_quiz_loop.py</code>.',
+                    'Cole o código, salve (<code>Ctrl + S</code>) e execute ▶️!'
+                ],
+                questions: [
+                    'O que acontece se você digitar a letra "Z" na hora de responder?',
+                    'Como o <code>while</code> sabe que você finalmente digitou A, B, C ou D?'
+                ]
+            },
+            health: {
+                badge: '❤️‍🩹 MISSÃO C — MONITOR DE SAÚDE PESSOAL',
+                badgeBg: 'rgba(52,211,153,.15)',
+                badgeColor: '#34d399',
+                badgeBorder: 'rgba(52,211,153,.4)',
+                title: 'Assistente de Monitoramento Cardíaco',
+                subtitle: 'Use laço for e try/except para coletar batimentos cardíacos e calcular a média!',
+                prompt: `Atue como desenvolvedor de apps de saúde.
+Crie um assistente de monitoramento cardíaco no VS Code:
+1. Use um laço for para pedir ao usuário 4 medições de frequência cardíaca (bpm).
+2. Use try/except ValueError para rejeitar entradas não numéricas.
+3. Calcule e exiba a média das 4 medições.
+4. Use if/elif/else para classificar a média: <60 ("Repouso/Atleta"), 60-100 ("Normal"), >100 ("Elevado").
+5. Máximo 30 linhas, comentários em português.`,
+                steps: [
+                    'Clique em "📋 Copiar Prompt" e envie para a IA.',
+                    'No VS Code, crie o arquivo <code>missao_saude.py</code>.',
+                    'Cole o código, salve (<code>Ctrl + S</code>) e teste no terminal ▶️!'
+                ],
+                questions: [
+                    'Quantas vezes o laço <code>for</code> repete a pergunta de medição?',
+                    'Como a média é calculada ao final do laço?'
+                ]
+            }
+        };
+
+        function escapeHtml(str) {
+            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        window.openMissionModal = function(key) {
+            var data = missionData[key];
+            if (!data) return;
+            missionBody.innerHTML = `
+                <div style="display:inline-block;background:${data.badgeBg};color:${data.badgeColor};border:1px solid ${data.badgeBorder};padding:4px 14px;border-radius:100px;font-size:.73rem;font-weight:800;margin-bottom:10px">${data.badge}</div>
+                <h3 style="font-size:1.25rem;color:#f8fafc;margin-bottom:4px">${data.title}</h3>
+                <p style="font-size:.83rem;color:#94a3b8;margin-bottom:16px">${data.subtitle}</p>
+                <div style="background:rgba(0,0,0,.5);border:1px solid rgba(0,229,255,.3);border-radius:12px;padding:14px 16px;margin-bottom:16px">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                        <span style="font-size:.75rem;font-weight:800;color:#00e5ff;text-transform:uppercase">🤖 Prompt para copiar e colar na IA:</span>
+                        <button id="copyPromptBtn" style="background:rgba(0,229,255,.15);border:1px solid rgba(0,229,255,.4);color:#00e5ff;padding:4px 12px;border-radius:6px;font-size:.73rem;font-weight:700;cursor:pointer">📋 Copiar Prompt</button>
+                    </div>
+                    <pre style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:#a7f3d0;white-space:pre-wrap;line-height:1.6;margin:0">${escapeHtml(data.prompt)}</pre>
+                </div>
+                <div class="content-box tip-box" style="padding:14px;margin-bottom:14px">
+                    <h4 style="font-size:.85rem;margin-bottom:8px">🚀 Como fazer no VS Code:</h4>
+                    <ol style="font-size:.8rem;color:#cbd5e1;line-height:1.8;padding-left:18px;margin:0">
+                        ${data.steps.map(function(s) { return '<li>' + s + '</li>'; }).join('')}
+                    </ol>
+                </div>
+                <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:12px 16px">
+                    <h4 style="font-size:.82rem;color:#f59e0b;margin-bottom:6px">🕵️ Desafio Detetive:</h4>
+                    <ul style="font-size:.78rem;color:#cbd5e1;line-height:1.6;padding-left:16px;margin:0">
+                        ${data.questions.map(function(q) { return '<li>' + q + '</li>'; }).join('')}
+                    </ul>
+                </div>
+            `;
+            missionModal.style.display = 'flex';
+            var copyBtn = document.getElementById('copyPromptBtn');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(data.prompt).then(function() {
+                        copyBtn.textContent = '✅ Copiado!';
+                        setTimeout(function() { copyBtn.textContent = '📋 Copiar Prompt'; }, 2000);
+                    });
+                });
+            }
+        };
+
+        function closeMissionModal() {
+            missionModal.style.display = 'none';
+            missionBody.innerHTML = '';
+        }
+        if (missionClose) missionClose.addEventListener('click', closeMissionModal);
+        if (missionModal) {
+            missionModal.addEventListener('click', function(e) {
+                if (e.target === missionModal) closeMissionModal();
+            });
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && missionModal.style.display === 'flex') closeMissionModal();
+        });
+    })();
+    </script>
 </body>
 </html>
