@@ -488,7 +488,7 @@
             }
         }
 
-        /* Dedicated Auth Modal */
+        /* Dedicated Auth Modal & Full-Screen Login Gate */
         .auth-modal-card {
             background: #0b1329;
             border: 1.5px solid var(--border-glow);
@@ -498,6 +498,50 @@
             padding: 28px;
             box-shadow: 0 25px 80px rgba(0, 0, 0, 0.85);
             position: relative;
+        }
+
+        .login-gate-wrapper {
+            min-height: calc(100vh - 64px);
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+        }
+
+        .login-gate-card {
+            background: rgba(11, 19, 41, 0.94);
+            border: 1.5px solid var(--border-glow);
+            border-radius: 24px;
+            width: 100%;
+            max-width: 500px;
+            padding: 32px 30px;
+            box-shadow: 0 28px 90px rgba(0, 0, 0, 0.85), 0 0 35px rgba(0, 229, 255, 0.14);
+            backdrop-filter: blur(18px);
+        }
+
+        .delete-student-btn {
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            padding: 6px 11px;
+            border-radius: 8px;
+            font-size: 0.74rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            white-space: nowrap;
+        }
+        .delete-student-btn:hover {
+            background: #ef4444;
+            border-color: #ef4444;
+            color: #fff;
+            box-shadow: 0 0 14px rgba(239, 68, 68, 0.5);
         }
 
         .adm-cloud-grid {
@@ -687,6 +731,57 @@
 </head>
 <body>
 
+    <!-- =======================================================================
+         TELA DE LOGIN OBRIGATÓRIA (ANTES DE ABRIR O MENU E CONTEÚDOS)
+    ======================================================================= -->
+    <div id="loginGateScreen" class="login-gate-wrapper">
+        <div class="login-gate-card">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:18px;">
+                <img src="arquivos-trilhando/Imagens/logo-cefet.jpg" alt="CEFET-MG" class="nav-logo">
+                <img src="arquivos-trilhando/Imagens/logo-fapemig.jpg" alt="FAPEMIG" class="nav-logo circle">
+                <div class="nav-brand-title">
+                    <span>Trilhando o Caminho do Código</span>
+                    <small>⚡ CEFET-MG &amp; FAPEMIG • PORTAL DE AULAS</small>
+                </div>
+            </div>
+
+            <span class="tr-badge-cyan">🔐 LOGIN OBRIGATÓRIO</span>
+            <h2 style="font-size:1.45rem;color:#fff;margin-top:8px;margin-bottom:6px;">Acesse o Portal &amp; Slides</h2>
+            <p style="font-size:0.86rem;color:var(--text-secondary);margin-bottom:18px;line-height:1.45;" id="gateSubtitleText">
+                Digite seu <strong>Nome Completo e Senha</strong> para abrir o menu das aulas, slides interativos e tarefas. No seu 1º acesso, seu cadastro na chamada é feito automaticamente!
+            </p>
+
+            <div class="tr-auth-tabs" style="margin-bottom:16px;">
+                <button type="button" class="tr-auth-tab active" data-gate-mode="student">🎓 Sou Aluno(a)</button>
+                <button type="button" class="tr-auth-tab" data-gate-mode="admin">🛡️ Professor (ADM)</button>
+            </div>
+
+            <form id="loginGateForm" style="display:flex;flex-direction:column;gap:13px;" onsubmit="return false;">
+                <div>
+                    <label class="tr-field-label" id="gateNameLabel" for="gateFullName">Seu Nome Completo (Nome e Sobrenome):</label>
+                    <input type="text" id="gateFullName" class="tr-input" placeholder="Ex: Lucas Almeida Santos" autocomplete="name">
+                </div>
+                <div>
+                    <label class="tr-field-label" id="gatePassLabel" for="gatePassword">Sua Senha (crie no 1º acesso ou digite a sua):</label>
+                    <input type="password" id="gatePassword" class="tr-input" placeholder="Digite sua senha (mín. 3 caracteres)" autocomplete="current-password">
+                </div>
+                <div id="gateErrorBox"></div>
+                <button type="submit" id="gateSubmitBtn" class="tr-btn-primary" style="width:100%;padding:13px;font-size:0.95rem;margin-top:4px;justify-content:center;">
+                    🚀 Entrar e Abrir Menu de Aulas
+                </button>
+            </form>
+
+            <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);font-size:0.76rem;color:#64748b;line-height:1.5;">
+                💡 <strong>Cadastro Automático:</strong> Ao entrar com seu Nome Completo e Senha, você já fica registrado como aluno(a) na lista de chamada da turma automaticamente.
+            </div>
+        </div>
+    </div>
+
+    <!-- =======================================================================
+         CONTEÚDO PRINCIPAL DO PORTAL (EXIBIDO APÓS O LOGIN)
+    ======================================================================= -->
+    <div id="classroomAppContent" style="display:none;width:100%;flex-direction:column;align-items:center;">
+
     <!-- TOP CLASSROOM BAR -->
     <nav class="classroom-navbar">
         <div class="nav-brand">
@@ -718,27 +813,10 @@
     </div>
 
     <!-- =======================================================================
-         ABA 1: MURAL & AULAS (SLIDES PÚBLICOS)
+         ABA 1: MURAL & AULAS (SLIDES)
     ======================================================================= -->
     <section class="cls-view-section active" id="view-aulas">
         <div class="grid">
-
-            <!-- SINTEC 2026 -->
-            <a href="arquivos-trilhando/Slides/sintec-slides.html" class="card" style="border-color:var(--cefet-cyan); background:rgba(0, 229, 255, 0.05); grid-column: 1 / -1; box-shadow:0 0 25px rgba(0,229,255,0.15);">
-                <div>
-                    <div class="card-tag" style="color:var(--cefet-gold); font-size:0.82rem;">
-                        <span>⭐ APRESENTAÇÃO OFICIAL • II SINTEC 2026</span>
-                        <span>PÚBLICO</span>
-                    </div>
-                    <div class="card-title" style="font-size:1.35rem; color:#ffffff;">TRILHANDO O CAMINHO DO CÓDIGO — Apresentação SINTEC 2026</div>
-                    <div class="card-desc" style="color:var(--text-primary); font-size:0.93rem;">
-                        Apresentação oral oficial (8 slides) conforme o template do evento. Apresentador: <strong>Victor Couto Zanaroli</strong>; Orientador: <strong>Prof. Me. Lázaro Eduardo da Silva</strong>; Autores: <strong>Kaique Araújo Xavier</strong> e <strong>Rafael Oliveira Zanelato</strong>. Fomento: FAPEMIG &amp; CEFET-MG.
-                    </div>
-                </div>
-                <div class="card-actions-bar">
-                    <span class="card-action-link primary-link">📊 Abrir Apresentação SINTEC (8 slides) →</span>
-                </div>
-            </a>
 
             <!-- AULA 01 -->
             <div class="card">
@@ -766,7 +844,7 @@
                     <div class="card-desc">Nivelamento de <code>print/input/variáveis</code>, tipos (<code>str</code>, <code>int</code>, <code>float</code>) e conversão, <code>if</code>, <code>elif</code> e <code>else</code>, operadores relacionais e lógicos, engenharia reversa e missões com IA.</div>
                 </div>
                 <div class="card-actions-bar">
-                    <a href="arquivos-trilhando/Slides/aula-02-slides.html" class="card-action-link primary-link">📊 Abrir Slides (21)</a>
+                    <a href="arquivos-trilhando/Slides/aula-02-slides.html" class="card-action-link primary-link">📊 Abrir Slides (20)</a>
                     <button type="button" class="card-action-link hw-link" data-open-homework="aula02">🏠 Tarefa de Casa</button>
                 </div>
             </div>
@@ -895,6 +973,8 @@
     <section class="cls-view-section" id="view-admin">
         <div id="adminViewContainer"></div>
     </section>
+
+    </div><!-- /#classroomAppContent -->
 
     <!-- =======================================================================
          MODAL DE LOGIN / CRIAR CONTA (ALUNO E ADM)
@@ -1295,8 +1375,8 @@
             // Linhas da Lista de Chamada Visual
             var chamadaRowsHtml = students.length === 0 ? `
                 <tr>
-                    <td colspan="4" style="text-align:center;color:var(--text-secondary);padding:24px;">
-                        Nenhum aluno na lista ainda. Cadastre os alunos da turma na barra azul acima para fazer a chamada!
+                    <td colspan="5" style="text-align:center;color:var(--text-secondary);padding:24px;">
+                        Nenhum aluno na lista ainda. Assim que os alunos fizerem login na tela inicial com Nome Completo e Senha, eles aparecerão aqui automaticamente!
                     </td>
                 </tr>
             ` : students.map(function(st) {
@@ -1353,6 +1433,11 @@
                             <span class="tr-badge-cyan" style="font-size:0.76rem;">
                                 📅 <strong>${totalPresences}</strong> presença(s)
                             </span>
+                        </td>
+                        <td>
+                            <button type="button" class="delete-student-btn" data-delete-student="${st.id}" data-delete-name="${escapeHtml(st.fullName)}" title="Excluir o acesso deste aluno (ideal para remover usuários de teste)">
+                                🗑️ Excluir Acesso
+                            </button>
                         </td>
                     </tr>
                 `;
@@ -1426,15 +1511,15 @@
                 </div>
 
                 <!-- ===================================================================
-                     NOVA SEÇÃO: LISTA DE CHAMADA VISUAL (PRESENÇA POR DIA) + CADASTRO
+                     NOVA SEÇÃO: LISTA DE CHAMADA VISUAL (PRESENÇA POR DIA) + GESTÃO DE ACESSO
                 =================================================================== -->
                 <div class="panel-box" style="border-color:rgba(0,229,255,0.4);">
                     <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
                         <div>
-                            <span class="tr-badge-cyan">📅 CONTROLE DE FREQUÊNCIA DA TURMA</span>
-                            <h3 style="margin-top:6px;">Lista de Chamada Visual &amp; Cadastro de Alunos</h3>
+                            <span class="tr-badge-cyan">📅 CONTROLE DE FREQUÊNCIA &amp; ACESSO DA TURMA</span>
+                            <h3 style="margin-top:6px;">Lista de Chamada Visual (Cadastro Automático no Login)</h3>
                             <p style="font-size:0.84rem;color:var(--text-secondary);">
-                                Cadastre os alunos da turma abaixo e clique no botão de presença (ou nos quadradinhos <code>A1..A10</code>) para marcar e visualizar quem veio em cada dia!
+                                Os alunos aparecem aqui <strong>automaticamente</strong> assim que fazem o login na tela inicial. Caso precise remover algum usuário de teste, clique em <strong>"🗑️ Excluir Acesso"</strong> na linha correspondente.
                             </p>
                         </div>
                         <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -1444,24 +1529,8 @@
                         </div>
                     </div>
 
-                    <!-- Barra de Cadastro Rápido de Aluno pelo Professor -->
-                    <div class="adm-quick-reg-bar" style="margin-top:14px;">
-                        <div>
-                            <label class="tr-field-label">➕ Cadastrar Aluno na Chamada (Nome Completo):</label>
-                            <input type="text" id="admQuickStuName" class="tr-input" placeholder="Ex: Gabriel Henrique Silva">
-                        </div>
-                        <div>
-                            <label class="tr-field-label">Senha Inicial do Aluno:</label>
-                            <input type="text" id="admQuickStuPass" class="tr-input" placeholder="1234" value="1234">
-                        </div>
-                        <button type="button" id="admQuickStuAddBtn" class="tr-btn-primary" style="height:41px;">
-                            ➕ Adicionar Aluno
-                        </button>
-                    </div>
-                    <div id="admQuickStuMsg"></div>
-
                     <!-- Seletor de Dia da Aula (Aula 01 a Aula 10) -->
-                    <div style="margin-top:8px;">
+                    <div style="margin-top:12px;">
                         <span class="tr-field-label">Selecione o Dia da Aula para fazer a chamada:</span>
                         <div class="chamada-day-tabs">
                             ${chamadaTabsHtml}
@@ -1477,6 +1546,7 @@
                                     <th>Chamada: ${escapeHtml(currentLessonObj ? currentLessonObj.label + ' (' + currentLessonObj.date + ')' : '')}</th>
                                     <th>Quadro Visual de Todos os Dias (A1 a A10 — Clique para alternar)</th>
                                     <th>Total</th>
+                                    <th>Gerenciar Acesso</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1636,6 +1706,17 @@ create policy "Public classroom access" on public.trilhando_sync for all using (
             container.querySelectorAll('[data-att-user]').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     cycleAttendance(btn.getAttribute('data-att-user'), btn.getAttribute('data-att-lesson'));
+                });
+            });
+
+            container.querySelectorAll('[data-delete-student]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var stuId = btn.getAttribute('data-delete-student');
+                    var stuName = btn.getAttribute('data-delete-name') || 'este usuário';
+                    if (window.confirm('Tem certeza que deseja excluir o acesso de "' + stuName + '"?\n\nIsso removerá este usuário da lista de chamada e das entregas sem afetar os outros alunos.')) {
+                        window.TrilhandoClassroom.deleteStudentByAdmin(stuId);
+                        renderAdminView();
+                    }
                 });
             });
 
@@ -1821,7 +1902,46 @@ create policy "Public classroom access" on public.trilhando_sync for all using (
             }
         }
 
+        var gateMode = 'student';
+
+        function updateLoginGateModeUI() {
+            document.querySelectorAll('[data-gate-mode]').forEach(function(btn) {
+                btn.classList.toggle('active', btn.getAttribute('data-gate-mode') === gateMode);
+            });
+            var nameLabel = document.getElementById('gateNameLabel');
+            var passLabel = document.getElementById('gatePassLabel');
+            var nameInp = document.getElementById('gateFullName');
+            var submitBtn = document.getElementById('gateSubmitBtn');
+            var errBox = document.getElementById('gateErrorBox');
+            if (errBox) errBox.innerHTML = '';
+
+            if (gateMode === 'admin') {
+                if (nameLabel) nameLabel.textContent = 'Usuário de Administrador (Tutores):';
+                if (passLabel) passLabel.textContent = 'Senha de Administrador:';
+                if (nameInp) nameInp.placeholder = 'Trilhando o Caminho do Código';
+                if (submitBtn) submitBtn.textContent = '🛡️ Entrar no Painel do Professor';
+            } else {
+                if (nameLabel) nameLabel.textContent = 'Seu Nome Completo (Nome e Sobrenome):';
+                if (passLabel) passLabel.textContent = 'Sua Senha (crie no 1º acesso ou digite a sua):';
+                if (nameInp) nameInp.placeholder = 'Ex: Lucas Almeida Santos';
+                if (submitBtn) submitBtn.textContent = '🚀 Entrar e Abrir Menu de Aulas';
+            }
+        }
+
         function renderAllViews() {
+            var user = window.TrilhandoClassroom.getCurrentUser();
+            var gateEl = document.getElementById('loginGateScreen');
+            var appEl = document.getElementById('classroomAppContent');
+
+            if (!user) {
+                if (gateEl) gateEl.style.display = 'flex';
+                if (appEl) appEl.style.display = 'none';
+                return;
+            }
+
+            if (gateEl) gateEl.style.display = 'none';
+            if (appEl) appEl.style.display = 'flex';
+
             renderNavbarUser();
             renderTarefasView();
             renderNotasView();
@@ -1829,6 +1949,41 @@ create policy "Public classroom access" on public.trilhando_sync for all using (
         }
 
         document.addEventListener('DOMContentLoaded', function() {
+            // Login Gate tabs & submit
+            document.querySelectorAll('[data-gate-mode]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    gateMode = btn.getAttribute('data-gate-mode') || 'student';
+                    updateLoginGateModeUI();
+                });
+            });
+
+            var gateForm = document.getElementById('loginGateForm');
+            if (gateForm) {
+                gateForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    var fullName = document.getElementById('gateFullName').value;
+                    var password = document.getElementById('gatePassword').value;
+                    var res = window.TrilhandoClassroom.loginOrRegister({
+                        fullName: fullName,
+                        password: password,
+                        mode: gateMode
+                    });
+                    var errBox = document.getElementById('gateErrorBox');
+                    if (!res.ok) {
+                        if (errBox) errBox.innerHTML = `<div class="tr-auth-alert">⚠️ ${escapeHtml(res.error)}</div>`;
+                    } else {
+                        if (errBox) errBox.innerHTML = '';
+                        var passEl = document.getElementById('gatePassword');
+                        if (passEl) passEl.value = '';
+                        if (res.user.role === 'admin') {
+                            switchTab('admin');
+                        } else {
+                            renderAllViews();
+                        }
+                    }
+                });
+            }
+
             // Tab clicks
             document.querySelectorAll('.cls-tab-btn').forEach(function(btn) {
                 btn.addEventListener('click', function() {

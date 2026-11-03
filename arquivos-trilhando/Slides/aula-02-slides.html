@@ -60,17 +60,17 @@
         .step-num { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: rgba(239,68,68,.3); color: #fca5a5; font-size: .68rem; font-weight: 800; margin-right: 6px; flex-shrink: 0; }
 
         /* Summary items */
-        .summary-item { display: flex; align-items: flex-start; gap: 10px; background: rgba(0,0,0,.3); border-radius: 10px; padding: 12px 14px; border: 1px solid rgba(255,255,255,.06); }
-        .summary-check { font-size: 1.2rem; flex-shrink: 0; }
-        .summary-text { font-size: .8rem; color: #cbd5e1; line-height: 1.4; }
-        .summary-text strong { color: #fff; display: block; margin-bottom: 2px; }
+        .summary-item { display: flex; align-items: flex-start; gap: 10px; background: rgba(0,0,0,.3); border-radius: 10px; padding: 9px 12px; border: 1px solid rgba(255,255,255,.06); }
+        .summary-check { font-size: 1.1rem; flex-shrink: 0; }
+        .summary-text { font-size: .78rem; color: #cbd5e1; line-height: 1.35; }
+        .summary-text strong { color: #fff; display: block; margin-bottom: 1px; }
 
         /* VS Code tutorial image slides */
-        .vscode-slide-img { width: 100%; max-height: 310px; object-fit: contain; border-radius: 12px; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 8px 32px rgba(0,0,0,.6); }
-        .shortcut-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-top: 10px; }
-        .shortcut-card { background: rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; }
-        .shortcut-keys { font-family: 'JetBrains Mono', monospace; font-size: .85rem; font-weight: 700; color: #00e5ff; background: rgba(0,229,255,.1); border: 1px solid rgba(0,229,255,.3); border-radius: 8px; padding: 6px 12px; white-space: nowrap; flex-shrink: 0; }
-        .shortcut-desc { font-size: .78rem; color: #cbd5e1; line-height: 1.4; }
+        .vscode-slide-img { width: 100%; max-height: 255px; object-fit: contain; border-radius: 12px; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 8px 32px rgba(0,0,0,.6); }
+        .shortcut-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-top: 8px; }
+        .shortcut-card { background: rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; }
+        .shortcut-keys { font-family: 'JetBrains Mono', monospace; font-size: .82rem; font-weight: 700; color: #00e5ff; background: rgba(0,229,255,.1); border: 1px solid rgba(0,229,255,.3); border-radius: 8px; padding: 5px 10px; white-space: nowrap; flex-shrink: 0; }
+        .shortcut-desc { font-size: .76rem; color: #cbd5e1; line-height: 1.35; }
         .shortcut-desc strong { color: #fff; display: block; }
 
         /* QR Code (cadastro slide) */
@@ -89,11 +89,11 @@
         .qr-link-btn.cyan:hover { background: rgba(0,229,255,.22); }
 
         /* Mini challenge box */
-        .challenge-box { background: rgba(236,72,153,.07); border: 1.5px solid rgba(236,72,153,.35); border-radius: 14px; padding: 16px 18px; }
-        .challenge-box h4 { color: #f472b6; font-size: .9rem; margin-bottom: 8px; }
-        .challenge-box p, .challenge-box li { font-size: .82rem; color: #e2e8f0; line-height: 1.6; }
+        .challenge-box { background: rgba(236,72,153,.07); border: 1.5px solid rgba(236,72,153,.35); border-radius: 14px; padding: 12px 16px; }
+        .challenge-box h4 { color: #f472b6; font-size: .88rem; margin-bottom: 6px; }
+        .challenge-box p, .challenge-box li { font-size: .8rem; color: #e2e8f0; line-height: 1.5; }
         .challenge-box ul { padding-left: 16px; }
-        .timer-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.2); border-radius: 100px; padding: 3px 12px; font-size: .72rem; font-weight: 700; color: #f472b6; margin-bottom: 8px; }
+        .timer-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.2); border-radius: 100px; padding: 3px 10px; font-size: .7rem; font-weight: 700; color: #f472b6; margin-bottom: 6px; }
     </style>
 </head>
 <body>
@@ -128,108 +128,36 @@
     <main class="presentation-stage">
 
     <!-- ═══════════════════════════════════════════════════════
-         PARTE 0 — ABERTURA E CADASTRO
+         PARTE 0 — ABERTURA DA AULA
     ═══════════════════════════════════════════════════════ -->
 
-        <!-- SLIDE 1 — CADASTRO / QR CODE DOS FORMULÁRIOS -->
+        <!-- SLIDE 1 — CAPA DA AULA -->
         <section class="slide active"
-            data-notes="&lt;strong&gt;Cadastro — Alunos Novos (0–5 min):&lt;/strong&gt; Projete este slide logo na recepção para que todos os alunos (principalmente os novos) façam o cadastro oficial e o Formulário T0. Dados obrigatórios: Nome completo (sem abreviação), CPF e e-mail ativo. ➡️ Próximo slide: abertura da Aula 2.">
-            <div class="slide-header">
-                <span class="slide-step">⚠️ CADASTRO OBRIGATÓRIO &amp; PRESENÇA</span>
-                <h2 class="slide-title">Formulários Oficiais da Aula</h2>
-                <p class="slide-subtitle">Seu passaporte para a emissão do certificado FAPEMING / CEFET-MG</p>
-            </div>
-            <div class="slide-body">
-                <div class="qr-dual-grid">
-                    <!-- QR Cadastro -->
-                    <div class="qr-card gold-card">
-                        <div style="width:100%">
-                            <h4 style="color:#fbbf24">📝 Cadastro do Aluno</h4>
-                            <ul>
-                                <li><strong>Nome Completo</strong> — sem abreviações</li>
-                                <li><strong>CPF</strong> — para validação acadêmica</li>
-                                <li><strong>E-mail Ativo</strong> — receberá o certificado</li>
-                            </ul>
-                        </div>
-                        <div style="display:flex;flex-direction:column;align-items:center;width:100%">
-                            <div class="qrcode-container" title="Clique para expandir o QR Code"
-                                style="background:#fff;padding:10px;border-radius:14px;border:2px solid #fbbf24;box-shadow:0 0 20px rgba(251,191,36,.4);margin:6px 0;cursor:pointer">
-                                <img src="../Imagens/qrcode-cadastro.jpeg" alt="QR Code Cadastro de Alunos"
-                                    class="qrcode-img" style="width:140px;height:140px;display:block">
-                            </div>
-                            <p style="font-size:.72rem;color:#fbbf24;font-weight:700;margin-bottom:8px">📲 Aponte a câmera ou <strong>clique para expandir</strong></p>
-                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfCJOSWWcLluYev1PleqBY1V2N5altAIb2xQPTqDQ6PS6pp1g/viewform?usp=dialog" target="_blank" class="qr-link-btn gold">📝 Link direto do Cadastro</a>
-                        </div>
-                    </div>
-                    <!-- QR T0 -->
-                    <div class="qr-card cyan-card">
-                        <div style="width:100%">
-                            <h4 style="color:#00e5ff">📋 Formulário T0 — Linha de Base</h4>
-                            <ul>
-                                <li><strong>Responda com honestidade</strong> — avaliação diagnóstica</li>
-                                <li><strong>Individual</strong> — sem consultas externas</li>
-                                <li><strong>Importante:</strong> ponto de partida para o certificado</li>
-                            </ul>
-                        </div>
-                        <div style="display:flex;flex-direction:column;align-items:center;width:100%">
-                            <div class="qrcode-container" title="Clique para expandir o QR Code"
-                                style="background:#fff;padding:10px;border-radius:14px;border:2px solid #00e5ff;box-shadow:0 0 20px rgba(0,229,255,.4);margin:6px 0;cursor:pointer">
-                                <img src="../Imagens/qrcode-t0.jpeg" alt="QR Code Formulário T0"
-                                    class="qrcode-img" style="width:140px;height:140px;display:block">
-                            </div>
-                            <p style="font-size:.72rem;color:#00e5ff;font-weight:700;margin-bottom:8px">📲 Aponte a câmera ou <strong>clique para expandir</strong></p>
-                            <a href="https://docs.google.com/forms/d/1cti5P6zpnqMxsRky83t9_mzwyhQPSM-l3XNMAq9LNyU/edit" target="_blank" class="qr-link-btn cyan">🔗 Link direto do Formulário T0</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <!-- SLIDE 2 — CAPA DA AULA -->
-        <section class="slide"
-            data-notes="&lt;strong&gt;Abertura (5–8 min):&lt;/strong&gt; Diga: &lt;em&gt;'Gente, sejam bem-vindos à Aula 2! Quem quiser acompanhar os slides no próprio celular, basta apontar a câmera para o QR Code à direita!'&lt;/em&gt; ➡️ Próximo slide: orientação do VS Code.">
+            data-notes="&lt;strong&gt;Abertura (0–5 min):&lt;/strong&gt; Diga: &lt;em&gt;'Gente, sejam bem-vindos à Aula 2! Vocês já podem acompanhar todos os slides diretamente pelo Portal Trilhando Classroom após fazer o login!'&lt;/em&gt; ➡️ Próximo slide: orientação do VS Code.">
             <div class="slide-header">
                 <span class="slide-step">MÓDULO 02 • TOMADA DE DECISÃO</span>
                 <h1 class="slide-title">O Computador Aprende a Pensar</h1>
                 <p class="slide-subtitle">Variáveis, Tipos e Estruturas Condicionais com <code>if</code>, <code>elif</code> e <code>else</code></p>
             </div>
             <div class="slide-body">
-                <div class="grid-2" style="gap:20px;align-items:center">
-                    <div style="display:flex;flex-direction:column;gap:12px">
-                        <div class="pillar-card" style="text-align:left;display:flex;align-items:center;gap:14px;padding:14px 18px">
-                            <div class="pillar-icon" style="margin-bottom:0">🔊</div>
-                            <div>
-                                <div class="pillar-name">print()</div>
-                                <div class="pillar-label">O computador <strong>FALA</strong></div>
-                            </div>
-                        </div>
-                        <div class="pillar-card" style="text-align:left;display:flex;align-items:center;gap:14px;padding:14px 18px">
-                            <div class="pillar-icon" style="margin-bottom:0">🎤</div>
-                            <div>
-                                <div class="pillar-name">input()</div>
-                                <div class="pillar-label">O computador <strong>ESCUTA</strong></div>
-                            </div>
-                        </div>
-                        <div class="pillar-card" style="text-align:left;display:flex;align-items:center;gap:14px;padding:14px 18px;border-color:rgba(0,229,255,.45);background:rgba(0,229,255,.07)">
-                            <div class="pillar-icon" style="margin-bottom:0">🧠</div>
-                            <div>
-                                <div class="pillar-name">if / elif / else</div>
-                                <div class="pillar-label">O computador <strong>DECIDE</strong> ← hoje!</div>
-                            </div>
-                        </div>
+                <div class="pillar-grid" style="gap:16px">
+                    <div class="pillar-card">
+                        <div class="pillar-icon">🔊</div>
+                        <div class="pillar-name">print()</div>
+                        <div class="pillar-label">O computador <strong>FALA</strong> e exibe mensagens na tela</div>
                     </div>
-                    <div class="content-box" style="padding:18px;background:rgba(0,229,255,.05);border:1.5px solid rgba(0,229,255,.35);text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center">
-                        <div style="font-size:.78rem;font-weight:800;color:#00e5ff;letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">📱 Acompanhe no seu Celular</div>
-                        <p style="font-size:.75rem;color:#cbd5e1;margin-bottom:10px;max-width:280px;line-height:1.4">Aponte a câmera para abrir esta apresentação no seu dispositivo e acompanhar de perto!</p>
-                        <div class="qrcode-container" title="Clique para expandir o QR Code dos Slides" style="background:#fff;padding:10px;border-radius:14px;border:2px solid #00e5ff;box-shadow:0 0 20px rgba(0,229,255,.3);cursor:pointer;margin-bottom:8px">
-                            <img src="../Imagens/qrcode-slides-aula02.png" alt="QR Code — Slides da Aula 02" class="qrcode-img" style="width:130px;height:130px;display:block">
-                        </div>
-                        <p style="font-size:.7rem;color:#00e5ff;font-weight:700;margin-bottom:6px">📲 Clique na imagem para expandir</p>
-                        <a href="https://victorzanaroli.github.io/Project-FAPEMING/arquivos-trilhando/Slides/aula-02-slides.html" target="_blank" class="qr-link-btn cyan" style="font-size:.72rem;padding:6px 14px">🌐 Link direto dos Slides</a>
+                    <div class="pillar-card">
+                        <div class="pillar-icon">🎤</div>
+                        <div class="pillar-name">input()</div>
+                        <div class="pillar-label">O computador <strong>ESCUTA</strong> o que o usuário digita</div>
+                    </div>
+                    <div class="pillar-card" style="border-color:rgba(0,229,255,.45);background:rgba(0,229,255,.07)">
+                        <div class="pillar-icon">🧠</div>
+                        <div class="pillar-name">if / elif / else</div>
+                        <div class="pillar-label">O computador <strong>DECIDE</strong> qual caminho seguir ← hoje!</div>
                     </div>
                 </div>
-                <div style="text-align:center;margin-top:14px;font-size:.78rem;color:#64748b">
+                <div style="text-align:center;margin-top:12px;font-size:.8rem;color:#94a3b8">
                     ⏱️ Duração total: 3 horas &nbsp;|&nbsp; VS Code + IA (Gemini/ChatGPT) como parceira
                 </div>
             </div>
@@ -513,10 +441,10 @@
                             </ul>
                         </div>
                     </div>
-                    <div style="display:flex;flex-direction:column;gap:10px">
-                        <div class="content-box" style="padding:14px;background:rgba(0,0,0,.4)">
-                            <h4 style="font-size:.82rem;color:#64748b;margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em">ESTRUTURA DO INT E FLOAT:</h4>
-                            <div class="prompt-code" style="font-size:.8rem;line-height:1.8">
+                    <div style="display:flex;flex-direction:column;gap:8px">
+                        <div class="content-box" style="padding:12px 14px;background:rgba(0,0,0,.4)">
+                            <h4 style="font-size:.8rem;color:#64748b;margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em">ESTRUTURA DO INT E FLOAT:</h4>
+                            <div class="prompt-code" style="font-size:.78rem;line-height:1.5">
 <span class="cm"># 1. Com INT (número inteiro):</span>
 <span class="kw">variavel</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Pergunta: "</span>))
 <span class="kw">resultado</span> = variavel * <span class="num">12</span>
@@ -529,8 +457,8 @@
 <span class="fn">print</span>(<span class="str">f"Total: R$ <span class="kw">{total}</span>"</span>)
                             </div>
                         </div>
-                        <div class="content-box tip-box" style="padding:12px;font-size:.8rem">
-                            <strong>Terminou antes?</strong><br>
+                        <div class="content-box tip-box" style="padding:10px 12px;font-size:.78rem">
+                            <strong>Terminou antes?</strong>
                             <span style="color:#94a3b8">Tente fazer a Opção A e a Opção B no mesmo arquivo!</span>
                         </div>
                     </div>
@@ -792,8 +720,8 @@
             </div>
             <div class="slide-body">
                 <div class="grid-2" style="gap:14px;align-items:start">
-                    <div class="content-box" style="background:rgba(0,0,0,.45)">
-                        <div class="prompt-code" style="font-size:.78rem;line-height:1.85">
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:12px">
+                        <div class="prompt-code" style="font-size:.76rem;line-height:1.55">
 <span class="fn">print</span>(<span class="str">"=== LABIRINTO MÁGICO ==="</span>)
 <span class="kw">escolha</span> = <span class="fn">input</span>(<span class="str">"Qual porta? (1, 2 ou 3): "</span>)
 
@@ -811,11 +739,11 @@
     <span class="fn">print</span>(<span class="str">"⚠️ Porta inválida!"</span>)
                         </div>
                     </div>
-                    <div style="display:flex;flex-direction:column;gap:12px">
+                    <div style="display:flex;flex-direction:column;gap:10px">
                         <div class="engage-label">❓ Perguntas para a turma</div>
-                        <div class="content-box" style="padding:14px;margin-top:0;font-size:.85rem"><p><strong>1.</strong> Quantas condições <code>if/elif/else</code> existem neste código?</p></div>
-                        <div class="content-box" style="padding:14px;font-size:.85rem"><p><strong>2.</strong> O que acontece se o jogador digitar "A" no teclado?</p></div>
-                        <div class="content-box" style="padding:14px;font-size:.85rem"><p><strong>3.</strong> Se trocarmos <code>==</code> por <code>!=</code> na linha da porta 1, o que muda na lógica?</p></div>
+                        <div class="content-box" style="padding:12px;margin-top:0;font-size:.83rem"><p><strong>1.</strong> Quantas condições <code>if/elif/else</code> existem neste código?</p></div>
+                        <div class="content-box" style="padding:12px;font-size:.83rem"><p><strong>2.</strong> O que acontece se o jogador digitar "A" no teclado?</p></div>
+                        <div class="content-box" style="padding:12px;font-size:.83rem"><p><strong>3.</strong> Se trocarmos <code>==</code> por <code>!=</code> na linha da porta 1, o que muda na lógica?</p></div>
                     </div>
                 </div>
             </div>
@@ -975,21 +903,21 @@
                         <div class="summary-item"><span class="summary-check">✅</span><div class="summary-text"><strong>elif → Mais opções de decisão</strong>Verificado só se o if anterior for falso</div></div>
                         <div class="summary-item"><span class="summary-check">✅</span><div class="summary-text"><strong>else → O Plano B</strong>Executa quando nenhuma condição é verdadeira</div></div>
                     </div>
-                    <div style="display:flex;flex-direction:column;gap:12px">
-                        <div class="content-box tip-box" style="padding:14px">
-                            <h4 style="font-size:.85rem;margin-bottom:8px">💾 Como salvar:</h4>
-                            <ol style="font-size:.8rem;color:#cbd5e1;line-height:2;padding-left:16px">
+                    <div style="display:flex;flex-direction:column;gap:8px">
+                        <div class="content-box tip-box" style="padding:11px 14px">
+                            <h4 style="font-size:.83rem;margin-bottom:4px">💾 Como salvar:</h4>
+                            <ol style="font-size:.78rem;color:#cbd5e1;line-height:1.65;padding-left:16px">
                                 <li><strong>Ctrl + S</strong> no VS Code</li>
                                 <li>Nome: <code>quiz_[seunome].py</code></li>
                                 <li>Pasta: Documentos → TRILHANDO → Aula02</li>
                             </ol>
                         </div>
-                        <div style="background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.25);border-radius:12px;padding:14px">
-                            <h4 style="font-size:.85rem;margin-bottom:8px;color:#00e5ff">🚀 Próxima Aula:</h4>
-                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5">Laços de Repetição (<code>while</code> e <code>for</code>) — o computador vai aprender a <strong>REPETIR</strong> ações!</p>
+                        <div style="background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.25);border-radius:12px;padding:11px 14px">
+                            <h4 style="font-size:.83rem;margin-bottom:4px;color:#00e5ff">🚀 Próxima Aula:</h4>
+                            <p style="font-size:.78rem;color:#cbd5e1;line-height:1.45">Laços de Repetição (<code>while</code> e <code>for</code>) — o computador vai aprender a <strong>REPETIR</strong> ações!</p>
                         </div>
-                        <div class="engage-label">❓ Rodada de Fechamento</div>
-                        <div class="content-box" style="padding:12px;margin-top:0;font-size:.85rem">
+                        <div class="engage-label" style="margin-bottom:4px">❓ Rodada de Fechamento</div>
+                        <div class="content-box" style="padding:10px 12px;margin-top:0;font-size:.82rem">
                             <strong>"Me fala em UMA palavra o que você achou da aula de hoje!"</strong>
                         </div>
                     </div>
@@ -1042,7 +970,7 @@
 
     <!-- ── Bottom Navigation ── -->
     <footer class="bottom-nav">
-        <div class="slide-counter" id="slideCounter">1 / 21</div>
+        <div class="slide-counter" id="slideCounter">1 / 20</div>
         <div class="nav-buttons">
             <button class="nav-btn" id="prevBtn">← Anterior <span class="key-hint">←</span></button>
             <button class="nav-btn primary" id="nextBtn">Próximo → <span class="key-hint">→</span></button>

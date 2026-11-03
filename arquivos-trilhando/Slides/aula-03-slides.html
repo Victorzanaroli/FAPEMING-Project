@@ -313,14 +313,14 @@
             </div>
             <div class="slide-body">
                 <div class="grid-2" style="gap:14px;align-items:start">
-                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:14px">
-                        <div class="prompt-code" style="font-size:.75rem;line-height:1.7">
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:10px 12px">
+                        <div class="prompt-code" style="font-size:.73rem;line-height:1.42;padding:8px 12px">
 <span class="kw">vidas</span> = <span class="num">3</span>
 <span class="kw">pontos</span> = <span class="num">0</span>
 <span class="fn">print</span>(<span class="str">"🎮 BEM-VINDO AO DESAFIO DA SORTE!"</span>)
 
 <span class="kw">while</span> vidas &gt; <span class="num">0</span>:
-    <span class="fn">print</span>(<span class="str">f"\n❤️ Vidas: <span class="kw">{vidas}</span> | ⭐ Pontos: <span class="kw">{pontos}</span>"</span>)
+    <span class="fn">print</span>(<span class="str">f"❤️ Vidas: <span class="kw">{vidas}</span> | ⭐ Pontos: <span class="kw">{pontos}</span>"</span>)
     <span class="kw">try</span>:
         <span class="kw">chute</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Adivinhe o número (1 a 5): "</span>))
         <span class="kw">if</span> chute &lt; <span class="num">1</span> <span class="kw">or</span> chute &gt; <span class="num">5</span>:
@@ -335,22 +335,22 @@
     <span class="kw">except</span> <span class="fn">ValueError</span>:
         <span class="fn">print</span>(<span class="str">"🚨 Digite apenas números inteiros!"</span>)
 
-<span class="fn">print</span>(<span class="str">f"\n💥 GAME OVER! Pontuação: <span class="kw">{pontos}</span>"</span>)
+<span class="fn">print</span>(<span class="str">f"💥 GAME OVER! Pontuação: <span class="kw">{pontos}</span>"</span>)
                         </div>
                     </div>
-                    <div style="display:flex;flex-direction:column;gap:10px">
-                        <div class="engage-label">🕵️ Perguntas de Detetive</div>
-                        <div class="content-box" style="padding:12px 14px;font-size:.83rem">
+                    <div style="display:flex;flex-direction:column;gap:8px">
+                        <div class="engage-label" style="margin-bottom:4px">🕵️ Perguntas de Detetive</div>
+                        <div class="content-box" style="padding:10px 12px;font-size:.81rem">
                             <strong>1. O que acontece se o jogador digitar <code>"três"</code> por extenso?</strong><br>
-                            <span style="color:#94a3b8;font-size:.78rem">→ Cai no <code>except ValueError</code>, mostra o alerta e <strong>não perde vida</strong>!</span>
+                            <span style="color:#94a3b8;font-size:.77rem">→ Cai no <code>except ValueError</code>, mostra o alerta e <strong>não perde vida</strong>!</span>
                         </div>
-                        <div class="content-box" style="padding:12px 14px;font-size:.83rem">
+                        <div class="content-box" style="padding:10px 12px;font-size:.81rem">
                             <strong>2. Qual linha impede que o jogador perca vida se digitar <code>9</code>?</strong><br>
-                            <span style="color:#94a3b8;font-size:.78rem">→ O <code>if chute &lt; 1 or chute &gt; 5:</code> junto com o <code>continue</code>!</span>
+                            <span style="color:#94a3b8;font-size:.77rem">→ O <code>if chute &lt; 1 or chute &gt; 5:</code> junto com o <code>continue</code>!</span>
                         </div>
-                        <div class="content-box" style="padding:12px 14px;font-size:.83rem">
+                        <div class="content-box" style="padding:10px 12px;font-size:.81rem">
                             <strong>3. O que faz o laço <code>while</code> parar de rodar?</strong><br>
-                            <span style="color:#94a3b8;font-size:.78rem">→ Quando a variável <code>vidas</code> chega a <code>0</code> após 3 chutes errados!</span>
+                            <span style="color:#94a3b8;font-size:.77rem">→ Quando a variável <code>vidas</code> chega a <code>0</code> após 3 chutes errados!</span>
                         </div>
                     </div>
                 </div>

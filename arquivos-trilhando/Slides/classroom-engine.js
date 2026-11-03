@@ -7,6 +7,7 @@
     'use strict';
 
     const STORAGE_KEY_USERS = 'trilhando_classroom_users_v1';
+    const STORAGE_KEY_DELETED_USERS = 'trilhando_classroom_deleted_users_v1';
     const STORAGE_KEY_SUBMISSIONS = 'trilhando_classroom_submissions_v1';
     const STORAGE_KEY_ATTENDANCE = 'trilhando_classroom_attendance_v1';
     const STORAGE_KEY_SESSION = 'trilhando_classroom_session_v1';
@@ -765,6 +766,23 @@
         return cfg;
     }
 
+    function getDeletedUserIds() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY_DELETED_USERS);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) return parsed;
+            }
+        } catch (e) {}
+        return [];
+    }
+
+    function saveDeletedUserIds(ids) {
+        const unique = Array.from(new Set(ids || []));
+        localStorage.setItem(STORAGE_KEY_DELETED_USERS, JSON.stringify(unique));
+        return unique;
+    }
+
     function getUsers() {
         let users = [];
         try {
@@ -773,8 +791,9 @@
         } catch (e) {
             users = [];
         }
-        // Keep only student accounts + the single official Admin account
-        users = users.filter(u => u.role !== 'admin');
+        const deletedIds = new Set(getDeletedUserIds());
+        // Keep only non-deleted student accounts + the single official Admin account
+        users = users.filter(u => u && u.role !== 'admin' && !deletedIds.has(u.id));
         DEFAULT_ADMINS.forEach(adm => {
             users.unshift(Object.assign({}, adm, { createdAt: '2026-09-16T15:00:00Z' }));
         });
@@ -787,9 +806,15 @@
     }
 
     function getSubmissions() {
+        const deletedIds = new Set(getDeletedUserIds());
         try {
             const raw = localStorage.getItem(STORAGE_KEY_SUBMISSIONS);
-            if (raw) return JSON.parse(raw);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) {
+                    return parsed.filter(s => s && !deletedIds.has(s.userId));
+                }
+            }
         } catch (e) {}
         return [];
     }
@@ -803,12 +828,16 @@
     // Estrutura: { [userId]: { [lessonKey]: { present: true/false, updatedAt: ISOString } } }
     function getAttendance() {
         let att = {};
+        const deletedIds = new Set(getDeletedUserIds());
         try {
             const raw = localStorage.getItem(STORAGE_KEY_ATTENDANCE);
             if (raw) att = JSON.parse(raw);
         } catch (e) {
             att = {};
         }
+        Object.keys(att).forEach(uid => {
+            if (deletedIds.has(uid)) delete att[uid];
+        });
         // Also merge any attendance saved directly on student objects (for zero-config cloud sync compatibility)
         const users = getUsers();
         users.forEach(u => {
@@ -884,7 +913,43 @@
         return att;
     }
 
-    // Cadastro rápido de aluno pelo ADM (na aba de Chamada)
+    // Excluir acesso de um aluno (ex: usuário de teste) pelo ADM
+    function deleteStudentByAdmin(userId) {
+        if (!userId) return { ok: false, error: 'ID de aluno inválido.' };
+        const users = getUsers();
+        const target = users.find(u => u.id === userId);
+        if (!target) {
+            return { ok: false, error: 'Aluno não encontrado.' };
+        }
+        if (target.role === 'admin') {
+            return { ok: false, error: 'A conta de Administrador não pode ser excluída.' };
+        }
+
+        const deletedIds = getDeletedUserIds();
+        deletedIds.push(userId);
+        saveDeletedUserIds(deletedIds);
+
+        const remainingUsers = users.filter(u => u.id !== userId);
+        localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(remainingUsers));
+
+        const att = getAttendance();
+        delete att[userId];
+        localStorage.setItem(STORAGE_KEY_ATTENDANCE, JSON.stringify(att));
+
+        const remainingSubs = getSubmissions().filter(s => s.userId !== userId);
+        localStorage.setItem(STORAGE_KEY_SUBMISSIONS, JSON.stringify(remainingSubs));
+
+        const curr = getCurrentUser();
+        if (curr && curr.id === userId) {
+            setCurrentUser(null);
+        }
+
+        pushStateDirectToCloudAsync();
+        window.dispatchEvent(new CustomEvent('trilhando:datasync'));
+        return { ok: true, deletedUser: target };
+    }
+
+    // Cadastro rápido de aluno pelo ADM (caso queira adicionar manualmente)
     function registerStudentByAdmin(fullName, password) {
         const cleanName = String(fullName || '').trim().replace(/\s+/g, ' ');
         const cleanPass = String(password || '1234').trim() || '1234';
@@ -916,7 +981,17 @@
     function getCurrentUser() {
         try {
             const raw = localStorage.getItem(STORAGE_KEY_SESSION);
-            if (raw) return JSON.parse(raw);
+            if (raw) {
+                const u = JSON.parse(raw);
+                if (u && u.role !== 'admin') {
+                    const deletedIds = new Set(getDeletedUserIds());
+                    if (deletedIds.has(u.id)) {
+                        localStorage.removeItem(STORAGE_KEY_SESSION);
+                        return null;
+                    }
+                }
+                return u;
+            }
         } catch (e) {}
         return null;
     }
@@ -930,14 +1005,10 @@
         window.dispatchEvent(new CustomEvent('trilhando:authchange', { detail: { user } }));
     }
 
-    // Optional Supabase Cloud Sync (uses simple REST table `trilhando_sync` with id='main_state')
-    // Suporta múltiplos ADMs logados simultaneamente: faz pull + merge por timestamp antes de enviar!
-    async function syncToCloudAsync() {
+    async function pushStateDirectToCloudAsync() {
         const cfg = getCloudConfig();
         if (!cfg.enabled || !cfg.supabaseUrl || !cfg.supabaseKey) return false;
         try {
-            // Pull & merge remote first so two tutors editing at the same time never overwrite each other
-            await pullFromCloudAsync(true);
             const payload = {
                 id: 'main_state',
                 users_json: getUsers(),
@@ -955,6 +1026,21 @@
                 body: JSON.stringify(payload)
             });
             return res.ok;
+        } catch (err) {
+            console.warn('Direct cloud push warning:', err);
+            return false;
+        }
+    }
+
+    // Optional Supabase Cloud Sync (uses simple REST table `trilhando_sync` with id='main_state')
+    // Suporta múltiplos ADMs logados simultaneamente: faz pull + merge por timestamp antes de enviar!
+    async function syncToCloudAsync() {
+        const cfg = getCloudConfig();
+        if (!cfg.enabled || !cfg.supabaseUrl || !cfg.supabaseKey) return false;
+        try {
+            // Pull & merge remote first so two tutors editing at the same time never overwrite each other
+            await pullFromCloudAsync(true);
+            return await pushStateDirectToCloudAsync();
         } catch (err) {
             console.warn('Cloud sync warning:', err);
             return false;
@@ -998,9 +1084,13 @@
     }
 
     function mergeUsersWithAttendance(localUsers, remoteUsers) {
+        const deletedIds = new Set(getDeletedUserIds());
         const map = new Map();
-        localUsers.forEach(u => map.set(u.id, Object.assign({}, u)));
+        localUsers.forEach(u => {
+            if (u && !deletedIds.has(u.id)) map.set(u.id, Object.assign({}, u));
+        });
         remoteUsers.forEach(rem => {
+            if (!rem || deletedIds.has(rem.id)) return;
             const loc = map.get(rem.id);
             if (!loc) {
                 map.set(rem.id, Object.assign({}, rem));
@@ -1024,9 +1114,13 @@
     }
 
     function mergeById(localArr, remoteArr, key) {
+        const deletedIds = new Set(getDeletedUserIds());
         const map = new Map();
-        localArr.forEach(item => map.set(item[key], item));
+        localArr.forEach(item => {
+            if (item && !deletedIds.has(item.userId)) map.set(item[key], item);
+        });
         remoteArr.forEach(item => {
+            if (!item || deletedIds.has(item.userId)) return;
             const existing = map.get(item[key]);
             if (!existing || (item.updatedAt && (!existing.updatedAt || item.updatedAt >= existing.updatedAt))) {
                 map.set(item[key], item);
@@ -1036,7 +1130,7 @@
     }
 
     // =========================================================================
-    // AUTHENTICATION API (NOME COMPLETO + SENHA)
+    // AUTHENTICATION API (LOGIN AUTOMÁTICO = CADASTRO NA CHAMADA)
     // =========================================================================
 
     function loginOrRegister({ fullName, password, mode }) {
@@ -1057,40 +1151,64 @@
             (u.username && normalizeName(u.username) === norm)
         );
 
-        if (mode === 'register') {
-            if (existing) {
-                if (existing.password === cleanPass) {
-                    setCurrentUser(existing);
-                    return { ok: true, user: existing, message: 'Você já tinha cadastro! Entrando na sua conta...' };
-                }
-                return { ok: false, error: 'Já existe um cadastro com esse Nome Completo. Use a aba "Já tenho conta" ou fale com o professor se esqueceu a senha.' };
+        // Se selecionou modo ADM explicitamente
+        if (mode === 'admin') {
+            const adm = users.find(u =>
+                u.role === 'admin' && (
+                    normalizeName(u.fullName) === norm ||
+                    (u.username && normalizeName(u.username) === norm)
+                )
+            );
+            if (!adm) {
+                return { ok: false, error: 'Usuário de Administrador inválido. Use "Trilhando o Caminho do Código" (ou "trilhando-adm").' };
             }
-            if (!cleanName.includes(' ')) {
-                return { ok: false, error: 'Digite seu Nome Completo (nome e sobrenome) para diferenciarmos de outros colegas!' };
+            if (adm.password !== cleanPass) {
+                return { ok: false, error: 'Senha de Administrador incorreta!' };
             }
-            const newUser = {
-                id: 'stu_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
-                fullName: cleanName,
-                password: cleanPass,
-                role: 'student',
-                createdAt: new Date().toISOString(),
-                updatedAt: new Date().toISOString()
-            };
-            users.push(newUser);
-            saveUsers(users);
-            setCurrentUser(newUser);
-            return { ok: true, user: newUser, message: 'Conta criada com sucesso! Bem-vindo(a)!' };
-        } else {
-            // Login mode
-            if (!existing) {
-                return { ok: false, error: 'Usuário não encontrado. Se for seu primeiro acesso, clique em "Criar Conta de Aluno" (é só Nome Completo e Senha!).' };
-            }
-            if (existing.password !== cleanPass) {
-                return { ok: false, error: 'Senha incorreta! Tente novamente ou peça ajuda ao professor.' };
-            }
-            setCurrentUser(existing);
-            return { ok: true, user: existing, message: 'Login realizado com sucesso!' };
+            setCurrentUser(adm);
+            return { ok: true, user: adm, isNew: false, message: 'Login de Administrador realizado!' };
         }
+
+        // Fluxo unificado do Aluno (e também reconhece ADM caso digite as credenciais de ADM):
+        // Se já existe na lista de chamada/usuários, valida a senha e entra.
+        if (existing) {
+            if (existing.password === cleanPass) {
+                setCurrentUser(existing);
+                return { ok: true, user: existing, isNew: false, message: 'Bem-vindo(a) de volta!' };
+            }
+            return {
+                ok: false,
+                error: 'Já existe um aluno com esse Nome Completo, mas a senha informada está incorreta. Digite a senha criada no seu 1º acesso ou peça ajuda ao professor.'
+            };
+        }
+
+        // Se ainda não existe, ao fazer o login o aluno já é cadastrado automaticamente na turma e na Lista de Chamada!
+        if (!cleanName.includes(' ')) {
+            return {
+                ok: false,
+                error: 'Digite seu Nome Completo (nome e sobrenome, ex: Lucas Almeida) para registrarmos você na lista de chamada!'
+            };
+        }
+
+        const now = new Date().toISOString();
+        const newUser = {
+            id: 'stu_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+            fullName: cleanName,
+            password: cleanPass,
+            role: 'student',
+            attendance: {},
+            createdAt: now,
+            updatedAt: now
+        };
+        users.push(newUser);
+        saveUsers(users);
+        setCurrentUser(newUser);
+        return {
+            ok: true,
+            user: newUser,
+            isNew: true,
+            message: 'Login realizado! Você já foi cadastrado automaticamente na lista de chamada da turma!'
+        };
     }
 
     function submitHomework(lessonKey, answersMap, practicalCode, studentComment) {
@@ -1406,18 +1524,14 @@
                         <div>
                             <span class="tr-badge-cyan">🔐 IDENTIFICAÇÃO DO ESTUDANTE</span>
                             <h4>Entre com seu Nome Completo e Senha para salvar sua nota</h4>
-                            <p>Não precisa de e-mail! Se for sua primeira vez, crie sua conta em 5 segundos.</p>
-                        </div>
-                        <div class="tr-auth-tabs">
-                            <button type="button" class="tr-auth-tab ${authMode === 'register' ? 'active' : ''}" data-mode="register">✨ Criar Conta</button>
-                            <button type="button" class="tr-auth-tab ${authMode === 'login' ? 'active' : ''}" data-mode="login">🔑 Já tenho conta</button>
+                            <p>Ao fazer login pela 1ª vez, você já é cadastrado automaticamente na lista de chamada!</p>
                         </div>
                     </div>
                     <div class="tr-auth-form-row">
                         <input type="text" id="trHwFullName" class="tr-input" placeholder="Seu Nome Completo (ex: João Pedro Silva)" autocomplete="name">
                         <input type="password" id="trHwPassword" class="tr-input" placeholder="Sua Senha" autocomplete="current-password">
                         <button type="button" id="trHwAuthSubmitBtn" class="tr-btn-primary">
-                            ${authMode === 'register' ? 'Criar e Continuar →' : 'Entrar →'}
+                            🚀 Entrar →
                         </button>
                     </div>
                     ${authFeedback ? `<div class="tr-auth-alert">${escapeHtml(authFeedback)}</div>` : ''}
@@ -1679,6 +1793,113 @@
         renderModalContent();
     }
 
+    // =========================================================================
+    // 3. TELA DE LOGIN OBRIGATÓRIA NOS SLIDES (SE ACESSAR DIRETO SEM LOGAR)
+    // =========================================================================
+
+    function ensureSlideAuthGate() {
+        const isSlidePage = Boolean(document.querySelector('.presentation-stage'));
+        if (!isSlidePage) return;
+
+        let gate = document.getElementById('trSlideAuthGate');
+        const user = getCurrentUser();
+
+        if (user) {
+            if (gate) gate.remove();
+            return;
+        }
+
+        if (!gate) {
+            gate = document.createElement('div');
+            gate.id = 'trSlideAuthGate';
+            gate.className = 'tr-hw-modal-overlay active';
+            gate.style.background = 'radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.25), rgba(4, 9, 22, 0.98) 70%)';
+            gate.style.zIndex = '100000';
+            document.body.appendChild(gate);
+        }
+
+        let gateMode = 'student';
+        let gateError = '';
+
+        function renderGate() {
+            gate.innerHTML = `
+                <div class="tr-hw-modal-card" style="max-width:480px;padding:28px;border-radius:22px;">
+                    <span class="tr-badge-cyan">🔐 LOGIN OBRIGATÓRIO • TRILHANDO CLASSROOM</span>
+                    <h2 style="font-size:1.35rem;color:#fff;margin-top:10px;margin-bottom:6px;">Identifique-se para ver os Slides</h2>
+                    <p style="font-size:0.84rem;color:#94a3b8;line-height:1.5;margin-bottom:16px;">
+                        Digite seu <strong>Nome Completo e Senha</strong>. Ao entrar pela 1ª vez, você já é cadastrado automaticamente na lista de chamada!
+                    </p>
+
+                    <div class="tr-auth-tabs" style="margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                        <button type="button" class="tr-auth-tab ${gateMode === 'student' ? 'active' : ''}" data-gmode="student">🎓 Sou Aluno(a)</button>
+                        <button type="button" class="tr-auth-tab ${gateMode === 'admin' ? 'active' : ''}" data-gmode="admin">🛡️ Professor (ADM)</button>
+                    </div>
+
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                        <div>
+                            <label class="tr-field-label">${gateMode === 'admin' ? 'Usuário ADM da Equipe:' : 'Seu Nome Completo (Nome e Sobrenome):'}</label>
+                            <input type="text" id="trSlideGateName" class="tr-input" placeholder="${gateMode === 'admin' ? 'Trilhando o Caminho do Código' : 'Ex: Lucas Almeida Santos'}" autocomplete="name">
+                        </div>
+                        <div>
+                            <label class="tr-field-label">Sua Senha:</label>
+                            <input type="password" id="trSlideGatePass" class="tr-input" placeholder="${gateMode === 'admin' ? 'Senha de Administrador' : 'Crie ou digite sua senha'}" autocomplete="current-password">
+                        </div>
+                        ${gateError ? `<div class="tr-auth-alert">⚠️ ${escapeHtml(gateError)}</div>` : ''}
+                        <button type="button" id="trSlideGateSubmit" class="tr-btn-primary" style="width:100%;padding:12px;margin-top:4px;font-size:0.92rem;">
+                            🚀 Entrar e Liberar Slides
+                        </button>
+                    </div>
+                </div>
+            `;
+
+            gate.querySelectorAll('[data-gmode]').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    gateMode = btn.getAttribute('data-gmode');
+                    gateError = '';
+                    renderGate();
+                });
+            });
+
+            const nameInp = document.getElementById('trSlideGateName');
+            const passInp = document.getElementById('trSlideGatePass');
+            const submitBtn = document.getElementById('trSlideGateSubmit');
+
+            const handleLogin = () => {
+                const res = loginOrRegister({
+                    fullName: nameInp ? nameInp.value : '',
+                    password: passInp ? passInp.value : '',
+                    mode: gateMode
+                });
+                if (!res.ok) {
+                    gateError = res.error;
+                    renderGate();
+                } else {
+                    gate.remove();
+                }
+            };
+
+            if (submitBtn) {
+                submitBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    handleLogin();
+                });
+            }
+            [nameInp, passInp].forEach(inp => {
+                if (!inp) return;
+                inp.addEventListener('keydown', (e) => {
+                    e.stopPropagation();
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleLogin();
+                    }
+                });
+            });
+        }
+
+        renderGate();
+    }
+
     // Pull latest data from cloud on startup if configured
     pullFromCloudAsync();
 
@@ -1690,6 +1911,9 @@
         DEFAULT_ADMINS,
         getUsers,
         saveUsers,
+        getDeletedUserIds,
+        saveDeletedUserIds,
+        deleteStudentByAdmin,
         getSubmissions,
         saveSubmissions,
         getAttendance,
@@ -1707,11 +1931,15 @@
         syncToCloudAsync,
         pullFromCloudAsync,
         renderNotebookLMQuiz,
-        openHomeworkModal
+        openHomeworkModal,
+        ensureSlideAuthGate
     };
 
-    // Auto-initialize quizzes on slide pages if container exists
+    // Auto-initialize quizzes & auth gate on slide pages
     document.addEventListener('DOMContentLoaded', () => {
+        ensureSlideAuthGate();
+        window.addEventListener('trilhando:authchange', ensureSlideAuthGate);
+
         const quizEl = document.querySelector('[data-trilhando-quiz]');
         if (quizEl) {
             const lessonKey = quizEl.getAttribute('data-trilhando-quiz');
