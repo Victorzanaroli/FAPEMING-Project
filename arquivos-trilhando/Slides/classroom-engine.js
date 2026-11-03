@@ -748,12 +748,24 @@
             .replace(/[\u0300-\u036f]/g, '');
     }
 
+    // Configuração Oficial em Nuvem (Supabase) pré-configurada para todos os PCs da faculdade e celulares
+    const DEFAULT_CLOUD_CONFIG = {
+        supabaseUrl: 'https://tghgdgersdkxkjhljjjp.supabase.co',
+        supabaseKey: 'sb_publishable_n10sVPI_PHdeRTur22ky1A_pBVSTTDz',
+        enabled: true
+    };
+
     function getCloudConfig() {
         try {
             const raw = localStorage.getItem(STORAGE_KEY_CLOUD);
-            if (raw) return JSON.parse(raw);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (parsed && parsed.supabaseUrl && parsed.supabaseKey) {
+                    return parsed;
+                }
+            }
         } catch (e) {}
-        return { supabaseUrl: '', supabaseKey: '', enabled: false };
+        return Object.assign({}, DEFAULT_CLOUD_CONFIG);
     }
 
     function saveCloudConfig(url, key, enabled) {
@@ -793,7 +805,7 @@
         }
         const deletedIds = new Set(getDeletedUserIds());
         // Keep only non-deleted student accounts + the single official Admin account
-        users = users.filter(u => u && u.role !== 'admin' && !deletedIds.has(u.id));
+        users = users.filter(u => u && u.role !== 'admin' && u.role !== 'system_tombstones' && !deletedIds.has(u.id));
         DEFAULT_ADMINS.forEach(adm => {
             users.unshift(Object.assign({}, adm, { createdAt: '2026-09-16T15:00:00Z' }));
         });
@@ -1009,9 +1021,19 @@
         const cfg = getCloudConfig();
         if (!cfg.enabled || !cfg.supabaseUrl || !cfg.supabaseKey) return false;
         try {
+            const usersPayload = getUsers().slice();
+            const deletedIds = getDeletedUserIds();
+            if (deletedIds.length > 0) {
+                usersPayload.push({
+                    id: '__deleted_tombstones__',
+                    role: 'system_tombstones',
+                    deletedIds: deletedIds,
+                    updatedAt: new Date().toISOString()
+                });
+            }
             const payload = {
                 id: 'main_state',
-                users_json: getUsers(),
+                users_json: usersPayload,
                 submissions_json: getSubmissions(),
                 updated_at: new Date().toISOString()
             };
@@ -1084,13 +1106,22 @@
     }
 
     function mergeUsersWithAttendance(localUsers, remoteUsers) {
-        const deletedIds = new Set(getDeletedUserIds());
+        // Merge remote tombstones (deleted test users) first so every PC respects admin deletions
+        let currentDeleted = getDeletedUserIds();
+        remoteUsers.forEach(rem => {
+            if (rem && rem.id === '__deleted_tombstones__' && Array.isArray(rem.deletedIds)) {
+                currentDeleted = saveDeletedUserIds(currentDeleted.concat(rem.deletedIds));
+            }
+        });
+        const deletedIds = new Set(currentDeleted);
         const map = new Map();
         localUsers.forEach(u => {
-            if (u && !deletedIds.has(u.id)) map.set(u.id, Object.assign({}, u));
+            if (u && u.role !== 'system_tombstones' && !deletedIds.has(u.id)) {
+                map.set(u.id, Object.assign({}, u));
+            }
         });
         remoteUsers.forEach(rem => {
-            if (!rem || deletedIds.has(rem.id)) return;
+            if (!rem || rem.role === 'system_tombstones' || deletedIds.has(rem.id)) return;
             const loc = map.get(rem.id);
             if (!loc) {
                 map.set(rem.id, Object.assign({}, rem));
@@ -1130,7 +1161,7 @@
     }
 
     // =========================================================================
-    // AUTHENTICATION API (LOGIN AUTOMÁTICO = CADASTRO NA CHAMADA)
+    // AUTHENTICATION API (SEPARADO EM "ENTRAR NA CONTA" VS "CRIAR CONTA")
     // =========================================================================
 
     function loginOrRegister({ fullName, password, mode }) {
@@ -1151,7 +1182,7 @@
             (u.username && normalizeName(u.username) === norm)
         );
 
-        // Se selecionou modo ADM explicitamente
+        // 1. MODO PROFESSOR / ADM
         if (mode === 'admin') {
             const adm = users.find(u =>
                 u.role === 'admin' && (
@@ -1169,24 +1200,36 @@
             return { ok: true, user: adm, isNew: false, message: 'Login de Administrador realizado!' };
         }
 
-        // Fluxo unificado do Aluno (e também reconhece ADM caso digite as credenciais de ADM):
-        // Se já existe na lista de chamada/usuários, valida a senha e entra.
-        if (existing) {
-            if (existing.password === cleanPass) {
-                setCurrentUser(existing);
-                return { ok: true, user: existing, isNew: false, message: 'Bem-vindo(a) de volta!' };
+        // 2. MODO ENTRAR NA CONTA (NÃO CRIA CONTA SE ERRAR O NOME OU A SENHA!)
+        if (mode === 'login') {
+            if (!existing) {
+                return {
+                    ok: false,
+                    error: 'Usuário não encontrado! Verifique se digitou seu Nome Completo corretamente ou clique na aba "✨ Criar Conta" se for seu 1º acesso.'
+                };
             }
+            if (existing.password !== cleanPass) {
+                return {
+                    ok: false,
+                    error: 'Senha incorreta! Verifique sua senha e tente novamente.'
+                };
+            }
+            setCurrentUser(existing);
+            return { ok: true, user: existing, isNew: false, message: 'Login realizado com sucesso!' };
+        }
+
+        // 3. MODO CRIAR CONTA (CADASTRA O ALUNO AUTOMATICAMENTE NA LISTA DE CHAMADA)
+        if (existing) {
             return {
                 ok: false,
-                error: 'Já existe um aluno com esse Nome Completo, mas a senha informada está incorreta. Digite a senha criada no seu 1º acesso ou peça ajuda ao professor.'
+                error: 'Já existe uma conta cadastrada com este Nome Completo! Clique na aba "🔑 Entrar na Conta" e digite sua senha para entrar.'
             };
         }
 
-        // Se ainda não existe, ao fazer o login o aluno já é cadastrado automaticamente na turma e na Lista de Chamada!
         if (!cleanName.includes(' ')) {
             return {
                 ok: false,
-                error: 'Digite seu Nome Completo (nome e sobrenome, ex: Lucas Almeida) para registrarmos você na lista de chamada!'
+                error: 'Digite seu Nome Completo (nome e sobrenome, ex: Lucas Almeida) para criar sua conta e entrar na lista de chamada!'
             };
         }
 
@@ -1207,7 +1250,7 @@
             ok: true,
             user: newUser,
             isNew: true,
-            message: 'Login realizado! Você já foi cadastrado automaticamente na lista de chamada da turma!'
+            message: 'Conta criada com sucesso! Você já foi cadastrado na lista de chamada da turma!'
         };
     }
 
@@ -1818,35 +1861,42 @@
             document.body.appendChild(gate);
         }
 
-        let gateMode = 'student';
+        let gateMode = 'login';
         let gateError = '';
 
         function renderGate() {
+            const isReg = gateMode === 'register';
+            const isAdm = gateMode === 'admin';
             gate.innerHTML = `
-                <div class="tr-hw-modal-card" style="max-width:480px;padding:28px;border-radius:22px;">
+                <div class="tr-hw-modal-card" style="max-width:500px;padding:28px;border-radius:22px;">
                     <span class="tr-badge-cyan">🔐 LOGIN OBRIGATÓRIO • TRILHANDO CLASSROOM</span>
-                    <h2 style="font-size:1.35rem;color:#fff;margin-top:10px;margin-bottom:6px;">Identifique-se para ver os Slides</h2>
+                    <h2 style="font-size:1.35rem;color:#fff;margin-top:10px;margin-bottom:6px;">
+                        ${isReg ? 'Criar Conta de Aluno(a)' : (isAdm ? 'Acesso do Professor (ADM)' : 'Entrar na Minha Conta')}
+                    </h2>
                     <p style="font-size:0.84rem;color:#94a3b8;line-height:1.5;margin-bottom:16px;">
-                        Digite seu <strong>Nome Completo e Senha</strong>. Ao entrar pela 1ª vez, você já é cadastrado automaticamente na lista de chamada!
+                        ${isReg
+                            ? 'Crie seu acesso com <strong>Nome Completo e Senha</strong> para já ficar salvo na chamada e usar nas próximas aulas!'
+                            : 'Digite seu <strong>Nome Completo e Senha</strong> cadastrados (se errar o nome ou a senha, o acesso é bloqueado).'}
                     </p>
 
-                    <div class="tr-auth-tabs" style="margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-                        <button type="button" class="tr-auth-tab ${gateMode === 'student' ? 'active' : ''}" data-gmode="student">🎓 Sou Aluno(a)</button>
+                    <div class="tr-auth-tabs" style="margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+                        <button type="button" class="tr-auth-tab ${gateMode === 'login' ? 'active' : ''}" data-gmode="login">🔑 Entrar na Conta</button>
+                        <button type="button" class="tr-auth-tab ${gateMode === 'register' ? 'active' : ''}" data-gmode="register">✨ Criar Conta</button>
                         <button type="button" class="tr-auth-tab ${gateMode === 'admin' ? 'active' : ''}" data-gmode="admin">🛡️ Professor (ADM)</button>
                     </div>
 
                     <div style="display:flex;flex-direction:column;gap:12px;">
                         <div>
-                            <label class="tr-field-label">${gateMode === 'admin' ? 'Usuário ADM da Equipe:' : 'Seu Nome Completo (Nome e Sobrenome):'}</label>
-                            <input type="text" id="trSlideGateName" class="tr-input" placeholder="${gateMode === 'admin' ? 'Trilhando o Caminho do Código' : 'Ex: Lucas Almeida Santos'}" autocomplete="name">
+                            <label class="tr-field-label">${isAdm ? 'Usuário ADM da Equipe:' : 'Seu Nome Completo (Nome e Sobrenome):'}</label>
+                            <input type="text" id="trSlideGateName" class="tr-input" placeholder="${isAdm ? 'Trilhando o Caminho do Código' : 'Ex: Lucas Almeida Santos'}" autocomplete="name">
                         </div>
                         <div>
-                            <label class="tr-field-label">Sua Senha:</label>
-                            <input type="password" id="trSlideGatePass" class="tr-input" placeholder="${gateMode === 'admin' ? 'Senha de Administrador' : 'Crie ou digite sua senha'}" autocomplete="current-password">
+                            <label class="tr-field-label">${isReg ? 'Crie uma Senha (para usar nas próximas aulas):' : 'Sua Senha:'}</label>
+                            <input type="password" id="trSlideGatePass" class="tr-input" placeholder="${isAdm ? 'Senha de Administrador' : (isReg ? 'Crie uma senha (mín. 3 caracteres)' : 'Digite sua senha cadastrada')}" autocomplete="current-password">
                         </div>
                         ${gateError ? `<div class="tr-auth-alert">⚠️ ${escapeHtml(gateError)}</div>` : ''}
                         <button type="button" id="trSlideGateSubmit" class="tr-btn-primary" style="width:100%;padding:12px;margin-top:4px;font-size:0.92rem;">
-                            🚀 Entrar e Liberar Slides
+                            ${isReg ? '✨ Criar Minha Conta e Liberar Slides' : '🔑 Entrar na Conta e Liberar Slides'}
                         </button>
                     </div>
                 </div>
@@ -1865,7 +1915,9 @@
             const passInp = document.getElementById('trSlideGatePass');
             const submitBtn = document.getElementById('trSlideGateSubmit');
 
-            const handleLogin = () => {
+            const handleLogin = async () => {
+                if (submitBtn) submitBtn.textContent = '⏳ Verificando na nuvem...';
+                await pullFromCloudAsync(true);
                 const res = loginOrRegister({
                     fullName: nameInp ? nameInp.value : '',
                     password: passInp ? passInp.value : '',
@@ -1900,8 +1952,11 @@
         renderGate();
     }
 
-    // Pull latest data from cloud on startup if configured
+    // Pull latest data from cloud on startup and every 10s so all lab PCs and ADM stay synced
     pullFromCloudAsync();
+    setInterval(() => {
+        pullFromCloudAsync(false);
+    }, 10000);
 
     // Expose public API globally
     window.TrilhandoClassroom = {

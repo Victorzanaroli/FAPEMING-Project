@@ -746,13 +746,14 @@
             </div>
 
             <span class="tr-badge-cyan">🔐 LOGIN OBRIGATÓRIO</span>
-            <h2 style="font-size:1.45rem;color:#fff;margin-top:8px;margin-bottom:6px;">Acesse o Portal &amp; Slides</h2>
+            <h2 style="font-size:1.45rem;color:#fff;margin-top:8px;margin-bottom:6px;" id="gateTitleText">Entrar na Minha Conta</h2>
             <p style="font-size:0.86rem;color:var(--text-secondary);margin-bottom:18px;line-height:1.45;" id="gateSubtitleText">
-                Digite seu <strong>Nome Completo e Senha</strong> para abrir o menu das aulas, slides interativos e tarefas. No seu 1º acesso, seu cadastro na chamada é feito automaticamente!
+                Já tem cadastro? Digite seu <strong>Nome Completo e Senha</strong> para abrir o menu das aulas. Se for sua 1ª vez, clique na aba <strong>"✨ Criar Conta"</strong>!
             </p>
 
-            <div class="tr-auth-tabs" style="margin-bottom:16px;">
-                <button type="button" class="tr-auth-tab active" data-gate-mode="student">🎓 Sou Aluno(a)</button>
+            <div class="tr-auth-tabs" style="margin-bottom:16px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;">
+                <button type="button" class="tr-auth-tab active" data-gate-mode="login">🔑 Entrar na Conta</button>
+                <button type="button" class="tr-auth-tab" data-gate-mode="register">✨ Criar Conta</button>
                 <button type="button" class="tr-auth-tab" data-gate-mode="admin">🛡️ Professor (ADM)</button>
             </div>
 
@@ -762,17 +763,17 @@
                     <input type="text" id="gateFullName" class="tr-input" placeholder="Ex: Lucas Almeida Santos" autocomplete="name">
                 </div>
                 <div>
-                    <label class="tr-field-label" id="gatePassLabel" for="gatePassword">Sua Senha (crie no 1º acesso ou digite a sua):</label>
-                    <input type="password" id="gatePassword" class="tr-input" placeholder="Digite sua senha (mín. 3 caracteres)" autocomplete="current-password">
+                    <label class="tr-field-label" id="gatePassLabel" for="gatePassword">Sua Senha Cadastrada:</label>
+                    <input type="password" id="gatePassword" class="tr-input" placeholder="Digite sua senha" autocomplete="current-password">
                 </div>
                 <div id="gateErrorBox"></div>
                 <button type="submit" id="gateSubmitBtn" class="tr-btn-primary" style="width:100%;padding:13px;font-size:0.95rem;margin-top:4px;justify-content:center;">
-                    🚀 Entrar e Abrir Menu de Aulas
+                    🔑 Entrar na Conta e Abrir Menu
                 </button>
             </form>
 
             <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);font-size:0.76rem;color:#64748b;line-height:1.5;">
-                💡 <strong>Cadastro Automático:</strong> Ao entrar com seu Nome Completo e Senha, você já fica registrado como aluno(a) na lista de chamada da turma automaticamente.
+                💡 <strong>Como funciona:</strong> Na 1ª vez, clique em <em>"✨ Criar Conta"</em> para salvar seu Nome Completo e Senha (isso já cadastra você na chamada automaticamente). Nas aulas seguintes, use <em>"🔑 Entrar na Conta"</em>!
             </div>
         </div>
     </div>
@@ -1610,7 +1611,7 @@
                         <button type="button" id="admSaveCloudBtn" class="tr-btn-primary">💾 Salvar &amp; Sincronizar</button>
                     </div>
                     <details class="tr-hint-details">
-                        <summary>📜 Ver comando SQL para criar a tabela no Supabase (leva 10 segundos no SQL Editor)</summary>
+                        <summary>📜 Ver comando SQL para criar/liberar a tabela no Supabase (leva 10 segundos no SQL Editor)</summary>
                         <pre class="nb-q-code" style="margin-top:8px;"><code>create table if not exists public.trilhando_sync (
   id text primary key,
   users_json jsonb default '[]'::jsonb,
@@ -1618,7 +1619,9 @@
   updated_at timestamptz default now()
 );
 alter table public.trilhando_sync enable row level security;
-create policy "Public classroom access" on public.trilhando_sync for all using (true) with check (true);</code></pre>
+drop policy if exists "Public classroom access" on public.trilhando_sync;
+create policy "Public classroom access" on public.trilhando_sync for all using (true) with check (true);
+grant all on table public.trilhando_sync to anon, authenticated, service_role;</code></pre>
                     </details>
 
                     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);">
@@ -1902,29 +1905,46 @@ create policy "Public classroom access" on public.trilhando_sync for all using (
             }
         }
 
-        var gateMode = 'student';
+        var gateMode = 'login';
 
         function updateLoginGateModeUI() {
             document.querySelectorAll('[data-gate-mode]').forEach(function(btn) {
                 btn.classList.toggle('active', btn.getAttribute('data-gate-mode') === gateMode);
             });
+            var titleText = document.getElementById('gateTitleText');
+            var subtitleText = document.getElementById('gateSubtitleText');
             var nameLabel = document.getElementById('gateNameLabel');
             var passLabel = document.getElementById('gatePassLabel');
             var nameInp = document.getElementById('gateFullName');
+            var passInp = document.getElementById('gatePassword');
             var submitBtn = document.getElementById('gateSubmitBtn');
             var errBox = document.getElementById('gateErrorBox');
             if (errBox) errBox.innerHTML = '';
 
             if (gateMode === 'admin') {
+                if (titleText) titleText.textContent = 'Acesso do Professor (ADM)';
+                if (subtitleText) subtitleText.innerHTML = 'Entre com o usuário oficial da equipe (<code>Trilhando o Caminho do Código</code>) e a senha de administrador.';
                 if (nameLabel) nameLabel.textContent = 'Usuário de Administrador (Tutores):';
                 if (passLabel) passLabel.textContent = 'Senha de Administrador:';
                 if (nameInp) nameInp.placeholder = 'Trilhando o Caminho do Código';
+                if (passInp) passInp.placeholder = 'Digite a senha de ADM';
                 if (submitBtn) submitBtn.textContent = '🛡️ Entrar no Painel do Professor';
-            } else {
+            } else if (gateMode === 'register') {
+                if (titleText) titleText.textContent = 'Criar Conta de Aluno(a)';
+                if (subtitleText) subtitleText.innerHTML = 'Crie seu acesso com <strong>Nome Completo e Senha</strong>. Seu nome já entrará automaticamente na lista de chamada e ficará salvo para as próximas aulas!';
                 if (nameLabel) nameLabel.textContent = 'Seu Nome Completo (Nome e Sobrenome):';
-                if (passLabel) passLabel.textContent = 'Sua Senha (crie no 1º acesso ou digite a sua):';
+                if (passLabel) passLabel.textContent = 'Crie uma Senha (para usar nas próximas vezes):';
                 if (nameInp) nameInp.placeholder = 'Ex: Lucas Almeida Santos';
-                if (submitBtn) submitBtn.textContent = '🚀 Entrar e Abrir Menu de Aulas';
+                if (passInp) passInp.placeholder = 'Crie uma senha (mín. 3 caracteres)';
+                if (submitBtn) submitBtn.textContent = '✨ Criar Conta e Abrir Menu de Aulas';
+            } else {
+                if (titleText) titleText.textContent = 'Entrar na Minha Conta';
+                if (subtitleText) subtitleText.innerHTML = 'Já tem cadastro? Digite seu <strong>Nome Completo e Senha</strong> para abrir o menu das aulas. Se for sua 1ª vez, clique na aba <strong>"✨ Criar Conta"</strong>!';
+                if (nameLabel) nameLabel.textContent = 'Seu Nome Completo (Nome e Sobrenome):';
+                if (passLabel) passLabel.textContent = 'Sua Senha Cadastrada:';
+                if (nameInp) nameInp.placeholder = 'Ex: Lucas Almeida Santos';
+                if (passInp) passInp.placeholder = 'Digite sua senha cadastrada';
+                if (submitBtn) submitBtn.textContent = '🔑 Entrar na Conta e Abrir Menu';
             }
         }
 
@@ -1952,22 +1972,30 @@ create policy "Public classroom access" on public.trilhando_sync for all using (
             // Login Gate tabs & submit
             document.querySelectorAll('[data-gate-mode]').forEach(function(btn) {
                 btn.addEventListener('click', function() {
-                    gateMode = btn.getAttribute('data-gate-mode') || 'student';
+                    gateMode = btn.getAttribute('data-gate-mode') || 'login';
                     updateLoginGateModeUI();
                 });
             });
 
             var gateForm = document.getElementById('loginGateForm');
             if (gateForm) {
-                gateForm.addEventListener('submit', function(e) {
+                gateForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
                     var fullName = document.getElementById('gateFullName').value;
                     var password = document.getElementById('gatePassword').value;
+                    var submitBtn = document.getElementById('gateSubmitBtn');
+                    var origLabel = submitBtn ? submitBtn.textContent : '';
+                    if (submitBtn) submitBtn.textContent = '⏳ Verificando na nuvem...';
+
+                    await window.TrilhandoClassroom.pullFromCloudAsync(true);
+
                     var res = window.TrilhandoClassroom.loginOrRegister({
                         fullName: fullName,
                         password: password,
                         mode: gateMode
                     });
+                    if (submitBtn) submitBtn.textContent = origLabel;
+
                     var errBox = document.getElementById('gateErrorBox');
                     if (!res.ok) {
                         if (errBox) errBox.innerHTML = `<div class="tr-auth-alert">⚠️ ${escapeHtml(res.error)}</div>`;
