@@ -12,19 +12,33 @@
     const STORAGE_KEY_ATTENDANCE = 'trilhando_classroom_attendance_v1';
     const STORAGE_KEY_SESSION = 'trilhando_classroom_session_v1';
     const STORAGE_KEY_CLOUD = 'trilhando_classroom_cloud_cfg_v1';
+    const STORAGE_KEY_UNLOCKED_LESSONS = 'trilhando_classroom_unlocked_lessons_v1';
+    const STORAGE_KEY_UNLOCKED_QUIZZES = 'trilhando_classroom_unlocked_quizzes_v1';
+    const STORAGE_KEY_RECENT_USERS = 'trilhando_classroom_recent_users_v1';
 
-    // Cronograma oficial de aulas para a Lista de Chamada Visual (Presença por dia)
+    // Padrão inicial: Aula 01 (feita em 07/10) e Aula 02 (amanhã 04/11) liberadas
+    const DEFAULT_UNLOCKED_LESSONS = ['aula01', 'aula02'];
+
+    // Padrão inicial de quizzes liberados: vazio (o quiz começa trancado para os alunos durante a aula de apresentação)
+    const DEFAULT_UNLOCKED_QUIZZES = [];
+
+    // Limpa qualquer sessão legada persistida no localStorage para garantir que a tela de login sempre apareça em novos acessos
+    try {
+        localStorage.removeItem(STORAGE_KEY_SESSION);
+    } catch (e) {}
+
+    // Cronograma oficial de aulas atualizado (Aula 01 em 07/10, Aula 02 em 04/11, quartas-feiras)
     const LESSONS_SCHEDULE = [
-        { key: 'aula01', shortLabel: 'A1', label: 'Aula 01', date: '16/09', topic: 'Abertura, T0 & Prompt' },
-        { key: 'aula02', shortLabel: 'A2', label: 'Aula 02', date: '23/09', topic: 'Variáveis & Condicionais (if/else)' },
-        { key: 'aula03', shortLabel: 'A3', label: 'Aula 03', date: '30/09', topic: 'Erros (try/except) & Repetição' },
-        { key: 'aula04', shortLabel: 'A4', label: 'Aula 04', date: '07/10', topic: 'Estruturas de Dados: Listas' },
-        { key: 'aula05', shortLabel: 'A5', label: 'Aula 05', date: '14/10', topic: 'Modularização & Funções (def)' },
-        { key: 'aula06', shortLabel: 'A6', label: 'Aula 06', date: '21/10', topic: 'Dicionários & Integração' },
-        { key: 'aula07', shortLabel: 'A7', label: 'Aula 07', date: '28/10', topic: 'Prototipagem Mobile com Flet' },
-        { key: 'aula08', shortLabel: 'A8', label: 'Aula 08', date: '04/11', topic: 'Sprint de Desenvolvimento Flet' },
-        { key: 'aula09', shortLabel: 'A9', label: 'Aula 09', date: '11/11', topic: 'Polimento, Testes & Ensaio' },
-        { key: 'aula10', shortLabel: 'A10', label: 'Aula 10', date: '18/11', topic: 'Feira Final, Pós-teste T1 & Certificados' }
+        { key: 'aula01', shortLabel: 'A1', label: 'Aula 01', date: '07/10', topic: 'Abertura, T0 & Prompt' },
+        { key: 'aula02', shortLabel: 'A2', label: 'Aula 02', date: '04/11', topic: 'Variáveis & Condicionais (if/else)' },
+        { key: 'aula03', shortLabel: 'A3', label: 'Aula 03', date: '11/11', topic: 'Erros (try/except) & Repetição' },
+        { key: 'aula04', shortLabel: 'A4', label: 'Aula 04', date: '18/11', topic: 'Estruturas de Dados: Listas' },
+        { key: 'aula05', shortLabel: 'A5', label: 'Aula 05', date: '25/11', topic: 'Modularização & Funções (def)' },
+        { key: 'aula06', shortLabel: 'A6', label: 'Aula 06', date: '02/12', topic: 'Dicionários & Integração' },
+        { key: 'aula07', shortLabel: 'A7', label: 'Aula 07', date: '09/12', topic: 'Prototipagem Mobile com Flet' },
+        { key: 'aula08', shortLabel: 'A8', label: 'Aula 08', date: '16/12', topic: 'Sprint de Desenvolvimento Flet' },
+        { key: 'aula09', shortLabel: 'A9', label: 'Aula 09', date: '23/12', topic: 'Polimento, Testes & Ensaio' },
+        { key: 'aula10', shortLabel: 'A10', label: 'Aula 10', date: '30/12', topic: 'Feira Final, Pós-teste T1 & Certificados' }
     ];
 
     // Default Admin Accounts (Victor + 2 Discentes do Projeto)
@@ -61,7 +75,7 @@
                             letter: 'A',
                             text: 'input("Olá, turma!")',
                             isCorrect: false,
-                            explanation: 'O comando input() serve para o computador ESCUTAR (ler o que o usuário digita), e não apenas falar.'
+                            explanation: 'O comando input() serve para o computador ESCUTAR (ler o que o usuário digita no teclado), e não apenas falar.'
                         },
                         {
                             letter: 'B',
@@ -71,15 +85,15 @@
                         },
                         {
                             letter: 'C',
-                            text: 'mostrar("Olá, turma!")',
+                            text: 'escreva("Olá, turma!")',
                             isCorrect: false,
-                            explanation: 'O Python usa palavras em inglês. O comando "mostrar()" não existe por padrão na linguagem.'
+                            explanation: 'Em linguagens em português (como o Portugol) usamos "escreva", mas o Python usa termos em inglês: o comando correto é print().'
                         },
                         {
                             letter: 'D',
-                            text: 'if("Olá, turma!")',
+                            text: 'texto("Olá, turma!")',
                             isCorrect: false,
-                            explanation: 'O comando if serve para tomar decisões (se algo acontecer), não para exibir mensagens na tela.'
+                            explanation: '"texto" não é um comando padrão do Python para exibir mensagens; o comando oficial de saída é print().'
                         }
                     ]
                 },
@@ -97,21 +111,21 @@
                         },
                         {
                             letter: 'B',
-                            text: 'O programa apaga o que estava escrito na tela e fecha sozinho.',
+                            text: 'O programa apenas exibe a pergunta na tela, mas não salva a resposta digitada em lugar nenhum.',
                             isCorrect: false,
-                            explanation: 'O input() pausa o programa esperando o usuário digitar e apertar Enter, ele não fecha o programa.'
+                            explanation: 'Como escrevemos "heroi = input(...)", o sinal de igual garante que a resposta do jogador fica guardada na variável!'
                         },
                         {
                             letter: 'C',
-                            text: 'A variável "heroi" vai guardar sempre o número 0.',
+                            text: 'A variável "heroi" é criada vazia e o Python ignora o que o usuário digitou.',
                             isCorrect: false,
-                            explanation: 'A variável vai guardar exatamente o texto que a pessoa digitar no terminal, e não 0.'
+                            explanation: 'O Python pega exatamente o texto que a pessoa digitou e armazena dentro da variável "heroi".'
                         },
                         {
                             letter: 'D',
-                            text: 'O Python dá erro porque variáveis não podem guardar nomes de personagens.',
+                            text: 'O programa dá erro porque faltou colocar o comando print() antes do input().',
                             isCorrect: false,
-                            explanation: 'Variáveis podem guardar textos (strings) normalmente! Guardar nomes é um dos usos mais comuns.'
+                            explanation: 'O input() já exibe o texto da pergunta sozinho entre os parênteses, não sendo necessário colocar print() antes.'
                         }
                     ]
                 },
@@ -129,7 +143,7 @@
                         },
                         {
                             letter: 'B',
-                            text: 'Falso! O Python adivinha sozinho que 15 é um número inteiro sem precisar do int().',
+                            text: 'Falso! O Python converte sozinho para número inteiro sempre que o usuário digita apenas dígitos.',
                             isCorrect: false,
                             explanation: 'O input() nunca converte sozinho: sem o int(), se você somar "5" + "3", ele junta os textos e vira "53"!'
                         },
@@ -141,9 +155,9 @@
                         },
                         {
                             letter: 'D',
-                            text: 'Verdadeiro, mas só quando usamos f-string no código.',
+                            text: 'Verdadeiro, mas apenas se a frase da pergunta contiver palavras.',
                             isCorrect: false,
-                            explanation: 'O input() retorna texto (str) sempre, independentemente de ter f-string ou não no restante do código.'
+                            explanation: 'O retorno do input() é SEMPRE do tipo texto (str), independentemente do que foi escrito na mensagem da pergunta.'
                         }
                     ]
                 },
@@ -167,9 +181,9 @@
                         },
                         {
                             letter: 'C',
-                            text: '15',
+                            text: 'Dá erro de sintaxe, pois o sinal de + não pode ser usado entre textos.',
                             isCorrect: false,
-                            explanation: 'O operador + não multiplica valores, e como são dois textos ("5" e "3"), ele apenas cola um ao lado do outro ("53").'
+                            explanation: 'O sinal de + funciona perfeitamente com textos em Python, mas para juntar (concatenar) palavras uma ao lado da outra.'
                         },
                         {
                             letter: 'D',
@@ -189,25 +203,25 @@
                             letter: 'A',
                             text: 'int',
                             isCorrect: false,
-                            explanation: 'O int() serve apenas para números INTEIROS (sem casas decimais, como 10 ou 25). Com 12.50 ele daria erro!'
+                            explanation: 'O int() serve apenas para números INTEIROS (sem casas decimais, como 10 ou 25). Com 12.50 ele geraria um erro!'
                         },
                         {
                             letter: 'B',
                             text: 'str',
                             isCorrect: false,
-                            explanation: 'O str é texto! Com texto não conseguimos somar o preço do lanche com o preço da bebida.'
+                            explanation: 'O str é texto! Com texto não conseguimos fazer operações matemáticas, como somar o preço do lanche com o suco.'
                         },
                         {
                             letter: 'C',
                             text: 'float',
                             isCorrect: true,
-                            explanation: 'Isso aí! O tipo float guarda números com casas decimais (usando ponto, como 12.50 ou 1.75).'
+                            explanation: 'Isso aí! O tipo float guarda números com casas decimais (usando ponto flutuante, como 12.50 ou 1.75).'
                         },
                         {
                             letter: 'D',
-                            text: 'print',
+                            text: 'round',
                             isCorrect: false,
-                            explanation: 'O print() apenas exibe valores na tela, ele não converte texto em número decimal.'
+                            explanation: 'A função round() serve para arredondar valores já numéricos, mas para ler números com vírgula/ponto usamos float().'
                         }
                     ]
                 },
@@ -219,7 +233,7 @@
                     options: [
                         {
                             letter: 'A',
-                            text: 'Não há diferença, os dois fazem a mesma coisa.',
+                            text: 'Não há diferença, podemos usar "=" ou "==" em qualquer parte do código.',
                             isCorrect: false,
                             explanation: 'Eles têm funções bem diferentes! Se você usar apenas "=" dentro do if, o Python vai acusar erro de sintaxe.'
                         },
@@ -231,15 +245,15 @@
                         },
                         {
                             letter: 'C',
-                            text: '"==" serve apenas para textos e "=" serve apenas para números.',
+                            text: '"=" compara se os valores são iguais e "==" guarda o valor dentro da variável.',
                             isCorrect: false,
-                            explanation: 'Tanto "=" quanto "==" funcionam para números e textos! A diferença é guardar valor (=) versus comparar (==).'
+                            explanation: 'Cuidado para não inverter: um único sinal (=) é para atribuição/guardar, e dois sinais (==) são para teste de igualdade!'
                         },
                         {
                             letter: 'D',
-                            text: '"==" soma dois números e "=" subtrai.',
+                            text: '"=" cria uma nova variável e "==" apaga o valor que estava salvo anteriormente.',
                             isCorrect: false,
-                            explanation: 'Para somar usamos + e para subtrair usamos -. O "==" serve para comparar igualdade.'
+                            explanation: 'O "==" não apaga dados; ele apenas faz um teste lógico (devolvendo Verdadeiro ou Falso) sem alterar as variáveis.'
                         }
                     ]
                 },
@@ -263,15 +277,15 @@
                         },
                         {
                             letter: 'C',
-                            text: 'Aparecem as duas mensagens na tela.',
+                            text: 'O programa encerra sem imprimir nada porque a condição principal falhou.',
                             isCorrect: false,
-                            explanation: 'No if/else, o computador escolhe apenas UM caminho: ou entra no if (se verdadeiro) ou entra no else (se falso), nunca nos dois!'
+                            explanation: 'Como temos um bloco else (Plano B), quando o if é falso o programa sempre executa o que está dentro do else.'
                         },
                         {
                             letter: 'D',
-                            text: 'Não aparece nada na tela.',
+                            text: 'Aparecem as duas mensagens na tela, uma após a outra.',
                             isCorrect: false,
-                            explanation: 'Como temos um bloco else (Plano B), quando o if é falso o programa sempre executa o que está dentro do else.'
+                            explanation: 'No if/else, o computador escolhe apenas UM caminho: ou entra no if (se verdadeiro) ou entra no else (se falso), nunca nos dois!'
                         }
                     ]
                 },
@@ -301,9 +315,9 @@
                         },
                         {
                             letter: 'D',
-                            text: 'Imprime "⚠️ Recuperação!" e depois "❌ Reprovado!".',
+                            text: 'Imprime tanto "⚠️ Recuperação!" quanto "❌ Reprovado!".',
                             isCorrect: false,
-                            explanation: 'Assim que o Python encontra o primeiro elif verdadeiro, ele executa aquele bloco e ignora todo o resto!'
+                            explanation: 'Assim que o Python encontra o primeiro teste verdadeiro no elif, ele executa aquele bloco e encerra toda a estrutura!'
                         }
                     ]
                 },
@@ -315,7 +329,7 @@
                     options: [
                         {
                             letter: 'A',
-                            text: 'É só para deixar o código bonito, mas funciona igual sem o espaço.',
+                            text: 'É apenas uma recomendação visual de organização, mas funcionaria igual sem o espaço.',
                             isCorrect: false,
                             explanation: 'Em Python não é só estética! Se você não colocar o recuo (indentação), o Python dá erro (IndentationError) e não roda.'
                         },
@@ -327,15 +341,15 @@
                         },
                         {
                             letter: 'C',
-                            text: 'Para fazer o computador imprimir a frase mais rápido.',
+                            text: 'Serve para o computador pular uma linha em branco no terminal antes de exibir o texto.',
                             isCorrect: false,
-                            explanation: 'O espaço não muda a velocidade do programa; ele define a estrutura lógica de quem está dentro do bloco condicional.'
+                            explanation: 'O espaço no código define a estrutura dos blocos lógicos, e não linhas vazias impressas no terminal.'
                         },
                         {
                             letter: 'D',
-                            text: 'Para transformar o print() em um comentário.',
+                            text: 'Serve para transformar a linha em um comentário temporário que o computador ignora.',
                             isCorrect: false,
-                            explanation: 'Comentários em Python começam com o símbolo # (jogo da velha), e não com espaço em branco.'
+                            explanation: 'Comentários em Python começam com o símbolo # (jogo da velha); o recuo serve para delimitar blocos condicionais.'
                         }
                     ]
                 },
@@ -355,19 +369,19 @@
                             letter: 'B',
                             text: 'or',
                             isCorrect: false,
-                            explanation: 'O operador "or" (OU) deixaria entrar se apenas UMA condição fosse verdadeira (por exemplo, um bebê de 2 anos ou alguém sem a altura mínima).'
+                            explanation: 'O operador "or" (OU) deixaria entrar se apenas UMA condição fosse verdadeira (por exemplo, alguém com idade mas sem a altura mínima).'
                         },
                         {
                             letter: 'C',
-                            text: 'not',
+                            text: 'e',
                             isCorrect: false,
-                            explanation: 'O operador "not" inverte um valor lógico (Verdadeiro vira Falso), não serve para juntar duas exigências.'
+                            explanation: 'Em português falamos "e", mas o Python utiliza palavras em inglês, sendo "and" o operador correto.'
                         },
                         {
                             letter: 'D',
-                            text: 'elif',
+                            text: 'then',
                             isCorrect: false,
-                            explanation: 'O elif serve para criar um novo teste em outra linha, não para unir duas condições na mesma linha do if.'
+                            explanation: 'A palavra "then" existe em outras linguagens, mas no Python usamos dois pontos (:) no fim da linha e o operador lógico "and".'
                         }
                     ]
                 }
@@ -403,15 +417,15 @@
                         },
                         {
                             letter: 'C',
-                            text: 'vidas = print(int("Quantas vidas? "))',
+                            text: 'vidas = input(int("Quantas vidas? "))',
                             isCorrect: false,
-                            explanation: 'O print() apenas mostra mensagens na tela e não lê o teclado; além disso, int("Quantas vidas?") daria erro.'
+                            explanation: 'Não podemos colocar o int() por fora do texto da pergunta; o int() deve envolver toda a chamada do input().'
                         },
                         {
                             letter: 'D',
-                            text: 'int = vidas(input("Quantas vidas? "))',
+                            text: 'vidas = int("Quantas vidas? ")',
                             isCorrect: false,
-                            explanation: 'O nome da variável deve ficar à esquerda do sinal de igual: vidas = int(input(...)).'
+                            explanation: 'Faltou chamar a função input() para ler o teclado; tentar converter a frase em número gerará ValueError.'
                         }
                     ]
                 },
@@ -427,21 +441,21 @@
                         },
                         {
                             letter: 'B',
-                            text: 'Faz o programa fechar (finalizar) logo após o print.',
+                            text: 'Serve para indicar que o texto deve ser exibido em letras maiúsculas no terminal.',
                             isCorrect: false,
-                            explanation: 'O "f" vem de formatted string (texto formatado), não de finalizar o programa.'
+                            explanation: 'O "f" vem de "formatted string" (texto formatado), permitindo injetar variáveis com chaves {}.'
                         },
                         {
                             letter: 'C',
-                            text: 'Transforma o texto em número decimal (float).',
+                            text: 'Converte todo o conteúdo da mensagem para número decimal (float).',
                             isCorrect: false,
-                            explanation: 'Quem transforma em decimal é a função float(), não o "f" do print.'
+                            explanation: 'Quem transforma em decimal é a função float(), e não a letra "f" antes das aspas do print.'
                         },
                         {
                             letter: 'D',
-                            text: 'Não faz diferença nenhuma; sem o "f" o resultado é idêntico.',
+                            text: 'É opcional; sem a letra "f" o Python colocaria o nome da pessoa da mesma maneira.',
                             isCorrect: false,
-                            explanation: 'Sem o "f", o Python imprime literalmente as chaves "{nome}" na tela em vez do nome da pessoa!'
+                            explanation: 'Sem o "f", o Python imprime literalmente o texto "{nome}" com as chaves na tela em vez do nome da pessoa!'
                         }
                     ]
                 },
@@ -470,9 +484,9 @@
                         },
                         {
                             letter: 'D',
-                            text: 'Dá erro porque não pode ter if e elif juntos.',
+                            text: 'O programa encerra no primeiro if e não mostra mensagem nenhuma.',
                             isCorrect: false,
-                            explanation: 'O elif existe justamente para trabalhar junto logo abaixo do if!'
+                            explanation: 'Quando todas as condições anteriores falham, o Python sempre executa o bloco alternativo else.'
                         }
                     ]
                 },
@@ -494,15 +508,15 @@
                         },
                         {
                             letter: 'C',
-                            text: '>=',
+                            text: '<>',
                             isCorrect: false,
-                            explanation: 'O operador >= significa "maior ou igual a".'
+                            explanation: 'O símbolo <> era usado em linguagens antigas e planilhas, mas no Python moderno o correto é !=.'
                         },
                         {
                             letter: 'D',
-                            text: '=',
+                            text: 'not=',
                             isCorrect: false,
-                            explanation: 'Um único sinal de igual (=) serve para atribuir (guardar) um valor em uma variável.'
+                            explanation: 'Em Python não existe "not="; para expressar diferença usamos o sinal de exclamação com igual (!=).'
                         }
                     ]
                 },
@@ -519,21 +533,21 @@
                         },
                         {
                             letter: 'B',
-                            text: 'Falso! O "or" exige que as duas condições sejam falsas.',
+                            text: 'Falso! O operador "or" exige que as duas condições sejam verdadeiras ao mesmo tempo.',
                             isCorrect: false,
-                            explanation: 'Se as duas forem falsas, o resultado do "or" é falso e o bloco não roda.'
+                            explanation: 'Quem exige as duas condições verdadeiras ao mesmo tempo é o operador "and", e não o "or".'
                         },
                         {
                             letter: 'C',
-                            text: 'Falso! Precisa cumprir obrigatoriamente as duas condições ao mesmo tempo.',
+                            text: 'Falso! O operador "or" só pode comparar números inteiros, não funcionando com textos.',
                             isCorrect: false,
-                            explanation: 'Quem exige as duas condições ao mesmo tempo é o operador "and", não o "or".'
+                            explanation: 'O operador "or" funciona com qualquer tipo de dado ou condição válida em Python.'
                         },
                         {
                             letter: 'D',
-                            text: 'Falso! O comando "or" não existe em Python.',
+                            text: 'Falso! Se as duas condições forem verdadeiras simultaneamente, o "or" dá erro.',
                             isCorrect: false,
-                            explanation: 'O comando "or" existe sim e é um dos 3 operadores lógicos principais do Python (and, or, not).'
+                            explanation: 'No Python o "or" aceita que uma ou ambas as condições sejam verdadeiras sem gerar erro.'
                         }
                     ]
                 }
@@ -576,21 +590,21 @@
                         },
                         {
                             letter: 'B',
-                            text: 'Para repetir um bloco de código 10 vezes seguidas.',
+                            text: 'Para repetir um bloco de código várias vezes seguidas até o usuário acertar.',
                             isCorrect: false,
-                            explanation: 'Quem repete código são os laços while e for; o try/except serve para tratamento de erros.'
+                            explanation: 'Quem repete código são os laços while e for; o try/except serve para tratamento e proteção contra erros.'
                         },
                         {
                             letter: 'C',
-                            text: 'Para apagar todas as variáveis do programa.',
+                            text: 'Para forçar o Python a aceitar letras onde deveriam ser digitados números.',
                             isCorrect: false,
-                            explanation: 'O try/except não apaga variáveis, ele protege o código contra falhas inesperadas.'
+                            explanation: 'O try/except não altera a regra dos tipos; ele apenas executa um código alternativo quando uma falha ocorre.'
                         },
                         {
                             letter: 'D',
-                            text: 'Para desligar o computador se o usuário errar a senha.',
+                            text: 'Para acelerar a velocidade de execução do programa no computador.',
                             isCorrect: false,
-                            explanation: 'O except apenas executa o Plano B que você programou (como um print de aviso).'
+                            explanation: 'O try/except é uma proteção de segurança do código e não altera o desempenho do processador.'
                         }
                     ]
                 },
@@ -612,15 +626,15 @@
                         },
                         {
                             letter: 'C',
-                            text: 'PrintError',
+                            text: 'TypeError',
                             isCorrect: false,
-                            explanation: 'PrintError nem existe no Python! O erro de conversão de valor é o ValueError.'
+                            explanation: 'TypeError ocorre quando aplicamos uma operação a tipos incompatíveis; na conversão de texto com letras para int, o erro disparado é ValueError.'
                         },
                         {
                             letter: 'D',
-                            text: 'WhileError',
+                            text: 'SyntaxError',
                             isCorrect: false,
-                            explanation: 'WhileError não existe; o erro ao converter texto inválido em número é sempre ValueError.'
+                            explanation: 'SyntaxError é erro na escrita do código pelo programador; com int("dez") a sintaxe está certa, mas o valor inserido é inválido (ValueError).'
                         }
                     ]
                 },
@@ -637,21 +651,21 @@
                         },
                         {
                             letter: 'B',
-                            text: 'Quando queremos testar a condição apenas uma única vez.',
+                            text: 'Quando queremos testar a condição apenas uma única vez e seguir em frente.',
                             isCorrect: false,
-                            explanation: 'Para testar apenas uma vez sem repetir, usamos o if.'
+                            explanation: 'Para testar apenas uma vez sem repetir, usamos o comando if.'
                         },
                         {
                             letter: 'C',
-                            text: 'Apenas quando não existem variáveis no programa.',
+                            text: 'Quando já sabemos de antemão a quantidade exata de repetições (ex: exatamente 10 vezes).',
                             isCorrect: false,
-                            explanation: 'O while quase sempre usa uma variável na sua condição (como senha ou contador) para saber a hora de parar!'
+                            explanation: 'Quando sabemos o número exato de voltas, o laço "for com range()" é a opção mais comum e recomendada.'
                         },
                         {
                             letter: 'D',
-                            text: 'Nunca, pois o while foi removido do Python.',
+                            text: 'Quando precisamos testar mais de três condições diferentes no mesmo código.',
                             isCorrect: false,
-                            explanation: 'O while é uma das estruturas mais importantes e usadas do Python!'
+                            explanation: 'Para múltiplas condições usamos if / elif / else; o while serve exclusivamente para estruturas de repetição.'
                         }
                     ]
                 },
@@ -698,21 +712,21 @@
                         },
                         {
                             letter: 'B',
-                            text: 'input',
+                            text: 'stop',
                             isCorrect: false,
-                            explanation: 'O input() apenas lê dados do teclado, não encerra um loop.'
+                            explanation: 'Embora "stop" signifique parar em inglês, a palavra-chave reservada do Python para interromper loops é "break".'
                         },
                         {
                             letter: 'C',
-                            text: 'elif',
+                            text: 'exit',
                             isCorrect: false,
-                            explanation: 'O elif é uma condição intermediária do if, não um comando de parada de loop.'
+                            explanation: 'O comando exit() encerra o programa inteiro, enquanto o "break" interrompe apenas o laço de repetição mantendo o programa ativo.'
                         },
                         {
                             letter: 'D',
-                            text: 'float',
+                            text: 'pause',
                             isCorrect: false,
-                            explanation: 'O float() converte valores para números decimais.'
+                            explanation: 'A palavra "pause" não é um comando nativo de controle de fluxo em Python; para sair do laço usamos "break".'
                         }
                     ]
                 }
@@ -834,6 +848,164 @@
     function saveSubmissions(subs) {
         localStorage.setItem(STORAGE_KEY_SUBMISSIONS, JSON.stringify(subs));
         syncToCloudAsync();
+    }
+
+    // =========================================================================
+    // CONTROLE DE LIBERAÇÃO DE AULAS E SLIDES PELO ADM
+    // =========================================================================
+
+    function getUnlockedLessons() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY_UNLOCKED_LESSONS);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) return parsed;
+            }
+        } catch (e) {}
+        return DEFAULT_UNLOCKED_LESSONS.slice();
+    }
+
+    function saveUnlockedLessons(lessonsList, silent) {
+        const unique = Array.from(new Set(lessonsList || []));
+        localStorage.setItem(STORAGE_KEY_UNLOCKED_LESSONS, JSON.stringify(unique));
+        syncToCloudAsync();
+        if (!silent) {
+            window.dispatchEvent(new CustomEvent('trilhando:lessonschange', { detail: { unlocked: unique } }));
+            window.dispatchEvent(new CustomEvent('trilhando:datasync'));
+        }
+        return unique;
+    }
+
+    function isLessonUnlocked(lessonKey) {
+        const list = getUnlockedLessons();
+        return list.includes(lessonKey);
+    }
+
+    function toggleLessonUnlocked(lessonKey) {
+        const list = getUnlockedLessons();
+        const idx = list.indexOf(lessonKey);
+        if (idx >= 0) {
+            list.splice(idx, 1);
+        } else {
+            list.push(lessonKey);
+        }
+        saveUnlockedLessons(list);
+        return list.includes(lessonKey);
+    }
+
+    function setLessonUnlocked(lessonKey, shouldUnlock) {
+        const list = getUnlockedLessons();
+        const idx = list.indexOf(lessonKey);
+        if (shouldUnlock && idx < 0) {
+            list.push(lessonKey);
+        } else if (!shouldUnlock && idx >= 0) {
+            list.splice(idx, 1);
+        }
+        saveUnlockedLessons(list);
+        return list.includes(lessonKey);
+    }
+
+    // =========================================================================
+    // LIBERAÇÃO DE QUIZZES (MODO APRESENTAÇÃO DO PROFESSOR VS PRÁTICA DO ALUNO)
+    // =========================================================================
+
+    function getUnlockedQuizzes() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY_UNLOCKED_QUIZZES);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) return parsed;
+            }
+        } catch (e) {}
+        return DEFAULT_UNLOCKED_QUIZZES.slice();
+    }
+
+    function saveUnlockedQuizzes(quizzesList, silent) {
+        const unique = Array.from(new Set(quizzesList || []));
+        localStorage.setItem(STORAGE_KEY_UNLOCKED_QUIZZES, JSON.stringify(unique));
+        syncToCloudAsync();
+        if (!silent) {
+            window.dispatchEvent(new CustomEvent('trilhando:quizzeschange', { detail: { unlocked: unique } }));
+            window.dispatchEvent(new CustomEvent('trilhando:datasync'));
+        }
+        return unique;
+    }
+
+    function isQuizUnlocked(lessonKey) {
+        const list = getUnlockedQuizzes();
+        return list.includes(lessonKey);
+    }
+
+    function toggleQuizUnlocked(lessonKey) {
+        const list = getUnlockedQuizzes();
+        const idx = list.indexOf(lessonKey);
+        if (idx >= 0) {
+            list.splice(idx, 1);
+        } else {
+            list.push(lessonKey);
+        }
+        saveUnlockedQuizzes(list);
+        return list.includes(lessonKey);
+    }
+
+    function setQuizUnlocked(lessonKey, shouldUnlock) {
+        const list = getUnlockedQuizzes();
+        const idx = list.indexOf(lessonKey);
+        if (shouldUnlock && idx < 0) {
+            list.push(lessonKey);
+        } else if (!shouldUnlock && idx >= 0) {
+            list.splice(idx, 1);
+        }
+        saveUnlockedQuizzes(list);
+        return list.includes(lessonKey);
+    }
+
+    // =========================================================================
+    // CONTAS RECENTES NESTE COMPUTADOR / NAVEGADOR (NUNCA SALVA SENHAS!)
+    // =========================================================================
+
+    function getRecentUsers() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY_RECENT_USERS);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) {
+                    return parsed.filter(item => item && (typeof item === 'string' || item.fullName));
+                }
+            }
+        } catch (e) {}
+        return [];
+    }
+
+    function addRecentUser(user) {
+        if (!user) return;
+        const name = String(user.fullName || (typeof user === 'string' ? user : '')).trim();
+        if (!name || name.length < 3) return;
+        try {
+            let list = getRecentUsers().filter(item => {
+                const n = typeof item === 'string' ? item : item.fullName;
+                return n.toLowerCase() !== name.toLowerCase();
+            });
+            list.unshift({
+                fullName: name,
+                role: user.role || 'student',
+                lastLogin: new Date().toISOString()
+            });
+            if (list.length > 8) list = list.slice(0, 8);
+            localStorage.setItem(STORAGE_KEY_RECENT_USERS, JSON.stringify(list));
+        } catch (e) {}
+    }
+
+    function removeRecentUser(fullName) {
+        if (!fullName) return;
+        try {
+            const norm = String(fullName).trim().toLowerCase();
+            const list = getRecentUsers().filter(item => {
+                const n = typeof item === 'string' ? item : item.fullName;
+                return n.toLowerCase() !== norm;
+            });
+            localStorage.setItem(STORAGE_KEY_RECENT_USERS, JSON.stringify(list));
+        } catch (e) {}
     }
 
     // Lista de Chamada (Presença Visual por Dia/Aula)
@@ -992,13 +1164,13 @@
 
     function getCurrentUser() {
         try {
-            const raw = localStorage.getItem(STORAGE_KEY_SESSION);
+            const raw = sessionStorage.getItem(STORAGE_KEY_SESSION);
             if (raw) {
                 const u = JSON.parse(raw);
                 if (u && u.role !== 'admin') {
                     const deletedIds = new Set(getDeletedUserIds());
                     if (deletedIds.has(u.id)) {
-                        localStorage.removeItem(STORAGE_KEY_SESSION);
+                        sessionStorage.removeItem(STORAGE_KEY_SESSION);
                         return null;
                     }
                 }
@@ -1009,10 +1181,18 @@
     }
 
     function setCurrentUser(user) {
-        if (!user) {
+        try {
             localStorage.removeItem(STORAGE_KEY_SESSION);
+        } catch (e) {}
+        if (!user) {
+            try {
+                sessionStorage.removeItem(STORAGE_KEY_SESSION);
+            } catch (e) {}
         } else {
-            localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(user));
+            try {
+                sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(user));
+            } catch (e) {}
+            addRecentUser(user);
         }
         window.dispatchEvent(new CustomEvent('trilhando:authchange', { detail: { user } }));
     }
@@ -1031,10 +1211,18 @@
                     updatedAt: new Date().toISOString()
                 });
             }
+            usersPayload.push({
+                id: '__quiz_control_cfg__',
+                role: 'system_quiz_config',
+                unlockedQuizzes: getUnlockedQuizzes(),
+                updatedAt: new Date().toISOString()
+            });
             const payload = {
                 id: 'main_state',
                 users_json: usersPayload,
                 submissions_json: getSubmissions(),
+                unlocked_lessons_json: getUnlockedLessons(),
+                unlocked_quizzes_json: getUnlockedQuizzes(),
                 updated_at: new Date().toISOString()
             };
             const res = await fetch(`${cfg.supabaseUrl}/rest/v1/trilhando_sync?on_conflict=id`, {
@@ -1094,6 +1282,12 @@
                     const mergedSubs = mergeById(getSubmissions(), remote.submissions_json, 'id');
                     localStorage.setItem(STORAGE_KEY_SUBMISSIONS, JSON.stringify(mergedSubs));
                 }
+                if (Array.isArray(remote.unlocked_lessons_json)) {
+                    saveUnlockedLessons(remote.unlocked_lessons_json, true);
+                }
+                if (Array.isArray(remote.unlocked_quizzes_json)) {
+                    saveUnlockedQuizzes(remote.unlocked_quizzes_json, true);
+                }
                 if (!silent) {
                     window.dispatchEvent(new CustomEvent('trilhando:datasync'));
                 }
@@ -1112,16 +1306,19 @@
             if (rem && rem.id === '__deleted_tombstones__' && Array.isArray(rem.deletedIds)) {
                 currentDeleted = saveDeletedUserIds(currentDeleted.concat(rem.deletedIds));
             }
+            if (rem && rem.id === '__quiz_control_cfg__' && Array.isArray(rem.unlockedQuizzes)) {
+                saveUnlockedQuizzes(rem.unlockedQuizzes, true);
+            }
         });
         const deletedIds = new Set(currentDeleted);
         const map = new Map();
         localUsers.forEach(u => {
-            if (u && u.role !== 'system_tombstones' && !deletedIds.has(u.id)) {
+            if (u && u.role !== 'system_tombstones' && u.role !== 'system_quiz_config' && !deletedIds.has(u.id)) {
                 map.set(u.id, Object.assign({}, u));
             }
         });
         remoteUsers.forEach(rem => {
-            if (!rem || rem.role === 'system_tombstones' || deletedIds.has(rem.id)) return;
+            if (!rem || rem.role === 'system_tombstones' || rem.role === 'system_quiz_config' || deletedIds.has(rem.id)) return;
             const loc = map.get(rem.id);
             if (!loc) {
                 map.set(rem.id, Object.assign({}, rem));
@@ -1317,6 +1514,33 @@
         return { ok: true, submission: record };
     }
 
+    // Atualização exclusiva da Parte 2 (Código Prático & Comentário) pelo aluno após ter dado baixa
+    // Preserva rigorosamente as respostas, nota e gabarito do questionário
+    function updateHomeworkCode(lessonKey, practicalCode, studentComment) {
+        const user = getCurrentUser();
+        if (!user) {
+            return { ok: false, error: 'Você precisa entrar com seu Nome Completo e Senha antes de salvar.' };
+        }
+        const submissions = getSubmissions();
+        const subId = `${user.id}_${lessonKey}`;
+        const existingIdx = submissions.findIndex(s => s.id === subId);
+        if (existingIdx < 0) {
+            return { ok: false, error: 'Nenhuma entrega anterior encontrada para atualizar o código.' };
+        }
+
+        const sub = submissions[existingIdx];
+        sub.practicalCode = String(practicalCode || '').trim();
+        if (typeof studentComment !== 'undefined') {
+            sub.studentComment = String(studentComment || '').trim();
+        }
+        sub.updatedAt = new Date().toISOString();
+
+        submissions[existingIdx] = sub;
+        saveSubmissions(submissions);
+        window.dispatchEvent(new CustomEvent('trilhando:datasync'));
+        return { ok: true, submission: sub };
+    }
+
     function saveTutorFeedback(submissionId, tutorFeedback, codeReviewed) {
         const subs = getSubmissions();
         const idx = subs.findIndex(s => s.id === submissionId);
@@ -1344,11 +1568,43 @@
         const quizData = QUIZZES_BY_LESSON[lessonKey];
         if (!container || !quizData) return;
 
+        const user = getCurrentUser();
+        const isAdm = user && user.role === 'admin';
+        const isUnlocked = isQuizUnlocked(lessonKey);
+
+        // Se o usuário NÃO for ADM e o quiz ainda estiver trancado pelo professor:
+        if (!isAdm && !isUnlocked) {
+            container.innerHTML = `
+                <div class="nb-quiz-shell" style="border:1.5px dashed rgba(245,158,11,0.5);background:radial-gradient(circle at 50% 30%, rgba(245,158,11,0.08), rgba(15,23,42,0.96));padding:40px 24px;text-align:center;border-radius:24px;">
+                    <div style="font-size:3.5rem;margin-bottom:12px;">🔒</div>
+                    <span class="tr-badge-cyan" style="border-color:#f59e0b;color:#fcd34d;background:rgba(245,158,11,0.15);font-size:0.85rem;padding:6px 16px;">
+                        MODO APRESENTAÇÃO EM SALA DE AULA
+                    </span>
+                    <h3 style="font-size:1.45rem;color:#fff;margin-top:14px;margin-bottom:8px;">
+                        Quiz em Andamento com os Professores
+                    </h3>
+                    <p style="font-size:0.92rem;color:#cbd5e1;line-height:1.6;max-width:580px;margin:0 auto 18px;">
+                        Este quiz interativo está sendo apresentado no projetor para toda a turma responder junta com os professores Victor, Rafael e Kaique.
+                    </p>
+                    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px 20px;max-width:540px;margin:0 auto 16px;font-size:0.88rem;color:#94a3b8;line-height:1.6;">
+                        ⏳ <strong>Fique tranquilo(a):</strong> Assim que a aula terminar, os professores vão liberar o quiz no portal para você praticar individualmente, revisar todas as respostas e gabarito quantas vezes quiser!
+                    </div>
+                    <div style="font-size:0.78rem;color:#64748b;">
+                        Aguardando liberação do professor...
+                    </div>
+                </div>
+            `;
+            return;
+        }
+
         let currentIdx = 0;
         // Track selected option per question: { [questionId]: 'A' | 'B' | 'C' | 'D' }
         const selectedAnswers = {};
 
         function renderCurrentQuestion() {
+            const currentUser = getCurrentUser();
+            const currentIsAdm = currentUser && currentUser.role === 'admin';
+            const currentIsUnlocked = isQuizUnlocked(lessonKey);
             const total = quizData.questions.length;
             const q = quizData.questions[currentIdx];
             const pickedLetter = selectedAnswers[q.id] || null;
@@ -1418,8 +1674,30 @@
                 `;
             }).join('');
 
+            const adminBarHtml = currentIsAdm ? `
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:rgba(37,99,235,0.16);border:1.5px solid rgba(59,130,246,0.5);border-radius:14px;padding:10px 16px;margin-bottom:16px;">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <span style="font-size:1.3rem;">🛡️</span>
+                        <div style="text-align:left;">
+                            <div style="font-weight:700;color:#93c5fd;font-size:0.9rem;">Modo Apresentação do Professor (ADM)</div>
+                            <div style="font-size:0.78rem;color:#cbd5e1;">
+                                ${currentIsUnlocked
+                                    ? '🔓 <strong style="color:#6ee7b7;">Liberado p/ Alunos:</strong> A turma já pode ver e praticar este quiz nos seus próprios dispositivos.'
+                                    : '🔒 <strong style="color:#fcd34d;">Trancado p/ Alunos:</strong> Apenas você pode ver na tela projetada. Os alunos veem a tela de espera.'
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="${containerId}_admToggleQuizBtn" class="tr-btn-primary" style="padding:8px 16px;font-size:0.84rem;background:${currentIsUnlocked ? 'rgba(239,68,68,0.2)' : 'rgba(16,185,129,0.25)'};border-color:${currentIsUnlocked ? '#ef4444' : '#10b981'};color:${currentIsUnlocked ? '#fca5a5' : '#6ee7b7'};cursor:pointer;">
+                        ${currentIsUnlocked ? '🔒 Trancar Quiz p/ Alunos' : '🔓 Liberar Quiz para os Alunos Agora'}
+                    </button>
+                </div>
+            ` : '';
+
             container.innerHTML = `
                 <div class="nb-quiz-shell">
+                    ${adminBarHtml}
+
                     <!-- Top Header bar like NotebookLM -->
                     <div class="nb-quiz-topbar">
                         <div class="nb-quiz-meta">
@@ -1465,6 +1743,16 @@
                     </div>
                 </div>
             `;
+
+            // Attach listeners (stopPropagation so clicking inside quiz doesn't trigger slide swipe/keys)
+            const admBtn = document.getElementById(`${containerId}_admToggleQuizBtn`);
+            if (admBtn) {
+                admBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    toggleQuizUnlocked(lessonKey);
+                    renderNotebookLMQuiz(containerId, lessonKey);
+                });
+            }
 
             // Attach listeners (stopPropagation so clicking inside quiz doesn't trigger slide swipe/keys)
             container.querySelectorAll('.nb-quiz-option').forEach(btn => {
@@ -1558,6 +1846,9 @@
         let existingSub = loadExistingSubmission();
 
         function renderModalContent() {
+            const prevBody = modal.querySelector('.tr-hw-modal-body');
+            const prevScroll = prevBody ? prevBody.scrollTop : 0;
+
             const user = getCurrentUser();
             existingSub = loadExistingSubmission();
 
@@ -1593,9 +1884,10 @@
                 </div>
             `;
 
+            const isSubmitted = Boolean(existingSub);
+
             const questionsHtml = hw.questions.map((q, qIndex) => {
                 const picked = draftAnswers[q.id] || null;
-                const isSubmitted = Boolean(existingSub);
 
                 const optsHtml = q.options.map(opt => {
                     const isSelected = picked === opt.letter;
@@ -1613,7 +1905,7 @@
                     }
 
                     return `
-                        <button type="button" class="tr-hw-opt-btn ${optStatusClass}" data-qid="${q.id}" data-letter="${opt.letter}">
+                        <button type="button" class="tr-hw-opt-btn ${optStatusClass}" data-qid="${q.id}" data-letter="${opt.letter}" ${isSubmitted ? 'disabled style="cursor:default;"' : ''}>
                             <div class="nb-opt-main">
                                 <span class="nb-opt-letter">${opt.letter}</span>
                                 <span class="nb-opt-text">${escapeHtml(opt.text)}</span>
@@ -1629,8 +1921,8 @@
                             <span class="tr-hw-q-num">Questão ${qIndex + 1} de ${hw.questions.length}</span>
                             ${isSubmitted ? (
                                 (q.options.find(o => o.letter === picked && o.isCorrect))
-                                    ? '<span class="nb-feedback-pill nb-pill-correct">✅ Você Acertou</span>'
-                                    : '<span class="nb-feedback-pill nb-pill-wrong">❌ Você Errou (Veja a explicação abaixo)</span>'
+                                     ? '<span class="nb-feedback-pill nb-pill-correct">✅ Você Acertou</span>'
+                                     : '<span class="nb-feedback-pill nb-pill-wrong">❌ Você Errou (Veja a explicação abaixo)</span>'
                             ) : ''}
                         </div>
                         <h4 class="tr-hw-q-title">${escapeHtml(q.question)}</h4>
@@ -1663,6 +1955,15 @@
                     <div class="tr-hw-modal-body">
                         ${authSectionHtml}
 
+                        ${existingSub ? `
+                            <div class="tr-tutor-feedback-banner" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.4);">
+                                <strong style="color:#10b981;">🔒 Questionário Concluído e Registrado (${existingSub.correctCount}/${existingSub.totalQuestions} acertos • Nota ${existingSub.grade10}):</strong>
+                                <p style="margin-top:4px;font-size:0.83rem;color:#cbd5e1;">
+                                    As respostas e a nota do questionário já foram salvas e estão travadas para consulta. <strong>Você pode continuar editando seu código prático abaixo na Parte 2!</strong>
+                                </p>
+                            </div>
+                        ` : ''}
+
                         ${existingSub && existingSub.tutorFeedback ? `
                             <div class="tr-tutor-feedback-banner">
                                 <strong>💬 Comentário do Professor na sua atividade:</strong>
@@ -1672,7 +1973,7 @@
 
                         <div class="tr-hw-section-title">
                             <span>📋 PARTE 1 — Questionário Rápido (5 Questões de Múltipla Escolha)</span>
-                            <small>Marque uma alternativa em cada questão. Após enviar, o gabarito comentado é liberado!</small>
+                            <small>${isSubmitted ? 'Respostas salvas e explicadas abaixo (modo de consulta):' : 'Marque uma alternativa em cada questão. Após enviar, o gabarito comentado é liberado!'}</small>
                         </div>
 
                         <div class="tr-hw-questions-container">
@@ -1681,7 +1982,7 @@
 
                         <div class="tr-hw-section-title" style="margin-top:28px;">
                             <span>💻 PARTE 2 — Prática de Código (PC / VS Code ou Celular / Pydroid 3)</span>
-                            <small>Sem correção automática: teste seu código primeiro e cole ele aqui como comentário para corrigirmos na próxima aula!</small>
+                            <small>${isSubmitted ? 'Você pode editar seu código e comentários quantas vezes quiser:' : 'Sem correção automática: teste seu código primeiro e cole ele aqui como comentário para corrigirmos na próxima aula!'}</small>
                         </div>
 
                         <div class="tr-hw-practical-box">
@@ -1708,12 +2009,12 @@
 
                     <div class="tr-hw-modal-footer">
                         <span style="font-size:0.8rem;color:#94a3b8;">
-                            ${existingSub ? '✅ Você já enviou esta tarefa! Pode atualizar sua resposta se quiser.' : '📌 Responda as 5 questões e cole seu código prático antes de enviar.'}
+                            ${existingSub ? '✅ Questionário salvo! Você pode salvar novas versões do seu código prático.' : '📌 Responda as 5 questões e cole seu código prático antes de enviar.'}
                         </span>
                         <div style="display:flex;gap:12px;">
                             <button type="button" class="tr-btn-ghost" id="trHwCancelBtn">Fechar</button>
                             <button type="button" class="tr-btn-primary" id="trHwSubmitFinalBtn">
-                                🚀 ${existingSub ? 'Atualizar Envio da Tarefa' : 'Enviar Tarefa e Ver Nota'}
+                                ${existingSub ? '💾 Salvar Alterações do Código' : '🚀 Enviar Tarefa e Ver Nota'}
                             </button>
                         </div>
                     </div>
@@ -1721,6 +2022,12 @@
             `;
 
             modal.classList.add('active');
+
+            // Restaura posição do scroll se houver para evitar saltos
+            const newBody = modal.querySelector('.tr-hw-modal-body');
+            if (newBody && prevScroll > 0) {
+                newBody.scrollTop = prevScroll;
+            }
 
             // Event Listeners inside Modal
             const closeBtn = document.getElementById('trHwCloseModalBtn');
@@ -1777,17 +2084,33 @@
                 inp.addEventListener('keydown', e => e.stopPropagation());
             });
 
-            // Option selection
+            // Seleção de alternativas no questionário:
+            // Se já enviou (baixa dada), o quiz está travado (botões desabilitados).
+            // Se não enviou, apenas altera a classe visual SEM reconstruir a tela e SEM subir o scroll pro topo!
             modal.querySelectorAll('.tr-hw-opt-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (existingSub) return; // Travado após entrega!
+
                     const qid = btn.getAttribute('data-qid');
                     const letter = btn.getAttribute('data-letter');
                     draftAnswers[qid] = letter;
-                    renderModalContent();
+
+                    // Atualiza a seleção visualmente direto no DOM da questão sem recriar o modal
+                    const parentOpts = btn.closest('.tr-hw-opts-list');
+                    if (parentOpts) {
+                        parentOpts.querySelectorAll('.tr-hw-opt-btn').forEach(b => {
+                            if (b.getAttribute('data-letter') === letter) {
+                                b.classList.add('tr-hw-opt-selected');
+                            } else {
+                                b.classList.remove('tr-hw-opt-selected');
+                            }
+                        });
+                    }
                 });
             });
 
-            // Final Submit
+            // Envio Final ou Atualização de Código
             const submitBtn = document.getElementById('trHwSubmitFinalBtn');
             if (submitBtn) {
                 submitBtn.addEventListener('click', () => {
@@ -1796,21 +2119,44 @@
                     if (!currUser) {
                         if (statusBox) {
                             statusBox.innerHTML = `<div class="tr-auth-alert">⚠️ Role até o topo da janela e digite seu <strong>Nome Completo e Senha</strong> para identificar sua tarefa!</div>`;
-                        }
-                        return;
-                    }
-
-                    const unanswered = hw.questions.filter(q => !draftAnswers[q.id]);
-                    if (unanswered.length > 0) {
-                        if (statusBox) {
-                            statusBox.innerHTML = `<div class="tr-auth-alert">⚠️ Você ainda precisa marcar uma alternativa em ${unanswered.length} questão(ões) antes de enviar!</div>`;
+                            statusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                         }
                         return;
                     }
 
                     if (!draftCode || draftCode.trim().length < 5) {
                         if (statusBox) {
-                            statusBox.innerHTML = `<div class="tr-auth-alert">⚠️ Não esqueça de colar seu código Python do desafio prático na Parte 2!</div>`;
+                            statusBox.innerHTML = `<div class="tr-auth-alert">⚠️ Cole seu código Python do desafio prático na Parte 2 antes de salvar!</div>`;
+                            statusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        }
+                        return;
+                    }
+
+                    // Se a tarefa JÁ foi entregue (baixa dada), atualiza APENAS o código prático sem alterar as respostas do quiz!
+                    if (existingSub) {
+                        const updResult = updateHomeworkCode(lessonKey, draftCode, draftComment);
+                        if (updResult.ok) {
+                            if (statusBox) {
+                                statusBox.innerHTML = `
+                                    <div class="tr-submit-success-box" style="margin-top:14px;">
+                                        <h4>🎉 Código prático atualizado com sucesso, ${escapeHtml(currUser.fullName)}!</h4>
+                                        <p>Seu novo código Python foi salvo para a avaliação dos professores. A pontuação do seu questionário (Nota: <strong>${existingSub.grade10}</strong>) permanece intacta.</p>
+                                    </div>
+                                `;
+                                statusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            }
+                        } else {
+                            if (statusBox) statusBox.innerHTML = `<div class="tr-auth-alert">⚠️ ${escapeHtml(updResult.error)}</div>`;
+                        }
+                        return;
+                    }
+
+                    // Se é o PRIMEIRO envio, valida se todas as 5 questões foram respondidas
+                    const unanswered = hw.questions.filter(q => !draftAnswers[q.id]);
+                    if (unanswered.length > 0) {
+                        if (statusBox) {
+                            statusBox.innerHTML = `<div class="tr-auth-alert">⚠️ Você ainda precisa marcar uma alternativa em ${unanswered.length} questão(ões) antes de enviar!</div>`;
+                            statusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                         }
                         return;
                     }
@@ -1827,6 +2173,7 @@
                                     <p style="font-size:0.82rem;margin-top:6px;color:#a7f3d0;">👆 Role as questões acima para ver a explicação detalhada de cada alternativa!</p>
                                 </div>
                             `;
+                            newStatusBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                         }
                     }
                 });
@@ -1844,9 +2191,54 @@
         const isSlidePage = Boolean(document.querySelector('.presentation-stage'));
         if (!isSlidePage) return;
 
-        let gate = document.getElementById('trSlideAuthGate');
         const user = getCurrentUser();
+        const isAdm = user && user.role === 'admin';
 
+        // Identifica qual aula é esta página pelo nome do arquivo
+        const pathMatch = window.location.pathname.match(/aula-(\d+)-slides\.html/i);
+        let lessonKey = null;
+        let lessonNum = 0;
+        if (pathMatch) {
+            lessonNum = parseInt(pathMatch[1], 10);
+            lessonKey = 'aula' + (lessonNum < 10 ? '0' + lessonNum : lessonNum);
+        }
+
+        // Se a aula estiver bloqueada para alunos e quem estiver acessando NÃO for ADM:
+        if (lessonKey && !isLessonUnlocked(lessonKey) && !isAdm) {
+            let authGate = document.getElementById('trSlideAuthGate');
+            if (authGate) authGate.remove();
+
+            let lockedGate = document.getElementById('trSlideLockedGate');
+            if (!lockedGate) {
+                lockedGate = document.createElement('div');
+                lockedGate.id = 'trSlideLockedGate';
+                lockedGate.className = 'tr-hw-modal-overlay active';
+                lockedGate.style.background = 'radial-gradient(circle at 20% 20%, rgba(239, 68, 68, 0.25), rgba(4, 9, 22, 0.98) 70%)';
+                lockedGate.style.zIndex = '100001';
+                lockedGate.innerHTML = `
+                    <div class="auth-modal-card" style="max-width:520px;text-align:center;padding:34px 24px;border:1.5px solid rgba(239,68,68,0.5);border-radius:22px;">
+                        <div style="font-size:3.2rem;margin-bottom:12px;">🔒</div>
+                        <span class="tr-badge-cyan" style="border-color:#ef4444;color:#fca5a5;background:rgba(239,68,68,0.15);">AULA BLOQUEADA PELO PROFESSOR</span>
+                        <h3 style="font-size:1.35rem;color:#fff;margin-top:12px;margin-bottom:8px;">Aula 0${lessonNum} ainda não liberada</h3>
+                        <p style="font-size:0.88rem;color:#cbd5e1;line-height:1.6;margin-bottom:22px;">
+                            Os slides e materiais desta aula serão liberados pelos professores Victor, Rafael e Kaique através do painel de administração no dia correspondente.
+                        </p>
+                        <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                            <a href="../../index.html" class="tr-btn-primary" style="text-decoration:none;padding:12px 24px;font-size:0.92rem;">
+                                🏠 Voltar ao Menu Principal
+                            </a>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(lockedGate);
+            }
+            return;
+        } else {
+            let lockedGate = document.getElementById('trSlideLockedGate');
+            if (lockedGate) lockedGate.remove();
+        }
+
+        let gate = document.getElementById('trSlideAuthGate');
         if (user) {
             if (gate) gate.remove();
             return;
@@ -1867,6 +2259,44 @@
         function renderGate() {
             const isReg = gateMode === 'register';
             const isAdm = gateMode === 'admin';
+
+            const recentUsers = getRecentUsers();
+            let recentUsersHtml = '';
+            let dataListHtml = '';
+            if (gateMode === 'login' && recentUsers.length > 0) {
+                const chips = recentUsers.map(u => {
+                    const name = typeof u === 'string' ? u : u.fullName;
+                    const role = typeof u === 'object' && u.role ? u.role : 'student';
+                    return `
+                        <button type="button" class="tr-slide-chip" data-tr-fill-user="${escapeHtml(name)}" style="display:inline-flex;align-items:center;gap:6px;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.25);border-radius:100px;padding:4px 10px;font-size:0.78rem;color:#e2e8f0;cursor:pointer;">
+                            <span>${role === 'admin' ? '🛡️' : '🎓'}</span>
+                            <span>${escapeHtml(name)}</span>
+                            <span class="tr-chip-remove" data-tr-remove-user="${escapeHtml(name)}" style="opacity:0.6;font-size:0.9rem;padding-left:4px;cursor:pointer;" title="Remover da lista">×</span>
+                        </button>
+                    `;
+                }).join('');
+
+                const opts = recentUsers.map(u => {
+                    const name = typeof u === 'string' ? u : u.fullName;
+                    return `<option value="${escapeHtml(name)}">`;
+                }).join('');
+                dataListHtml = `<datalist id="trSlideRecentList">${opts}</datalist>`;
+
+                recentUsersHtml = `
+                    <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:10px 12px;margin-bottom:12px;text-align:left;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                            <span style="font-size:0.73rem;font-weight:700;color:#94a3b8;letter-spacing:0.5px;text-transform:uppercase;">
+                                👤 Contas recentes neste computador:
+                            </span>
+                            <span style="font-size:0.7rem;color:#64748b;">(Clique para preencher o nome)</span>
+                        </div>
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                            ${chips}
+                        </div>
+                    </div>
+                `;
+            }
+
             gate.innerHTML = `
                 <div class="tr-hw-modal-card" style="max-width:500px;padding:28px;border-radius:22px;">
                     <span class="tr-badge-cyan">🔐 LOGIN OBRIGATÓRIO • TRILHANDO CLASSROOM</span>
@@ -1885,10 +2315,13 @@
                         <button type="button" class="tr-auth-tab ${gateMode === 'admin' ? 'active' : ''}" data-gmode="admin">🛡️ Professor (ADM)</button>
                     </div>
 
+                    ${recentUsersHtml}
+
                     <div style="display:flex;flex-direction:column;gap:12px;">
                         <div>
                             <label class="tr-field-label">${isAdm ? 'Usuário ADM da Equipe:' : 'Seu Nome Completo (Nome e Sobrenome):'}</label>
-                            <input type="text" id="trSlideGateName" class="tr-input" placeholder="${isAdm ? 'Trilhando o Caminho do Código' : 'Ex: Lucas Almeida Santos'}" autocomplete="name">
+                            <input type="text" id="trSlideGateName" class="tr-input" placeholder="${isAdm ? 'Trilhando o Caminho do Código' : 'Ex: Lucas Almeida Santos'}" autocomplete="username" ${dataListHtml ? 'list="trSlideRecentList"' : ''}>
+                            ${dataListHtml}
                         </div>
                         <div>
                             <label class="tr-field-label">${isReg ? 'Crie uma Senha (para usar nas próximas aulas):' : 'Sua Senha:'}</label>
@@ -1911,6 +2344,27 @@
                 });
             });
 
+            gate.querySelectorAll('.tr-slide-chip').forEach(chip => {
+                chip.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const removeBtn = e.target.closest('[data-tr-remove-user]');
+                    if (removeBtn) {
+                        const targetName = removeBtn.getAttribute('data-tr-remove-user');
+                        removeRecentUser(targetName);
+                        renderGate();
+                        return;
+                    }
+                    const fillName = chip.getAttribute('data-tr-fill-user');
+                    const nInp = document.getElementById('trSlideGateName');
+                    const pInp = document.getElementById('trSlideGatePass');
+                    if (nInp) nInp.value = fillName;
+                    if (pInp) {
+                        pInp.value = '';
+                        pInp.focus();
+                    }
+                });
+            });
+
             const nameInp = document.getElementById('trSlideGateName');
             const passInp = document.getElementById('trSlideGatePass');
             const submitBtn = document.getElementById('trSlideGateSubmit');
@@ -1928,6 +2382,7 @@
                     renderGate();
                 } else {
                     gate.remove();
+                    ensureSlideAuthGate();
                 }
             };
 
@@ -1971,6 +2426,20 @@
         deleteStudentByAdmin,
         getSubmissions,
         saveSubmissions,
+        updateHomeworkCode,
+        getUnlockedLessons,
+        saveUnlockedLessons,
+        isLessonUnlocked,
+        toggleLessonUnlocked,
+        setLessonUnlocked,
+        getUnlockedQuizzes,
+        saveUnlockedQuizzes,
+        isQuizUnlocked,
+        toggleQuizUnlocked,
+        setQuizUnlocked,
+        getRecentUsers,
+        addRecentUser,
+        removeRecentUser,
         getAttendance,
         saveAttendance,
         setStudentAttendance,
@@ -1999,6 +2468,12 @@
         if (quizEl) {
             const lessonKey = quizEl.getAttribute('data-trilhando-quiz');
             renderNotebookLMQuiz(quizEl.id, lessonKey);
+            window.addEventListener('trilhando:quizzeschange', () => {
+                renderNotebookLMQuiz(quizEl.id, lessonKey);
+            });
+            window.addEventListener('trilhando:authchange', () => {
+                renderNotebookLMQuiz(quizEl.id, lessonKey);
+            });
         }
 
         document.addEventListener('click', (e) => {
