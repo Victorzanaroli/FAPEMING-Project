@@ -13,7 +13,9 @@
     const STORAGE_KEY_SESSION = 'trilhando_classroom_session_v1';
     const STORAGE_KEY_CLOUD = 'trilhando_classroom_cloud_cfg_v1';
     const STORAGE_KEY_UNLOCKED_LESSONS = 'trilhando_classroom_unlocked_lessons_v1';
+    const STORAGE_KEY_UNLOCKED_LESSONS_TS = 'trilhando_classroom_unlocked_lessons_ts_v1';
     const STORAGE_KEY_UNLOCKED_QUIZZES = 'trilhando_classroom_unlocked_quizzes_v1';
+    const STORAGE_KEY_UNLOCKED_QUIZZES_TS = 'trilhando_classroom_unlocked_quizzes_ts_v1';
     const STORAGE_KEY_RECENT_USERS = 'trilhando_classroom_recent_users_v1';
 
     // Padrão inicial: Aula 01 (feita em 07/10) e Aula 02 (amanhã 04/11) liberadas
@@ -819,7 +821,15 @@
         }
         const deletedIds = new Set(getDeletedUserIds());
         // Keep only non-deleted student accounts + the single official Admin account
-        users = users.filter(u => u && u.role !== 'admin' && u.role !== 'system_tombstones' && !deletedIds.has(u.id));
+        users = users.filter(u =>
+            u &&
+            u.role !== 'admin' &&
+            u.role !== 'system_tombstones' &&
+            u.role !== 'system_quiz_config' &&
+            u.role !== 'system_permissions_config' &&
+            !(typeof u.role === 'string' && u.role.startsWith('system_')) &&
+            !deletedIds.has(u.id)
+        );
         DEFAULT_ADMINS.forEach(adm => {
             users.unshift(Object.assign({}, adm, { createdAt: '2026-09-16T15:00:00Z' }));
         });
@@ -865,11 +875,21 @@
         return DEFAULT_UNLOCKED_LESSONS.slice();
     }
 
-    function saveUnlockedLessons(lessonsList, silent) {
+    function saveUnlockedLessons(lessonsList, fromRemote, remoteTs) {
         const unique = Array.from(new Set(lessonsList || []));
-        localStorage.setItem(STORAGE_KEY_UNLOCKED_LESSONS, JSON.stringify(unique));
-        syncToCloudAsync();
-        if (!silent) {
+        const prevRaw = localStorage.getItem(STORAGE_KEY_UNLOCKED_LESSONS);
+        const nextRaw = JSON.stringify(unique);
+        localStorage.setItem(STORAGE_KEY_UNLOCKED_LESSONS, nextRaw);
+        if (fromRemote) {
+            if (remoteTs) localStorage.setItem(STORAGE_KEY_UNLOCKED_LESSONS_TS, remoteTs);
+            if (prevRaw !== nextRaw) {
+                window.dispatchEvent(new CustomEvent('trilhando:lessonschange', { detail: { unlocked: unique } }));
+                window.dispatchEvent(new CustomEvent('trilhando:datasync'));
+            }
+        } else {
+            const nowTs = new Date().toISOString();
+            localStorage.setItem(STORAGE_KEY_UNLOCKED_LESSONS_TS, nowTs);
+            pushStateDirectToCloudAsync();
             window.dispatchEvent(new CustomEvent('trilhando:lessonschange', { detail: { unlocked: unique } }));
             window.dispatchEvent(new CustomEvent('trilhando:datasync'));
         }
@@ -889,7 +909,7 @@
         } else {
             list.push(lessonKey);
         }
-        saveUnlockedLessons(list);
+        saveUnlockedLessons(list, false);
         return list.includes(lessonKey);
     }
 
@@ -901,7 +921,7 @@
         } else if (!shouldUnlock && idx >= 0) {
             list.splice(idx, 1);
         }
-        saveUnlockedLessons(list);
+        saveUnlockedLessons(list, false);
         return list.includes(lessonKey);
     }
 
@@ -920,11 +940,21 @@
         return DEFAULT_UNLOCKED_QUIZZES.slice();
     }
 
-    function saveUnlockedQuizzes(quizzesList, silent) {
+    function saveUnlockedQuizzes(quizzesList, fromRemote, remoteTs) {
         const unique = Array.from(new Set(quizzesList || []));
-        localStorage.setItem(STORAGE_KEY_UNLOCKED_QUIZZES, JSON.stringify(unique));
-        syncToCloudAsync();
-        if (!silent) {
+        const prevRaw = localStorage.getItem(STORAGE_KEY_UNLOCKED_QUIZZES);
+        const nextRaw = JSON.stringify(unique);
+        localStorage.setItem(STORAGE_KEY_UNLOCKED_QUIZZES, nextRaw);
+        if (fromRemote) {
+            if (remoteTs) localStorage.setItem(STORAGE_KEY_UNLOCKED_QUIZZES_TS, remoteTs);
+            if (prevRaw !== nextRaw) {
+                window.dispatchEvent(new CustomEvent('trilhando:quizzeschange', { detail: { unlocked: unique } }));
+                window.dispatchEvent(new CustomEvent('trilhando:datasync'));
+            }
+        } else {
+            const nowTs = new Date().toISOString();
+            localStorage.setItem(STORAGE_KEY_UNLOCKED_QUIZZES_TS, nowTs);
+            pushStateDirectToCloudAsync();
             window.dispatchEvent(new CustomEvent('trilhando:quizzeschange', { detail: { unlocked: unique } }));
             window.dispatchEvent(new CustomEvent('trilhando:datasync'));
         }
@@ -944,7 +974,7 @@
         } else {
             list.push(lessonKey);
         }
-        saveUnlockedQuizzes(list);
+        saveUnlockedQuizzes(list, false);
         return list.includes(lessonKey);
     }
 
@@ -956,7 +986,7 @@
         } else if (!shouldUnlock && idx >= 0) {
             list.splice(idx, 1);
         }
-        saveUnlockedQuizzes(list);
+        saveUnlockedQuizzes(list, false);
         return list.includes(lessonKey);
     }
 
@@ -1212,17 +1242,19 @@
                 });
             }
             usersPayload.push({
-                id: '__quiz_control_cfg__',
-                role: 'system_quiz_config',
+                id: '__classroom_permissions_cfg__',
+                role: 'system_permissions_config',
+                unlockedLessons: getUnlockedLessons(),
+                lessonsUpdatedAt: localStorage.getItem(STORAGE_KEY_UNLOCKED_LESSONS_TS) || '1970-01-01T00:00:00.000Z',
                 unlockedQuizzes: getUnlockedQuizzes(),
+                quizzesUpdatedAt: localStorage.getItem(STORAGE_KEY_UNLOCKED_QUIZZES_TS) || '1970-01-01T00:00:00.000Z',
                 updatedAt: new Date().toISOString()
             });
+            // IMPORTANTE: a tabela public.trilhando_sync no Supabase possui apenas (id, users_json, submissions_json, updated_at)
             const payload = {
                 id: 'main_state',
                 users_json: usersPayload,
                 submissions_json: getSubmissions(),
-                unlocked_lessons_json: getUnlockedLessons(),
-                unlocked_quizzes_json: getUnlockedQuizzes(),
                 updated_at: new Date().toISOString()
             };
             const res = await fetch(`${cfg.supabaseUrl}/rest/v1/trilhando_sync?on_conflict=id`, {
@@ -1282,13 +1314,9 @@
                     const mergedSubs = mergeById(getSubmissions(), remote.submissions_json, 'id');
                     localStorage.setItem(STORAGE_KEY_SUBMISSIONS, JSON.stringify(mergedSubs));
                 }
-                if (Array.isArray(remote.unlocked_lessons_json)) {
-                    saveUnlockedLessons(remote.unlocked_lessons_json, true);
-                }
-                if (Array.isArray(remote.unlocked_quizzes_json)) {
-                    saveUnlockedQuizzes(remote.unlocked_quizzes_json, true);
-                }
                 if (!silent) {
+                    window.dispatchEvent(new CustomEvent('trilhando:lessonschange', { detail: { unlocked: getUnlockedLessons() } }));
+                    window.dispatchEvent(new CustomEvent('trilhando:quizzeschange', { detail: { unlocked: getUnlockedQuizzes() } }));
                     window.dispatchEvent(new CustomEvent('trilhando:datasync'));
                 }
                 return true;
@@ -1300,25 +1328,39 @@
     }
 
     function mergeUsersWithAttendance(localUsers, remoteUsers) {
-        // Merge remote tombstones (deleted test users) first so every PC respects admin deletions
+        // Merge remote tombstones (deleted test users) and permissions config first
         let currentDeleted = getDeletedUserIds();
         remoteUsers.forEach(rem => {
             if (rem && rem.id === '__deleted_tombstones__' && Array.isArray(rem.deletedIds)) {
                 currentDeleted = saveDeletedUserIds(currentDeleted.concat(rem.deletedIds));
             }
-            if (rem && rem.id === '__quiz_control_cfg__' && Array.isArray(rem.unlockedQuizzes)) {
-                saveUnlockedQuizzes(rem.unlockedQuizzes, true);
+            if (rem && rem.id === '__classroom_permissions_cfg__') {
+                if (Array.isArray(rem.unlockedLessons)) {
+                    const localTs = localStorage.getItem(STORAGE_KEY_UNLOCKED_LESSONS_TS) || '';
+                    const remTs = rem.lessonsUpdatedAt || '';
+                    if (remTs && remTs !== '1970-01-01T00:00:00.000Z' && (!localTs || remTs >= localTs)) {
+                        saveUnlockedLessons(rem.unlockedLessons, true, remTs);
+                    }
+                }
+                if (Array.isArray(rem.unlockedQuizzes)) {
+                    const localQTs = localStorage.getItem(STORAGE_KEY_UNLOCKED_QUIZZES_TS) || '';
+                    const remQTs = rem.quizzesUpdatedAt || '';
+                    if (remQTs && remQTs !== '1970-01-01T00:00:00.000Z' && (!localQTs || remQTs >= localQTs)) {
+                        saveUnlockedQuizzes(rem.unlockedQuizzes, true, remQTs);
+                    }
+                }
             }
         });
         const deletedIds = new Set(currentDeleted);
         const map = new Map();
+        const isSystemRecord = (u) => !u || u.role === 'system_tombstones' || u.role === 'system_quiz_config' || u.role === 'system_permissions_config' || (typeof u.role === 'string' && u.role.startsWith('system_'));
         localUsers.forEach(u => {
-            if (u && u.role !== 'system_tombstones' && u.role !== 'system_quiz_config' && !deletedIds.has(u.id)) {
+            if (!isSystemRecord(u) && !deletedIds.has(u.id)) {
                 map.set(u.id, Object.assign({}, u));
             }
         });
         remoteUsers.forEach(rem => {
-            if (!rem || rem.role === 'system_tombstones' || rem.role === 'system_quiz_config' || deletedIds.has(rem.id)) return;
+            if (isSystemRecord(rem) || deletedIds.has(rem.id)) return;
             const loc = map.get(rem.id);
             if (!loc) {
                 map.set(rem.id, Object.assign({}, rem));
@@ -1814,6 +1856,15 @@
     function openHomeworkModal(lessonKey) {
         const hw = HOMEWORKS_BY_LESSON[lessonKey];
         if (!hw) return;
+
+        const currCheckUser = getCurrentUser();
+        const isAdmUser = currCheckUser && currCheckUser.role === 'admin';
+        if (!isLessonUnlocked(lessonKey) && !isAdmUser) {
+            if (typeof window.alert === 'function') {
+                window.alert('🔒 Esta aula e sua tarefa de casa ainda estão bloqueadas pelo professor.');
+            }
+            return;
+        }
 
         let modal = document.getElementById('trilhandoHomeworkModal');
         if (!modal) {
@@ -2407,11 +2458,33 @@
         renderGate();
     }
 
-    // Pull latest data from cloud on startup and every 10s so all lab PCs and ADM stay synced
+    // Pull latest data from cloud on startup, on window focus, and every 4s so all lab PCs and ADM stay synced
     pullFromCloudAsync();
     setInterval(() => {
         pullFromCloudAsync(false);
-    }, 10000);
+    }, 4000);
+    window.addEventListener('focus', () => {
+        pullFromCloudAsync(false);
+    });
+    document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+            pullFromCloudAsync(false);
+        }
+    });
+
+    // Sincronização instantânea entre abas do mesmo navegador (ex: aba do Professor ADM e aba do Aluno abertas juntas)
+    window.addEventListener('storage', (e) => {
+        if (!e || !e.key) return;
+        if (e.key === STORAGE_KEY_UNLOCKED_LESSONS) {
+            window.dispatchEvent(new CustomEvent('trilhando:lessonschange', { detail: { unlocked: getUnlockedLessons() } }));
+            window.dispatchEvent(new CustomEvent('trilhando:datasync'));
+        } else if (e.key === STORAGE_KEY_UNLOCKED_QUIZZES) {
+            window.dispatchEvent(new CustomEvent('trilhando:quizzeschange', { detail: { unlocked: getUnlockedQuizzes() } }));
+            window.dispatchEvent(new CustomEvent('trilhando:datasync'));
+        } else if (e.key === STORAGE_KEY_USERS || e.key === STORAGE_KEY_SUBMISSIONS || e.key === STORAGE_KEY_ATTENDANCE) {
+            window.dispatchEvent(new CustomEvent('trilhando:datasync'));
+        }
+    });
 
     // Expose public API globally
     window.TrilhandoClassroom = {
@@ -2463,6 +2536,8 @@
     document.addEventListener('DOMContentLoaded', () => {
         ensureSlideAuthGate();
         window.addEventListener('trilhando:authchange', ensureSlideAuthGate);
+        window.addEventListener('trilhando:lessonschange', ensureSlideAuthGate);
+        window.addEventListener('trilhando:datasync', ensureSlideAuthGate);
 
         const quizEl = document.querySelector('[data-trilhando-quiz]');
         if (quizEl) {

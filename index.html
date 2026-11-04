@@ -1136,11 +1136,11 @@
                     var quizBtnHtml = '';
                     if (les.hasQuiz) {
                         if (isAdm) {
-                            quizBtnHtml = `<a href="arquivos-trilhando/Slides/${les.slideFile}?slide=quiz" class="card-action-link quiz-link" title="Abrir Quiz no Modo Apresentação do Professor">⚡ Quiz (ADM: ${isQuizUnl ? '🔓 Liberado' : '🔒 Trancado'})</a>`;
+                            quizBtnHtml = `<a href="arquivos-trilhando/Slides/${les.slideFile}?slide=quiz" class="card-action-link quiz-link" title="Abrir Quiz no Modo Apresentação do Professor">⚡ Quiz (ADM: ${isQuizUnl ? '🔓 Liberado' : '🔒 Travado'})</a>`;
                         } else if (isQuizUnl) {
                             quizBtnHtml = `<a href="arquivos-trilhando/Slides/${les.slideFile}?slide=quiz" class="card-action-link quiz-link">⚡ Quiz (10)</a>`;
                         } else {
-                            quizBtnHtml = `<a href="arquivos-trilhando/Slides/${les.slideFile}?slide=quiz" class="card-action-link quiz-link" style="opacity:0.9;border-color:rgba(245,158,11,0.5);color:#fcd34d;" title="Quiz em apresentação com o professor durante a aula">🔒 Quiz (Em Sala c/ Prof)</a>`;
+                            quizBtnHtml = `<span class="card-action-link" style="background:rgba(245,158,11,0.1);border:1px dashed rgba(245,158,11,0.45);color:#fcd34d;cursor:not-allowed;" title="O professor liberará o quiz após a apresentação em sala">🔒 Quiz Travado (Em Sala)</span>`;
                         }
                     }
 
@@ -1232,12 +1232,31 @@
             var container = document.getElementById('tarefasViewContainer');
             if (!container) return;
             var user = window.TrilhandoClassroom.getCurrentUser();
+            var isAdm = user && user.role === 'admin';
             var subs = window.TrilhandoClassroom.getSubmissions();
             var homeworks = window.TrilhandoClassroom.HOMEWORKS_BY_LESSON;
 
             var cardsHtml = Object.keys(homeworks).map(function(key) {
                 var hw = homeworks[key];
+                var isUnlocked = window.TrilhandoClassroom.isLessonUnlocked(key);
                 var mySub = user ? subs.find(function(s) { return s.userId === user.id && s.lessonKey === key; }) : null;
+
+                if (!isUnlocked && !isAdm) {
+                    return `
+                        <div class="panel-box" style="opacity:0.65;border-color:rgba(255,255,255,0.1);">
+                            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+                                <div>
+                                    <span class="tr-badge-cyan" style="border-color:#64748b;color:#94a3b8;background:rgba(255,255,255,0.05);">🔒 AULA 0${hw.lessonNumber} BLOQUEADA</span>
+                                    <h3 style="margin-top:8px;color:#94a3b8;">${escapeHtml(hw.title)}</h3>
+                                    <p style="font-size:0.86rem;color:#64748b;margin-top:4px;">Esta tarefa de casa será liberada automaticamente quando o professor destravar a Aula 0${hw.lessonNumber}.</p>
+                                </div>
+                                <div>
+                                    <span class="tr-pending-badge" style="border-color:rgba(148,163,184,0.3);color:#94a3b8;background:rgba(255,255,255,0.04);">🔒 Aguardando liberação pelo professor</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
 
                 return `
                     <div class="panel-box" style="border-color:${mySub ? 'rgba(16,185,129,0.45)' : 'rgba(0,229,255,0.3)'};">
@@ -1300,6 +1319,13 @@
             if (loginBtn) {
                 loginBtn.addEventListener('click', function() { openAuthModal('register'); });
             }
+
+            container.querySelectorAll('[data-open-homework]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var lKey = btn.getAttribute('data-open-homework');
+                    window.TrilhandoClassroom.openHomeworkModal(lKey);
+                });
+            });
         }
 
         // Render Tab 3: Minhas Notas & Correções (Boletim Escolar)
@@ -1603,49 +1629,47 @@
 
             var cloudCfg = window.TrilhandoClassroom.getCloudConfig();
 
-            // Painel de Controle de Liberação de Aulas e Slides para Alunos
+            // Painel de Controle de Liberação de Aulas, Tarefas e Quizzes (formato de tabela compacta igual à Lista de Chamada)
             var unlockedList = window.TrilhandoClassroom.getUnlockedLessons();
             var unlockedQuizzes = window.TrilhandoClassroom.getUnlockedQuizzes ? window.TrilhandoClassroom.getUnlockedQuizzes() : [];
-            var lessonsControlHtml = LESSONS_METADATA.map(function(les) {
+            var lessonsTableRowsHtml = LESSONS_METADATA.map(function(les) {
                 var isUnl = unlockedList.includes(les.key);
                 var isQuizUnl = unlockedQuizzes.includes(les.key);
                 var numStr = les.number < 10 ? '0' + les.number : les.number;
 
-                var quizControlRow = les.hasQuiz ? `
-                    <div style="margin-top:10px;padding-top:10px;border-top:1px dashed rgba(255,255,255,0.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;">
-                        <span style="font-size:0.78rem;color:#cbd5e1;">
-                            ⚡ Quiz em Sala: <strong style="color:${isQuizUnl ? '#34d399' : '#fcd34d'};">${isQuizUnl ? '🔓 Liberado p/ Alunos' : '🔒 Trancado (Apenas ADM)'}</strong>
-                        </span>
-                        <button type="button" class="${isQuizUnl ? 'tr-btn-ghost' : 'tr-btn-primary'}" data-adm-toggle-quiz="${les.key}" style="font-size:0.75rem;padding:5px 10px;${isQuizUnl ? 'border-color:#ef4444;color:#fca5a5;' : ''}">
-                            ${isQuizUnl ? '🔒 Trancar Quiz p/ Alunos' : '🔓 Liberar Quiz p/ Alunos'}
-                        </button>
-                    </div>
-                ` : '';
+                var lessonBtnClass = isUnl ? 'present' : 'absent';
+                var lessonBtnLabel = isUnl ? '✅ Liberada (Clique p/ Travar)' : '🔒 Travada (Clique p/ Liberar)';
+
+                var quizCellHtml = les.hasQuiz
+                    ? `<button type="button" class="att-toggle-btn ${isQuizUnl ? 'present' : 'absent'}" data-adm-toggle-quiz="${les.key}" title="Clique para alternar o Quiz da Aula ${numStr} entre Liberado e Travado para os alunos">
+                           ${isQuizUnl ? '✅ Quiz Liberado' : '🔒 Quiz Travado (Só ADM)'}
+                       </button>`
+                    : `<span style="font-size:0.76rem;color:#64748b;">— Sem quiz nesta aula</span>`;
 
                 return `
-                    <div class="lesson-control-card ${isUnl ? 'is-unlocked' : 'is-locked'}">
-                        <div>
-                            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                                <span class="tr-badge-cyan" style="font-size:0.75rem;">AULA ${numStr} • ${escapeHtml(les.date)}</span>
-                                <span class="nb-feedback-pill ${isUnl ? 'nb-pill-correct' : 'nb-pill-wrong'}" style="font-size:0.75rem;padding:3px 10px;">
-                                    ${isUnl ? '🔓 Liberada p/ Alunos' : '🔒 Bloqueada'}
-                                </span>
-                            </div>
-                            <strong style="color:#fff;font-size:0.9rem;display:block;margin-top:4px;">${escapeHtml(les.title)}</strong>
-                            <div style="font-size:0.78rem;color:#94a3b8;margin-top:4px;">
-                                Slide: <code>${les.slideFile}</code> (${les.slideCount} slides)
-                            </div>
-                        </div>
-                        <div style="display:flex;gap:8px;align-items:center;margin-top:8px;">
-                            <button type="button" class="${isUnl ? 'tr-btn-ghost' : 'tr-btn-primary'}" data-adm-toggle-lesson="${les.key}" style="font-size:0.78rem;padding:6px 12px;${isUnl ? 'border-color:#ef4444;color:#fca5a5;' : ''}">
-                                ${isUnl ? '🔒 Bloquear Aula' : '🔓 Liberar Aula'}
+                    <tr>
+                        <td>
+                            <strong style="color:#fff;font-size:0.9rem;">Aula ${numStr}</strong>
+                            <div style="font-size:0.72rem;color:#64748b;">Dia ${escapeHtml(les.date)}</div>
+                        </td>
+                        <td>
+                            <strong style="color:#e2e8f0;font-size:0.86rem;">${escapeHtml(les.title)}</strong>
+                            <div style="font-size:0.72rem;color:#64748b;">Slide: <code>${les.slideFile}</code> (${les.slideCount} slides)${les.hasHw ? ' • 🏠 Com Tarefa' : ''}</div>
+                        </td>
+                        <td>
+                            <button type="button" class="att-toggle-btn ${lessonBtnClass}" data-adm-toggle-lesson="${les.key}" title="Clique para liberar ou travar a Aula ${numStr} (Slides + Tarefa) para os alunos">
+                                ${lessonBtnLabel}
                             </button>
-                            <a href="arquivos-trilhando/Slides/${les.slideFile}" target="_blank" class="tr-btn-ghost" style="text-decoration:none;font-size:0.78rem;padding:6px 10px;">
-                                👁️ Testar Slide
+                        </td>
+                        <td>
+                            ${quizCellHtml}
+                        </td>
+                        <td>
+                            <a href="arquivos-trilhando/Slides/${les.slideFile}" target="_blank" class="tr-btn-ghost" style="text-decoration:none;font-size:0.76rem;padding:6px 12px;display:inline-flex;align-items:center;gap:5px;">
+                                👁️ Ver Slide
                             </a>
-                        </div>
-                        ${quizControlRow}
-                    </div>
+                        </td>
+                    </tr>
                 `;
             }).join('');
 
@@ -1686,15 +1710,15 @@
                 </div>
 
                 <!-- ===================================================================
-                     NOVA SEÇÃO: CONTROLE DE LIBERAÇÃO DE AULAS E SLIDES PARA ALUNOS
+                     SEÇÃO: CONTROLE DE LIBERAÇÃO DE AULAS, TAREFAS E QUIZZES (EM TABELA COMPACTA)
                 =================================================================== -->
-                <div class="panel-box" style="border-color:rgba(0,229,255,0.45);background:rgba(15,23,42,0.7);margin-bottom:18px;">
-                    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+                <div class="panel-box" style="border-color:rgba(0,229,255,0.4);margin-bottom:18px;">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:12px;">
                         <div>
-                            <span class="tr-badge-cyan">🔓 CONTROLE DE VISUALIZAÇÃO DOS SLIDES</span>
-                            <h3 style="margin-top:6px;">Liberação de Aulas e Slides para os Alunos</h3>
+                            <span class="tr-badge-cyan">🔓 CONTROLE DE LIBERAÇÃO DE AULAS &amp; QUIZZES</span>
+                            <h3 style="margin-top:6px;">Gerenciar Acesso às Aulas, Tarefas e Quizzes</h3>
                             <p style="font-size:0.84rem;color:var(--text-secondary);">
-                                Por padrão, os alunos não têm acesso antecipado às aulas futuras. Ao subir os slides de uma nova aula no site, clique em <strong>"🔓 Liberar Aula"</strong> abaixo para abrir o acesso no menu dos estudantes!
+                                Clique nos botões da tabela abaixo para <strong>liberar ou travar</strong> cada aula (slides + tarefa de casa) e o <strong>quiz em sala</strong> para os alunos.
                             </p>
                         </div>
                         <div style="display:flex;gap:8px;flex-wrap:wrap;">
@@ -1707,8 +1731,21 @@
                         </div>
                     </div>
 
-                    <div class="lessons-control-grid">
-                        ${lessonsControlHtml}
+                    <div style="overflow-x:auto;">
+                        <table class="cls-table">
+                            <thead>
+                                <tr>
+                                    <th>Aula &amp; Data</th>
+                                    <th>Tema da Aula &amp; Slide</th>
+                                    <th>Aula, Slides &amp; Tarefa (Clique p/ Alternar)</th>
+                                    <th>Quiz em Sala (Clique p/ Alternar)</th>
+                                    <th>Visualizar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${lessonsTableRowsHtml}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
 
