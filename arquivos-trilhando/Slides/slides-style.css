@@ -976,7 +976,7 @@ body {
     width: 100%;
 }
 
-.nb-quiz-option:hover, .tr-hw-opt-btn:hover {
+.nb-quiz-option:not(:disabled):hover, .tr-hw-opt-btn:not(:disabled):hover {
     background: rgba(30, 41, 59, 0.92);
     border-color: var(--cefet-cyan);
     transform: translateY(-2px);

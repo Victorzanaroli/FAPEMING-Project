@@ -24,14 +24,13 @@
         </div>
         <div class="top-controls">
             <a href="../../index.html" class="control-btn">🏠 Menu</a>
-            <button class="control-btn" id="notesToggle">📝 Notas (N)</button>
             <button class="control-btn" id="fullscreenToggle">⛶ Tela Cheia (F)</button>
         </div>
     </header>
 
     <main class="presentation-stage">
         <!-- Slide 1: Capa -->
-        <section class="slide active" data-notes="<strong>Abertura Aula 07:</strong> Transição do terminal para telas visuais interativas (GUI) usando Flet (baseado em Flutter).">
+        <section class="slide active">
             <div class="slide-header">
                 <span class="slide-step">MÓDULO 07 • INTERFACES VISUAIS (GUI)</span>
                 <h1 class="slide-title">Interfaces Gráficas com Flet</h1>
@@ -59,7 +58,7 @@
         </section>
 
         <!-- Slide 2: Estrutura Base de um App Flet -->
-        <section class="slide" data-notes="<strong>Estrutura Flet:</strong> Explicar 'import flet as ft', a função main(page: ft.Page) e 'ft.app(target=main)'.">
+        <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">CONCEITO 1 • ESTRUTURA BASE</span>
                 <h2 class="slide-title">A Estrutura de um App Flet</h2>
@@ -83,7 +82,7 @@ ft.<span class="fn">app</span>(target=main)</div>
         </section>
 
         <!-- Slide 3: Layouts (Columns e Rows) -->
-        <section class="slide" data-notes="<strong>Layouts:</strong> ft.Column organiza elementos na vertical (de cima pra baixo). ft.Row organiza na horizontal (lado a lado).">
+        <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">CONCEITO 2 • LAYOUT & ORGANIZAÇÃO</span>
                 <h2 class="slide-title">Organizando Elementos: <code>Column</code> e <code>Row</code></h2>
@@ -113,7 +112,7 @@ ft.<span class="fn">app</span>(target=main)</div>
         </section>
 
         <!-- Slide 4: Eventos e page.update() -->
-        <section class="slide" data-notes="<strong>page.update():</strong> Lembrar aos alunos que em Flet, após alterar o valor de um widget em código, é OBRIGATÓRIO chamar page.update() para que a alteração apareça na tela!">
+        <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">CONCEITO 3 • INTERATIVIDADE</span>
                 <h2 class="slide-title">Eventos de Clique e <code>page.update()</code></h2>
@@ -136,7 +135,7 @@ ft.<span class="fn">app</span>(target=main)</div>
         </section>
 
         <!-- Slide 5: Desafio Prático da Aula 07 -->
-        <section class="slide" data-notes="<strong>Prática:</strong> Transformar o script terminal da Aula 05/06 em um app visual com Flet.">
+        <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">PRÁTICA • DESAFIO 07</span>
                 <h2 class="slide-title">Desafio: Primeira Versão Visual do App ODS</h2>
@@ -161,11 +160,6 @@ ft.<span class="fn">app</span>(target=main)</div>
             </div>
         </section>
     </main>
-
-    <div class="speaker-notes-panel" id="notesPanel">
-        <div class="notes-header"><span>📝 NOTAS DO INSTRUTOR</span><span style="opacity:0.6">Pressione N para fechar</span></div>
-        <div class="notes-content" id="notesContent">Use as setas do teclado para navegar.</div>
-    </div>
 
     <footer class="bottom-nav">
         <div class="slide-counter" id="slideCounter">1 / 5</div>

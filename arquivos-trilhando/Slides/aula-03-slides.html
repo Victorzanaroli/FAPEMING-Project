@@ -71,7 +71,6 @@
         <div class="top-controls">
             <a href="../../index.html" class="control-btn">🏠 Classroom</a>
             <button class="control-btn" data-open-homework="aula03" style="border-color:rgba(0,229,255,.45);color:#00e5ff">📝 Tarefa de Casa</button>
-            <button class="control-btn" id="notesToggle">📝 Notas (N)</button>
             <button class="control-btn" id="fullscreenToggle">⛶ Tela Cheia (F)</button>
         </div>
     </header>
@@ -79,8 +78,7 @@
     <main class="presentation-stage">
 
         <!-- SLIDE 1 — CAPA DA AULA 03 -->
-        <section class="slide active"
-            data-notes="&lt;strong&gt;Boas-vindas Aula 03 (0–3 min):&lt;/strong&gt; Diga: 'Sejam bem-vindos à Aula 3! Nas aulas anteriores ensinamos o computador a falar, ouvir e tomar decisões com if/else. Hoje vamos dar a ele superpoderes de defesa contra erros com try/except e a capacidade de repetir ações sem cansar com while e for!'">
+        <section class="slide active">
             <div class="slide-header">
                 <span class="slide-step">MÓDULO 03 • BLINDAGEM DE ERROS E LAÇOS DE REPETIÇÃO</span>
                 <h1 class="slide-title">Repetir Sem Cansar &amp; Defender de Erros</h1>
@@ -111,8 +109,7 @@
         </section>
 
         <!-- SLIDE 2 — BLOCO 1: QUIZ ESTILO NOTEBOOK LM (10 QUESTÕES) -->
-        <section class="slide"
-            data-notes="&lt;strong&gt;Bloco 1 — Quiz da Aula Anterior (15h00–15h15):&lt;/strong&gt; Quiz no formato NotebookLM com 10 questões simples sobre print(), input(), variáveis, int/float e if/elif/else. Clique na alternativa escolhida pela turma: se acertarem, mostra em verde o porquê; se errarem, mostra em vermelho por que aquela está errada e destaca em verde qual era a certa!">
+        <section class="slide">
             <div class="slide-header" style="margin-bottom:10px">
                 <span class="step-badge">⚡ Bloco 1 — Quiz Interativo de Aquecimento (10 Questões)</span>
                 <h2 class="slide-title" style="font-size:1.55rem">Relembrando: Variáveis, Tipos e <code>if / elif / else</code></h2>
@@ -123,8 +120,7 @@
         </section>
 
         <!-- SLIDE 3 — BLOCO 2 (PARTE 1): TRY / EXCEPT -->
-        <section class="slide"
-            data-notes="&lt;strong&gt;Bloco 2 — Live Coding 1: try/except (15h15–15h27):&lt;/strong&gt; Crie o arquivo 'aula03_try.py' no VS Code e digite junto com a turma. Explique: 'try significa TENTE rodar isso aqui. Se o usuário digitar letras no int(), em vez de travar com tela vermelha, o Python pula para o except ValueError (Plano B de emergência)!'">
+        <section class="slide">
             <div class="slide-header">
                 <span class="live-label"><span class="live-dot"></span> Live Coding 1 — Abra o VS Code (aula03_try.py)</span>
                 <h2 class="slide-title">Escudo Anti-Erro: <code>try</code> e <code>except</code></h2>
@@ -162,8 +158,7 @@
         </section>
 
         <!-- SLIDE 4 — MINI-DESAFIO 1: TRY / EXCEPT -->
-        <section class="slide"
-            data-notes="&lt;strong&gt;Mini-Desafio 1 (3 min):&lt;/strong&gt; Peça para criarem um try/except que leia a altura com float(input()). Se digitar com vírgula (ex: 1,70) ou texto, cai no except ValueError!">
+        <section class="slide">
             <div class="slide-header">
                 <span class="challenge-label">🎯 Mini-Desafio 1 — 3 minutos</span>
                 <h2 class="slide-title">Sua vez com <code>try / except</code>!</h2>
@@ -195,8 +190,7 @@
         </section>
 
         <!-- SLIDE 5 — BLOCO 2 (PARTE 2): LAÇO WHILE -->
-        <section class="slide"
-            data-notes="&lt;strong&gt;Bloco 2 — Live Coding 2: Laço while (15h30–15h40):&lt;/strong&gt; Crie 'aula03_loops.py'. Explique: 'O if testa uma vez só. O while significa ENQUANTO: enquanto a senha digitada for diferente da senha correta, ele continua perguntando sem parar!'">
+        <section class="slide">
             <div class="slide-header">
                 <span class="live-label"><span class="live-dot"></span> Live Coding 2 — Repetição com Condição (aula03_loops.py)</span>
                 <h2 class="slide-title">Laço <code>while</code> — Repetir Enquanto...</h2>
@@ -233,8 +227,7 @@
         </section>
 
         <!-- SLIDE 6 — MINI-DESAFIO 2: WHILE -->
-        <section class="slide"
-            data-notes="&lt;strong&gt;Mini-Desafio 2 (3 min):&lt;/strong&gt; Criar um contador com while que mostre os números de 1 até 5 na tela.">
+        <section class="slide">
             <div class="slide-header">
                 <span class="challenge-label">🎯 Mini-Desafio 2 — 3 minutos</span>
                 <h2 class="slide-title">Sua vez com o <code>while</code>!</h2>
@@ -266,8 +259,7 @@
         </section>
 
         <!-- SLIDE 7 — BLOCO 2 (PARTE 3): LAÇO FOR E RANGE() -->
-        <section class="slide"
-            data-notes="&lt;strong&gt;Bloco 2 — Laço for + range() (15h43–15h50):&lt;/strong&gt; Explique: 'Quando já sabemos exatamente quantas vezes queremos repetir (ex: 3 chances ou contagem regressiva de 5 até 1), o for com range() faz tudo em 2 linhas!'">
+        <section class="slide">
             <div class="slide-header">
                 <span class="live-label"><span class="live-dot"></span> Live Coding 3 — Contagem Programada</span>
                 <h2 class="slide-title">Laço <code>for</code> com <code>range()</code></h2>
@@ -304,8 +296,7 @@
         </section>
 
         <!-- SLIDE 8 — BLOCO 3: ENGENHARIA REVERSA (DETETIVE DE CÓDIGO) -->
-        <section class="slide"
-            data-notes="&lt;strong&gt;Bloco 3 — Engenharia Reversa (15h50–16h15):&lt;/strong&gt; Projete o código Arcade Passatempo. Peça para a turma analisar sem rodar primeiro e responder às 3 perguntas de detetive.">
+        <section class="slide">
             <div class="slide-header">
                 <span class="step-badge">🔍 Bloco 3 — Engenharia Reversa (Missão Detetive)</span>
                 <h2 class="slide-title">Analisando o "Arcade Passatempo"</h2>
@@ -358,8 +349,7 @@
         </section>
 
         <!-- SLIDE 9 — INTERVALO -->
-        <section class="slide"
-            data-notes="&lt;strong&gt;Intervalo (16h15–16h30):&lt;/strong&gt; 15 minutos de pausa. Mantenha esse slide na tela. Ao voltar, vá direto para o slide das missões com IA.">
+        <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">☕ PAUSA</span>
                 <h2 class="slide-title">Intervalo — 15 Minutos</h2>
@@ -379,8 +369,7 @@
         </section>
 
         <!-- SLIDE 10 — BLOCO 4: 3 MISSÕES PRÁTICAS COM IA -->
-        <section class="slide"
-            data-notes="&lt;strong&gt;Bloco 4 — 3 Missões com IA (16h30–17h20):&lt;/strong&gt; Alunos escolhem uma das 3 missões (Caixa Eletrônico, Quiz Implacável ou Monitor de Saúde), clicam no card para copiar o prompt, geram com a IA e testam no VS Code!">
+        <section class="slide">
             <div class="slide-header">
                 <span class="step-badge">🤖 Bloco 4 — Desafio do Dia com IA (50 min)</span>
                 <h2 class="slide-title">Escolha a Sua Missão Prática!</h2>
@@ -414,8 +403,7 @@
         </section>
 
         <!-- SLIDE 11 — BLOCO 5: QUEBRANDO O CÓDIGO (TESTE DE ESTRESSE) -->
-        <section class="slide"
-            data-notes="&lt;strong&gt;Bloco 5 — Quebrando o Código (17h20–17h45):&lt;/strong&gt; Peça para os alunos tentarem quebrar os próprios programas digitando letras, zero ou apertando Enter vazio, e verificarem se o try/except segurou o impacto!">
+        <section class="slide">
             <div class="slide-header">
                 <span class="step-badge">🔨 Bloco 5 — Operação Destruição (Teste de Estresse)</span>
                 <h2 class="slide-title">Tente Quebrar o Seu Código!</h2>
@@ -440,8 +428,7 @@
         </section>
 
         <!-- SLIDE 12 — BLOCO 6: RESUMÃO DA AULA 03 -->
-        <section class="slide"
-            data-notes="&lt;strong&gt;Bloco 6 — Resumão (17h45–17h55):&lt;/strong&gt; Revise os 5 comandos dominados hoje e peça para salvarem os códigos na pasta Aula03.">
+        <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">BLOCO 6 • SÍNTESE DO DIA</span>
                 <h2 class="slide-title">Sintaxes Dominadas na Aula 03</h2>
@@ -471,8 +458,7 @@
         </section>
 
         <!-- SLIDE 13 — CAPA / TRAVA ANTI-SPOILER DA TAREFA DE CASA DA AULA 03 -->
-        <section class="slide"
-            data-notes="&lt;strong&gt;Tarefa de Casa da Aula 03 (Sem Spoiler!):&lt;/strong&gt; As questões e o desafio prático só abrem ao clicar no botão abaixo ou pelo Portal Classroom.">
+        <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">🏠 ATIVIDADE PARA CASA • PROTEÇÃO ANTI-SPOILER</span>
                 <h2 class="slide-title">Tarefa de Casa — Aula 03</h2>
@@ -502,15 +488,6 @@
         </section>
 
     </main>
-
-    <!-- Speaker Notes Panel -->
-    <div class="speaker-notes-panel" id="notesPanel">
-        <div class="notes-header">
-            <span>📝 NOTAS DO INSTRUTOR</span>
-            <span style="opacity:.6">Pressione N para fechar</span>
-        </div>
-        <div class="notes-content" id="notesContent">Use as setas do teclado para navegar entre os slides.</div>
-    </div>
 
     <!-- Bottom Navigation -->
     <footer class="bottom-nav">

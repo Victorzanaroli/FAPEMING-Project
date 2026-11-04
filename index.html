@@ -1145,7 +1145,7 @@
                     }
 
                     var hwBtnHtml = les.hasHw
-                        ? `<button type="button" class="card-action-link hw-link" data-open-homework="${les.key}">🏠 Tarefa de Casa</button>`
+                        ? `<button type="button" class="card-action-link hw-link" data-open-homework="${les.key}">${isAdm ? '👁️ Ver Tarefa (Gabarito)' : '🏠 Tarefa de Casa'}</button>`
                         : '';
 
                     var borderColor = les.key === 'aula02' ? 'rgba(0, 229, 255, 0.45)' : (les.key === 'aula03' ? 'rgba(16, 185, 129, 0.45)' : '');
@@ -1180,9 +1180,11 @@
                                 <div class="card-desc">${les.desc}</div>
                             </div>
                             <div class="card-actions-bar">
-                                <a href="arquivos-trilhando/Slides/${les.slideFile}" class="card-action-link" style="background:rgba(37,99,235,0.25);border:1px dashed #60a5fa;color:#93c5fd;" target="_blank">
+                                <a href="arquivos-trilhando/Slides/${les.slideFile}" class="card-action-link" style="background:rgba(37,99,235,0.25);border:1px dashed #60a5fa;color:#93c5fd;">
                                     🛡️ ADM: Ver Slide (${les.slideCount})
                                 </a>
+                                ${les.hasQuiz ? `<a href="arquivos-trilhando/Slides/${les.slideFile}?slide=quiz" class="card-action-link quiz-link" title="Abrir Quiz no Modo Apresentação do Professor (trancado para os alunos)">⚡ Quiz (ADM: 🔒 Travado)</a>` : ''}
+                                ${les.hasHw ? `<button type="button" class="card-action-link hw-link" data-open-homework="${les.key}">👁️ Ver Tarefa (Gabarito)</button>` : ''}
                                 <button type="button" class="card-action-link primary-link" data-quick-toggle-lesson="${les.key}" style="cursor:pointer;">
                                     🔓 Liberar p/ Alunos
                                 </button>
@@ -1191,8 +1193,9 @@
                     `;
                 } else {
                     // Visualização para alunos quando a aula ainda não foi liberada
+                    // (ao clicar, mostra a mensagem na MESMA aba, com botão de voltar)
                     return `
-                        <div class="card" style="opacity:0.65;">
+                        <div class="card" data-locked-lesson="${les.key}" style="opacity:0.65;cursor:pointer;" title="Aula ainda não liberada pelo professor">
                             <div>
                                 <div class="card-tag">
                                     <span>AULA ${numStr} • ${escapeHtml(les.date)}</span>
@@ -1202,7 +1205,7 @@
                                 <div class="card-desc">${les.desc}</div>
                             </div>
                             <div class="card-actions-bar">
-                                <span class="card-action-link" style="background:rgba(255,255,255,0.04);color:#64748b;cursor:default;">🔒 Liberado na Aula ${numStr} (${escapeHtml(les.date)})</span>
+                                <button type="button" class="card-action-link" data-locked-lesson="${les.key}" style="background:rgba(255,255,255,0.04);color:#64748b;cursor:pointer;">🔒 Liberado na Aula ${numStr} (${escapeHtml(les.date)})</button>
                             </div>
                         </div>
                     `;
@@ -1225,6 +1228,58 @@
                     window.TrilhandoClassroom.openHomeworkModal(lKey);
                 });
             });
+
+            grid.querySelectorAll('.card[data-locked-lesson]').forEach(function(card) {
+                card.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    showLockedLessonMessage(card.getAttribute('data-locked-lesson'));
+                });
+            });
+        }
+
+        // Mensagem amigável de "aula bloqueada" exibida NA MESMA ABA (sem abrir nova aba), com botão de voltar
+        function showLockedLessonMessage(lessonKey) {
+            var les = LESSONS_METADATA.find(function(l) { return l.key === lessonKey; }) || {};
+            var numStr = les.number < 10 ? '0' + les.number : les.number;
+            var overlay = document.getElementById('lockedLessonOverlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'lockedLessonOverlay';
+                overlay.className = 'tr-hw-modal-overlay';
+                overlay.style.background = 'radial-gradient(circle at 20% 20%, rgba(239, 68, 68, 0.22), rgba(4, 9, 22, 0.96) 70%)';
+                overlay.style.zIndex = '100001';
+                document.body.appendChild(overlay);
+                overlay.addEventListener('click', function(e) {
+                    if (e.target === overlay) closeLockedLessonMessage();
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (e.key === 'Escape') closeLockedLessonMessage();
+                });
+            }
+            overlay.innerHTML = `
+                <div class="auth-modal-card" style="max-width:520px;text-align:center;padding:34px 24px;border:1.5px solid rgba(239,68,68,0.5);border-radius:22px;">
+                    <div style="font-size:3.2rem;margin-bottom:12px;">🔒</div>
+                    <span class="tr-badge-cyan" style="border-color:#ef4444;color:#fca5a5;background:rgba(239,68,68,0.15);">AULA BLOQUEADA PELO PROFESSOR</span>
+                    <h3 style="font-size:1.35rem;color:#fff;margin-top:12px;margin-bottom:8px;">Aula ${numStr} ainda não liberada</h3>
+                    <p style="font-size:0.88rem;color:#cbd5e1;line-height:1.6;margin-bottom:8px;">
+                        <strong>${escapeHtml(les.title || '')}</strong>
+                    </p>
+                    <p style="font-size:0.88rem;color:#cbd5e1;line-height:1.6;margin-bottom:22px;">
+                        Os slides e materiais desta aula serão liberados pelos professores Victor, Rafael e Kaique no dia da aula (${escapeHtml(les.date || '')}).
+                    </p>
+                    <button type="button" class="tr-btn-primary" id="lockedLessonBackBtn" style="padding:12px 24px;font-size:0.92rem;cursor:pointer;">
+                        ⬅ Voltar para as Aulas
+                    </button>
+                </div>
+            `;
+            overlay.classList.add('active');
+            var backBtn = document.getElementById('lockedLessonBackBtn');
+            if (backBtn) backBtn.addEventListener('click', closeLockedLessonMessage);
+        }
+
+        function closeLockedLessonMessage() {
+            var overlay = document.getElementById('lockedLessonOverlay');
+            if (overlay) overlay.classList.remove('active');
         }
 
         // Render Tab 2: Tarefas de Casa
@@ -1292,7 +1347,7 @@
                             <div style="display:flex;gap:10px;">
                                 <a href="arquivos-trilhando/Slides/aula-0${hw.lessonNumber}-slides.html" class="tr-btn-ghost" style="text-decoration:none;">📊 Revisar Slides da Aula 0${hw.lessonNumber}</a>
                                 <button type="button" class="tr-btn-primary" data-open-homework="${key}">
-                                    ${mySub ? '🔍 Ver Correção / Editar Tarefa' : '🚀 Fazer Tarefa da Aula 0' + hw.lessonNumber}
+                                    ${isAdm ? '👁️ Ver Tarefa (Gabarito)' : (mySub ? '🔍 Ver Correção / Editar Tarefa' : '🚀 Fazer Tarefa da Aula 0' + hw.lessonNumber)}
                                 </button>
                             </div>
                         </div>
@@ -1665,7 +1720,7 @@
                             ${quizCellHtml}
                         </td>
                         <td>
-                            <a href="arquivos-trilhando/Slides/${les.slideFile}" target="_blank" class="tr-btn-ghost" style="text-decoration:none;font-size:0.76rem;padding:6px 12px;display:inline-flex;align-items:center;gap:5px;">
+                            <a href="arquivos-trilhando/Slides/${les.slideFile}" class="tr-btn-ghost" style="text-decoration:none;font-size:0.76rem;padding:6px 12px;display:inline-flex;align-items:center;gap:5px;">
                                 👁️ Ver Slide
                             </a>
                         </td>

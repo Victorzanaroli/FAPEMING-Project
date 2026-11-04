@@ -24,14 +24,13 @@
         </div>
         <div class="top-controls">
             <a href="../../index.html" class="control-btn">🏠 Menu</a>
-            <button class="control-btn" id="notesToggle">📝 Notas (N)</button>
             <button class="control-btn" id="fullscreenToggle">⛶ Tela Cheia (F)</button>
         </div>
     </header>
 
     <main class="presentation-stage">
         <!-- Slide 1: Capa -->
-        <section class="slide active" data-notes="<strong>Abertura Aula 08:</strong> A culminância técnica do curso: conectar a interface visual Flet com a API do Google Gemini e personalizar o comportamento da IA via arquivo GEMINI.md.">
+        <section class="slide active">
             <div class="slide-header">
                 <span class="slide-step">MÓDULO 08 • INTEGRAÇÃO COM IA GENERATIVA</span>
                 <h1 class="slide-title">Arquitetura Flet + Gemini + Contexto</h1>
@@ -59,7 +58,7 @@
         </section>
 
         <!-- Slide 2: Conectando a API do Gemini -->
-        <section class="slide" data-notes="<strong>API Key:</strong> Alerta de segurança: Nunca colocar chaves de API abertas em repositórios públicos.">
+        <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">CONCEITO 1 • CONEXÃO DE API</span>
                 <h2 class="slide-title">Conectando o Python à API do Gemini</h2>
@@ -85,7 +84,7 @@ response = client.models.<span class="fn">generate_content</span>(
         </section>
 
         <!-- Slide 3: O Arquivo GEMINI.md e System Instructions -->
-        <section class="slide" data-notes="<strong>GEMINI.md:</strong> Explicar que o arquivo funciona como a 'alma' ou 'manual de regras' do aplicativo.">
+        <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">CONCEITO 2 • CONTEXTO E PROMPT DE SISTEMA</span>
                 <h2 class="slide-title">O Arquivo de Contexto <code>GEMINI.md</code></h2>
@@ -119,7 +118,7 @@ response = client.models.<span class="fn">generate_content</span>(
         </section>
 
         <!-- Slide 4: Fluxo de Dados Completo no Flet -->
-        <section class="slide" data-notes="<strong>Fluxo Completo:</strong> Usuário digita na UI -> Flet captura -> Injeta GEMINI.md -> Envia pro Gemini -> Recebe resposta -> Atualiza a UI.">
+        <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">CONCEITO 3 • FLUXO DE DADOS</span>
                 <h2 class="slide-title">Arquitetura de Dados em Tempo Real</h2>
@@ -152,7 +151,7 @@ response = client.models.<span class="fn">generate_content</span>(
         </section>
 
         <!-- Slide 5: Desafio Prático da Aula 08 -->
-        <section class="slide" data-notes="<strong>Prática:</strong> Finalizar a integração completa do App da equipe com a API do Gemini antes da Feira da Aula 09.">
+        <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">PRÁTICA • DESAFIO 08</span>
                 <h2 class="slide-title">Desafio: Integração Final do App ODS com IA</h2>
@@ -177,11 +176,6 @@ response = client.models.<span class="fn">generate_content</span>(
             </div>
         </section>
     </main>
-
-    <div class="speaker-notes-panel" id="notesPanel">
-        <div class="notes-header"><span>📝 NOTAS DO INSTRUTOR</span><span style="opacity:0.6">Pressione N para fechar</span></div>
-        <div class="notes-content" id="notesContent">Use as setas do teclado para navegar.</div>
-    </div>
 
     <footer class="bottom-nav">
         <div class="slide-counter" id="slideCounter">1 / 5</div>

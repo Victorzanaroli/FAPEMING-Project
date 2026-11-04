@@ -16,6 +16,7 @@
     const STORAGE_KEY_UNLOCKED_LESSONS_TS = 'trilhando_classroom_unlocked_lessons_ts_v1';
     const STORAGE_KEY_UNLOCKED_QUIZZES = 'trilhando_classroom_unlocked_quizzes_v1';
     const STORAGE_KEY_UNLOCKED_QUIZZES_TS = 'trilhando_classroom_unlocked_quizzes_ts_v1';
+    const STORAGE_KEY_QUIZ_ANSWERS = 'trilhando_classroom_quiz_answers_v1';
     const STORAGE_KEY_RECENT_USERS = 'trilhando_classroom_recent_users_v1';
 
     // Padrão inicial: Aula 01 (feita em 07/10) e Aula 02 (amanhã 04/11) liberadas
@@ -1498,6 +1499,9 @@
         if (!user) {
             return { ok: false, error: 'Você precisa entrar com seu Nome Completo e Senha antes de enviar a tarefa.' };
         }
+        if (user.role === 'admin') {
+            return { ok: false, error: 'Professores (ADM) não realizam atividades — apenas visualizam os slides e as correções dos alunos.' };
+        }
         const hw = HOMEWORKS_BY_LESSON[lessonKey];
         if (!hw) {
             return { ok: false, error: 'Tarefa não encontrada.' };
@@ -1563,6 +1567,9 @@
         if (!user) {
             return { ok: false, error: 'Você precisa entrar com seu Nome Completo e Senha antes de salvar.' };
         }
+        if (user.role === 'admin') {
+            return { ok: false, error: 'Professores (ADM) não realizam atividades — apenas visualizam os slides e as correções dos alunos.' };
+        }
         const submissions = getSubmissions();
         const subId = `${user.id}_${lessonKey}`;
         const existingIdx = submissions.findIndex(s => s.id === subId);
@@ -1605,6 +1612,30 @@
             .replace(/>/g, '&gt;');
     }
 
+    // Respostas do quiz por aluno/aula (cada pergunta só pode ser respondida uma vez)
+    const ADM_QUIZ_MEMORY = {};
+    function quizAnswersStorageKey(user, lessonKey) {
+        const uid = user && user.id ? user.id : 'anon';
+        return `${uid}_${lessonKey}`;
+    }
+
+    function loadQuizAnswers(user, lessonKey) {
+        try {
+            const all = JSON.parse(localStorage.getItem(STORAGE_KEY_QUIZ_ANSWERS) || '{}');
+            const saved = all[quizAnswersStorageKey(user, lessonKey)];
+            if (saved && typeof saved === 'object') return Object.assign({}, saved);
+        } catch (e) {}
+        return {};
+    }
+
+    function saveQuizAnswers(user, lessonKey, answers) {
+        try {
+            const all = JSON.parse(localStorage.getItem(STORAGE_KEY_QUIZ_ANSWERS) || '{}');
+            all[quizAnswersStorageKey(user, lessonKey)] = Object.assign({}, answers);
+            localStorage.setItem(STORAGE_KEY_QUIZ_ANSWERS, JSON.stringify(all));
+        } catch (e) {}
+    }
+
     function renderNotebookLMQuiz(containerId, lessonKey) {
         const container = document.getElementById(containerId);
         const quizData = QUIZZES_BY_LESSON[lessonKey];
@@ -1629,7 +1660,7 @@
                         Este quiz interativo está sendo apresentado no projetor para toda a turma responder junta com os professores Victor, Rafael e Kaique.
                     </p>
                     <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:16px 20px;max-width:540px;margin:0 auto 16px;font-size:0.88rem;color:#94a3b8;line-height:1.6;">
-                        ⏳ <strong>Fique tranquilo(a):</strong> Assim que a aula terminar, os professores vão liberar o quiz no portal para você praticar individualmente, revisar todas as respostas e gabarito quantas vezes quiser!
+                        ⏳ <strong>Fique tranquilo(a):</strong> Assim que a aula terminar, os professores vão liberar o quiz no portal para você responder individualmente e revisar o gabarito comentado de cada pergunta!
                     </div>
                     <div style="font-size:0.78rem;color:#64748b;">
                         Aguardando liberação do professor...
@@ -1641,7 +1672,11 @@
 
         let currentIdx = 0;
         // Track selected option per question: { [questionId]: 'A' | 'B' | 'C' | 'D' }
-        const selectedAnswers = {};
+        // Regra: cada pergunta só pode ser respondida UMA vez (acertou/errou fica registrado).
+        // Para alunos, as respostas ficam salvas no navegador (recarregar a página não libera nova tentativa).
+        // Para o ADM (projetor), as respostas ficam só em memória (mantidas ao trancar/liberar o quiz).
+        if (isAdm && !ADM_QUIZ_MEMORY[lessonKey]) ADM_QUIZ_MEMORY[lessonKey] = {};
+        const selectedAnswers = isAdm ? ADM_QUIZ_MEMORY[lessonKey] : loadQuizAnswers(user, lessonKey);
 
         function renderCurrentQuestion() {
             const currentUser = getCurrentUser();
@@ -1705,7 +1740,7 @@
                 }
 
                 return `
-                    <button type="button" class="nb-quiz-option ${cardStateClass}" data-letter="${opt.letter}">
+                    <button type="button" class="nb-quiz-option ${cardStateClass}" data-letter="${opt.letter}" ${pickedLetter ? 'disabled aria-disabled="true" style="cursor:default;"' : ''}>
                         <div class="nb-opt-main">
                             <span class="nb-opt-letter">${opt.letter}</span>
                             <span class="nb-opt-text">${escapeHtml(opt.text)}</span>
@@ -1748,7 +1783,7 @@
                         </div>
                         <div class="nb-quiz-stats">
                             <span class="nb-stat-badge">✨ Acertos: <strong>${rightCount}</strong> / ${answeredCount}</span>
-                            <button type="button" class="nb-reset-btn" id="${containerId}_resetBtn" title="Reiniciar Quiz">🔄 Reiniciar</button>
+                            ${currentIsAdm ? `<button type="button" class="nb-reset-btn" id="${containerId}_resetBtn" title="Reiniciar Quiz (apenas na tela do professor)">🔄 Reiniciar</button>` : ''}
                         </div>
                     </div>
 
@@ -1800,8 +1835,11 @@
             container.querySelectorAll('.nb-quiz-option').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
+                    // Pergunta já respondida: resposta travada, não pode trocar!
+                    if (selectedAnswers[q.id]) return;
                     const letter = btn.getAttribute('data-letter');
                     selectedAnswers[q.id] = letter;
+                    if (!currentIsAdm) saveQuizAnswers(currentUser, lessonKey, selectedAnswers);
                     renderCurrentQuestion();
                 });
             });
@@ -1936,16 +1974,26 @@
             `;
 
             const isSubmitted = Boolean(existingSub);
+            // Professor (ADM): modo somente visualização (gabarito comentado, sem responder/enviar)
+            const isAdmView = Boolean(user && user.role === 'admin');
 
             const questionsHtml = hw.questions.map((q, qIndex) => {
-                const picked = draftAnswers[q.id] || null;
+                const picked = isAdmView ? null : (draftAnswers[q.id] || null);
+                const isLockedView = isSubmitted || isAdmView;
 
                 const optsHtml = q.options.map(opt => {
                     const isSelected = picked === opt.letter;
                     let optStatusClass = isSelected ? 'tr-hw-opt-selected' : '';
                     let explanationBlock = '';
 
-                    if (isSubmitted) {
+                    if (isAdmView) {
+                        if (opt.isCorrect) {
+                            optStatusClass = 'tr-hw-opt-correct';
+                            explanationBlock = `<div class="nb-opt-explanation nb-exp-correct"><strong>✅ Gabarito:</strong> ${escapeHtml(opt.explanation)}</div>`;
+                        } else {
+                            optStatusClass = '';
+                        }
+                    } else if (isSubmitted) {
                         if (opt.isCorrect) {
                             optStatusClass = 'tr-hw-opt-correct';
                             explanationBlock = `<div class="nb-opt-explanation nb-exp-correct"><strong>✅ Correta:</strong> ${escapeHtml(opt.explanation)}</div>`;
@@ -1956,7 +2004,7 @@
                     }
 
                     return `
-                        <button type="button" class="tr-hw-opt-btn ${optStatusClass}" data-qid="${q.id}" data-letter="${opt.letter}" ${isSubmitted ? 'disabled style="cursor:default;"' : ''}>
+                        <button type="button" class="tr-hw-opt-btn ${optStatusClass}" data-qid="${q.id}" data-letter="${opt.letter}" ${isLockedView ? 'disabled style="cursor:default;"' : ''}>
                             <div class="nb-opt-main">
                                 <span class="nb-opt-letter">${opt.letter}</span>
                                 <span class="nb-opt-text">${escapeHtml(opt.text)}</span>
@@ -1970,11 +2018,11 @@
                     <div class="tr-hw-q-block">
                         <div class="tr-hw-q-header">
                             <span class="tr-hw-q-num">Questão ${qIndex + 1} de ${hw.questions.length}</span>
-                            ${isSubmitted ? (
+                            ${isAdmView ? '<span class="nb-feedback-pill nb-pill-correct">🛡️ Gabarito do Professor</span>' : (isSubmitted ? (
                                 (q.options.find(o => o.letter === picked && o.isCorrect))
                                      ? '<span class="nb-feedback-pill nb-pill-correct">✅ Você Acertou</span>'
                                      : '<span class="nb-feedback-pill nb-pill-wrong">❌ Você Errou (Veja a explicação abaixo)</span>'
-                            ) : ''}
+                            ) : '')}
                         </div>
                         <h4 class="tr-hw-q-title">${escapeHtml(q.question)}</h4>
                         ${q.code ? `<pre class="nb-q-code"><code>${escapeHtml(q.code)}</code></pre>` : ''}
@@ -2006,6 +2054,16 @@
                     <div class="tr-hw-modal-body">
                         ${authSectionHtml}
 
+                        ${isAdmView ? `
+                            <div class="tr-tutor-feedback-banner" style="background:rgba(37,99,235,0.14);border-color:rgba(59,130,246,0.5);">
+                                <strong style="color:#93c5fd;">🛡️ Modo Professor (ADM) — somente visualização</strong>
+                                <p style="margin-top:4px;font-size:0.83rem;color:#cbd5e1;">
+                                    Professores não realizam a atividade. Abaixo está o <strong>gabarito comentado</strong> do questionário e o enunciado da prática.
+                                    As entregas e correções dos alunos ficam na aba <strong>🛡️ Painel ADM</strong> do portal.
+                                </p>
+                            </div>
+                        ` : ''}
+
                         ${existingSub ? `
                             <div class="tr-tutor-feedback-banner" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.4);">
                                 <strong style="color:#10b981;">🔒 Questionário Concluído e Registrado (${existingSub.correctCount}/${existingSub.totalQuestions} acertos • Nota ${existingSub.grade10}):</strong>
@@ -2024,7 +2082,7 @@
 
                         <div class="tr-hw-section-title">
                             <span>📋 PARTE 1 — Questionário Rápido (5 Questões de Múltipla Escolha)</span>
-                            <small>${isSubmitted ? 'Respostas salvas e explicadas abaixo (modo de consulta):' : 'Marque uma alternativa em cada questão. Após enviar, o gabarito comentado é liberado!'}</small>
+                            <small>${isAdmView ? 'Gabarito comentado (modo de consulta do professor):' : (isSubmitted ? 'Respostas salvas e explicadas abaixo (modo de consulta):' : 'Marque uma alternativa em cada questão. Após enviar, o gabarito comentado é liberado!')}</small>
                         </div>
 
                         <div class="tr-hw-questions-container">
@@ -2033,7 +2091,7 @@
 
                         <div class="tr-hw-section-title" style="margin-top:28px;">
                             <span>💻 PARTE 2 — Prática de Código (PC / VS Code ou Celular / Pydroid 3)</span>
-                            <small>${isSubmitted ? 'Você pode editar seu código e comentários quantas vezes quiser:' : 'Sem correção automática: teste seu código primeiro e cole ele aqui como comentário para corrigirmos na próxima aula!'}</small>
+                            <small>${isAdmView ? 'Enunciado da prática que os alunos devem entregar:' : (isSubmitted ? 'Você pode editar seu código e comentários quantas vezes quiser:' : 'Sem correção automática: teste seu código primeiro e cole ele aqui como comentário para corrigirmos na próxima aula!')}</small>
                         </div>
 
                         <div class="tr-hw-practical-box">
@@ -2048,11 +2106,13 @@
                                 <pre class="nb-q-code" style="margin-top:10px;"><code>${escapeHtml(hw.practicalTask.starterHint)}</code></pre>
                             </details>
 
+                            ${isAdmView ? '' : `
                             <label class="tr-field-label" for="trHwPracticalCode">📥 Cole seu Código Python abaixo (depois de testar no PC ou Pydroid 3):</label>
                             <textarea id="trHwPracticalCode" class="tr-code-textarea" rows="8" placeholder="# Cole aqui o código Python que você fez e testou...\nnome = input('Digite seu nome: ')\nprint(f'Olá, {nome}!')">${escapeHtml(draftCode)}</textarea>
 
                             <label class="tr-field-label" for="trHwStudentComment" style="margin-top:12px;">💬 Comentário ou Dúvida sobre a Prática (opcional):</label>
                             <input type="text" id="trHwStudentComment" class="tr-input" placeholder="Ex: Fiz pelo celular no Pydroid 3 e funcionou certinho! / Tive dúvida no elif..." value="${escapeHtml(draftComment)}">
+                            `}
                         </div>
 
                         <div id="trHwSubmitStatusBox"></div>
@@ -2060,13 +2120,15 @@
 
                     <div class="tr-hw-modal-footer">
                         <span style="font-size:0.8rem;color:#94a3b8;">
-                            ${existingSub ? '✅ Questionário salvo! Você pode salvar novas versões do seu código prático.' : '📌 Responda as 5 questões e cole seu código prático antes de enviar.'}
+                            ${isAdmView ? '🛡️ Modo professor: somente visualização (sem envio).' : (existingSub ? '✅ Questionário salvo! Você pode salvar novas versões do seu código prático.' : '📌 Responda as 5 questões e cole seu código prático antes de enviar.')}
                         </span>
                         <div style="display:flex;gap:12px;">
                             <button type="button" class="tr-btn-ghost" id="trHwCancelBtn">Fechar</button>
+                            ${isAdmView ? '' : `
                             <button type="button" class="tr-btn-primary" id="trHwSubmitFinalBtn">
                                 ${existingSub ? '💾 Salvar Alterações do Código' : '🚀 Enviar Tarefa e Ver Nota'}
                             </button>
+                            `}
                         </div>
                     </div>
                 </div>
@@ -2142,6 +2204,7 @@
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
                     if (existingSub) return; // Travado após entrega!
+                    if (isAdmView) return;   // Professor não responde atividades
 
                     const qid = btn.getAttribute('data-qid');
                     const letter = btn.getAttribute('data-letter');
@@ -2275,6 +2338,9 @@
                             Os slides e materiais desta aula serão liberados pelos professores Victor, Rafael e Kaique através do painel de administração no dia correspondente.
                         </p>
                         <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                            <button type="button" id="trLockedGateBackBtn" class="tr-btn-ghost" style="padding:12px 24px;font-size:0.92rem;cursor:pointer;">
+                                ⬅ Voltar
+                            </button>
                             <a href="../../index.html" class="tr-btn-primary" style="text-decoration:none;padding:12px 24px;font-size:0.92rem;">
                                 🏠 Voltar ao Menu Principal
                             </a>
@@ -2282,6 +2348,17 @@
                     </div>
                 `;
                 document.body.appendChild(lockedGate);
+                const backBtn = document.getElementById('trLockedGateBackBtn');
+                if (backBtn) {
+                    backBtn.addEventListener('click', () => {
+                        // Volta para a página anterior na MESMA aba (ou para o menu, se não houver histórico)
+                        if (window.history.length > 1 && document.referrer) {
+                            window.history.back();
+                        } else {
+                            window.location.href = '../../index.html';
+                        }
+                    });
+                }
             }
             return;
         } else {
