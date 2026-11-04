@@ -60,7 +60,7 @@ Throughout 9 structured workshops, students build real-world multiplatform appli
 ## 📁 Repository Structure
 
 ```text
-Project-FAPEMING/
+FAPEMING-Project/
 ├── arquivos-trilhando/
 │   ├── Roteiro/                  # 9 Comprehensive Lesson Markdown Guides
 │   │   ├── ROTEIRO AULA 01.md

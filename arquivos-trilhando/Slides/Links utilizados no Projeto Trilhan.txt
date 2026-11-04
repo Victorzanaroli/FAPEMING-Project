@@ -1,8 +1,8 @@
 Links utilizados no Projeto Trilhando o Caminho Pro Código
 
-Portfólio: https://github.com/Victorzanaroli/Project-FAPEMING
+Portfólio: https://github.com/Victorzanaroli/FAPEMING-Project
 
-Slides: https://victorzanaroli.github.io/Project-FAPEMING/
+Slides: https://victorzanaroli.github.io/FAPEMING-Project/
 
 Questionário Alunos: https://docs.google.com/forms/d/1cti5P6zpnqMxsRky83t9_mzwyhQPSM-l3XNMAq9LNyU/edit
 

@@ -522,5 +522,5 @@ Máximo 15 linhas.
 
 ## 🔗 Links Importantes
 
-- **Portfólio do Projeto:** https://github.com/Victorzanaroli/Project-FAPEMING
+- **Portfólio do Projeto:** https://github.com/Victorzanaroli/FAPEMING-Project
 - **Formulário de Coleta dos Chats:** https://docs.google.com/forms/d/e/1FAIpQLSfP_wFBFI35Ombbv0kctuP5EAMBLqK2OpG78OmKXHBAT9x4lA/viewform

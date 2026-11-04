@@ -234,6 +234,6 @@ O tutor conduz uma rodada rápida em que cada aluno fala **uma única palavra** 
 
 ## 🔗 Links Importantes
 
-- **Portfólio do Projeto:** https://github.com/Victorzanaroli/Project-FAPEMING
+- **Portfólio do Projeto:** https://github.com/Victorzanaroli/FAPEMING-Project
 - **Formulário T1 (mesmo do T0):** https://docs.google.com/forms/d/1cti5P6zpnqMxsRky83t9_mzwyhQPSM-l3XNMAq9LNyU/edit
 - **Formulário de Coleta dos Chats com IA:** https://docs.google.com/forms/d/e/1FAIpQLSfP_wFBFI35Ombbv0kctuP5EAMBLqK2OpG78OmKXHBAT9x4lA/viewform

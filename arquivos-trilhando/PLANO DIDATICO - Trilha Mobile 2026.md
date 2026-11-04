@@ -293,8 +293,8 @@
 
 ## 🔗 Links e Recursos do Projeto
 
-- Portfólio do Projeto: https://github.com/Victorzanaroli/Project-FAPEMING
-- Slides do Projeto: https://victorzanaroli.github.io/Project-FAPEMING/
+- Portfólio do Projeto: https://github.com/Victorzanaroli/FAPEMING-Project
+- Slides do Projeto: https://victorzanaroli.github.io/FAPEMING-Project/
 - Questionário Alunos (Cadastro + T0): https://docs.google.com/forms/d/1cti5P6zpnqMxsRky83t9_mzwyhQPSM-l3XNMAq9LNyU/edit
 - Formulário de Coleta dos Chats com IA: https://docs.google.com/forms/d/e/1FAIpQLSfP_wFBFI35Ombbv0kctuP5EAMBLqK2OpG78OmKXHBAT9x4lA/viewform
 
