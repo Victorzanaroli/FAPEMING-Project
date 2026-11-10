@@ -18,6 +18,11 @@
     const STORAGE_KEY_UNLOCKED_QUIZZES_TS = 'trilhando_classroom_unlocked_quizzes_ts_v1';
     const STORAGE_KEY_QUIZ_ANSWERS = 'trilhando_classroom_quiz_answers_v1';
     const STORAGE_KEY_RECENT_USERS = 'trilhando_classroom_recent_users_v1';
+    const STORAGE_KEY_CHALLENGES = 'trilhando_classroom_challenges_v1';
+    const STORAGE_KEY_CHATBOT_CFG = 'trilhando_classroom_chatbot_cfg_v1';
+
+    // Controle anti-força bruta por usuário (tentativas erradas de senha)
+    const LOGIN_ATTEMPTS_MAP = {};
 
     // Padrão inicial: Aula 01 (feita em 07/10) e Aula 02 (amanhã 04/11) liberadas
     const DEFAULT_UNLOCKED_LESSONS = ['aula01', 'aula02'];
@@ -765,6 +770,26 @@
             .replace(/[\u0300-\u036f]/g, '');
     }
 
+    // Chave estrita anti-duplicidade (remove acentos, espaços extras e pontuação para impedir nomes iguais disfarçados)
+    function normalizeUsernameKey(name) {
+        return normalizeName(name).replace(/[^a-z0-9]/g, '');
+    }
+
+    function isUsernameTaken(name, ignoreUserId) {
+        const norm = normalizeName(name);
+        const normKey = normalizeUsernameKey(name);
+        if (!norm || !normKey) return false;
+        const users = getUsers();
+        return users.some(u => {
+            if (!u || (ignoreUserId && u.id === ignoreUserId)) return false;
+            const uNorm = normalizeName(u.fullName);
+            const uKey = normalizeUsernameKey(u.fullName);
+            const uUserNorm = u.username ? normalizeName(u.username) : '';
+            const uUserKey = u.username ? normalizeUsernameKey(u.username) : '';
+            return uNorm === norm || uKey === normKey || (uUserNorm && uUserNorm === norm) || (uUserKey && uUserKey === normKey);
+        });
+    }
+
     // Configuração Oficial em Nuvem (Supabase) pré-configurada para todos os PCs da faculdade e celulares
     const DEFAULT_CLOUD_CONFIG = {
         supabaseUrl: 'https://tghgdgersdkxkjhljjjp.supabase.co',
@@ -822,7 +847,7 @@
         }
         const deletedIds = new Set(getDeletedUserIds());
         // Keep only non-deleted student accounts + the single official Admin account
-        users = users.filter(u =>
+        const filteredStudents = users.filter(u =>
             u &&
             u.role !== 'admin' &&
             u.role !== 'system_tombstones' &&
@@ -831,6 +856,24 @@
             !(typeof u.role === 'string' && u.role.startsWith('system_')) &&
             !deletedIds.has(u.id)
         );
+        // Garante unicidade estrita de nomes de usuários (mantendo a conta mais antiga caso haja duplicata legada)
+        const uniqueByName = new Map();
+        filteredStudents.forEach(u => {
+            const key = normalizeUsernameKey(u.fullName) || u.id;
+            const existing = uniqueByName.get(key);
+            if (!existing) {
+                uniqueByName.set(key, u);
+            } else {
+                const exCreated = existing.createdAt || '9999';
+                const curCreated = u.createdAt || '9999';
+                const keeper = curCreated < exCreated ? u : existing;
+                const other = keeper === u ? existing : u;
+                keeper.attendance = Object.assign({}, other.attendance || {}, keeper.attendance || {});
+                keeper.challengesProgress = Object.assign({}, other.challengesProgress || {}, keeper.challengesProgress || {});
+                uniqueByName.set(key, keeper);
+            }
+        });
+        users = Array.from(uniqueByName.values());
         DEFAULT_ADMINS.forEach(adm => {
             users.unshift(Object.assign({}, adm, { createdAt: '2026-09-16T15:00:00Z' }));
         });
@@ -1168,16 +1211,14 @@
     function registerStudentByAdmin(fullName, password) {
         const cleanName = String(fullName || '').trim().replace(/\s+/g, ' ');
         const cleanPass = String(password || '1234').trim() || '1234';
-        const norm = normalizeName(cleanName);
 
         if (!cleanName || cleanName.length < 3) {
             return { ok: false, error: 'Digite o Nome Completo do aluno (pelo menos 3 letras).' };
         }
-        const users = getUsers();
-        const existing = users.find(u => normalizeName(u.fullName) === norm);
-        if (existing) {
-            return { ok: false, error: 'Este aluno já está cadastrado na turma!' };
+        if (isUsernameTaken(cleanName)) {
+            return { ok: false, error: 'Já existe um usuário com este nome na turma! Nomes duplicados são bloqueados.' };
         }
+        const users = getUsers();
         const now = new Date().toISOString();
         const newStudent = {
             id: 'stu_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
@@ -1185,12 +1226,134 @@
             password: cleanPass,
             role: 'student',
             attendance: {},
+            challengesProgress: {},
             createdAt: now,
             updatedAt: now
         };
         users.push(newStudent);
         saveUsers(users);
         return { ok: true, user: newStudent };
+    }
+
+    function resetStudentPasswordByAdmin(userId, newPassword) {
+        const cleanPass = String(newPassword || '').trim();
+        if (!cleanPass || cleanPass.length < 3) {
+            return { ok: false, error: 'A nova senha deve ter pelo menos 3 caracteres.' };
+        }
+        const users = getUsers();
+        const idx = users.findIndex(u => u.id === userId && u.role === 'student');
+        if (idx < 0) return { ok: false, error: 'Aluno não encontrado.' };
+        users[idx].password = cleanPass;
+        users[idx].updatedAt = new Date().toISOString();
+        saveUsers(users);
+        return { ok: true, user: users[idx] };
+    }
+
+    // =========================================================================
+    // PROGRESSO DOS DESAFIOS PYTHON (ESTILO BEECROWD) E CONFIGURAÇÃO DO CHAT IA
+    // =========================================================================
+
+    function getAllChallengesProgress() {
+        let map = {};
+        const deletedIds = new Set(getDeletedUserIds());
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY_CHALLENGES);
+            if (raw) map = JSON.parse(raw);
+        } catch (e) {
+            map = {};
+        }
+        Object.keys(map).forEach(uid => {
+            if (deletedIds.has(uid)) delete map[uid];
+        });
+        const users = getUsers();
+        users.forEach(u => {
+            if (u.role === 'student' && u.challengesProgress && typeof u.challengesProgress === 'object') {
+                if (!map[u.id]) map[u.id] = {};
+                Object.keys(u.challengesProgress).forEach(cId => {
+                    const existing = map[u.id][cId];
+                    const incoming = u.challengesProgress[cId];
+                    if (!existing || (incoming && incoming.updatedAt && (!existing.updatedAt || incoming.updatedAt >= existing.updatedAt))) {
+                        map[u.id][cId] = incoming;
+                    }
+                });
+            }
+        });
+        return map;
+    }
+
+    function getStudentChallenges(userId) {
+        if (!userId) return {};
+        const all = getAllChallengesProgress();
+        return all[userId] || {};
+    }
+
+    function saveStudentChallengeProgress(userId, challengeId, entryData) {
+        if (!userId || !challengeId) return null;
+        const all = getAllChallengesProgress();
+        if (!all[userId]) all[userId] = {};
+        const prev = all[userId][challengeId] || {};
+        const now = new Date().toISOString();
+
+        const merged = {
+            challengeId: challengeId,
+            solved: Boolean(prev.solved || entryData.solved),
+            code: typeof entryData.code === 'string' ? entryData.code : (prev.code || ''),
+            xp: Number(entryData.xp || prev.xp || 0),
+            attempts: (Number(prev.attempts) || 0) + 1,
+            lastVerdict: entryData.lastVerdict || prev.lastVerdict || 'PENDING',
+            solvedAt: prev.solvedAt || (entryData.solved ? now : null),
+            updatedAt: now
+        };
+        all[userId][challengeId] = merged;
+        localStorage.setItem(STORAGE_KEY_CHALLENGES, JSON.stringify(all));
+
+        const users = getUsers();
+        const uIdx = users.findIndex(u => u.id === userId);
+        if (uIdx >= 0) {
+            users[uIdx].challengesProgress = all[userId];
+            users[uIdx].updatedAt = now;
+            localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(users));
+        }
+        syncToCloudAsync();
+        window.dispatchEvent(new CustomEvent('trilhando:datasync'));
+        return merged;
+    }
+
+    const DEFAULT_CHATBOT_CFG = {
+        geminiApiKey: '',
+        streamlitUrl: '',
+        mode: 'native',
+        formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSe9ksgUqxMqSY8OUtDwmjwY187PPVguHBu7wHcUnOQA1eQTIg/formResponse',
+        entryNome: 'entry.1009783107',
+        entryPrompt: 'entry.1559793013',
+        entryResposta: 'entry.2041274618',
+        updatedAt: '1970-01-01T00:00:00.000Z'
+    };
+
+    function getChatbotConfig() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY_CHATBOT_CFG);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (parsed && typeof parsed === 'object') {
+                    return Object.assign({}, DEFAULT_CHATBOT_CFG, parsed);
+                }
+            }
+        } catch (e) {}
+        return Object.assign({}, DEFAULT_CHATBOT_CFG);
+    }
+
+    function saveChatbotConfig(newCfg, fromRemote) {
+        const current = getChatbotConfig();
+        const updated = Object.assign({}, current, newCfg || {}, {
+            updatedAt: (fromRemote && newCfg && newCfg.updatedAt) ? newCfg.updatedAt : new Date().toISOString()
+        });
+        localStorage.setItem(STORAGE_KEY_CHATBOT_CFG, JSON.stringify(updated));
+        if (!fromRemote) {
+            pushStateDirectToCloudAsync();
+            window.dispatchEvent(new CustomEvent('trilhando:datasync'));
+        }
+        return updated;
     }
 
     function getCurrentUser() {
@@ -1251,6 +1414,13 @@
                 quizzesUpdatedAt: localStorage.getItem(STORAGE_KEY_UNLOCKED_QUIZZES_TS) || '1970-01-01T00:00:00.000Z',
                 updatedAt: new Date().toISOString()
             });
+            const chatCfg = getChatbotConfig();
+            usersPayload.push({
+                id: '__chatbot_cloud_cfg__',
+                role: 'system_chatbot_config',
+                chatbotConfig: chatCfg,
+                updatedAt: chatCfg.updatedAt || new Date().toISOString()
+            });
             // IMPORTANTE: a tabela public.trilhando_sync no Supabase possui apenas (id, users_json, submissions_json, updated_at)
             const payload = {
                 id: 'main_state',
@@ -1303,21 +1473,31 @@
             if (!res.ok) return false;
             const rows = await res.json();
             if (rows && rows.length > 0) {
+                const prevLessonsJson = JSON.stringify(getUnlockedLessons());
+                const prevQuizzesJson = JSON.stringify(getUnlockedQuizzes());
                 const remote = rows[0];
                 if (Array.isArray(remote.users_json)) {
                     const mergedUsers = mergeUsersWithAttendance(getUsers(), remote.users_json);
                     localStorage.setItem(STORAGE_KEY_USERS, JSON.stringify(mergedUsers));
-                    // Rebuild attendance map from merged users
+                    // Rebuild attendance & challenges maps from merged users
                     const att = getAttendance();
                     localStorage.setItem(STORAGE_KEY_ATTENDANCE, JSON.stringify(att));
+                    const chProg = getAllChallengesProgress();
+                    localStorage.setItem(STORAGE_KEY_CHALLENGES, JSON.stringify(chProg));
                 }
                 if (Array.isArray(remote.submissions_json)) {
                     const mergedSubs = mergeById(getSubmissions(), remote.submissions_json, 'id');
                     localStorage.setItem(STORAGE_KEY_SUBMISSIONS, JSON.stringify(mergedSubs));
                 }
                 if (!silent) {
-                    window.dispatchEvent(new CustomEvent('trilhando:lessonschange', { detail: { unlocked: getUnlockedLessons() } }));
-                    window.dispatchEvent(new CustomEvent('trilhando:quizzeschange', { detail: { unlocked: getUnlockedQuizzes() } }));
+                    const nextLessons = getUnlockedLessons();
+                    const nextQuizzes = getUnlockedQuizzes();
+                    if (JSON.stringify(nextLessons) !== prevLessonsJson) {
+                        window.dispatchEvent(new CustomEvent('trilhando:lessonschange', { detail: { unlocked: nextLessons } }));
+                    }
+                    if (JSON.stringify(nextQuizzes) !== prevQuizzesJson) {
+                        window.dispatchEvent(new CustomEvent('trilhando:quizzeschange', { detail: { unlocked: nextQuizzes } }));
+                    }
                     window.dispatchEvent(new CustomEvent('trilhando:datasync'));
                 }
                 return true;
@@ -1351,10 +1531,18 @@
                     }
                 }
             }
+            if (rem && rem.id === '__chatbot_cloud_cfg__' && rem.chatbotConfig) {
+                const localChatCfg = getChatbotConfig();
+                const locTs = localChatCfg.updatedAt || '';
+                const remTs = rem.chatbotConfig.updatedAt || rem.updatedAt || '';
+                if (remTs && remTs !== '1970-01-01T00:00:00.000Z' && (!locTs || remTs >= locTs)) {
+                    saveChatbotConfig(rem.chatbotConfig, true);
+                }
+            }
         });
         const deletedIds = new Set(currentDeleted);
         const map = new Map();
-        const isSystemRecord = (u) => !u || u.role === 'system_tombstones' || u.role === 'system_quiz_config' || u.role === 'system_permissions_config' || (typeof u.role === 'string' && u.role.startsWith('system_'));
+        const isSystemRecord = (u) => !u || u.role === 'system_tombstones' || u.role === 'system_quiz_config' || u.role === 'system_permissions_config' || u.role === 'system_chatbot_config' || (typeof u.role === 'string' && u.role.startsWith('system_'));
         localUsers.forEach(u => {
             if (!isSystemRecord(u) && !deletedIds.has(u.id)) {
                 map.set(u.id, Object.assign({}, u));
@@ -1377,11 +1565,46 @@
                         }
                     });
                 }
+                // Merge per-challenge Beecrowd progress
+                const mergedCh = Object.assign({}, loc.challengesProgress || {});
+                if (rem.challengesProgress && typeof rem.challengesProgress === 'object') {
+                    Object.keys(rem.challengesProgress).forEach(cId => {
+                        const locCh = mergedCh[cId];
+                        const remCh = rem.challengesProgress[cId];
+                        if (!locCh || (remCh && remCh.updatedAt && (!locCh.updatedAt || remCh.updatedAt >= locCh.updatedAt))) {
+                            mergedCh[cId] = Object.assign({}, locCh || {}, remCh, {
+                                solved: Boolean((locCh && locCh.solved) || (remCh && remCh.solved))
+                            });
+                        }
+                    });
+                }
                 const newer = (rem.updatedAt && (!loc.updatedAt || rem.updatedAt >= loc.updatedAt)) ? rem : loc;
-                map.set(rem.id, Object.assign({}, newer, { attendance: mergedAtt }));
+                map.set(rem.id, Object.assign({}, newer, { attendance: mergedAtt, challengesProgress: mergedCh }));
             }
         });
-        return Array.from(map.values());
+        // Deduplica contas de estudantes com o mesmo nome normalizado (mantém a mais antiga para impedir que um 2º cadastro roube o nome)
+        const dedupedByName = new Map();
+        const adminsList = [];
+        Array.from(map.values()).forEach(u => {
+            if (u.role === 'admin') {
+                adminsList.push(u);
+                return;
+            }
+            const nameKey = normalizeUsernameKey(u.fullName) || u.id;
+            const prev = dedupedByName.get(nameKey);
+            if (!prev) {
+                dedupedByName.set(nameKey, u);
+            } else {
+                const prevCreated = prev.createdAt || '9999';
+                const curCreated = u.createdAt || '9999';
+                const keeper = curCreated < prevCreated ? u : prev;
+                const duplicate = keeper === u ? prev : u;
+                keeper.attendance = Object.assign({}, duplicate.attendance || {}, keeper.attendance || {});
+                keeper.challengesProgress = Object.assign({}, duplicate.challengesProgress || {}, keeper.challengesProgress || {});
+                dedupedByName.set(nameKey, keeper);
+            }
+        });
+        return adminsList.concat(Array.from(dedupedByName.values()));
     }
 
     function mergeById(localArr, remoteArr, key) {
@@ -1404,10 +1627,12 @@
     // AUTHENTICATION API (SEPARADO EM "ENTRAR NA CONTA" VS "CRIAR CONTA")
     // =========================================================================
 
-    function loginOrRegister({ fullName, password, mode }) {
+    function loginOrRegister({ fullName, password, confirmPassword, mode }) {
         const cleanName = String(fullName || '').trim().replace(/\s+/g, ' ');
         const cleanPass = String(password || '').trim();
+        const cleanConfirm = typeof confirmPassword !== 'undefined' ? String(confirmPassword || '').trim() : null;
         const norm = normalizeName(cleanName);
+        const normKey = normalizeUsernameKey(cleanName);
 
         if (!cleanName || cleanName.length < 3) {
             return { ok: false, error: 'Por favor, digite seu Nome Completo.' };
@@ -1416,26 +1641,54 @@
             return { ok: false, error: 'A senha precisa ter pelo menos 3 caracteres.' };
         }
 
+        // Proteção contra tentativas repetidas de adivinhar senha (força bruta)
+        const attemptEntry = LOGIN_ATTEMPTS_MAP[normKey];
+        if (attemptEntry && attemptEntry.lockedUntil && Date.now() < attemptEntry.lockedUntil) {
+            const waitSec = Math.ceil((attemptEntry.lockedUntil - Date.now()) / 1000);
+            return {
+                ok: false,
+                error: `🔒 Muitas tentativas incorretas para este usuário! Aguarde ${waitSec}s antes de tentar novamente.`
+            };
+        }
+
         const users = getUsers();
         const existing = users.find(u =>
             normalizeName(u.fullName) === norm ||
-            (u.username && normalizeName(u.username) === norm)
+            normalizeUsernameKey(u.fullName) === normKey ||
+            (u.username && (normalizeName(u.username) === norm || normalizeUsernameKey(u.username) === normKey))
         );
+
+        function registerFailedAttempt() {
+            const cur = LOGIN_ATTEMPTS_MAP[normKey] || { count: 0, lockedUntil: 0 };
+            cur.count += 1;
+            if (cur.count >= 5) {
+                cur.lockedUntil = Date.now() + 30000;
+                cur.count = 0;
+            }
+            LOGIN_ATTEMPTS_MAP[normKey] = cur;
+        }
+
+        function clearFailedAttempts() {
+            delete LOGIN_ATTEMPTS_MAP[normKey];
+        }
 
         // 1. MODO PROFESSOR / ADM
         if (mode === 'admin') {
             const adm = users.find(u =>
                 u.role === 'admin' && (
                     normalizeName(u.fullName) === norm ||
-                    (u.username && normalizeName(u.username) === norm)
+                    normalizeUsernameKey(u.fullName) === normKey ||
+                    (u.username && (normalizeName(u.username) === norm || normalizeUsernameKey(u.username) === normKey))
                 )
             );
             if (!adm) {
                 return { ok: false, error: 'Usuário de Administrador inválido. Use "Trilhando o Caminho do Código" (ou "trilhando-adm").' };
             }
             if (adm.password !== cleanPass) {
+                registerFailedAttempt();
                 return { ok: false, error: 'Senha de Administrador incorreta!' };
             }
+            clearFailedAttempts();
             setCurrentUser(adm);
             return { ok: true, user: adm, isNew: false, message: 'Login de Administrador realizado!' };
         }
@@ -1449,27 +1702,51 @@
                 };
             }
             if (existing.password !== cleanPass) {
+                registerFailedAttempt();
                 return {
                     ok: false,
-                    error: 'Senha incorreta! Verifique sua senha e tente novamente.'
+                    error: 'Senha incorreta! Este nome de usuário é protegido por senha. Verifique sua senha e tente novamente.'
                 };
             }
+            clearFailedAttempts();
             setCurrentUser(existing);
             return { ok: true, user: existing, isNew: false, message: 'Login realizado com sucesso!' };
         }
 
-        // 3. MODO CRIAR CONTA (CADASTRA O ALUNO AUTOMATICAMENTE NA LISTA DE CHAMADA)
-        if (existing) {
+        // 3. MODO CRIAR CONTA (BARRA NOMES DE USUÁRIOS IGUAIS COM SEGURANÇA REFORÇADA)
+        if (existing || isUsernameTaken(cleanName)) {
             return {
                 ok: false,
-                error: 'Já existe uma conta cadastrada com este Nome Completo! Clique na aba "🔑 Entrar na Conta" e digite sua senha para entrar.'
+                error: '🚫 Nome de usuário já cadastrado! O sistema bloqueia nomes iguais para proteger o seu ranking e suas atividades. Se a conta é sua, clique em "🔑 Entrar na Conta". Se você tem o mesmo nome de um colega, adicione mais um sobrenome!'
             };
         }
 
-        if (!cleanName.includes(' ')) {
+        const nameParts = cleanName.split(' ').filter(p => p.length >= 2);
+        if (nameParts.length < 2) {
             return {
                 ok: false,
-                error: 'Digite seu Nome Completo (nome e sobrenome, ex: Lucas Almeida) para criar sua conta e entrar na lista de chamada!'
+                error: 'Digite seu Nome e Sobrenome completos (ex: Lucas Almeida Santos) para criar um identificador único e seguro!'
+            };
+        }
+
+        if (cleanPass.length < 4) {
+            return {
+                ok: false,
+                error: 'Para sua segurança nos desafios e no ranking, crie uma senha com pelo menos 4 caracteres!'
+            };
+        }
+
+        if (normalizeUsernameKey(cleanPass) === normKey || normalizeUsernameKey(cleanPass) === normalizeUsernameKey(nameParts[0])) {
+            return {
+                ok: false,
+                error: 'Por segurança, sua senha não pode ser igual ao seu próprio nome! Escolha outra senha.'
+            };
+        }
+
+        if (cleanConfirm !== null && cleanConfirm !== cleanPass) {
+            return {
+                ok: false,
+                error: 'As duas senhas digitadas não conferem! Digite a mesma senha no campo de confirmação.'
             };
         }
 
@@ -1480,6 +1757,7 @@
             password: cleanPass,
             role: 'student',
             attendance: {},
+            challengesProgress: {},
             createdAt: now,
             updatedAt: now
         };
@@ -1490,7 +1768,7 @@
             ok: true,
             user: newUser,
             isNew: true,
-            message: 'Conta criada com sucesso! Você já foi cadastrado na lista de chamada da turma!'
+            message: 'Conta segura criada com sucesso! Seu nome único já está protegido e salvo no ranking!'
         };
     }
 
@@ -1612,14 +1890,17 @@
             .replace(/>/g, '&gt;');
     }
 
-    // Respostas do quiz por aluno/aula (cada pergunta só pode ser respondida uma vez)
+    // Respostas do quiz por aluno/aula (cada pergunta só pode ser respondida uma vez pelos alunos; o ADM pode refazer livremente)
     const ADM_QUIZ_MEMORY = {};
+    const QUIZ_CURRENT_IDX_MAP = {};
+
     function quizAnswersStorageKey(user, lessonKey) {
         const uid = user && user.id ? user.id : 'anon';
         return `${uid}_${lessonKey}`;
     }
 
     function loadQuizAnswers(user, lessonKey) {
+        if (user && user.role === 'admin') return {};
         try {
             const all = JSON.parse(localStorage.getItem(STORAGE_KEY_QUIZ_ANSWERS) || '{}');
             const saved = all[quizAnswersStorageKey(user, lessonKey)];
@@ -1629,6 +1910,7 @@
     }
 
     function saveQuizAnswers(user, lessonKey, answers) {
+        if (user && user.role === 'admin') return;
         try {
             const all = JSON.parse(localStorage.getItem(STORAGE_KEY_QUIZ_ANSWERS) || '{}');
             all[quizAnswersStorageKey(user, lessonKey)] = Object.assign({}, answers);
@@ -1670,11 +1952,13 @@
             return;
         }
 
-        let currentIdx = 0;
+        const idxKey = `${containerId}_${lessonKey}`;
+        if (typeof QUIZ_CURRENT_IDX_MAP[idxKey] !== 'number') {
+            QUIZ_CURRENT_IDX_MAP[idxKey] = 0;
+        }
         // Track selected option per question: { [questionId]: 'A' | 'B' | 'C' | 'D' }
-        // Regra: cada pergunta só pode ser respondida UMA vez (acertou/errou fica registrado).
         // Para alunos, as respostas ficam salvas no navegador (recarregar a página não libera nova tentativa).
-        // Para o ADM (projetor), as respostas ficam só em memória (mantidas ao trancar/liberar o quiz).
+        // Para o ADM (professor), o quiz pode ser refeito/reiniciado quantas vezes quiser!
         if (isAdm && !ADM_QUIZ_MEMORY[lessonKey]) ADM_QUIZ_MEMORY[lessonKey] = {};
         const selectedAnswers = isAdm ? ADM_QUIZ_MEMORY[lessonKey] : loadQuizAnswers(user, lessonKey);
 
@@ -1683,6 +1967,11 @@
             const currentIsAdm = currentUser && currentUser.role === 'admin';
             const currentIsUnlocked = isQuizUnlocked(lessonKey);
             const total = quizData.questions.length;
+            let currentIdx = QUIZ_CURRENT_IDX_MAP[idxKey] || 0;
+            if (currentIdx < 0 || currentIdx >= total) {
+                currentIdx = 0;
+                QUIZ_CURRENT_IDX_MAP[idxKey] = 0;
+            }
             const q = quizData.questions[currentIdx];
             const pickedLetter = selectedAnswers[q.id] || null;
 
@@ -1752,22 +2041,27 @@
             }).join('');
 
             const adminBarHtml = currentIsAdm ? `
-                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:rgba(37,99,235,0.16);border:1.5px solid rgba(59,130,246,0.5);border-radius:14px;padding:10px 16px;margin-bottom:16px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;background:rgba(37,99,235,0.16);border:1.5px solid rgba(59,130,246,0.5);border-radius:14px;padding:10px 16px;margin-bottom:12px;">
                     <div style="display:flex;align-items:center;gap:10px;">
                         <span style="font-size:1.3rem;">🛡️</span>
                         <div style="text-align:left;">
-                            <div style="font-weight:700;color:#93c5fd;font-size:0.9rem;">Modo Apresentação do Professor (ADM)</div>
+                            <div style="font-weight:700;color:#93c5fd;font-size:0.9rem;">Modo Apresentação do Professor (ADM) — Teste &amp; Aplicação em Aula</div>
                             <div style="font-size:0.78rem;color:#cbd5e1;">
                                 ${currentIsUnlocked
                                     ? '🔓 <strong style="color:#6ee7b7;">Liberado p/ Alunos:</strong> A turma já pode ver e praticar este quiz nos seus próprios dispositivos.'
-                                    : '🔒 <strong style="color:#fcd34d;">Trancado p/ Alunos:</strong> Apenas você pode ver na tela projetada. Os alunos veem a tela de espera.'
+                                    : '🔒 <strong style="color:#fcd34d;">Trancado p/ Alunos:</strong> Apenas você pode ver na tela projetada. Você pode testar e refazer quantas vezes quiser!'
                                 }
                             </div>
                         </div>
                     </div>
-                    <button type="button" id="${containerId}_admToggleQuizBtn" class="tr-btn-primary" style="padding:8px 16px;font-size:0.84rem;background:${currentIsUnlocked ? 'rgba(239,68,68,0.2)' : 'rgba(16,185,129,0.25)'};border-color:${currentIsUnlocked ? '#ef4444' : '#10b981'};color:${currentIsUnlocked ? '#fca5a5' : '#6ee7b7'};cursor:pointer;">
-                        ${currentIsUnlocked ? '🔒 Trancar Quiz p/ Alunos' : '🔓 Liberar Quiz para os Alunos Agora'}
-                    </button>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+                        <button type="button" id="${containerId}_admResetFullBtn" class="tr-btn-ghost" style="padding:8px 14px;font-size:0.82rem;border-color:rgba(0,229,255,0.45);color:#00e5ff;cursor:pointer;" title="Zera todas as questões respondidas para você aplicar o quiz do zero na aula">
+                            🔄 Refazer / Zerar Quiz do Zero
+                        </button>
+                        <button type="button" id="${containerId}_admToggleQuizBtn" class="tr-btn-primary" style="padding:8px 16px;font-size:0.84rem;background:${currentIsUnlocked ? 'rgba(239,68,68,0.2)' : 'rgba(16,185,129,0.25)'};border-color:${currentIsUnlocked ? '#ef4444' : '#10b981'};color:${currentIsUnlocked ? '#fca5a5' : '#6ee7b7'};cursor:pointer;">
+                            ${currentIsUnlocked ? '🔒 Trancar Quiz p/ Alunos' : '🔓 Liberar Quiz para os Alunos Agora'}
+                        </button>
+                    </div>
                 </div>
             ` : '';
 
@@ -1783,7 +2077,8 @@
                         </div>
                         <div class="nb-quiz-stats">
                             <span class="nb-stat-badge">✨ Acertos: <strong>${rightCount}</strong> / ${answeredCount}</span>
-                            ${currentIsAdm ? `<button type="button" class="nb-reset-btn" id="${containerId}_resetBtn" title="Reiniciar Quiz (apenas na tela do professor)">🔄 Reiniciar</button>` : ''}
+                            ${currentIsAdm && pickedLetter ? `<button type="button" class="nb-reset-btn" id="${containerId}_clearCurrentQBtn" title="Limpar apenas esta pergunta">↺ Limpar Questão</button>` : ''}
+                            ${currentIsAdm ? `<button type="button" class="nb-reset-btn" id="${containerId}_resetBtn" title="Reiniciar todas as questões do Quiz">🔄 Reiniciar Tudo</button>` : ''}
                         </div>
                     </div>
 
@@ -1831,11 +2126,32 @@
                 });
             }
 
+            const resetAllQuizFn = (e) => {
+                if (e) e.stopPropagation();
+                Object.keys(selectedAnswers).forEach(k => delete selectedAnswers[k]);
+                QUIZ_CURRENT_IDX_MAP[idxKey] = 0;
+                renderCurrentQuestion();
+            };
+
+            const admResetFullBtn = document.getElementById(`${containerId}_admResetFullBtn`);
+            if (admResetFullBtn) {
+                admResetFullBtn.addEventListener('click', resetAllQuizFn);
+            }
+
+            const clearCurrentQBtn = document.getElementById(`${containerId}_clearCurrentQBtn`);
+            if (clearCurrentQBtn) {
+                clearCurrentQBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    delete selectedAnswers[q.id];
+                    renderCurrentQuestion();
+                });
+            }
+
             // Attach listeners (stopPropagation so clicking inside quiz doesn't trigger slide swipe/keys)
             container.querySelectorAll('.nb-quiz-option').forEach(btn => {
                 btn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    // Pergunta já respondida: resposta travada, não pode trocar!
+                    // Pergunta já respondida: resposta travada (ADM pode clicar em "Limpar Questão" ou "Refazer Quiz" se quiser repetir)
                     if (selectedAnswers[q.id]) return;
                     const letter = btn.getAttribute('data-letter');
                     selectedAnswers[q.id] = letter;
@@ -1847,7 +2163,7 @@
             container.querySelectorAll('.nb-quiz-dot').forEach(dot => {
                 dot.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    currentIdx = parseInt(dot.getAttribute('data-qidx'), 10);
+                    QUIZ_CURRENT_IDX_MAP[idxKey] = parseInt(dot.getAttribute('data-qidx'), 10);
                     renderCurrentQuestion();
                 });
             });
@@ -1859,8 +2175,8 @@
             if (prevQBtn) {
                 prevQBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    if (currentIdx > 0) {
-                        currentIdx--;
+                    if (QUIZ_CURRENT_IDX_MAP[idxKey] > 0) {
+                        QUIZ_CURRENT_IDX_MAP[idxKey]--;
                         renderCurrentQuestion();
                     }
                 });
@@ -1868,19 +2184,14 @@
             if (nextQBtn) {
                 nextQBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    if (currentIdx < total - 1) {
-                        currentIdx++;
+                    if (QUIZ_CURRENT_IDX_MAP[idxKey] < total - 1) {
+                        QUIZ_CURRENT_IDX_MAP[idxKey]++;
                         renderCurrentQuestion();
                     }
                 });
             }
             if (resetBtn) {
-                resetBtn.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    Object.keys(selectedAnswers).forEach(k => delete selectedAnswers[k]);
-                    currentIdx = 0;
-                    renderCurrentQuestion();
-                });
+                resetBtn.addEventListener('click', resetAllQuizFn);
             }
         }
 
@@ -2452,9 +2763,15 @@
                             ${dataListHtml}
                         </div>
                         <div>
-                            <label class="tr-field-label">${isReg ? 'Crie uma Senha (para usar nas próximas aulas):' : 'Sua Senha:'}</label>
-                            <input type="password" id="trSlideGatePass" class="tr-input" placeholder="${isAdm ? 'Senha de Administrador' : (isReg ? 'Crie uma senha (mín. 3 caracteres)' : 'Digite sua senha cadastrada')}" autocomplete="current-password">
+                            <label class="tr-field-label">${isReg ? 'Crie uma Senha (mínimo 4 caracteres):' : 'Sua Senha:'}</label>
+                            <input type="password" id="trSlideGatePass" class="tr-input" placeholder="${isAdm ? 'Senha de Administrador' : (isReg ? 'Crie uma senha segura (mín. 4 caracteres)' : 'Digite sua senha cadastrada')}" autocomplete="current-password">
                         </div>
+                        ${isReg ? `
+                        <div>
+                            <label class="tr-field-label">Confirme sua Senha:</label>
+                            <input type="password" id="trSlideGatePassConfirm" class="tr-input" placeholder="Digite a mesma senha novamente" autocomplete="new-password">
+                        </div>
+                        ` : ''}
                         ${gateError ? `<div class="tr-auth-alert">⚠️ ${escapeHtml(gateError)}</div>` : ''}
                         <button type="button" id="trSlideGateSubmit" class="tr-btn-primary" style="width:100%;padding:12px;margin-top:4px;font-size:0.92rem;">
                             ${isReg ? '✨ Criar Minha Conta e Liberar Slides' : '🔑 Entrar na Conta e Liberar Slides'}
@@ -2495,6 +2812,7 @@
 
             const nameInp = document.getElementById('trSlideGateName');
             const passInp = document.getElementById('trSlideGatePass');
+            const passConfirmInp = document.getElementById('trSlideGatePassConfirm');
             const submitBtn = document.getElementById('trSlideGateSubmit');
 
             const handleLogin = async () => {
@@ -2503,6 +2821,7 @@
                 const res = loginOrRegister({
                     fullName: nameInp ? nameInp.value : '',
                     password: passInp ? passInp.value : '',
+                    confirmPassword: isReg && passConfirmInp ? passConfirmInp.value : undefined,
                     mode: gateMode
                 });
                 if (!res.ok) {
@@ -2595,6 +2914,15 @@
         setStudentAttendance,
         markAllAttendance,
         registerStudentByAdmin,
+        resetStudentPasswordByAdmin,
+        isUsernameTaken,
+        normalizeName,
+        normalizeUsernameKey,
+        getAllChallengesProgress,
+        getStudentChallenges,
+        saveStudentChallengeProgress,
+        getChatbotConfig,
+        saveChatbotConfig,
         getCurrentUser,
         setCurrentUser,
         loginOrRegister,

@@ -14,19 +14,19 @@
         ────────────────────────────────────────────── */
 
         /* Pillar cards (3 columns) */
-        .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 10px; }
-        .pillar-card { background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 18px 14px; text-align: center; transition: transform .25s, box-shadow .25s; }
+        .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 10px; }
+        .pillar-card { background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.08); border-radius: 15px; padding: 20px 16px; text-align: center; transition: transform .25s, box-shadow .25s; }
         .pillar-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,229,255,.18); }
-        .pillar-icon { font-size: 2.4rem; margin-bottom: 10px; }
-        .pillar-name { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 700; color: #00e5ff; }
-        .pillar-label { font-size: .78rem; color: #94a3b8; margin-top: 4px; }
+        .pillar-icon { font-size: 2.6rem; margin-bottom: 10px; }
+        .pillar-name { font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 700; color: #00e5ff; }
+        .pillar-label { font-size: .92rem; color: #cbd5e1; margin-top: 6px; line-height: 1.48; }
 
         /* Label badges */
-        .step-badge   { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,229,255,.12); border: 1px solid rgba(0,229,255,.35); border-radius: 100px; padding: 4px 14px; font-size: .75rem; font-weight: 800; color: #00e5ff; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
-        .live-label   { display: inline-flex; align-items: center; gap: 6px; background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.4); border-radius: 100px; padding: 4px 14px; font-size: .73rem; font-weight: 800; color: #10b981; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+        .step-badge   { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,229,255,.12); border: 1px solid rgba(0,229,255,.35); border-radius: 100px; padding: 5px 15px; font-size: .82rem; font-weight: 800; color: #00e5ff; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+        .live-label   { display: inline-flex; align-items: center; gap: 6px; background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.4); border-radius: 100px; padding: 5px 15px; font-size: .8rem; font-weight: 800; color: #10b981; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
         .live-dot     { width: 7px; height: 7px; border-radius: 50%; background: #10b981; animation: pulse-dot 1.2s infinite; }
-        .engage-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.4); border-radius: 100px; padding: 4px 14px; font-size: .73rem; font-weight: 800; color: #f59e0b; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px; }
-        .challenge-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.15); border: 1px solid rgba(236,72,153,.4); border-radius: 100px; padding: 4px 14px; font-size: .73rem; font-weight: 800; color: #f472b6; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px; }
+        .engage-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.4); border-radius: 100px; padding: 5px 15px; font-size: .8rem; font-weight: 800; color: #f59e0b; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px; }
+        .challenge-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.15); border: 1px solid rgba(236,72,153,.4); border-radius: 100px; padding: 5px 15px; font-size: .8rem; font-weight: 800; color: #f472b6; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 12px; }
         @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.5;transform:scale(1.4);} }
 
         /* Code step highlighting */
@@ -34,43 +34,43 @@
         .code-step-old { opacity: .55; }
 
         /* Flow diagram */
-        .flow-node { background: rgba(0,0,0,.4); border: 1.5px solid rgba(255,255,255,.1); border-radius: 10px; padding: 10px 16px; font-family: 'JetBrains Mono', monospace; font-size: .85rem; font-weight: 700; text-align: center; }
+        .flow-node { background: rgba(0,0,0,.4); border: 1.5px solid rgba(255,255,255,.1); border-radius: 10px; padding: 12px 18px; font-family: 'JetBrains Mono', monospace; font-size: .95rem; font-weight: 700; text-align: center; }
         .flow-yes { border-color: rgba(16,185,129,.5); color: #10b981; }
         .flow-no  { border-color: rgba(239,68,68,.5); color: #ef4444; }
 
         /* Mission cards */
-        .mission-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 8px; }
-        .mission-card { border-radius: 14px; padding: 16px; border: 1.5px solid rgba(255,255,255,.08); transition: transform .25s, box-shadow .25s; }
+        .mission-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 8px; }
+        .mission-card { border-radius: 15px; padding: 18px; border: 1.5px solid rgba(255,255,255,.08); transition: transform .25s, box-shadow .25s; }
         .mission-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,.4); }
-        .mission-card h4 { font-size: .92rem; margin-bottom: 8px; }
-        .mission-card p  { font-size: .75rem; color: #94a3b8; line-height: 1.5; }
+        .mission-card h4 { font-size: 1.04rem; margin-bottom: 8px; }
+        .mission-card p  { font-size: .88rem; color: #cbd5e1; line-height: 1.55; }
         .mission-rpg  { background: rgba(139,92,246,.12); border-color: rgba(139,92,246,.35); }
         .mission-quiz { background: rgba(59,130,246,.12); border-color: rgba(59,130,246,.35); }
         .mission-asst { background: rgba(16,185,129,.10); border-color: rgba(16,185,129,.35); }
 
         /* Stress test table */
-        .stress-table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: 10px; }
-        .stress-table th { background: rgba(255,255,255,.06); text-align: left; padding: 8px 10px; font-size: .72rem; color: #94a3b8; letter-spacing: .05em; text-transform: uppercase; }
-        .stress-table td { padding: 8px 10px; border-top: 1px solid rgba(255,255,255,.05); vertical-align: top; line-height: 1.4; }
+        .stress-table { width: 100%; border-collapse: collapse; font-size: .92rem; margin-top: 10px; }
+        .stress-table th { background: rgba(255,255,255,.06); text-align: left; padding: 10px 12px; font-size: .8rem; color: #94a3b8; letter-spacing: .05em; text-transform: uppercase; }
+        .stress-table td { padding: 10px 12px; border-top: 1px solid rgba(255,255,255,.05); vertical-align: top; line-height: 1.5; }
         .stress-table tr:hover td { background: rgba(255,255,255,.03); }
 
         /* Debug box */
-        .debug-box { background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.3); border-radius: 12px; padding: 14px 16px; font-size: .8rem; line-height: 1.7; }
+        .debug-box { background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.3); border-radius: 12px; padding: 16px 18px; font-size: .9rem; line-height: 1.7; }
         .debug-step { display: flex; align-items: center; margin-bottom: 6px; }
-        .step-num { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: rgba(239,68,68,.3); color: #fca5a5; font-size: .68rem; font-weight: 800; margin-right: 6px; flex-shrink: 0; }
+        .step-num { display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; border-radius: 50%; background: rgba(239,68,68,.3); color: #fca5a5; font-size: .74rem; font-weight: 800; margin-right: 8px; flex-shrink: 0; }
 
         /* Summary items */
-        .summary-item { display: flex; align-items: flex-start; gap: 10px; background: rgba(0,0,0,.3); border-radius: 10px; padding: 9px 12px; border: 1px solid rgba(255,255,255,.06); }
-        .summary-check { font-size: 1.1rem; flex-shrink: 0; }
-        .summary-text { font-size: .78rem; color: #cbd5e1; line-height: 1.35; }
-        .summary-text strong { color: #fff; display: block; margin-bottom: 1px; }
+        .summary-item { display: flex; align-items: flex-start; gap: 12px; background: rgba(0,0,0,.3); border-radius: 12px; padding: 11px 14px; border: 1px solid rgba(255,255,255,.06); }
+        .summary-check { font-size: 1.2rem; flex-shrink: 0; }
+        .summary-text { font-size: .9rem; color: #cbd5e1; line-height: 1.45; }
+        .summary-text strong { color: #fff; display: block; margin-bottom: 2px; font-size: .95rem; }
 
         /* VS Code tutorial image slides */
-        .vscode-slide-img { width: 100%; max-height: 255px; object-fit: contain; border-radius: 12px; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 8px 32px rgba(0,0,0,.6); }
-        .shortcut-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-top: 8px; }
-        .shortcut-card { background: rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; }
-        .shortcut-keys { font-family: 'JetBrains Mono', monospace; font-size: .82rem; font-weight: 700; color: #00e5ff; background: rgba(0,229,255,.1); border: 1px solid rgba(0,229,255,.3); border-radius: 8px; padding: 5px 10px; white-space: nowrap; flex-shrink: 0; }
-        .shortcut-desc { font-size: .76rem; color: #cbd5e1; line-height: 1.35; }
+        .vscode-slide-img { width: 100%; max-height: 270px; object-fit: contain; border-radius: 12px; border: 1px solid rgba(255,255,255,.1); box-shadow: 0 8px 32px rgba(0,0,0,.6); }
+        .shortcut-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; margin-top: 8px; }
+        .shortcut-card { background: rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; }
+        .shortcut-keys { font-family: 'JetBrains Mono', monospace; font-size: .9rem; font-weight: 700; color: #00e5ff; background: rgba(0,229,255,.1); border: 1px solid rgba(0,229,255,.3); border-radius: 8px; padding: 6px 12px; white-space: nowrap; flex-shrink: 0; }
+        .shortcut-desc { font-size: .86rem; color: #cbd5e1; line-height: 1.4; }
         .shortcut-desc strong { color: #fff; display: block; }
 
         /* QR Code (cadastro slide) */
@@ -78,22 +78,22 @@
         .qr-card { border-radius: 16px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; }
         .qr-card.gold-card  { background: rgba(255,184,0,.07); border: 1.5px solid rgba(255,184,0,.4); }
         .qr-card.cyan-card  { background: rgba(0,229,255,.07); border: 1.5px solid rgba(0,229,255,.4); }
-        .qr-card h4 { font-size: .9rem; margin-bottom: 10px; }
-        .qr-card ul { text-align: left; font-size: .78rem; line-height: 1.8; color: #cbd5e1; padding-left: 16px; margin-bottom: 12px; }
+        .qr-card h4 { font-size: 1rem; margin-bottom: 10px; }
+        .qr-card ul { text-align: left; font-size: .88rem; line-height: 1.8; color: #cbd5e1; padding-left: 16px; margin-bottom: 12px; }
         .qr-img-wrap { background: #fff; padding: 10px; border-radius: 12px; margin: 10px 0; }
         .qr-img-wrap img { width: 130px; height: 130px; display: block; }
-        .qr-link-btn { display: inline-block; margin-top: 6px; padding: 8px 18px; border-radius: 100px; font-size: .78rem; font-weight: 800; text-decoration: none; transition: all .2s; }
+        .qr-link-btn { display: inline-block; margin-top: 6px; padding: 8px 18px; border-radius: 100px; font-size: .84rem; font-weight: 800; text-decoration: none; transition: all .2s; }
         .qr-link-btn.gold { background: rgba(255,184,0,.15); color: #fbbf24; border: 1px solid rgba(255,184,0,.4); }
         .qr-link-btn.gold:hover { background: rgba(255,184,0,.25); }
         .qr-link-btn.cyan { background: rgba(0,229,255,.12); color: #00e5ff; border: 1px solid rgba(0,229,255,.35); }
         .qr-link-btn.cyan:hover { background: rgba(0,229,255,.22); }
 
         /* Mini challenge box */
-        .challenge-box { background: rgba(236,72,153,.07); border: 1.5px solid rgba(236,72,153,.35); border-radius: 14px; padding: 12px 16px; }
-        .challenge-box h4 { color: #f472b6; font-size: .88rem; margin-bottom: 6px; }
-        .challenge-box p, .challenge-box li { font-size: .8rem; color: #e2e8f0; line-height: 1.5; }
-        .challenge-box ul { padding-left: 16px; }
-        .timer-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.2); border-radius: 100px; padding: 3px 10px; font-size: .7rem; font-weight: 700; color: #f472b6; margin-bottom: 6px; }
+        .challenge-box { background: rgba(236,72,153,.07); border: 1.5px solid rgba(236,72,153,.35); border-radius: 14px; padding: 15px 18px; }
+        .challenge-box h4 { color: #f472b6; font-size: 1.02rem; margin-bottom: 8px; }
+        .challenge-box p, .challenge-box li { font-size: .92rem; color: #e2e8f0; line-height: 1.58; }
+        .challenge-box ul { padding-left: 18px; }
+        .timer-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.2); border-radius: 100px; padding: 4px 12px; font-size: .78rem; font-weight: 700; color: #f472b6; margin-bottom: 8px; }
     </style>
 </head>
 <body>
@@ -349,10 +349,9 @@
                             <h4 style="font-size:.85rem;margin-bottom:8px">🔑 O que é o <code>f</code> antes das aspas?</h4>
                             <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5">O <code>f</code> ativa as f-strings — ele permite que você coloque variáveis <strong>dentro do texto</strong> usando <code>{nome_da_variavel}</code>.</p>
                         </div>
-                        <div class="engage-label">❓ Demonstração ao vivo</div>
-                        <div class="content-box bad-box" style="margin-top:0;padding:12px 14px;font-size:.85rem">
-                            <strong>Delete o <code>f</code> e rode de novo!</strong><br>
-                            <span style="color:#94a3b8;font-size:.8rem">→ <code>{nome}</code> vai aparecer como texto literal — não substitui! Efeito uau garantido 😱</span>
+                        <div class="engage-label">❓ Pergunta para a Turma</div>
+                        <div class="content-box bad-box" style="margin-top:0;padding:14px 16px;font-size:.95rem">
+                            <strong>O que vocês acham que vai acontecer se apagarmos a letra <code>f</code> antes das aspas no <code>print()</code> e rodarmos o programa?</strong>
                         </div>
                     </div>
                 </div>
@@ -482,10 +481,9 @@
                             <h4 style="font-size:.85rem;margin-bottom:8px">📐 A Regra da Indentação</h4>
                             <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5">O espaço de 4 posições (ou <kbd>Tab</kbd>) antes do <code>print()</code> é <strong>obrigatório</strong>. Ele diz ao Python: "essa linha pertence ao <code>if</code>".</p>
                         </div>
-                        <div class="engage-label">❓ Pergunta de Engajamento</div>
-                        <div class="content-box" style="padding:14px;margin-top:0;font-size:.85rem">
-                            <strong>O que acontece se eu digitar 5000?</strong><br>
-                            <span style="color:#94a3b8;font-size:.8rem">Nada aparece! Por quê? Porque não existe um "plano B" ainda...</span>
+                        <div class="engage-label">❓ Pergunta para a Turma</div>
+                        <div class="content-box" style="padding:15px 16px;margin-top:0;font-size:.95rem">
+                            <strong>O que vai acontecer no terminal se o usuário digitar <code>5000</code> seguidores? E por quê?</strong>
                         </div>
                     </div>
                 </div>
@@ -560,10 +558,9 @@
                                 <div class="flow-node flow-no" style="flex:1;text-align:center">❌ FALSO<br><small>Bloco do else</small></div>
                             </div>
                         </div>
-                        <div class="engage-label">❓ Pergunta de Engajamento</div>
-                        <div class="content-box" style="padding:14px;margin-top:0;font-size:.85rem">
-                            <strong>E se eu quiser 3 resultados diferentes?</strong><br>
-                            <span style="color:#94a3b8;font-size:.8rem">Com só um if/else não dá fácil... mas existe um terceiro comando!</span>
+                        <div class="engage-label">❓ Pergunta para a Turma</div>
+                        <div class="content-box" style="padding:15px 16px;margin-top:0;font-size:.95rem">
+                            <strong>E se precisarmos de 3 ou mais resultados diferentes (ex: Mega Influencer, Influencer e Iniciante)? Como podemos resolver isso no Python?</strong>
                         </div>
                     </div>
                 </div>
@@ -638,10 +635,9 @@
                             <h4 style="font-size:.85rem;margin-bottom:6px">🧠 Como o Python pensa?</h4>
                             <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5">Testa condição a condição, <strong>de cima para baixo</strong>. Na primeira verdadeira, executa e <strong>pula as demais</strong>. Posso ter <strong>quantos elif quiser</strong>!</p>
                         </div>
-                        <div class="engage-label">❓ Pergunta de Engajamento</div>
-                        <div class="content-box" style="padding:14px;margin-top:0;font-size:.85rem">
-                            <strong>Se eu digitar 10000, qual bloco roda?</strong><br>
-                            <span style="color:#94a3b8;font-size:.8rem">→ if &gt;= 100000 é FALSO → elif &gt;= 10000 é VERDADEIRO → executa e para!</span>
+                        <div class="engage-label">❓ Pergunta para a Turma</div>
+                        <div class="content-box" style="padding:15px 16px;margin-top:0;font-size:.95rem">
+                            <strong>Se o usuário digitar exatamente <code>10000</code>, qual mensagem vai aparecer na tela? E os outros blocos abaixo dele serão executados?</strong>
                         </div>
                     </div>
                 </div>
@@ -704,8 +700,8 @@
             </div>
             <div class="slide-body">
                 <div class="grid-2" style="gap:14px;align-items:start">
-                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:12px">
-                        <div class="prompt-code" style="font-size:.76rem;line-height:1.55">
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:14px">
+                        <div class="prompt-code" style="font-size:.86rem;line-height:1.6">
 <span class="fn">print</span>(<span class="str">"=== LABIRINTO MÁGICO ==="</span>)
 <span class="kw">escolha</span> = <span class="fn">input</span>(<span class="str">"Qual porta? (1, 2 ou 3): "</span>)
 
@@ -723,11 +719,11 @@
     <span class="fn">print</span>(<span class="str">"⚠️ Porta inválida!"</span>)
                         </div>
                     </div>
-                    <div style="display:flex;flex-direction:column;gap:10px">
+                    <div style="display:flex;flex-direction:column;gap:12px">
                         <div class="engage-label">❓ Perguntas para a turma</div>
-                        <div class="content-box" style="padding:12px;margin-top:0;font-size:.83rem"><p><strong>1.</strong> Quantas condições <code>if/elif/else</code> existem neste código?</p></div>
-                        <div class="content-box" style="padding:12px;font-size:.83rem"><p><strong>2.</strong> O que acontece se o jogador digitar "A" no teclado?</p></div>
-                        <div class="content-box" style="padding:12px;font-size:.83rem"><p><strong>3.</strong> Se trocarmos <code>==</code> por <code>!=</code> na linha da porta 1, o que muda na lógica?</p></div>
+                        <div class="content-box" style="padding:14px 16px;margin-top:0;font-size:.94rem"><p><strong>1.</strong> Quantas condições <code>if/elif/else</code> existem neste código?</p></div>
+                        <div class="content-box" style="padding:14px 16px;font-size:.94rem"><p><strong>2.</strong> O que acontece se o jogador digitar "A" no teclado?</p></div>
+                        <div class="content-box" style="padding:14px 16px;font-size:.94rem"><p><strong>3.</strong> Se trocarmos <code>==</code> por <code>!=</code> na linha da porta 1, o que muda na lógica?</p></div>
                     </div>
                 </div>
             </div>
@@ -857,10 +853,9 @@
                         <tr><td>🔢</td><td>Números extremos: <code>-1</code>, <code>0</code>, <code>999999</code></td><td>Alguma condição cobre todos esses casos?</td></tr>
                     </tbody>
                 </table>
-                <div class="engage-label" style="margin-top:16px">❓ Pergunta de Engajamento</div>
-                <div class="content-box bad-box" style="margin-top:0;padding:12px 16px;font-size:.85rem">
-                    <strong>O que aconteceu quando você digitou texto onde esperava número?</strong><br>
-                    <span style="color:#94a3b8;font-size:.8rem">→ Nas próximas aulas: <code>try/except</code> para tratar esses erros. Por enquanto, peça ajuda à IA!</span>
+                <div class="engage-label" style="margin-top:16px">❓ Pergunta para a Turma</div>
+                <div class="content-box bad-box" style="margin-top:0;padding:14px 16px;font-size:.95rem">
+                    <strong>O que aconteceu no seu terminal quando você digitou letras onde o programa esperava um número inteiro? Como podemos evitar que o programa trave?</strong>
                 </div>
             </div>
         </section>

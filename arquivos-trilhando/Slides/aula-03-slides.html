@@ -9,43 +9,43 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="slides-style.css">
     <style>
-        .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 10px; }
-        .pillar-card { background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.08); border-radius: 14px; padding: 18px 14px; text-align: center; transition: transform .25s, box-shadow .25s; }
+        .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 10px; }
+        .pillar-card { background: rgba(0,0,0,.35); border: 1px solid rgba(255,255,255,.08); border-radius: 15px; padding: 20px 16px; text-align: center; transition: transform .25s, box-shadow .25s; }
         .pillar-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,229,255,.18); }
-        .pillar-icon { font-size: 2.2rem; margin-bottom: 8px; }
-        .pillar-name { font-family: 'JetBrains Mono', monospace; font-size: 1rem; font-weight: 700; color: #00e5ff; }
-        .pillar-label { font-size: .8rem; color: #94a3b8; margin-top: 4px; line-height: 1.4; }
+        .pillar-icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .pillar-name { font-family: 'JetBrains Mono', monospace; font-size: 1.15rem; font-weight: 700; color: #00e5ff; }
+        .pillar-label { font-size: .92rem; color: #cbd5e1; margin-top: 6px; line-height: 1.48; }
 
-        .step-badge   { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,229,255,.12); border: 1px solid rgba(0,229,255,.35); border-radius: 100px; padding: 4px 14px; font-size: .75rem; font-weight: 800; color: #00e5ff; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
-        .live-label   { display: inline-flex; align-items: center; gap: 6px; background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.4); border-radius: 100px; padding: 4px 14px; font-size: .73rem; font-weight: 800; color: #10b981; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+        .step-badge   { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,229,255,.12); border: 1px solid rgba(0,229,255,.35); border-radius: 100px; padding: 5px 15px; font-size: .82rem; font-weight: 800; color: #00e5ff; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+        .live-label   { display: inline-flex; align-items: center; gap: 6px; background: rgba(16,185,129,.15); border: 1px solid rgba(16,185,129,.4); border-radius: 100px; padding: 5px 15px; font-size: .8rem; font-weight: 800; color: #10b981; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
         .live-dot     { width: 7px; height: 7px; border-radius: 50%; background: #10b981; animation: pulse-dot 1.2s infinite; }
-        .engage-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.4); border-radius: 100px; padding: 4px 14px; font-size: .73rem; font-weight: 800; color: #f59e0b; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
-        .challenge-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.15); border: 1px solid rgba(236,72,153,.4); border-radius: 100px; padding: 4px 14px; font-size: .73rem; font-weight: 800; color: #f472b6; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+        .engage-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.4); border-radius: 100px; padding: 5px 15px; font-size: .8rem; font-weight: 800; color: #f59e0b; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
+        .challenge-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.15); border: 1px solid rgba(236,72,153,.4); border-radius: 100px; padding: 5px 15px; font-size: .8rem; font-weight: 800; color: #f472b6; letter-spacing: .06em; text-transform: uppercase; margin-bottom: 10px; }
         @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:.5;transform:scale(1.4);} }
 
-        .challenge-box { background: rgba(236,72,153,.07); border: 1.5px solid rgba(236,72,153,.35); border-radius: 14px; padding: 16px 18px; }
-        .challenge-box h4 { color: #f472b6; font-size: .92rem; margin-bottom: 8px; }
-        .challenge-box p, .challenge-box li { font-size: .83rem; color: #e2e8f0; line-height: 1.6; }
-        .challenge-box ul { padding-left: 16px; }
-        .timer-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.2); border-radius: 100px; padding: 3px 12px; font-size: .72rem; font-weight: 700; color: #f472b6; margin-bottom: 8px; }
+        .challenge-box { background: rgba(236,72,153,.07); border: 1.5px solid rgba(236,72,153,.35); border-radius: 15px; padding: 16px 20px; }
+        .challenge-box h4 { color: #f472b6; font-size: 1.04rem; margin-bottom: 8px; }
+        .challenge-box p, .challenge-box li { font-size: .94rem; color: #e2e8f0; line-height: 1.62; }
+        .challenge-box ul { padding-left: 18px; }
+        .timer-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(236,72,153,.2); border-radius: 100px; padding: 4px 12px; font-size: .78rem; font-weight: 700; color: #f472b6; margin-bottom: 8px; }
 
-        .mission-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 8px; }
-        .mission-card { border-radius: 14px; padding: 16px; border: 1.5px solid rgba(255,255,255,.08); transition: transform .25s, box-shadow .25s; cursor: pointer; }
+        .mission-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-top: 8px; }
+        .mission-card { border-radius: 15px; padding: 18px; border: 1.5px solid rgba(255,255,255,.08); transition: transform .25s, box-shadow .25s; cursor: pointer; }
         .mission-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,.4); }
-        .mission-card h4 { font-size: .92rem; margin-bottom: 8px; }
-        .mission-card p  { font-size: .76rem; color: #94a3b8; line-height: 1.5; }
+        .mission-card h4 { font-size: 1.04rem; margin-bottom: 8px; }
+        .mission-card p  { font-size: .88rem; color: #cbd5e1; line-height: 1.55; }
         .mission-atm  { background: rgba(139,92,246,.12); border-color: rgba(139,92,246,.35); }
         .mission-quiz { background: rgba(59,130,246,.12); border-color: rgba(59,130,246,.35); }
         .mission-health { background: rgba(16,185,129,.10); border-color: rgba(16,185,129,.35); }
 
-        .stress-table { width: 100%; border-collapse: collapse; font-size: .82rem; margin-top: 8px; }
-        .stress-table th { background: rgba(255,255,255,.06); text-align: left; padding: 9px 12px; font-size: .73rem; color: #94a3b8; letter-spacing: .05em; text-transform: uppercase; }
-        .stress-table td { padding: 9px 12px; border-top: 1px solid rgba(255,255,255,.06); vertical-align: top; line-height: 1.45; }
+        .stress-table { width: 100%; border-collapse: collapse; font-size: .92rem; margin-top: 8px; }
+        .stress-table th { background: rgba(255,255,255,.06); text-align: left; padding: 10px 14px; font-size: .8rem; color: #94a3b8; letter-spacing: .05em; text-transform: uppercase; }
+        .stress-table td { padding: 10px 14px; border-top: 1px solid rgba(255,255,255,.06); vertical-align: top; line-height: 1.5; }
 
-        .summary-item { display: flex; align-items: flex-start; gap: 10px; background: rgba(0,0,0,.3); border-radius: 10px; padding: 10px 14px; border: 1px solid rgba(255,255,255,.06); }
-        .summary-check { font-size: 1.15rem; flex-shrink: 0; }
-        .summary-text { font-size: .8rem; color: #cbd5e1; line-height: 1.4; }
-        .summary-text strong { color: #fff; display: block; margin-bottom: 2px; }
+        .summary-item { display: flex; align-items: flex-start; gap: 12px; background: rgba(0,0,0,.3); border-radius: 12px; padding: 12px 16px; border: 1px solid rgba(255,255,255,.06); }
+        .summary-check { font-size: 1.2rem; flex-shrink: 0; }
+        .summary-text { font-size: .9rem; color: #cbd5e1; line-height: 1.45; }
+        .summary-text strong { color: #fff; display: block; margin-bottom: 2px; font-size: .95rem; }
     </style>
 </head>
 <body>
@@ -127,10 +127,10 @@
                 <p class="slide-subtitle">O que acontece se o usuário digitar <code>"quinze"</code> por extenso dentro do <code>int()</code>?</p>
             </div>
             <div class="slide-body">
-                <div class="grid-2" style="gap:16px;align-items:start">
+                <div class="grid-2" style="gap:18px;align-items:start">
                     <div class="content-box accent-box">
                         <h4>💻 Código com Blindagem (<code>aula03_try.py</code>)</h4>
-                        <div class="prompt-code" style="font-size:.88rem;line-height:1.9">
+                        <div class="prompt-code" style="font-size:.96rem;line-height:1.95">
 <span class="cm"># 🛡️ Protegendo o programa contra letras em campos numéricos</span>
 <span class="kw">try</span>:
     <span class="kw">idade</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Digite sua idade em números: "</span>))
@@ -139,18 +139,17 @@
     <span class="fn">print</span>(<span class="str">"⚠️ Ei! Digite apenas números inteiros (ex: 14)."</span>)
                         </div>
                     </div>
-                    <div style="display:flex;flex-direction:column;gap:10px">
-                        <div class="content-box tip-box" style="padding:14px">
-                            <h4 style="font-size:.86rem;margin-bottom:6px">🧠 Como funciona?</h4>
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        <div class="content-box tip-box" style="padding:16px">
+                            <h4 style="font-size:.98rem;margin-bottom:6px">🧠 Como funciona?</h4>
                             <ul>
                                 <li><code>try:</code> O Python <strong>tenta</strong> executar as linhas de dentro.</li>
                                 <li><code>except ValueError:</code> Só roda se der erro na conversão numérica!</li>
                             </ul>
                         </div>
                         <div class="engage-label">❓ Pergunta para a Turma</div>
-                        <div class="content-box" style="padding:12px 14px;font-size:.84rem">
-                            <strong>Se eu digitar <code>14</code> certinho, a mensagem do <code>except</code> vai aparecer?</strong><br>
-                            <span style="color:#94a3b8;font-size:.8rem">→ Não! Quando não há erro no <code>try</code>, o <code>except</code> é totalmente ignorado!</span>
+                        <div class="content-box" style="padding:15px 16px;font-size:.95rem">
+                            <strong>Se o usuário digitar <code>14</code> certinho, a mensagem de aviso do <code>except</code> vai aparecer na tela? Por quê?</strong>
                         </div>
                     </div>
                 </div>
@@ -162,27 +161,41 @@
             <div class="slide-header">
                 <span class="challenge-label">🎯 Mini-Desafio 1 — 3 minutos</span>
                 <h2 class="slide-title">Sua vez com <code>try / except</code>!</h2>
-                <p class="slide-subtitle">Proteja um leitor de altura decimal contra erros de digitação</p>
+                <p class="slide-subtitle">Proteja um leitor de altura decimal contra erros de digitação — escreva do zero!</p>
             </div>
             <div class="slide-body">
-                <div class="grid-2" style="gap:16px;align-items:start">
-                    <div class="challenge-box">
-                        <div class="timer-badge">⏱️ 3 minutos</div>
-                        <h4>🛡️ Desafio: Leitor de Altura Blindado</h4>
-                        <p>Crie um programa que:</p>
-                        <ul>
-                            <li>Dentro do <code>try:</code> peça a altura com <code>float(input("Sua altura: "))</code> e mostre na tela.</li>
-                            <li>Dentro do <code>except ValueError:</code> mostre <code>"⚠️ Digite apenas números usando ponto (ex: 1.65)!"</code></li>
-                        </ul>
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        <div class="challenge-box">
+                            <div class="timer-badge">⏱️ 3 minutos</div>
+                            <h4>🛡️ Desafio: Leitor de Altura Blindado</h4>
+                            <p>Crie um programa que:</p>
+                            <ul>
+                                <li>Dentro do <code>try:</code> peça a altura com <code>float(input("Sua altura: "))</code> e mostre na tela.</li>
+                                <li>Dentro do <code>except ValueError:</code> mostre <code>"⚠️ Digite apenas números usando ponto (ex: 1.65)!"</code></li>
+                            </ul>
+                        </div>
+                        <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:13px 16px">
+                            <h4 style="font-size:.92rem;color:#f59e0b;margin-bottom:6px">❓ Pergunta para a Turma:</h4>
+                            <p style="font-size:.9rem;color:#cbd5e1;line-height:1.55;margin:0">
+                                O que acontece no seu programa se você digitar a altura com <strong>vírgula</strong> (<code>1,65</code>) em vez de <strong>ponto</strong> (<code>1.65</code>)?
+                            </p>
+                        </div>
                     </div>
-                    <div class="content-box" style="padding:14px;background:rgba(0,0,0,.4)">
-                        <h4 style="font-size:.82rem;color:#64748b;margin-bottom:8px;text-transform:uppercase">Estrutura de Referência:</h4>
-                        <div class="prompt-code" style="font-size:.84rem;line-height:1.85">
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="content-box" style="padding:16px;background:rgba(0,0,0,.4)">
+                            <h4 style="font-size:.88rem;color:#64748b;margin-bottom:8px;text-transform:uppercase">Estrutura do try / except (referência):</h4>
+                            <div class="prompt-code" style="font-size:.92rem;line-height:1.9">
 <span class="kw">try</span>:
-    <span class="kw">altura</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">"Sua altura: "</span>))
-    <span class="fn">print</span>(<span class="str">f"Altura registrada: <span class="kw">{altura}</span>m"</span>)
+    <span class="kw">variavel</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">"Pergunta: "</span>))
+    <span class="fn">print</span>(<span class="str">f"Mensagem: <span class="kw">{variavel}</span>"</span>)
 <span class="kw">except</span> <span class="fn">ValueError</span>:
-    <span class="fn">print</span>(<span class="str">"⚠️ Digite usando ponto (ex: 1.65)!"</span>)
+    <span class="fn">print</span>(<span class="str">"Mensagem de aviso se digitar errado"</span>)
+                            </div>
+                        </div>
+                        <div class="content-box tip-box" style="padding:12px 14px;font-size:.88rem">
+                            <strong>Terminou antes?</strong>
+                            <span style="color:#cbd5e1">Adicione um <code>if / else</code> dentro do <code>try</code> para dizer se a pessoa tem mais de 1.70m!</span>
                         </div>
                     </div>
                 </div>
@@ -197,10 +210,10 @@
                 <p class="slide-subtitle">Ideal para menus, jogos e validação de senha até o usuário acertar!</p>
             </div>
             <div class="slide-body">
-                <div class="grid-2" style="gap:16px;align-items:start">
+                <div class="grid-2" style="gap:18px;align-items:start">
                     <div class="content-box accent-box">
                         <h4>🔑 Exemplo: Cofre com Senha Secreta</h4>
-                        <div class="prompt-code" style="font-size:.84rem;line-height:1.8">
+                        <div class="prompt-code" style="font-size:.92rem;line-height:1.88">
 <span class="kw">senha_correta</span> = <span class="str">"python123"</span>
 <span class="kw">tentativa</span> = <span class="str">""</span>
 
@@ -212,14 +225,14 @@
 <span class="fn">print</span>(<span class="str">"🔓 Acesso liberado com sucesso!"</span>)
                         </div>
                     </div>
-                    <div style="display:flex;flex-direction:column;gap:10px">
-                        <div class="content-box tip-box" style="padding:14px">
-                            <h4 style="font-size:.86rem;margin-bottom:6px">🛑 Comando <code>break</code> (Freio de Emergência)</h4>
-                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5">Se usarmos <code>while True:</code> (loop contínuo), podemos parar e sair do laço a qualquer momento usando o comando <code>break</code>!</p>
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        <div class="content-box tip-box" style="padding:16px">
+                            <h4 style="font-size:.96rem;margin-bottom:6px">🛑 Comando <code>break</code> (Freio de Emergência)</h4>
+                            <p style="font-size:.9rem;color:#cbd5e1;line-height:1.55">Se usarmos <code>while True:</code> (loop contínuo), podemos parar e sair do laço a qualquer momento usando o comando <code>break</code>!</p>
                         </div>
-                        <div class="content-box warn-box" style="padding:12px 14px">
-                            <h4 style="font-size:.84rem;margin-bottom:4px">⚠️ Cuidado com o Loop Infinito!</h4>
-                            <p style="font-size:.78rem;color:#cbd5e1">Dentro do <code>while</code>, algo precisa mudar (como ler uma nova <code>tentativa</code> ou somar <code>cont += 1</code>) para o loop terminar!</p>
+                        <div class="engage-label">❓ Pergunta para a Turma</div>
+                        <div class="content-box warn-box" style="padding:14px 16px;font-size:.94rem">
+                            <strong>O que aconteceria se esquecêssemos de atualizar a variável dentro do <code>while</code>? O programa pararia algum dia?</strong>
                         </div>
                     </div>
                 </div>
@@ -231,27 +244,41 @@
             <div class="slide-header">
                 <span class="challenge-label">🎯 Mini-Desafio 2 — 3 minutos</span>
                 <h2 class="slide-title">Sua vez com o <code>while</code>!</h2>
-                <p class="slide-subtitle">Crie um contador automático de 1 até 5</p>
+                <p class="slide-subtitle">Crie um contador automático de 1 até 5 — escreva o código no VS Code!</p>
             </div>
             <div class="slide-body">
-                <div class="grid-2" style="gap:16px;align-items:start">
-                    <div class="challenge-box">
-                        <div class="timer-badge">⏱️ 3 minutos</div>
-                        <h4>🔢 Desafio: Contador de 1 a 5</h4>
-                        <p>Crie um programa que:</p>
-                        <ul>
-                            <li>Comece com <code>contador = 1</code></li>
-                            <li>Use <code>while contador &lt;= 5:</code> para imprimir o número atual</li>
-                            <li>Some 1 a cada volta com <code>contador = contador + 1</code> (ou <code>contador += 1</code>)</li>
-                        </ul>
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        <div class="challenge-box">
+                            <div class="timer-badge">⏱️ 3 minutos</div>
+                            <h4>🔢 Desafio: Contador de 1 a 5</h4>
+                            <p>Crie um programa que:</p>
+                            <ul>
+                                <li>Comece com uma variável de contagem em <code>1</code></li>
+                                <li>Use <code>while</code> para repetir enquanto ela for <code>&lt;= 5</code></li>
+                                <li>Mostre o número na tela e some <code>+ 1</code> a cada volta!</li>
+                            </ul>
+                        </div>
+                        <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:13px 16px">
+                            <h4 style="font-size:.92rem;color:#f59e0b;margin-bottom:6px">❓ Pergunta para a Turma:</h4>
+                            <p style="font-size:.9rem;color:#cbd5e1;line-height:1.55;margin:0">
+                                Como você mudaria esse código para ele contar apenas os números pares de <code>2</code> até <code>10</code>?
+                            </p>
+                        </div>
                     </div>
-                    <div class="content-box" style="padding:14px;background:rgba(0,0,0,.4)">
-                        <h4 style="font-size:.82rem;color:#64748b;margin-bottom:8px;text-transform:uppercase">Estrutura do Contador:</h4>
-                        <div class="prompt-code" style="font-size:.86rem;line-height:1.9">
-<span class="kw">contador</span> = <span class="num">1</span>
-<span class="kw">while</span> contador &lt;= <span class="num">5</span>:
-    <span class="fn">print</span>(<span class="str">f"Passo número <span class="kw">{contador}</span>"</span>)
-    <span class="kw">contador</span> += <span class="num">1</span>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="content-box" style="padding:16px;background:rgba(0,0,0,.4)">
+                            <h4 style="font-size:.88rem;color:#64748b;margin-bottom:8px;text-transform:uppercase">Estrutura do while (referência):</h4>
+                            <div class="prompt-code" style="font-size:.92rem;line-height:1.9">
+<span class="kw">variavel</span> = <span class="num">valor_inicial</span>
+<span class="kw">while</span> variavel &lt;= <span class="num">limite</span>:
+    <span class="fn">print</span>(<span class="str">f"Mensagem: <span class="kw">{variavel}</span>"</span>)
+    <span class="kw">variavel</span> = variavel + <span class="num">1</span>
+                            </div>
+                        </div>
+                        <div class="content-box tip-box" style="padding:12px 14px;font-size:.88rem">
+                            <strong>Terminou antes?</strong>
+                            <span style="color:#cbd5e1">Tente fazer o contador ir de <code>10</code> até <code>1</code> diminuindo 1 a cada volta!</span>
                         </div>
                     </div>
                 </div>
@@ -266,10 +293,10 @@
                 <p class="slide-subtitle">Quando você sabe exatamente quantas vezes quer repetir!</p>
             </div>
             <div class="slide-body">
-                <div class="grid-2" style="gap:16px;align-items:start">
+                <div class="grid-2" style="gap:18px;align-items:start">
                     <div class="content-box accent-box">
                         <h4>🚀 Exemplo: Contagem Regressiva e Tentativas</h4>
-                        <div class="prompt-code" style="font-size:.84rem;line-height:1.85">
+                        <div class="prompt-code" style="font-size:.92rem;line-height:1.88">
 <span class="cm"># 1. Repetindo 3 vezes (1, 2 e 3)</span>
 <span class="kw">for</span> rodada <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">4</span>):
     <span class="fn">print</span>(<span class="str">f"🎮 Rodada nº <span class="kw">{rodada}</span>"</span>)
@@ -281,21 +308,69 @@
 <span class="fn">print</span>(<span class="str">"💥 DECOLAR!"</span>)
                         </div>
                     </div>
-                    <div style="display:flex;flex-direction:column;gap:10px">
-                        <div class="content-box tip-box" style="padding:14px">
-                            <h4 style="font-size:.86rem;margin-bottom:6px">📌 Regra de Ouro do <code>range(início, fim)</code></h4>
-                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5">O <code>range(1, 4)</code> começa no <strong>1</strong> e para <strong>ANTES do 4</strong> (gera <code>1, 2, 3</code>). Sempre coloque 1 número a mais no fim!</p>
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        <div class="content-box tip-box" style="padding:16px">
+                            <h4 style="font-size:.96rem;margin-bottom:6px">📌 Regra de Ouro do <code>range(início, fim)</code></h4>
+                            <p style="font-size:.9rem;color:#cbd5e1;line-height:1.55">O <code>range(1, 4)</code> começa no <strong>1</strong> e para <strong>ANTES do 4</strong> (gera <code>1, 2, 3</code>). Sempre coloque 1 número a mais no fim!</p>
                         </div>
-                        <div class="challenge-box" style="padding:12px 14px">
-                            <h4>⚡ Mini-Desafio Rápido (2 min):</h4>
-                            <p style="font-size:.8rem">Use <code>for i in range(1, 4):</code> para imprimir 3 vezes no terminal: <code>"Minha mensagem nº X"</code>!</p>
+                        <div class="engage-label">❓ Pergunta para a Turma</div>
+                        <div class="content-box" style="padding:15px 16px;font-size:.94rem">
+                            <strong>Se precisarmos repetir um bloco de código de <code>1</code> até <code>10</code> (incluindo o 10), quais números devemos colocar dentro dos parênteses do <code>range(...)</code>?</strong>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 8 — BLOCO 3: ENGENHARIA REVERSA (DETETIVE DE CÓDIGO) -->
+        <!-- SLIDE 8 — MINI-DESAFIO 3: EXERCÍCIO PRÁTICO COM O FOR -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="challenge-label">🎯 Mini-Desafio 3 — 4 minutos</span>
+                <h2 class="slide-title">Sua vez com o <code>for</code> e <code>range()</code>!</h2>
+                <p class="slide-subtitle">Escolha um dos exercícios abaixo e programe seu laço <code>for</code> no VS Code</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        <div class="challenge-box">
+                            <div class="timer-badge">⏱️ 4 minutos</div>
+                            <h4>🚀 Exercício Prático: Dominando o <code>for</code></h4>
+                            <p>Escolha <strong>uma</strong> das missões abaixo para criar no VS Code:</p>
+                            <ul>
+                                <li><strong>Opção A (Gerador de Tabuada):</strong> Peça um número inteiro com <code>int(input(...))</code> e use o <code>for</code> de <code>1</code> até <code>10</code> para mostrar a tabuada completa desse número!</li>
+                                <li><strong>Opção B (Foguete Espacial):</strong> Use <code>for</code> com passo negativo <code>-1</code> para fazer uma contagem regressiva de <code>10</code> até <code>1</code> e exibir <code>"💥 FOGUETE LANÇADO!"</code> no final.</li>
+                            </ul>
+                        </div>
+                        <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:13px 16px">
+                            <h4 style="font-size:.92rem;color:#f59e0b;margin-bottom:6px">❓ Pergunta para a Turma:</h4>
+                            <p style="font-size:.9rem;color:#cbd5e1;line-height:1.55;margin:0">
+                                Na Opção B, por que o <code>print("💥 FOGUETE LANÇADO!")</code> precisa ficar <strong>fora</strong> da indentação do <code>for</code>? O que acontece se colocarmos ele com espaço (<kbd>Tab</kbd>) dentro do <code>for</code>?
+                            </p>
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="content-box" style="padding:16px;background:rgba(0,0,0,.4)">
+                            <h4 style="font-size:.88rem;color:#64748b;margin-bottom:8px;text-transform:uppercase">Estrutura do for + range() (referência):</h4>
+                            <div class="prompt-code" style="font-size:.9rem;line-height:1.85">
+<span class="cm"># Estrutura para repetição crescente:</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">inicio</span>, <span class="num">fim</span>):
+    <span class="fn">print</span>(<span class="str">f"Repetição atual: <span class="kw">{i}</span>"</span>)
+
+<span class="cm"># Estrutura para contagem regressiva:</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">maior</span>, <span class="num">menor</span>, <span class="num">-1</span>):
+    <span class="fn">print</span>(<span class="str">f"Contando: <span class="kw">{i}</span>"</span>)
+                            </div>
+                        </div>
+                        <div class="content-box tip-box" style="padding:12px 14px;font-size:.88rem">
+                            <strong>Terminou antes?</strong>
+                            <span style="color:#cbd5e1">Proteja a Opção A colocando um <code>try / except ValueError</code> ao redor do <code>int(input(...))</code>!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 9 — BLOCO 3: ENGENHARIA REVERSA (DETETIVE DE CÓDIGO) -->
         <section class="slide">
             <div class="slide-header">
                 <span class="step-badge">🔍 Bloco 3 — Engenharia Reversa (Missão Detetive)</span>
@@ -303,9 +378,9 @@
                 <p class="slide-subtitle">Descubra onde o loop se repete, onde o erro é tratado e quando o jogo acaba!</p>
             </div>
             <div class="slide-body">
-                <div class="grid-2" style="gap:14px;align-items:start">
-                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:10px 12px">
-                        <div class="prompt-code" style="font-size:.73rem;line-height:1.42;padding:8px 12px">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:12px 14px">
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.5;padding:10px 14px">
 <span class="kw">vidas</span> = <span class="num">3</span>
 <span class="kw">pontos</span> = <span class="num">0</span>
 <span class="fn">print</span>(<span class="str">"🎮 BEM-VINDO AO DESAFIO DA SORTE!"</span>)
@@ -329,19 +404,16 @@
 <span class="fn">print</span>(<span class="str">f"💥 GAME OVER! Pontuação: <span class="kw">{pontos}</span>"</span>)
                         </div>
                     </div>
-                    <div style="display:flex;flex-direction:column;gap:8px">
-                        <div class="engage-label" style="margin-bottom:4px">🕵️ Perguntas de Detetive</div>
-                        <div class="content-box" style="padding:10px 12px;font-size:.81rem">
-                            <strong>1. O que acontece se o jogador digitar <code>"três"</code> por extenso?</strong><br>
-                            <span style="color:#94a3b8;font-size:.77rem">→ Cai no <code>except ValueError</code>, mostra o alerta e <strong>não perde vida</strong>!</span>
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        <div class="engage-label" style="margin-bottom:4px">❓ Perguntas para a Turma</div>
+                        <div class="content-box" style="padding:14px 16px;font-size:.94rem">
+                            <strong>1. O que acontece se o jogador digitar <code>"três"</code> por extenso? Ele perde uma vida?</strong>
                         </div>
-                        <div class="content-box" style="padding:10px 12px;font-size:.81rem">
-                            <strong>2. Qual linha impede que o jogador perca vida se digitar <code>9</code>?</strong><br>
-                            <span style="color:#94a3b8;font-size:.77rem">→ O <code>if chute &lt; 1 or chute &gt; 5:</code> junto com o <code>continue</code>!</span>
+                        <div class="content-box" style="padding:14px 16px;font-size:.94rem">
+                            <strong>2. Qual linha do código impede que o jogador perca vida se digitar o número <code>9</code>?</strong>
                         </div>
-                        <div class="content-box" style="padding:10px 12px;font-size:.81rem">
-                            <strong>3. O que faz o laço <code>while</code> parar de rodar?</strong><br>
-                            <span style="color:#94a3b8;font-size:.77rem">→ Quando a variável <code>vidas</code> chega a <code>0</code> após 3 chutes errados!</span>
+                        <div class="content-box" style="padding:14px 16px;font-size:.94rem">
+                            <strong>3. O que precisa acontecer no jogo para o laço <code>while</code> parar de rodar?</strong>
                         </div>
                     </div>
                 </div>
@@ -491,7 +563,7 @@
 
     <!-- Bottom Navigation -->
     <footer class="bottom-nav">
-        <div class="slide-counter" id="slideCounter">1 / 13</div>
+        <div class="slide-counter" id="slideCounter">1 / 14</div>
         <div class="nav-buttons">
             <button class="nav-btn" id="prevBtn">← Anterior <span class="key-hint">←</span></button>
             <button class="nav-btn primary" id="nextBtn">Próximo → <span class="key-hint">→</span></button>

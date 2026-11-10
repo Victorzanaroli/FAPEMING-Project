@@ -46,16 +46,22 @@ cefet_b64 = get_base64_image("logo-cefet.jpg")
 fapemig_b64 = get_base64_image("logo-fapemig.jpg")
 
 # ==============================================================================
-# CSS - Replica fiel ao design de referencia (corrigido para deploy)
+# CSS - Replica fiel ao design de referencia (corrigido para Tema Claro e Escuro)
 # ==============================================================================
 st.markdown("""
 <meta name="google" content="notranslate">
+<meta name="color-scheme" content="dark">
 <style>
-    /* Base */
-    .stApp {
+    /* Base - Forca fundo escuro e texto claro mesmo quando o PC esta no Tema Claro */
+    :root, html, body, .stApp, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
+        color-scheme: dark !important;
         translate: no !important;
         background-color: #0B0E14 !important;
         color: #F3F4F6 !important;
+    }
+
+    header[data-testid="stHeader"] {
+        background-color: transparent !important;
     }
 
     .block-container {
@@ -154,23 +160,40 @@ st.markdown("""
         margin-bottom: 25px;
     }
 
-    /* Campo Estudante Ativo */
-    div[data-testid="stTextInput"] > label {
+    /* Campo Estudante Ativo - Visivel no modo claro e escuro */
+    div[data-testid="stTextInput"] > label,
+    div[data-testid="stTextInput"] label p {
         color: #94A3B8 !important;
         font-size: 1rem !important;
         font-weight: 600 !important;
         margin-bottom: 6px !important;
     }
 
+    div[data-testid="stTextInput"] div[data-baseweb="input"],
+    div[data-testid="stTextInput"] div[data-baseweb="base-input"] {
+        background-color: #1E2638 !important;
+        border: 1px solid #334155 !important;
+        border-radius: 8px !important;
+    }
+
     div[data-testid="stTextInput"] input {
         background-color: #1E2638 !important;
         color: #FFFFFF !important;
-        border: 1px solid #334155 !important;
+        -webkit-text-fill-color: #FFFFFF !important;
+        caret-color: #38BDF8 !important;
+        border: none !important;
         border-radius: 8px !important;
         padding: 10px 14px !important;
         font-size: 1rem !important;
     }
 
+    div[data-testid="stTextInput"] input::placeholder {
+        color: #94A3B8 !important;
+        -webkit-text-fill-color: #94A3B8 !important;
+        opacity: 1 !important;
+    }
+
+    div[data-testid="stTextInput"] div[data-baseweb="input"]:focus-within,
     div[data-testid="stTextInput"] input:focus {
         border-color: #38BDF8 !important;
         box-shadow: 0 0 10px rgba(56, 189, 248, 0.3) !important;
@@ -200,6 +223,14 @@ st.markdown("""
         background-color: transparent !important;
         border: none !important;
         padding: 4px 0 !important;
+        color: #F3F4F6 !important;
+    }
+
+    [data-testid="stChatMessage"] p,
+    [data-testid="stChatMessage"] li,
+    [data-testid="stChatMessage"] span,
+    [data-testid="stChatMessage"] div[data-testid="stMarkdownContainer"] {
+        color: #F3F4F6 !important;
     }
 
     /* Resposta do Gemini - borda roxa/azul escura igual a imagem de referencia */
@@ -219,9 +250,15 @@ st.markdown("""
         border-radius: 8px !important;
     }
 
-    /* Input de Chat (rodape) - corrige largura no deploy */
+    /* Input de Chat (rodape) - corrige largura e fundo tanto no modo claro quanto no escuro */
+    [data-testid="stBottom"],
+    [data-testid="stBottom"] > div,
+    [data-testid="stBottomBlockContainer"] {
+        background: linear-gradient(to top, #0B0E14 85%, transparent) !important;
+        background-color: #0B0E14 !important;
+    }
+
     [data-testid="stBottom"] {
-        background: linear-gradient(to top, #0B0E14 80%, transparent) !important;
         padding-bottom: 14px !important;
     }
 
@@ -233,7 +270,9 @@ st.markdown("""
         padding-right: 1rem !important;
     }
 
-    /* Chat input container - override todas as variantes de borda do Streamlit */
+    /* Chat input container - override todas as variantes de borda e fundo do Streamlit (modo claro e escuro) */
+    div[data-testid="stChatInput"],
+    div[data-testid="stChatInput"] > div,
     div[data-testid="stChatInputContainer"],
     div[data-testid="stChatInputContainer"]:focus-within,
     div[data-testid="stChatInputContainer"]:focus,
@@ -245,17 +284,36 @@ st.markdown("""
         padding: 4px 8px !important;
         box-shadow: none !important;
         outline: none !important;
+        color: #F8FAFC !important;
+    }
+
+    /* Garante que todas as divs internas do BaseWeb dentro do ChatInput fiquem escuras mesmo no Tema Claro do PC */
+    div[data-testid="stChatInput"] div[data-baseweb="textarea"],
+    div[data-testid="stChatInput"] div[data-baseweb="base-input"],
+    div[data-testid="stChatInputContainer"] div[data-baseweb="textarea"],
+    div[data-testid="stChatInputContainer"] div[data-baseweb="base-input"],
+    div[data-testid="stChatInput"] > div > div,
+    div[data-testid="stChatInputContainer"] > div {
+        background-color: #161B26 !important;
+        color: #F8FAFC !important;
+        border: none !important;
+        box-shadow: none !important;
+        outline: none !important;
     }
 
     /* Override agressivo do box-shadow vermelho/laranja do Streamlit no focus */
+    div[data-testid="stChatInput"] *,
     div[data-testid="stChatInputContainer"] * {
         box-shadow: none !important;
         outline: none !important;
     }
 
-    div[data-testid="stChatInputContainer"] textarea {
-        background-color: transparent !important;
-        color: #E2E8F0 !important;
+    div[data-testid="stChatInput"] textarea,
+    div[data-testid="stChatInputContainer"] textarea,
+    textarea[data-testid="stChatInputTextArea"] {
+        background-color: #161B26 !important;
+        color: #F8FAFC !important;
+        -webkit-text-fill-color: #F8FAFC !important;
         font-size: 1rem !important;
         caret-color: #38BDF8 !important;
         border: none !important;
@@ -264,26 +322,47 @@ st.markdown("""
         resize: none !important;
     }
 
-    div[data-testid="stChatInputContainer"] textarea:focus {
+    div[data-testid="stChatInput"] textarea:focus,
+    div[data-testid="stChatInputContainer"] textarea:focus,
+    textarea[data-testid="stChatInputTextArea"]:focus {
+        background-color: #161B26 !important;
+        color: #F8FAFC !important;
+        -webkit-text-fill-color: #F8FAFC !important;
         border: none !important;
         box-shadow: none !important;
         outline: none !important;
     }
 
-    div[data-testid="stChatInputContainer"] textarea::placeholder {
-        color: #64748B !important;
+    div[data-testid="stChatInput"] textarea::placeholder,
+    div[data-testid="stChatInputContainer"] textarea::placeholder,
+    textarea[data-testid="stChatInputTextArea"]::placeholder {
+        color: #94A3B8 !important;
+        -webkit-text-fill-color: #94A3B8 !important;
+        opacity: 1 !important;
     }
 
     /* Botao de enviar (seta azul) */
-    div[data-testid="stChatInputContainer"] button {
+    div[data-testid="stChatInput"] button,
+    div[data-testid="stChatInputContainer"] button,
+    button[data-testid="stChatInputSubmitButton"] {
         background-color: #2563EB !important;
         border-radius: 50% !important;
-        color: white !important;
+        color: #FFFFFF !important;
+        -webkit-text-fill-color: #FFFFFF !important;
         border: none !important;
         box-shadow: none !important;
     }
 
-    div[data-testid="stChatInputContainer"] button:hover {
+    div[data-testid="stChatInput"] button svg,
+    div[data-testid="stChatInputContainer"] button svg,
+    button[data-testid="stChatInputSubmitButton"] svg {
+        fill: #FFFFFF !important;
+        color: #FFFFFF !important;
+    }
+
+    div[data-testid="stChatInput"] button:hover,
+    div[data-testid="stChatInputContainer"] button:hover,
+    button[data-testid="stChatInputSubmitButton"]:hover {
         background-color: #1D4ED8 !important;
         box-shadow: 0 0 10px rgba(37, 99, 235, 0.5) !important;
     }
@@ -343,7 +422,7 @@ st.markdown("""
             margin-bottom: 16px !important;
         }
 
-        /* Balão do Gemini - padding menor no mobile */
+        /* Balao do Gemini - padding menor no mobile */
         [data-testid="stChatMessage"]:has([data-testid="chatAvatarIcon-assistant"]) {
             padding: 10px 12px !important;
         }
@@ -360,12 +439,13 @@ st.markdown("""
             padding: 10px 14px !important;
         }
 
-        /* Input de chat - rodapé no mobile */
+        /* Input de chat - rodape no mobile */
         [data-testid="stBottom"] > div {
             padding-left: 0.5rem !important;
             padding-right: 0.5rem !important;
         }
 
+        div[data-testid="stChatInput"] textarea,
         div[data-testid="stChatInputContainer"] textarea {
             font-size: 0.95rem !important;
         }

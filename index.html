@@ -756,6 +756,391 @@
             background: rgba(0, 0, 0, 0.3);
             opacity: 0.9;
         }
+
+        /* ===================================================================
+           ESTILOS DO CHAT GEMINI IA INTEGRADO (RÉPLICA FIEL DO STREAMLIT)
+           Visível tanto no Modo Claro quanto no Modo Escuro do PC!
+        =================================================================== */
+        .st-chat-replica-shell {
+            background-color: #0B0E14 !important;
+            color: #F3F4F6 !important;
+            border: 1.5px solid rgba(56, 189, 248, 0.28);
+            border-radius: 22px;
+            max-width: 960px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 26px 26px 22px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+            color-scheme: dark !important;
+        }
+        .st-header-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 0 18px 0;
+            background-color: #0B0E14;
+            gap: 12px;
+        }
+        .st-cefet-card-box {
+            background: #09203F;
+            border: 1.5px solid #2563EB;
+            box-shadow: 0 0 16px rgba(37, 99, 235, 0.45);
+            border-radius: 14px;
+            padding: 6px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 140px;
+            min-width: 110px;
+            height: 75px;
+            flex-shrink: 0;
+        }
+        .st-cefet-card-box img {
+            max-height: 55px;
+            max-width: 120px;
+            object-fit: contain;
+        }
+        .st-title-center-box {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-grow: 1;
+            padding: 0 10px;
+            min-width: 0;
+        }
+        .st-header-title-text {
+            color: #38BDF8 !important;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-size: clamp(1.05rem, 2.2vw, 1.55rem) !important;
+            font-weight: 800 !important;
+            letter-spacing: 1.5px;
+            margin: 0 auto !important;
+            text-align: center !important;
+            text-transform: uppercase;
+            text-shadow: 0 0 18px rgba(56, 189, 248, 0.35);
+            line-height: 1.2;
+            background: none !important;
+            -webkit-text-fill-color: #38BDF8 !important;
+        }
+        .st-header-subtitle-text {
+            color: #94A3B8 !important;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            font-size: clamp(0.75rem, 1.4vw, 1.02rem) !important;
+            margin: 4px auto 0 auto !important;
+            text-align: center !important;
+            font-weight: 400;
+        }
+        .st-fapemig-card-box {
+            flex-shrink: 0;
+        }
+        .st-fapemig-card-box img {
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 0 16px rgba(56, 189, 248, 0.45);
+            border: 1.5px solid #38BDF8;
+        }
+        .st-neon-divider {
+            height: 2px;
+            background: linear-gradient(90deg, #1E3A8A 0%, #EC4899 50%, #38BDF8 100%);
+            box-shadow: 0 0 10px rgba(236, 72, 153, 0.5);
+            margin-bottom: 22px;
+        }
+        .st-student-input-label {
+            display: block;
+            color: #94A3B8 !important;
+            font-size: 0.96rem !important;
+            font-weight: 600 !important;
+            margin-bottom: 6px !important;
+        }
+        .st-student-input-field {
+            width: 100%;
+            background-color: #1E2638 !important;
+            color: #FFFFFF !important;
+            -webkit-text-fill-color: #FFFFFF !important;
+            border: 1px solid #334155 !important;
+            border-radius: 8px !important;
+            padding: 10px 14px !important;
+            font-size: 0.98rem !important;
+            font-family: inherit;
+        }
+        .st-student-input-field:focus {
+            border-color: #38BDF8 !important;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.3) !important;
+            outline: none !important;
+        }
+        .st-success-alert-box {
+            background-color: rgba(16, 185, 129, 0.08);
+            border: 1.5px solid #10B981;
+            border-radius: 10px;
+            padding: 12px 18px;
+            color: #34D399;
+            font-size: 1rem;
+            font-weight: 500;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.15);
+        }
+        .st-chat-messages-area {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            max-height: 460px;
+            min-height: 220px;
+            overflow-y: auto;
+            padding: 6px 4px 14px;
+        }
+        .st-chat-msg-user {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            background: rgba(30, 41, 59, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #F3F4F6 !important;
+            font-size: 0.95rem;
+            line-height: 1.55;
+        }
+        .st-chat-msg-assistant {
+            background-color: #111827 !important;
+            border: 1.5px solid #312E81 !important;
+            border-radius: 12px !important;
+            padding: 14px 18px !important;
+            color: #F3F4F6 !important;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        .st-replica-codeblock {
+            background-color: #0D1117 !important;
+            border: 1px solid #30363D !important;
+            border-radius: 8px !important;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        .st-replica-code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid #30363D;
+            font-size: 0.76rem;
+            color: #94a3b8;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .st-copy-code-btn {
+            background: rgba(56, 189, 248, 0.14);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            color: #38bdf8;
+            border-radius: 6px;
+            padding: 3px 9px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .st-replica-codeblock pre {
+            padding: 12px 14px;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+        }
+        /* Input de Chat Arredondado - Letra 100% visível em Tema Claro e Tema Escuro */
+        .st-chat-input-pill {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: #161B26 !important;
+            border: 1.5px solid #2D3748 !important;
+            border-radius: 28px !important;
+            padding: 6px 10px 6px 18px !important;
+            margin-top: 14px;
+            transition: border-color 0.2s ease;
+        }
+        .st-chat-input-pill:focus-within {
+            border-color: #38BDF8 !important;
+            box-shadow: 0 0 12px rgba(56, 189, 248, 0.25) !important;
+        }
+        .st-chat-input-pill textarea {
+            flex: 1;
+            background-color: #161B26 !important;
+            color: #F8FAFC !important;
+            -webkit-text-fill-color: #F8FAFC !important;
+            caret-color: #38BDF8 !important;
+            border: none !important;
+            outline: none !important;
+            resize: none !important;
+            font-size: 0.98rem !important;
+            font-family: inherit;
+            line-height: 1.4;
+            max-height: 110px;
+            padding: 6px 0;
+        }
+        .st-chat-input-pill textarea::placeholder {
+            color: #94A3B8 !important;
+            -webkit-text-fill-color: #94A3B8 !important;
+            opacity: 1 !important;
+        }
+        .st-chat-send-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50% !important;
+            background-color: #2563EB !important;
+            color: #FFFFFF !important;
+            border: none !important;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            flex-shrink: 0;
+            font-size: 1.05rem;
+            transition: all 0.2s ease;
+        }
+        .st-chat-send-btn:hover {
+            background-color: #1D4ED8 !important;
+            box-shadow: 0 0 12px rgba(37, 99, 235, 0.6) !important;
+        }
+
+        /* ===================================================================
+           ESTILOS DA ARENA DE DESAFIOS PYTHON (ESTILO BEECROWD)
+        =================================================================== */
+        .bee-rank-banner {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.94) 0%, rgba(30, 27, 75, 0.88) 100%);
+            border: 1.5px solid rgba(0, 229, 255, 0.38);
+            border-radius: 20px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 18px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+        }
+        .bee-xp-track {
+            width: 100%;
+            height: 11px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 99px;
+            overflow: hidden;
+            margin-top: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .bee-xp-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2563eb, #00e5ff, #10b981);
+            border-radius: 99px;
+            transition: width 0.35s ease;
+        }
+        .bee-cat-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 16px;
+        }
+        .bee-cat-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #cbd5e1;
+            padding: 8px 14px;
+            border-radius: 11px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+        .bee-cat-pill:hover {
+            border-color: var(--cefet-cyan);
+            color: #fff;
+        }
+        .bee-cat-pill.active {
+            background: linear-gradient(135deg, #2563eb, #00adb5);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 4px 14px rgba(0, 229, 255, 0.28);
+        }
+        .bee-split-ide {
+            display: grid;
+            grid-template-columns: 1.05fr 1fr;
+            gap: 20px;
+            align-items: start;
+        }
+        @media (max-width: 960px) {
+            .bee-split-ide {
+                grid-template-columns: 1fr !important;
+            }
+            .st-header-wrapper {
+                flex-direction: column;
+            }
+        }
+        .bee-io-sample-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 10px;
+            overflow: hidden;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+        }
+        .bee-io-sample-table th {
+            background: rgba(255, 255, 255, 0.07);
+            color: #94a3b8;
+            padding: 8px 12px;
+            text-align: left;
+            font-size: 0.74rem;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        }
+        .bee-io-sample-table td {
+            padding: 10px 12px;
+            background: rgba(0, 0, 0, 0.38);
+            color: #f8fafc;
+            vertical-align: top;
+            white-space: pre-wrap;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            width: 50%;
+        }
+        .bee-io-sample-table td:first-child {
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .bee-code-textarea {
+            width: 100%;
+            min-height: 250px;
+            background-color: #090d16 !important;
+            color: #f8fafc !important;
+            -webkit-text-fill-color: #f8fafc !important;
+            border: 1.5px solid rgba(56, 189, 248, 0.35);
+            border-radius: 12px;
+            padding: 14px 16px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.55;
+            resize: vertical;
+            outline: none;
+            tab-size: 4;
+        }
+        .bee-code-textarea:focus {
+            border-color: var(--cefet-cyan);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.2);
+        }
+        .adm-filter-toolbar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 12px;
+            background: rgba(0, 0, 0, 0.28);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 14px;
+            padding: 14px 16px;
+            margin: 14px 0 18px;
+            align-items: end;
+        }
     </style>
 </head>
 <body>
@@ -794,10 +1179,15 @@
                     <label class="tr-field-label" id="gateNameLabel" for="gateFullName">Seu Nome Completo (Nome e Sobrenome):</label>
                     <input type="text" id="gateFullName" class="tr-input" placeholder="Ex: Lucas Almeida Santos" autocomplete="username" list="gateRecentUsersList">
                     <datalist id="gateRecentUsersList"></datalist>
+                    <div id="gateUsernameAvailability" style="font-size:0.76rem;margin-top:5px;"></div>
                 </div>
                 <div>
                     <label class="tr-field-label" id="gatePassLabel" for="gatePassword">Sua Senha Cadastrada:</label>
                     <input type="password" id="gatePassword" class="tr-input" placeholder="Digite sua senha" autocomplete="current-password">
+                </div>
+                <div id="gatePassConfirmWrap" style="display:none;">
+                    <label class="tr-field-label" for="gatePasswordConfirm">Confirme sua Senha (Segurança):</label>
+                    <input type="password" id="gatePasswordConfirm" class="tr-input" placeholder="Digite a mesma senha novamente" autocomplete="new-password">
                 </div>
                 <div id="gateErrorBox"></div>
                 <button type="submit" id="gateSubmitBtn" class="tr-btn-primary" style="width:100%;padding:13px;font-size:0.95rem;margin-top:4px;justify-content:center;">
@@ -806,7 +1196,7 @@
             </form>
 
             <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);font-size:0.76rem;color:#64748b;line-height:1.5;">
-                💡 <strong>Como funciona:</strong> Na 1ª vez, clique em <em>"✨ Criar Conta"</em> para salvar seu Nome Completo e Senha (isso já cadastra você na chamada automaticamente). Nas aulas seguintes, use <em>"🔑 Entrar na Conta"</em>!
+                🛡️ <strong>Login Seguro sem E-mail:</strong> Nomes de usuários iguais são bloqueados automaticamente para proteger seu progresso nos desafios e na chamada. Guarde bem a sua senha!
             </div>
         </div>
     </div>
@@ -823,15 +1213,19 @@
             <img src="arquivos-trilhando/Imagens/logo-fapemig.jpg" alt="FAPEMIG" class="nav-logo circle">
             <div class="nav-brand-title">
                 <span>Trilhando o Caminho do Código</span>
-                <small>⚡ GOOGLE CLASSROOM &amp; SLIDES INTERATIVOS</small>
+                <small>⚡ CLASSROOM, DESAFIOS PYTHON &amp; IA</small>
             </div>
         </div>
 
         <div class="classroom-tabs" id="classroomNavTabs">
             <button type="button" class="cls-tab-btn active" data-tab="aulas">📚 Mural &amp; Aulas</button>
+            <button type="button" class="cls-tab-btn" data-tab="desafios">🐍 Desafios Python</button>
+            <button type="button" class="cls-tab-btn" data-tab="chat-ia">🤖 Chat Gemini IA</button>
             <button type="button" class="cls-tab-btn" data-tab="tarefas">📝 Tarefas de Casa</button>
-            <button type="button" class="cls-tab-btn" data-tab="notas">📊 Minhas Notas &amp; Correções</button>
-            <button type="button" class="cls-tab-btn" data-tab="admin" id="adminTabBtn" style="display:none;">🛡️ Painel do Professor (ADM)</button>
+            <button type="button" class="cls-tab-btn" data-tab="notas">📊 Minhas Notas</button>
+            <button type="button" class="cls-tab-btn" data-tab="admin" id="adminTabBtn" style="display:none;">🛡️ Painel ADM</button>
+            <button type="button" class="cls-tab-btn" data-tab="admin-chamada" id="adminChamadaTabBtn" style="display:none;">📅 Chamada</button>
+            <button type="button" class="cls-tab-btn" data-tab="admin-correcoes" id="adminCorrecoesTabBtn" style="display:none;">📋 Correção de Atividades</button>
         </div>
 
         <div class="nav-user-area" id="navUserArea">
@@ -840,10 +1234,10 @@
     </nav>
 
     <!-- HEADER -->
-    <div class="header">
+    <div class="header" id="portalMainHeroHeader">
         <div class="badge">⚡ CEFET-MG &amp; FAPEMING • ENSINO FUNDAMENTAL II (7º AO 9º ANO)</div>
-        <h1>Plataforma de Estudos &amp; Slides</h1>
-        <p class="subtitle">Acesse os slides das aulas a qualquer momento, pratique nos Quizzes interativos e envie suas Tarefas de Casa para acompanhar suas notas!</p>
+        <h1>Plataforma de Estudos, Desafios &amp; Slides</h1>
+        <p class="subtitle">Acesse os slides das aulas, treine programação nos Desafios Python (estilo Beecrowd) para subir de Rank, tire dúvidas no Chat Gemini IA e envie suas Tarefas de Casa!</p>
     </div>
 
     <!-- =======================================================================
@@ -856,24 +1250,52 @@
     </section>
 
     <!-- =======================================================================
-         ABA 2: TAREFAS DE CASA (ATIVIDADES DO CLASSROOM)
+         ABA 2: ARENA DE DESAFIOS PYTHON (ESTILO BEECROWD COM SISTEMA DE RANK)
+    ======================================================================= -->
+    <section class="cls-view-section" id="view-desafios">
+        <div id="desafiosViewContainer"></div>
+    </section>
+
+    <!-- =======================================================================
+         ABA 3: CHAT GEMINI IA INTEGRADO (MESMO DESIGN DO SITE STREAMLIT)
+    ======================================================================= -->
+    <section class="cls-view-section" id="view-chat-ia">
+        <div id="chatIaViewContainer"></div>
+    </section>
+
+    <!-- =======================================================================
+         ABA 4: TAREFAS DE CASA (ATIVIDADES DO CLASSROOM)
     ======================================================================= -->
     <section class="cls-view-section" id="view-tarefas">
         <div id="tarefasViewContainer"></div>
     </section>
 
     <!-- =======================================================================
-         ABA 3: MINHAS NOTAS & CORREÇÕES (BOLETIM ESCOLAR DO ALUNO)
+         ABA 5: MINHAS NOTAS & CORREÇÕES (BOLETIM ESCOLAR DO ALUNO)
     ======================================================================= -->
     <section class="cls-view-section" id="view-notas">
         <div id="notasViewContainer"></div>
     </section>
 
     <!-- =======================================================================
-         ABA 4: PAINEL DO PROFESSOR / ADM (VICTOR, RAFAEL E KAIQUE)
+         ABA 6: PAINEL ADM (LIBERAÇÃO DE AULAS, CONFIGURAÇÃO & NUVEM)
     ======================================================================= -->
     <section class="cls-view-section" id="view-admin">
         <div id="adminViewContainer"></div>
+    </section>
+
+    <!-- =======================================================================
+         ABA 7: PÁGINA EXCLUSIVA DE CHAMADA (ADM) — FILTRO POR DIA E ALUNO
+    ======================================================================= -->
+    <section class="cls-view-section" id="view-admin-chamada">
+        <div id="adminChamadaViewContainer"></div>
+    </section>
+
+    <!-- =======================================================================
+         ABA 8: PÁGINA EXCLUSIVA DE CORREÇÃO DE ATIVIDADES (ADM) — FILTRO POR ALUNO E AULA
+    ======================================================================= -->
+    <section class="cls-view-section" id="view-admin-correcoes">
+        <div id="adminCorrecoesViewContainer"></div>
     </section>
 
     </div><!-- /#classroomAppContent -->
@@ -922,6 +1344,7 @@
     </div>
 
     <script src="arquivos-trilhando/Slides/classroom-engine.js"></script>
+    <script src="arquivos-trilhando/Slides/beecrowd-arena.js"></script>
     <script>
     (function() {
         'use strict';
@@ -929,7 +1352,24 @@
         var activeTab = 'aulas';
         var portalAuthMode = 'register';
         var adminFilterLesson = 'all';
+        var adminFilterStudent = 'all';
+        var adminFilterSearch = '';
+        var adminFilterStatus = 'all';
         var adminChamadaLesson = 'aula02';
+        var adminChamadaSearch = '';
+        var adminChamadaStatus = 'all';
+        var revealedPasswordsMap = {};
+
+        // Estado da Arena de Desafios Python (Estilo Beecrowd)
+        var beeViewMode = 'problems'; // 'problems' | 'leaderboard'
+        var beeSelectedCategory = 'all';
+        var beeSelectedStatus = 'all';
+        var beeSearchQuery = '';
+        var beeActiveChallengeId = 'bee_1001';
+        var beeDraftCodeMap = {};
+        var beeDraftStdinMap = {};
+        var beeLastJudgeResult = null;
+        var beeIsRunning = false;
 
         var LESSONS_METADATA = [
             {
@@ -1072,6 +1512,11 @@
             document.querySelectorAll('.cls-view-section').forEach(function(sec) {
                 sec.classList.toggle('active', sec.id === 'view-' + tabName);
             });
+            var heroEl = document.getElementById('portalMainHeroHeader');
+            if (heroEl) {
+                // No Chat IA ocultamos o banner padrão do topo para manter o design idêntico ao site do Streamlit
+                heroEl.style.display = (tabName === 'chat-ia') ? 'none' : 'block';
+            }
             renderAllViews();
         }
 
@@ -1080,10 +1525,13 @@
             var user = window.TrilhandoClassroom.getCurrentUser();
             var navArea = document.getElementById('navUserArea');
             var adminTabBtn = document.getElementById('adminTabBtn');
+            var adminChamadaTabBtn = document.getElementById('adminChamadaTabBtn');
+            var adminCorrecoesTabBtn = document.getElementById('adminCorrecoesTabBtn');
+            var isAdmUser = Boolean(user && user.role === 'admin');
 
-            if (adminTabBtn) {
-                adminTabBtn.style.display = (user && user.role === 'admin') ? 'inline-flex' : 'none';
-            }
+            if (adminTabBtn) adminTabBtn.style.display = isAdmUser ? 'inline-flex' : 'none';
+            if (adminChamadaTabBtn) adminChamadaTabBtn.style.display = isAdmUser ? 'inline-flex' : 'none';
+            if (adminCorrecoesTabBtn) adminCorrecoesTabBtn.style.display = isAdmUser ? 'inline-flex' : 'none';
 
             if (!user) {
                 navArea.innerHTML = `
@@ -1099,17 +1547,36 @@
                 }
             } else {
                 var isAdm = user.role === 'admin';
+                var rankBadgeHtml = '';
+                if (!isAdm && window.TrilhandoBeecrowd) {
+                    var stStats = window.TrilhandoBeecrowd.getUserChallengeStats(user.id);
+                    var rTier = stStats.rankInfo.currentTier;
+                    rankBadgeHtml = `
+                        <span class="user-chip" style="background:${rTier.bg};border-color:${rTier.color};color:#fff;cursor:pointer;" id="navRankChipBtn" title="Clique para abrir a Arena de Desafios Python">
+                            ${rTier.badge} ${escapeHtml(rTier.name)} • <strong>${stStats.totalXp} XP</strong>
+                        </span>
+                    `;
+                }
                 navArea.innerHTML = `
+                    ${rankBadgeHtml}
                     <span class="user-chip ${isAdm ? 'admin-chip' : ''}">
                         ${isAdm ? '🛡️ ADM:' : '🎓 Aluno(a):'} <strong>${escapeHtml(user.fullName)}</strong>
                     </span>
                     <button type="button" class="tr-btn-ghost" id="portalLogoutBtn">Sair</button>
                 `;
+                var rankChip = document.getElementById('navRankChipBtn');
+                if (rankChip) {
+                    rankChip.addEventListener('click', function() {
+                        switchTab('desafios');
+                    });
+                }
                 var logoutBtn = document.getElementById('portalLogoutBtn');
                 if (logoutBtn) {
                     logoutBtn.addEventListener('click', function() {
                         window.TrilhandoClassroom.setCurrentUser(null);
-                        if (activeTab === 'admin') switchTab('aulas');
+                        if (activeTab === 'admin' || activeTab === 'admin-chamada' || activeTab === 'admin-correcoes') {
+                            switchTab('aulas');
+                        }
                         renderAllViews();
                     });
                 }
@@ -1535,7 +2002,772 @@
             `;
         }
 
-        // Render Tab 4: Painel do Professor / ADM
+        // =====================================================================
+        // ABA 2: ARENA DE DESAFIOS PYTHON (ESTILO BEECROWD COM SISTEMA DE RANK)
+        // =====================================================================
+        function renderDesafiosView() {
+            var container = document.getElementById('desafiosViewContainer');
+            if (!container || !window.TrilhandoBeecrowd) return;
+
+            var user = window.TrilhandoClassroom.getCurrentUser();
+            if (!user) {
+                container.innerHTML = `<div class="panel-box" style="text-align:center;padding:36px;">Faça login para acessar a Arena de Desafios Python!</div>`;
+                return;
+            }
+
+            var isAdm = user.role === 'admin';
+            var myStats = window.TrilhandoBeecrowd.getUserChallengeStats(user.id);
+            var rTier = myStats.rankInfo.currentTier;
+            var nextTier = myStats.rankInfo.nextTier;
+            var allChallenges = window.TrilhandoBeecrowd.PYTHON_CHALLENGES;
+            var categories = window.TrilhandoBeecrowd.CHALLENGE_CATEGORIES;
+            var leaderboard = window.TrilhandoBeecrowd.getClassLeaderboard();
+            var myRankPos = leaderboard.findIndex(function(r) { return r.userId === user.id; }) + 1;
+
+            // Active problem object
+            var activeProb = allChallenges.find(function(c) { return c.id === beeActiveChallengeId; }) || allChallenges[0];
+            var activeSaved = myStats.progressMap[activeProb.id] || null;
+
+            if (typeof beeDraftCodeMap[activeProb.id] === 'undefined') {
+                beeDraftCodeMap[activeProb.id] = (activeSaved && activeSaved.code) ? activeSaved.code : activeProb.starterCode;
+            }
+            if (typeof beeDraftStdinMap[activeProb.id] === 'undefined') {
+                beeDraftStdinMap[activeProb.id] = (activeProb.testCases && activeProb.testCases[0]) ? activeProb.testCases[0].input : '';
+            }
+
+            // Filter problems list
+            var filteredChallenges = allChallenges.filter(function(ch) {
+                if (beeSelectedCategory !== 'all' && ch.category !== beeSelectedCategory) return false;
+                var isSolved = Boolean(myStats.progressMap[ch.id] && myStats.progressMap[ch.id].solved);
+                if (beeSelectedStatus === 'solved' && !isSolved) return false;
+                if (beeSelectedStatus === 'unsolved' && isSolved) return false;
+                if (beeSearchQuery) {
+                    var q = beeSearchQuery.toLowerCase();
+                    var matchTitle = ch.title.toLowerCase().indexOf(q) >= 0;
+                    var matchNum = String(ch.number).indexOf(q) >= 0;
+                    if (!matchTitle && !matchNum) return false;
+                }
+                return true;
+            });
+
+            // Rank tiers showcase strip
+            var tiersStripHtml = window.TrilhandoBeecrowd.RANK_TIERS.map(function(t) {
+                var isCur = t.level === rTier.level;
+                var unlocked = myStats.totalXp >= t.minXp;
+                return `
+                    <div style="padding:7px 12px;border-radius:10px;border:1px solid ${isCur ? t.color : 'rgba(255,255,255,0.1)'};background:${isCur ? t.bg : 'rgba(0,0,0,0.25)'};opacity:${unlocked ? '1' : '0.5'};display:inline-flex;align-items:center;gap:6px;font-size:0.76rem;">
+                        <span style="font-size:1rem;">${t.badge}</span>
+                        <div>
+                            <div style="font-weight:800;color:${isCur ? '#fff' : '#cbd5e1'};">${escapeHtml(t.name)}</div>
+                            <div style="font-size:0.68rem;color:#94a3b8;">${t.minXp}+ XP</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Category pills
+            var catPillsHtml = categories.map(function(cat) {
+                var isAct = beeSelectedCategory === cat.key;
+                return `<button type="button" class="bee-cat-pill ${isAct ? 'active' : ''}" data-bee-cat="${cat.key}">${escapeHtml(cat.label)}</button>`;
+            }).join('');
+
+            // Problem table rows
+            var probRowsHtml = filteredChallenges.length === 0 ? `
+                <tr>
+                    <td colspan="6" style="text-align:center;color:var(--text-secondary);padding:22px;">
+                        Nenhum desafio encontrado neste filtro.
+                    </td>
+                </tr>
+            ` : filteredChallenges.map(function(ch) {
+                var stEntry = myStats.progressMap[ch.id];
+                var isSolved = Boolean(stEntry && stEntry.solved);
+                var isSelected = ch.id === activeProb.id;
+                var catObj = categories.find(function(c) { return c.key === ch.category; });
+                var diffColor = ch.difficulty === 'Iniciante' ? '#38bdf8' : (ch.difficulty === 'Fácil' ? '#10b981' : (ch.difficulty === 'Médio' ? '#fbbf24' : (ch.difficulty === 'Intermediário' ? '#a78bfa' : '#ec4899')));
+
+                return `
+                    <tr style="background:${isSelected ? 'rgba(0, 229, 255, 0.09)' : 'transparent'};cursor:pointer;" data-bee-open-prob="${ch.id}">
+                        <td><strong style="font-family:'JetBrains Mono',monospace;color:var(--cefet-cyan);">#${ch.number}</strong></td>
+                        <td>
+                            <strong style="color:#fff;">${escapeHtml(ch.title)}</strong>
+                            ${isSelected ? '<span style="margin-left:8px;font-size:0.7rem;color:#00e5ff;font-weight:800;">👈 ABERTO ABAIXO</span>' : ''}
+                        </td>
+                        <td><span style="font-size:0.78rem;color:#cbd5e1;">${escapeHtml(catObj ? catObj.short : '')}</span></td>
+                        <td><span style="font-size:0.76rem;font-weight:800;color:${diffColor};">${escapeHtml(ch.difficulty)}</span></td>
+                        <td><strong style="color:#fbbf24;font-family:'JetBrains Mono',monospace;">+${ch.xp} XP</strong></td>
+                        <td>
+                            ${isSolved
+                                ? '<span class="nb-feedback-pill nb-pill-correct">✅ Resolvido</span>'
+                                : `<button type="button" class="tr-btn-primary" style="padding:5px 12px;font-size:0.75rem;" data-bee-open-prob="${ch.id}">💻 Resolver</button>`
+                            }
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Sample Input / Output rows for active problem
+            var sampleRowsHtml = activeProb.testCases.slice(0, 2).map(function(tc) {
+                return `
+                    <tr>
+                        <td>${tc.input ? escapeHtml(tc.input) : '<em style="color:#64748b;">(Sem entrada)</em>'}</td>
+                        <td>${escapeHtml(tc.expected)}</td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Verdict box HTML
+            var verdictHtml = '';
+            if (beeLastJudgeResult && beeLastJudgeResult.challengeId === activeProb.id) {
+                if (beeLastJudgeResult.mode === 'test') {
+                    var tRes = beeLastJudgeResult.execResult;
+                    verdictHtml = `
+                        <div style="margin-top:14px;padding:14px 16px;border-radius:12px;background:rgba(15,23,42,0.95);border:1.5px solid ${tRes.ok ? '#38bdf8' : '#ef4444'};">
+                            <div style="font-size:0.8rem;font-weight:800;color:${tRes.ok ? '#38bdf8' : '#fca5a5'};margin-bottom:6px;">
+                                ${tRes.ok ? '▶️ SAÍDA DO SEU PROGRAMA (TESTE LIVRE):' : '⚠️ ERRO AO EXECUTAR SEU CÓDIGO:'}
+                            </div>
+                            <pre style="font-family:'JetBrains Mono',monospace;font-size:0.84rem;color:#f8fafc;white-space:pre-wrap;background:#090d16;padding:10px 12px;border-radius:8px;">${escapeHtml(tRes.ok ? (tRes.stdout || '(Seu programa não imprimiu nada)') : tRes.error)}</pre>
+                        </div>
+                    `;
+                } else if (beeLastJudgeResult.mode === 'judge') {
+                    var jRes = beeLastJudgeResult.judgeResult;
+                    if (jRes.allPassed) {
+                        verdictHtml = `
+                            <div style="margin-top:14px;padding:16px 18px;border-radius:14px;background:rgba(16,185,129,0.14);border:2px solid #10b981;box-shadow:0 0 22px rgba(16,185,129,0.25);">
+                                <div style="font-size:1.05rem;font-weight:800;color:#34d399;margin-bottom:4px;">
+                                    ✅ ACCEPTED (Aceito pelo Juiz Beecrowd!) • +${activeProb.xp} XP
+                                </div>
+                                <p style="font-size:0.85rem;color:#d1fae5;line-height:1.5;">
+                                    Parabéns, <strong>${escapeHtml(user.fullName)}</strong>! Seu código passou em todos os ${jRes.results.length} casos de teste oficiais e já ficou salvo na sua conta!
+                                </p>
+                            </div>
+                        `;
+                    } else {
+                        var fail = jRes.firstFailure || {};
+                        var isErr = fail.verdict === 'RUNTIME_ERROR';
+                        verdictHtml = `
+                            <div style="margin-top:14px;padding:16px 18px;border-radius:14px;background:rgba(239,68,68,0.12);border:1.5px solid #ef4444;">
+                                <div style="font-size:0.98rem;font-weight:800;color:#fca5a5;margin-bottom:6px;">
+                                    ${isErr ? '⚠️ ERRO DE SINTAXE / EXECUÇÃO (Caso de Teste #' + fail.caseIndex + ')' : '❌ WRONG ANSWER — Resposta Diferente do Esperado (Caso de Teste #' + fail.caseIndex + ')'}
+                                </div>
+                                ${isErr ? `
+                                    <pre style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;color:#fecaca;background:#090d16;padding:10px;border-radius:8px;white-space:pre-wrap;">${escapeHtml(fail.error)}</pre>
+                                ` : `
+                                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:0.8rem;">
+                                        <div style="background:#090d16;padding:10px;border-radius:8px;border:1px solid rgba(16,185,129,0.4);">
+                                            <div style="color:#6ee7b7;font-size:0.72rem;font-weight:700;margin-bottom:4px;">✅ SAÍDA ESPERADA PELO JUIZ:</div>
+                                            <pre style="color:#f8fafc;white-space:pre-wrap;">${escapeHtml(fail.expected)}</pre>
+                                        </div>
+                                        <div style="background:#090d16;padding:10px;border-radius:8px;border:1px solid rgba(239,68,68,0.4);">
+                                            <div style="color:#fca5a5;font-size:0.72rem;font-weight:700;margin-bottom:4px;">❌ O QUE SEU CÓDIGO IMPRIMIU:</div>
+                                            <pre style="color:#f8fafc;white-space:pre-wrap;">${escapeHtml(fail.actual || '(Nada foi impresso)')}</pre>
+                                        </div>
+                                    </div>
+                                    <p style="font-size:0.78rem;color:#cbd5e1;margin-top:8px;">
+                                        💡 <strong>Dica:</strong> Verifique letras maiúsculas/minúsculas, espaços ao redor do <code>=</code> e lembre-se de usar <code>input()</code> sem texto dentro dos parênteses!
+                                    </p>
+                                `}
+                            </div>
+                        `;
+                    }
+                }
+            }
+
+            // Leaderboard HTML
+            var leaderboardRowsHtml = leaderboard.length === 0 ? `
+                <tr><td colspan="5" style="text-align:center;padding:24px;color:var(--text-secondary);">Nenhum estudante cadastrado ainda.</td></tr>
+            ` : leaderboard.map(function(row) {
+                var tier = row.rankInfo.currentTier;
+                var medal = row.position === 1 ? '🥇 1º' : (row.position === 2 ? '🥈 2º' : (row.position === 3 ? '🥉 3º' : row.position + 'º'));
+                var isMe = row.userId === user.id;
+                return `
+                    <tr style="${isMe ? 'background:rgba(0,229,255,0.1);' : ''}">
+                        <td><strong style="font-size:0.95rem;color:${row.position <= 3 ? '#fbbf24' : '#cbd5e1'};">${medal}</strong></td>
+                        <td>
+                            <strong style="color:#fff;">${escapeHtml(row.fullName)}</strong>
+                            ${isMe ? '<span class="tr-badge-cyan" style="margin-left:6px;font-size:0.68rem;">VOCÊ</span>' : ''}
+                        </td>
+                        <td>
+                            <span style="display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:99px;background:${tier.bg};border:1px solid ${tier.color};color:#fff;font-size:0.76rem;font-weight:700;">
+                                ${tier.badge} ${escapeHtml(tier.name)}
+                            </span>
+                        </td>
+                        <td><strong style="color:#10b981;">${row.solvedCount} / ${allChallenges.length}</strong> resolvidos</td>
+                        <td><strong style="font-family:'JetBrains Mono',monospace;color:#fbbf24;font-size:0.95rem;">⚡ ${row.totalXp} XP</strong></td>
+                    </tr>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <!-- BANNER DE PATENTE / RANK DO ESTUDANTE -->
+                <div class="bee-rank-banner">
+                    <div style="display:flex;align-items:center;gap:16px;flex:1;min-width:260px;">
+                        <div style="width:68px;height:68px;border-radius:18px;background:${rTier.bg};border:2px solid ${rTier.color};display:flex;align-items:center;justify-content:center;font-size:2.3rem;flex-shrink:0;">
+                            ${rTier.badge}
+                        </div>
+                        <div style="flex:1;">
+                            <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                                <span class="tr-badge-cyan">🐍 ARENA PYTHON • ESTILO BEECROWD</span>
+                                <span style="font-size:0.78rem;color:#fbbf24;font-weight:800;">⚡ ${myStats.totalXp} XP Acumulados</span>
+                                ${!isAdm && myRankPos > 0 ? `<span style="font-size:0.78rem;color:#6ee7b7;font-weight:700;">• 🏆 #${myRankPos} no Ranking da Turma</span>` : ''}
+                            </div>
+                            <h3 style="font-size:1.35rem;color:#fff;margin-top:4px;">
+                                Rank Atual: <span style="color:${rTier.color};">${escapeHtml(rTier.name)}</span>
+                            </h3>
+                            <div style="font-size:0.8rem;color:#cbd5e1;margin-top:2px;">
+                                ${nextTier
+                                    ? `Faltam <strong>${myStats.rankInfo.xpNeeded} XP</strong> para subir para <strong>${nextTier.badge} ${escapeHtml(nextTier.name)}</strong> (${myStats.solvedCount}/${myStats.totalChallenges} desafios resolvidos)`
+                                    : `👑 Você alcançou o Rank Máximo da Arena Python! (${myStats.solvedCount}/${myStats.totalChallenges} desafios resolvidos)`
+                                }
+                            </div>
+                            <div class="bee-xp-track">
+                                <div class="bee-xp-fill" style="width:${myStats.rankInfo.pctToNext}%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end;">
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <button type="button" class="tr-btn-primary" id="beeModeProblemsBtn" style="${beeViewMode === 'problems' ? '' : 'background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.16);color:#cbd5e1;'}">
+                                💻 Desafios Python (${allChallenges.length})
+                            </button>
+                            <button type="button" class="tr-btn-primary" id="beeModeLeaderboardBtn" style="${beeViewMode === 'leaderboard' ? '' : 'background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.16);color:#cbd5e1;'}">
+                                🏆 Ranking da Turma (${leaderboard.length})
+                            </button>
+                        </div>
+                        <div style="font-size:0.74rem;color:#94a3b8;">
+                            ✅ Progresso e códigos salvos automaticamente no seu login
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAIXA DE TODAS AS PATENTES (INICIANTE ATÉ AVANÇADO) -->
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;">
+                    ${tiersStripHtml}
+                </div>
+
+                ${beeViewMode === 'leaderboard' ? `
+                    <div class="panel-box">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
+                            <div>
+                                <span class="tr-badge-cyan">🏆 LEADERBOARD OFICIAL • TRILHANDO PYTHON</span>
+                                <h3 style="margin-top:6px;">Ranking Geral de Desafios da Turma</h3>
+                                <p style="font-size:0.84rem;color:var(--text-secondary);">Resolva os desafios de Python abaixo para acumular XP e subir de patente!</p>
+                            </div>
+                            <button type="button" class="tr-btn-primary" id="beeBackToProblemsBtn">⬅ Voltar para os Desafios</button>
+                        </div>
+                        <div style="overflow-x:auto;">
+                            <table class="cls-table">
+                                <thead>
+                                    <tr>
+                                        <th>Posição</th>
+                                        <th>Estudante</th>
+                                        <th>Patente / Rank</th>
+                                        <th>Desafios Resolvidos</th>
+                                        <th>Pontuação Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${leaderboardRowsHtml}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                ` : `
+                    <!-- ===============================================================
+                         ÁREA DE RESOLUÇÃO ESTILO BEECROWD (PROBLEMA À ESQUERDA + IDE PYTHON À DIREITA)
+                    =============================================================== -->
+                    <div class="bee-split-ide" id="beeIdeWorkspace" style="margin-bottom:24px;">
+                        <!-- COLUNA ESQUERDA: ENUNCIADO E EXEMPLOS DE ENTRADA/SAÍDA -->
+                        <div class="panel-box" style="margin-bottom:0;border-color:rgba(0,229,255,0.38);">
+                            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+                                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                                    <span class="tr-badge-cyan">PROBLEMA #${activeProb.number}</span>
+                                    <span style="font-size:0.78rem;font-weight:800;color:#fbbf24;">⚡ +${activeProb.xp} XP</span>
+                                    <span style="font-size:0.76rem;color:#94a3b8;">• Dificuldade: <strong>${escapeHtml(activeProb.difficulty)}</strong></span>
+                                </div>
+                                <div>
+                                    ${activeSaved && activeSaved.solved
+                                        ? '<span class="nb-feedback-pill nb-pill-correct">✅ JÁ RESOLVIDO POR VOCÊ</span>'
+                                        : '<span class="tr-pending-badge">⏳ Não Resolvido</span>'
+                                    }
+                                </div>
+                            </div>
+
+                            <h3 style="font-size:1.35rem;color:#fff;margin-bottom:10px;">${escapeHtml(activeProb.title)}</h3>
+                            <p style="font-size:0.9rem;color:#e2e8f0;line-height:1.65;margin-bottom:16px;">
+                                ${escapeHtml(activeProb.description)}
+                            </p>
+
+                            <div style="background:rgba(0,0,0,0.28);border-left:3px solid var(--cefet-cyan);padding:10px 14px;border-radius:8px;margin-bottom:12px;">
+                                <div style="font-size:0.76rem;font-weight:800;color:var(--cefet-cyan);text-transform:uppercase;margin-bottom:3px;">📥 Entrada</div>
+                                <div style="font-size:0.84rem;color:#cbd5e1;line-height:1.5;">${escapeHtml(activeProb.inputSpec)}</div>
+                            </div>
+
+                            <div style="background:rgba(0,0,0,0.28);border-left:3px solid #10b981;padding:10px 14px;border-radius:8px;margin-bottom:14px;">
+                                <div style="font-size:0.76rem;font-weight:800;color:#10b981;text-transform:uppercase;margin-bottom:3px;">📤 Saída</div>
+                                <div style="font-size:0.84rem;color:#cbd5e1;line-height:1.5;white-space:pre-line;">${escapeHtml(activeProb.outputSpec)}</div>
+                            </div>
+
+                            <div style="font-size:0.78rem;font-weight:800;color:#94a3b8;text-transform:uppercase;margin-bottom:4px;">
+                                📋 Exemplos de Entrada e Saída (Padrão Beecrowd)
+                            </div>
+                            <table class="bee-io-sample-table">
+                                <thead>
+                                    <tr>
+                                        <th>Exemplo de Entrada</th>
+                                        <th>Exemplo de Saída</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${sampleRowsHtml}
+                                </tbody>
+                            </table>
+
+                            <details class="tr-hint-details" style="margin-top:14px;">
+                                <summary>💡 Precisa de uma dica para resolver o Problema #${activeProb.number}?</summary>
+                                <p style="margin-top:8px;font-size:0.84rem;color:#fde68a;line-height:1.5;">${escapeHtml(activeProb.hint)}</p>
+                            </details>
+                        </div>
+
+                        <!-- COLUNA DIREITA: EDITOR DE CÓDIGO PYTHON 3 + JUIZ ONLINE -->
+                        <div class="panel-box" style="margin-bottom:0;border-color:rgba(139,92,246,0.45);">
+                            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
+                                <div style="display:flex;align-items:center;gap:8px;">
+                                    <span style="font-size:1.1rem;">🐍</span>
+                                    <strong style="color:#fff;font-size:0.95rem;">Python 3 • Editor de Solução (#${activeProb.number})</strong>
+                                </div>
+                                <div style="display:flex;gap:6px;">
+                                    <button type="button" class="tr-btn-ghost" id="beeResetStarterBtn" style="font-size:0.74rem;padding:5px 10px;">↺ Restaurar Modelo</button>
+                                    <button type="button" class="tr-btn-ghost" id="beeCopyCodeBtn" style="font-size:0.74rem;padding:5px 10px;">📋 Copiar</button>
+                                </div>
+                            </div>
+
+                            <textarea id="beeCodeEditor" class="bee-code-textarea" spellcheck="false" placeholder="# Digite seu código Python 3 aqui...">${escapeHtml(beeDraftCodeMap[activeProb.id] || '')}</textarea>
+
+                            <div style="margin-top:12px;">
+                                <label class="tr-field-label" for="beeCustomStdin">📥 Entrada de Teste (stdin — uma linha para cada <code>input()</code>):</label>
+                                <textarea id="beeCustomStdin" class="tr-input" rows="2" style="font-family:'JetBrains Mono',monospace;font-size:0.82rem;background:#090d16;color:#f8fafc;" placeholder="Digite os valores de entrada para testar...">${escapeHtml(beeDraftStdinMap[activeProb.id] || '')}</textarea>
+                            </div>
+
+                            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
+                                <button type="button" class="tr-btn-ghost" id="beeRunTestBtn" style="flex:1;justify-content:center;padding:11px;border-color:rgba(56,189,248,0.45);color:#38bdf8;font-weight:800;" ${beeIsRunning ? 'disabled' : ''}>
+                                    ${beeIsRunning ? '⏳ Executando...' : '▶️ Executar / Testar Código'}
+                                </button>
+                                <button type="button" class="tr-btn-primary" id="beeSubmitJudgeBtn" style="flex:1.3;justify-content:center;padding:11px;font-size:0.9rem;" ${beeIsRunning ? 'disabled' : ''}>
+                                    ${beeIsRunning ? '⏳ Julgando casos de teste...' : '🚀 Enviar Solução (Juiz Beecrowd)'}
+                                </button>
+                            </div>
+
+                            ${verdictHtml}
+                        </div>
+                    </div>
+
+                    <!-- ===============================================================
+                         CATÁLOGO DE TODOS OS 24 DESAFIOS PYTHON (DO INICIANTE AO AVANÇADO)
+                    =============================================================== -->
+                    <div class="panel-box">
+                        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
+                            <div>
+                                <span class="tr-badge-cyan">📚 CATÁLOGO DE PROBLEMAS PYTHON</span>
+                                <h3 style="margin-top:6px;">Escolha um Desafio para Praticar (Nível Iniciante até Avançado)</h3>
+                            </div>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+                                <input type="text" id="beeSearchInput" class="tr-input" style="width:210px;padding:7px 12px;font-size:0.82rem;" placeholder="🔎 Buscar #1001 ou título..." value="${escapeHtml(beeSearchQuery)}">
+                                <select id="beeStatusFilter" class="tr-input" style="width:165px;padding:7px 10px;font-size:0.82rem;background:#0f172a;color:#fff;">
+                                    <option value="all" ${beeSelectedStatus === 'all' ? 'selected' : ''}>Todos (${allChallenges.length})</option>
+                                    <option value="solved" ${beeSelectedStatus === 'solved' ? 'selected' : ''}>✅ Resolvidos (${myStats.solvedCount})</option>
+                                    <option value="unsolved" ${beeSelectedStatus === 'unsolved' ? 'selected' : ''}>⏳ Pendentes (${myStats.totalChallenges - myStats.solvedCount})</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="bee-cat-bar">
+                            ${catPillsHtml}
+                        </div>
+
+                        <div style="overflow-x:auto;">
+                            <table class="cls-table">
+                                <thead>
+                                    <tr>
+                                        <th>Código</th>
+                                        <th>Problema</th>
+                                        <th>Categoria / Nível</th>
+                                        <th>Dificuldade</th>
+                                        <th>Recompensa</th>
+                                        <th>Status / Ação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    ${probRowsHtml}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `}
+            `;
+
+            // Listeners for Beecrowd View
+            var modeProbBtn = document.getElementById('beeModeProblemsBtn');
+            var modeLeadBtn = document.getElementById('beeModeLeaderboardBtn');
+            var backProbBtn = document.getElementById('beeBackToProblemsBtn');
+            if (modeProbBtn) modeProbBtn.addEventListener('click', function() { beeViewMode = 'problems'; renderDesafiosView(); });
+            if (modeLeadBtn) modeLeadBtn.addEventListener('click', function() { beeViewMode = 'leaderboard'; renderDesafiosView(); });
+            if (backProbBtn) backProbBtn.addEventListener('click', function() { beeViewMode = 'problems'; renderDesafiosView(); });
+
+            container.querySelectorAll('[data-bee-cat]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    beeSelectedCategory = btn.getAttribute('data-bee-cat');
+                    renderDesafiosView();
+                });
+            });
+
+            var statusSel = document.getElementById('beeStatusFilter');
+            if (statusSel) {
+                statusSel.addEventListener('change', function() {
+                    beeSelectedStatus = statusSel.value;
+                    renderDesafiosView();
+                });
+            }
+
+            var searchInp = document.getElementById('beeSearchInput');
+            if (searchInp) {
+                searchInp.addEventListener('input', function() {
+                    beeSearchQuery = searchInp.value;
+                    renderDesafiosView();
+                    var newInp = document.getElementById('beeSearchInput');
+                    if (newInp) {
+                        newInp.focus();
+                        newInp.setSelectionRange(newInp.value.length, newInp.value.length);
+                    }
+                });
+            }
+
+            container.querySelectorAll('[data-bee-open-prob]').forEach(function(el) {
+                el.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    var pId = el.getAttribute('data-bee-open-prob');
+                    beeActiveChallengeId = pId;
+                    beeLastJudgeResult = null;
+                    renderDesafiosView();
+                    var ideBox = document.getElementById('beeIdeWorkspace');
+                    if (ideBox) ideBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+            });
+
+            var codeEditor = document.getElementById('beeCodeEditor');
+            var stdinEditor = document.getElementById('beeCustomStdin');
+            if (codeEditor) {
+                codeEditor.addEventListener('input', function() {
+                    beeDraftCodeMap[activeProb.id] = codeEditor.value;
+                });
+                codeEditor.addEventListener('keydown', function(e) {
+                    if (e.key === 'Tab') {
+                        e.preventDefault();
+                        var start = this.selectionStart;
+                        var end = this.selectionEnd;
+                        this.value = this.value.substring(0, start) + '    ' + this.value.substring(end);
+                        this.selectionStart = this.selectionEnd = start + 4;
+                        beeDraftCodeMap[activeProb.id] = this.value;
+                    }
+                });
+            }
+            if (stdinEditor) {
+                stdinEditor.addEventListener('input', function() {
+                    beeDraftStdinMap[activeProb.id] = stdinEditor.value;
+                });
+            }
+
+            var resetStarterBtn = document.getElementById('beeResetStarterBtn');
+            if (resetStarterBtn) {
+                resetStarterBtn.addEventListener('click', function() {
+                    beeDraftCodeMap[activeProb.id] = activeProb.starterCode;
+                    beeLastJudgeResult = null;
+                    renderDesafiosView();
+                });
+            }
+
+            var copyCodeBtn = document.getElementById('beeCopyCodeBtn');
+            if (copyCodeBtn) {
+                copyCodeBtn.addEventListener('click', function() {
+                    var btn = this;
+                    navigator.clipboard.writeText(beeDraftCodeMap[activeProb.id] || '').then(function() {
+                        btn.textContent = '✅ Copiado!';
+                        setTimeout(function() { btn.textContent = '📋 Copiar'; }, 1800);
+                    });
+                });
+            }
+
+            var runTestBtn = document.getElementById('beeRunTestBtn');
+            if (runTestBtn) {
+                runTestBtn.addEventListener('click', async function() {
+                    var code = beeDraftCodeMap[activeProb.id] || '';
+                    var stdin = beeDraftStdinMap[activeProb.id] || '';
+                    beeIsRunning = true;
+                    renderDesafiosView();
+                    var execResult = await window.TrilhandoBeecrowd.runPythonCodeAsync(code, stdin);
+                    beeIsRunning = false;
+                    beeLastJudgeResult = {
+                        challengeId: activeProb.id,
+                        mode: 'test',
+                        execResult: execResult
+                    };
+                    renderDesafiosView();
+                });
+            }
+
+            var submitJudgeBtn = document.getElementById('beeSubmitJudgeBtn');
+            if (submitJudgeBtn) {
+                submitJudgeBtn.addEventListener('click', async function() {
+                    var code = beeDraftCodeMap[activeProb.id] || '';
+                    beeIsRunning = true;
+                    renderDesafiosView();
+                    var judgeResult = await window.TrilhandoBeecrowd.judgeChallengeSubmissionAsync(activeProb, code);
+                    beeIsRunning = false;
+                    beeLastJudgeResult = {
+                        challengeId: activeProb.id,
+                        mode: 'judge',
+                        judgeResult: judgeResult
+                    };
+                    // Salva tentativa e, se passou, garante XP e status resolvido na conta do aluno logado!
+                    window.TrilhandoClassroom.saveStudentChallengeProgress(user.id, activeProb.id, {
+                        solved: judgeResult.allPassed,
+                        code: code,
+                        xp: activeProb.xp,
+                        lastVerdict: judgeResult.verdict
+                    });
+                    renderNavbarUser();
+                    renderDesafiosView();
+                });
+            }
+        }
+
+        // =====================================================================
+        // ABA 3: CHAT GEMINI IA INTEGRADO (MESMO DESIGN DO SITE STREAMLIT)
+        // =====================================================================
+        var chatIaSending = false;
+
+        function renderChatIaView() {
+            var container = document.getElementById('chatIaViewContainer');
+            if (!container || !window.TrilhandoBeecrowd) return;
+
+            var user = window.TrilhandoClassroom.getCurrentUser();
+            var isAdm = Boolean(user && user.role === 'admin');
+            var activeStudentName = user ? user.fullName : '';
+            var chatCfg = window.TrilhandoClassroom.getChatbotConfig();
+            var history = window.TrilhandoBeecrowd.getChatHistory();
+
+            var messagesHtml = '';
+            if (history.length === 0) {
+                messagesHtml = `
+                    <div class="st-chat-msg-assistant">
+                        <div style="font-weight:800;color:#38BDF8;margin-bottom:6px;display:flex;align-items:center;gap:8px;">
+                            <span>🤖</span> <span>GEMINI IA • TUTOR TRILHANDO O CAMINHO DO CÓDIGO</span>
+                        </div>
+                        <div style="color:#F3F4F6;">
+                            Olá, <strong>${escapeHtml(activeStudentName)}</strong>! Eu sou o assistente virtual do projeto <strong>Trilhando o Caminho do Código</strong>.<br>
+                            Pode escrever sua dúvida de <strong>Python</strong>, pedir explicações sobre <code>print</code>, <code>input</code>, <code>if/else</code>, <code>while/for</code>, <code>try/except</code>, <strong>Desafios Beecrowd</strong> ou pedir exemplos de aplicativos com <strong>Flet</strong>!
+                        </div>
+                    </div>
+                `;
+            } else {
+                messagesHtml = history.map(function(msg) {
+                    var txt = (msg.parts && msg.parts[0] && msg.parts[0].text) ? msg.parts[0].text : '';
+                    if (msg.role === 'user') {
+                        return `
+                            <div class="st-chat-msg-user">
+                                <span style="font-size:1.25rem;">🧑‍💻</span>
+                                <div style="flex:1;color:#F8FAFC;">${escapeHtml(txt)}</div>
+                            </div>
+                        `;
+                    } else {
+                        return `
+                            <div class="st-chat-msg-assistant">
+                                <div style="font-weight:800;color:#38BDF8;margin-bottom:6px;display:flex;align-items:center;gap:8px;">
+                                    <span>🤖</span> <span>GEMINI-1.5-FLASH</span>
+                                </div>
+                                <div style="color:#F3F4F6;">${window.TrilhandoBeecrowd.formatMarkdownMessage(txt)}</div>
+                            </div>
+                        `;
+                    }
+                }).join('');
+            }
+
+            var admConfigBarHtml = isAdm ? `
+                <details style="margin-bottom:16px;background:rgba(37,99,235,0.12);border:1px solid rgba(56,189,248,0.35);border-radius:12px;padding:12px 16px;">
+                    <summary style="cursor:pointer;font-weight:800;color:#38bdf8;font-size:0.84rem;">
+                        🛡️ Configuração do Chat IA (Exclusivo Professor ADM — Sincroniza na Nuvem p/ Alunos)
+                    </summary>
+                    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;">
+                        <div>
+                            <label class="tr-field-label">Chave Gemini API (Google AI Studio — Opcional):</label>
+                            <input type="password" id="admChatGeminiKeyInp" class="tr-input" placeholder="AIzaSy..." value="${escapeHtml(chatCfg.geminiApiKey || '')}">
+                        </div>
+                        <div>
+                            <label class="tr-field-label">Modo de Exibição:</label>
+                            <select id="admChatModeSel" class="tr-input" style="background:#0f172a;color:#fff;">
+                                <option value="native" ${chatCfg.mode !== 'iframe' ? 'selected' : ''}>⚡ Chat Nativo no Site (Mesmo Design do Streamlit)</option>
+                                <option value="iframe" ${chatCfg.mode === 'iframe' ? 'selected' : ''}>🌐 Incorporar Link Público do Streamlit (Iframe)</option>
+                            </select>
+                        </div>
+                        <button type="button" class="tr-btn-primary" id="admSaveChatCfgBtn">💾 Salvar Config IA</button>
+                    </div>
+                    <div style="margin-top:8px;">
+                        <label class="tr-field-label">URL do Streamlit (caso use o modo Iframe Incorporado):</label>
+                        <input type="text" id="admChatStreamlitUrlInp" class="tr-input" placeholder="https://seu-app.streamlit.app/?embed=true" value="${escapeHtml(chatCfg.streamlitUrl || '')}">
+                    </div>
+                </details>
+            ` : '';
+
+            var useIframe = chatCfg.mode === 'iframe' && chatCfg.streamlitUrl && chatCfg.streamlitUrl.startsWith('http');
+
+            container.innerHTML = `
+                <div class="st-chat-replica-shell">
+                    ${admConfigBarHtml}
+
+                    <!-- CABEÇALHO INSTITUCIONAL IDÊNTICO AO STREAMLIT -->
+                    <div class="st-header-wrapper">
+                        <div class="st-cefet-card-box">
+                            <img src="arquivos-trilhando/Imagens/logo-cefet.jpg" alt="CEFET-MG">
+                        </div>
+                        <div class="st-title-center-box">
+                            <h1 class="st-header-title-text">TRILHANDO O CAMINHO DO CODIGO</h1>
+                            <p class="st-header-subtitle-text">Projeto de Pesquisa e Extensao CEFET-MG &amp; FAPEMIG</p>
+                        </div>
+                        <div class="st-fapemig-card-box">
+                            <img src="arquivos-trilhando/Imagens/logo-fapemig.jpg" alt="FAPEMIG">
+                        </div>
+                    </div>
+                    <div class="st-neon-divider"></div>
+
+                    ${useIframe ? `
+                        <iframe src="${escapeHtml(chatCfg.streamlitUrl)}" style="width:100%;height:680px;border:1px solid #334155;border-radius:14px;background:#0B0E14;" allow="clipboard-write; clipboard-read"></iframe>
+                    ` : `
+                        <!-- CAMPO ESTUDANTE ATIVO (PREENCHIDO AUTOMATICAMENTE COM O LOGIN) -->
+                        <div>
+                            <label class="st-student-input-label" for="stReplicaStudentName">Estudante Ativo:</label>
+                            <input type="text" id="stReplicaStudentName" class="st-student-input-field" value="${escapeHtml(activeStudentName)}" readonly title="Identificado automaticamente pelo seu login no portal">
+                        </div>
+
+                        <div class="st-success-alert-box">
+                            ✅ Bem-vindo(a), <strong>${escapeHtml(activeStudentName)}</strong>! Seu chat está liberado.
+                        </div>
+
+                        <!-- SUGESTÕES RÁPIDAS PARA OS ALUNOS -->
+                        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;">
+                            <button type="button" class="bee-cat-pill" data-chat-quick="O que é uma variável em Python e como usar print e input?">💡 Variáveis, print e input</button>
+                            <button type="button" class="bee-cat-pill" data-chat-quick="Me explique como funciona o if, elif e else com um exemplo.">🔀 Como usar if / elif / else</button>
+                            <button type="button" class="bee-cat-pill" data-chat-quick="Qual a diferença entre o laço for e o while? Me dê exemplos.">🔁 Laços for e while</button>
+                            <button type="button" class="bee-cat-pill" data-chat-quick="Como proteger meu código de erros usando try e except ValueError?">🛡️ Blindagem try / except</button>
+                            <button type="button" class="bee-cat-pill" data-chat-quick="Como criar um aplicativo com botão e campo de texto usando Flet?">📱 Exemplo de App em Flet</button>
+                            ${history.length > 0 ? `<button type="button" class="bee-cat-pill" id="stClearChatBtn" style="border-color:rgba(239,68,68,0.4);color:#fca5a5;">🗑️ Limpar Conversa</button>` : ''}
+                        </div>
+
+                        <!-- ÁREA DE MENSAGENS DO CHAT -->
+                        <div class="st-chat-messages-area" id="stChatMessagesBox">
+                            ${messagesHtml}
+                            ${chatIaSending ? `
+                                <div class="st-chat-msg-assistant" style="opacity:0.85;">
+                                    <strong style="color:#38BDF8;">🤖 GEMINI IA gerando a resposta...</strong>
+                                </div>
+                            ` : ''}
+                        </div>
+
+                        <!-- BARRA DE DIGITAÇÃO ARREDONDADA (LETRA CLARA SEMPRE VISÍVEL EM TEMA CLARO E ESCURO) -->
+                        <div class="st-chat-input-pill">
+                            <textarea id="stChatPromptInput" rows="1" placeholder="Digite sua dúvida de Python ou peça um código em Flet..." ${chatIaSending ? 'disabled' : ''}></textarea>
+                            <button type="button" class="st-chat-send-btn" id="stChatSendBtn" title="Enviar pergunta" ${chatIaSending ? 'disabled' : ''}>
+                                ➤
+                            </button>
+                        </div>
+                    `}
+                </div>
+            `;
+
+            // Scroll messages to bottom
+            var msgBox = document.getElementById('stChatMessagesBox');
+            if (msgBox) {
+                msgBox.scrollTop = msgBox.scrollHeight;
+            }
+
+            // Copy code buttons inside chat
+            container.querySelectorAll('.st-copy-code-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var raw = decodeURIComponent(btn.getAttribute('data-raw-code') || '');
+                    navigator.clipboard.writeText(raw).then(function() {
+                        btn.textContent = '✅ Copiado!';
+                        setTimeout(function() { btn.textContent = '📋 Copiar código'; }, 1800);
+                    });
+                });
+            });
+
+            // Quick prompt chips
+            container.querySelectorAll('[data-chat-quick]').forEach(function(chip) {
+                chip.addEventListener('click', function() {
+                    var qText = chip.getAttribute('data-chat-quick');
+                    sendPromptToChatIa(qText, activeStudentName);
+                });
+            });
+
+            var clearBtn = document.getElementById('stClearChatBtn');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function() {
+                    window.TrilhandoBeecrowd.clearChatHistory();
+                    renderChatIaView();
+                });
+            }
+
+            var promptInp = document.getElementById('stChatPromptInput');
+            var sendBtn = document.getElementById('stChatSendBtn');
+
+            function triggerSend() {
+                if (!promptInp || chatIaSending) return;
+                var text = promptInp.value.trim();
+                if (!text) return;
+                sendPromptToChatIa(text, activeStudentName);
+            }
+
+            if (sendBtn) sendBtn.addEventListener('click', triggerSend);
+            if (promptInp) {
+                promptInp.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        triggerSend();
+                    }
+                });
+            }
+
+            // Admin config save
+            var saveChatCfgBtn = document.getElementById('admSaveChatCfgBtn');
+            if (saveChatCfgBtn) {
+                saveChatCfgBtn.addEventListener('click', function() {
+                    var keyVal = document.getElementById('admChatGeminiKeyInp').value.trim();
+                    var modeVal = document.getElementById('admChatModeSel').value;
+                    var urlVal = document.getElementById('admChatStreamlitUrlInp').value.trim();
+                    window.TrilhandoClassroom.saveChatbotConfig({
+                        geminiApiKey: keyVal,
+                        mode: modeVal,
+                        streamlitUrl: urlVal
+                    }, false);
+                    alert('Configuração do Chat Gemini IA salva e sincronizada para toda a turma!');
+                    renderChatIaView();
+                });
+            }
+        }
+
+        async function sendPromptToChatIa(promptText, studentName) {
+            if (chatIaSending) return;
+            chatIaSending = true;
+            renderChatIaView();
+            await window.TrilhandoBeecrowd.askGeminiApiAsync(promptText, studentName);
+            chatIaSending = false;
+            renderChatIaView();
+            var inp = document.getElementById('stChatPromptInput');
+            if (inp) inp.focus();
+        }
+
+        // =====================================================================
+        // ABA 6: PAINEL DO PROFESSOR / ADM (LIMPO: CONTROLE DE AULAS, ATALHOS E NUVEM)
+        // =====================================================================
         function renderAdminView() {
             var container = document.getElementById('adminViewContainer');
             if (!container) return;
@@ -1552,141 +2784,20 @@
             var schedule = window.TrilhandoClassroom.LESSONS_SCHEDULE || [];
             var currentLessonObj = schedule.find(function(l) { return l.key === adminChamadaLesson; }) || schedule[0];
 
-            var filteredSubs = adminFilterLesson === 'all'
-                ? allSubs
-                : allSubs.filter(function(s) { return s.lessonKey === adminFilterLesson; });
-
             var subAula02Count = allSubs.filter(function(s) { return s.lessonKey === 'aula02'; }).length;
             var subAula03Count = allSubs.filter(function(s) { return s.lessonKey === 'aula03'; }).length;
+            var pendingReviewCount = allSubs.filter(function(s) { return !s.codeReviewed; }).length;
 
-            // Contagem de presentes no dia selecionado na chamada
             var presentInSelectedDay = 0;
             students.forEach(function(st) {
                 var stAtt = attendanceMap[st.id] && attendanceMap[st.id][adminChamadaLesson];
                 if (stAtt && stAtt.present === true) presentInSelectedDay++;
             });
 
-            // Abas de dias da Lista de Chamada (Aula 01 a Aula 10)
-            var chamadaTabsHtml = schedule.map(function(les) {
-                var isAct = les.key === adminChamadaLesson;
-                var dayPresentCount = 0;
-                students.forEach(function(st) {
-                    var rec = attendanceMap[st.id] && attendanceMap[st.id][les.key];
-                    if (rec && rec.present === true) dayPresentCount++;
-                });
-                return `
-                    <button type="button" class="chamada-day-tab ${isAct ? 'active' : ''}" data-chamada-day="${les.key}">
-                        <span>${escapeHtml(les.label)} (${escapeHtml(les.date)})</span>
-                        <small>${dayPresentCount}/${students.length} presentes</small>
-                    </button>
-                `;
-            }).join('');
-
-            // Linhas da Lista de Chamada Visual
-            var chamadaRowsHtml = students.length === 0 ? `
-                <tr>
-                    <td colspan="5" style="text-align:center;color:var(--text-secondary);padding:24px;">
-                        Nenhum aluno na lista ainda. Assim que os alunos fizerem login na tela inicial com Nome Completo e Senha, eles aparecerão aqui automaticamente!
-                    </td>
-                </tr>
-            ` : students.map(function(st) {
-                var stMap = attendanceMap[st.id] || {};
-                var todayRec = stMap[adminChamadaLesson];
-                var btnStateClass = 'unmarked';
-                var btnLabel = '⚪ Marcar Presença';
-                if (todayRec && todayRec.present === true) {
-                    btnStateClass = 'present';
-                    btnLabel = '✅ Presente';
-                } else if (todayRec && todayRec.present === false) {
-                    btnStateClass = 'absent';
-                    btnLabel = '❌ Faltou';
-                }
-
-                var totalPresences = 0;
-                var miniPillsHtml = schedule.map(function(les) {
-                    var r = stMap[les.key];
-                    var pClass = '';
-                    var icon = '—';
-                    if (r && r.present === true) {
-                        pClass = 'present';
-                        icon = '✅';
-                        totalPresences++;
-                    } else if (r && r.present === false) {
-                        pClass = 'absent';
-                        icon = '❌';
-                    }
-                    return `
-                        <button type="button" class="att-mini-pill ${pClass}" data-att-user="${st.id}" data-att-lesson="${les.key}" title="Clique para alternar presença de ${escapeHtml(st.fullName)} em ${les.label} (${les.date})">
-                            <span>${les.shortLabel}</span>
-                            <span>${icon}</span>
-                        </button>
-                    `;
-                }).join('');
-
-                return `
-                    <tr>
-                        <td>
-                            <strong style="color:#fff;font-size:0.9rem;">${escapeHtml(st.fullName)}</strong>
-                            <div style="font-size:0.72rem;color:#64748b;">Senha: <code>${escapeHtml(st.password)}</code></div>
-                        </td>
-                        <td>
-                            <button type="button" class="att-toggle-btn ${btnStateClass}" data-att-main-user="${st.id}" data-att-main-lesson="${adminChamadaLesson}">
-                                ${btnLabel}
-                            </button>
-                        </td>
-                        <td>
-                            <div class="att-mini-grid">
-                                ${miniPillsHtml}
-                            </div>
-                        </td>
-                        <td>
-                            <span class="tr-badge-cyan" style="font-size:0.76rem;">
-                                📅 <strong>${totalPresences}</strong> presença(s)
-                            </span>
-                        </td>
-                        <td>
-                            <button type="button" class="delete-student-btn" data-delete-student="${st.id}" data-delete-name="${escapeHtml(st.fullName)}" title="Excluir o acesso deste aluno (ideal para remover usuários de teste)">
-                                🗑️ Excluir Acesso
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-
-            var rowsHtml = filteredSubs.length === 0 ? `
-                <tr>
-                    <td colspan="7" style="text-align:center;color:var(--text-secondary);padding:24px;">
-                        Nenhuma tarefa entregue neste filtro ainda.
-                    </td>
-                </tr>
-            ` : filteredSubs.map(function(sub) {
-                return `
-                    <tr>
-                        <td><strong>${escapeHtml(sub.studentName)}</strong></td>
-                        <td><span class="tr-badge-cyan">Aula 0${sub.lessonNumber}</span></td>
-                        <td><span style="color:#10b981;font-weight:800;">✅ ${sub.correctCount} acertos</span> / <span style="color:#f87171;">❌ ${sub.wrongCount} erros</span></td>
-                        <td><strong style="color:var(--cefet-cyan);">${sub.grade10} / 10</strong></td>
-                        <td>
-                            ${sub.codeReviewed
-                                ? '<span class="nb-feedback-pill nb-pill-correct">✅ Código Revisado</span>'
-                                : '<span class="tr-pending-badge">💻 Ver Código Prático</span>'
-                            }
-                        </td>
-                        <td style="font-size:0.78rem;color:var(--text-secondary);">${formatDate(sub.submittedAt)}</td>
-                        <td>
-                            <button type="button" class="tr-btn-primary" style="padding:6px 12px;font-size:0.76rem;" data-inspect-sub="${sub.id}">
-                                🔎 Ver Respostas &amp; Código
-                            </button>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-
             var cloudCfg = window.TrilhandoClassroom.getCloudConfig();
-
-            // Painel de Controle de Liberação de Aulas, Tarefas e Quizzes (formato de tabela compacta igual à Lista de Chamada)
             var unlockedList = window.TrilhandoClassroom.getUnlockedLessons();
             var unlockedQuizzes = window.TrilhandoClassroom.getUnlockedQuizzes ? window.TrilhandoClassroom.getUnlockedQuizzes() : [];
+
             var lessonsTableRowsHtml = LESSONS_METADATA.map(function(les) {
                 var isUnl = unlockedList.includes(les.key);
                 var isQuizUnl = unlockedQuizzes.includes(les.key);
@@ -1732,10 +2843,10 @@
                 <!-- AVISO DE ACESSO SIMULTÂNEO LIBERADO -->
                 <div class="panel-box" style="background:rgba(16,185,129,0.08);border-color:rgba(16,185,129,0.38);padding:14px 20px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;">
                     <div style="font-size:0.84rem;color:#d1fae5;">
-                        👥 <strong>Acesso Simultâneo Liberado:</strong> Você e os outros dois tutores podem entrar nesta conta ADM (<code>Trilhando o Caminho do Código</code>) ao mesmo tempo de casas/computadores diferentes sem cair ou dar conflito!
+                        👥 <strong>Painel Organizado por Páginas:</strong> A <strong>Lista de Chamada</strong> e a <strong>Correção de Atividades</strong> agora possuem páginas exclusivas para não ocupar a tela principal!
                     </div>
                     <button type="button" class="tr-btn-ghost" id="admRefreshNowBtn" style="font-size:0.78rem;padding:6px 12px;">
-                        🔄 Atualizar Painel Agora
+                        🔄 Atualizar Dados Agora
                     </button>
                 </div>
 
@@ -1743,7 +2854,7 @@
                     <div class="stat-card">
                         <span class="stat-label">Estudantes na Turma</span>
                         <span class="stat-value">${students.length}</span>
-                        <span class="stat-sub">Cadastrados no sistema</span>
+                        <span class="stat-sub">Nomes únicos protegidos</span>
                     </div>
                     <div class="stat-card">
                         <span class="stat-label">Presença • ${escapeHtml(currentLessonObj ? currentLessonObj.label : 'Aula')}</span>
@@ -1751,9 +2862,9 @@
                         <span class="stat-sub">Dia ${escapeHtml(currentLessonObj ? currentLessonObj.date : '')}</span>
                     </div>
                     <div class="stat-card">
-                        <span class="stat-label">Entregas • Aula 02 &amp; 03</span>
-                        <span class="stat-value" style="color:var(--cefet-cyan);">${subAula02Count + subAula03Count}</span>
-                        <span class="stat-sub">A2: ${subAula02Count} | A3: ${subAula03Count}</span>
+                        <span class="stat-label">Tarefas Entregues</span>
+                        <span class="stat-value" style="color:var(--cefet-cyan);">${allSubs.length}</span>
+                        <span class="stat-sub">${pendingReviewCount} pendente(s) de revisão</span>
                     </div>
                     <div class="stat-card">
                         <span class="stat-label">Sincronização Nuvem</span>
@@ -1764,9 +2875,36 @@
                     </div>
                 </div>
 
-                <!-- ===================================================================
-                     SEÇÃO: CONTROLE DE LIBERAÇÃO DE AULAS, TAREFAS E QUIZZES (EM TABELA COMPACTA)
-                =================================================================== -->
+                <!-- ATALHOS RÁPIDOS PARA AS PÁGINAS EXCLUSIVAS DE CHAMADA E CORREÇÃO -->
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin-bottom:22px;">
+                    <div class="panel-box" style="margin-bottom:0;border-color:rgba(16,185,129,0.45);background:linear-gradient(135deg,rgba(15,23,42,0.9),rgba(16,185,129,0.08));display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
+                        <div>
+                            <span class="tr-badge-cyan" style="border-color:#10b981;color:#6ee7b7;background:rgba(16,185,129,0.15);">📅 PÁGINA DEDICADA • CHAMADA</span>
+                            <h3 style="margin-top:8px;">Lista de Chamada &amp; Frequência por Dia</h3>
+                            <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;">
+                                Acesse a página exclusiva da chamada com filtro por <strong>Dia de Aula (Aula 01 a 10)</strong>, busca por nome do aluno, filtro de presentes/faltantes e gestão de senhas.
+                            </p>
+                        </div>
+                        <button type="button" class="tr-btn-primary" id="admGoToChamadaPageBtn" style="width:100%;justify-content:center;padding:11px;">
+                            📅 Abrir Página de Chamada (${students.length} alunos) →
+                        </button>
+                    </div>
+
+                    <div class="panel-box" style="margin-bottom:0;border-color:rgba(139,92,246,0.45);background:linear-gradient(135deg,rgba(15,23,42,0.9),rgba(139,92,246,0.08));display:flex;flex-direction:column;justify-content:space-between;gap:14px;">
+                        <div>
+                            <span class="tr-badge-cyan" style="border-color:#8b5cf6;color:#c4b5fd;background:rgba(139,92,246,0.15);">📋 PÁGINA DEDICADA • CORREÇÕES</span>
+                            <h3 style="margin-top:8px;">Correção de Atividades &amp; Desafios Python</h3>
+                            <p style="font-size:0.85rem;color:var(--text-secondary);line-height:1.5;">
+                                Acesse a página exclusiva para corrigir atividades com filtro por <strong>Aluno</strong>, filtro por <strong>Aula</strong>, status de revisão e acompanhamento dos <strong>Desafios Beecrowd</strong>!
+                            </p>
+                        </div>
+                        <button type="button" class="tr-btn-primary" id="admGoToCorrecoesPageBtn" style="width:100%;justify-content:center;padding:11px;">
+                            📋 Abrir Página de Correção de Atividades (${allSubs.length} entregas) →
+                        </button>
+                    </div>
+                </div>
+
+                <!-- SEÇÃO: CONTROLE DE LIBERAÇÃO DE AULAS, TAREFAS E QUIZZES -->
                 <div class="panel-box" style="border-color:rgba(0,229,255,0.4);margin-bottom:18px;">
                     <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;margin-bottom:12px;">
                         <div>
@@ -1804,93 +2942,11 @@
                     </div>
                 </div>
 
-                <!-- ===================================================================
-                     NOVA SEÇÃO: LISTA DE CHAMADA VISUAL (PRESENÇA POR DIA) + GESTÃO DE ACESSO
-                =================================================================== -->
-                <div class="panel-box" style="border-color:rgba(0,229,255,0.4);">
-                    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
-                        <div>
-                            <span class="tr-badge-cyan">📅 CONTROLE DE FREQUÊNCIA &amp; ACESSO DA TURMA</span>
-                            <h3 style="margin-top:6px;">Lista de Chamada Visual (Cadastro Automático no Login)</h3>
-                            <p style="font-size:0.84rem;color:var(--text-secondary);">
-                                Os alunos aparecem aqui <strong>automaticamente</strong> assim que fazem o login na tela inicial. Caso precise remover algum usuário de teste, clique em <strong>"🗑️ Excluir Acesso"</strong> na linha correspondente.
-                            </p>
-                        </div>
-                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                            <button type="button" class="tr-btn-primary" id="admMarkAllPresentBtn" style="font-size:0.78rem;padding:8px 14px;">
-                                ✅ Marcar Todos Presentes em ${escapeHtml(currentLessonObj ? currentLessonObj.label : 'Aula')}
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Seletor de Dia da Aula (Aula 01 a Aula 10) -->
-                    <div style="margin-top:12px;">
-                        <span class="tr-field-label">Selecione o Dia da Aula para fazer a chamada:</span>
-                        <div class="chamada-day-tabs">
-                            ${chamadaTabsHtml}
-                        </div>
-                    </div>
-
-                    <!-- Tabela Visual de Presença -->
-                    <div style="overflow-x:auto;">
-                        <table class="cls-table">
-                            <thead>
-                                <tr>
-                                    <th>Aluno(a) &amp; Senha</th>
-                                    <th>Chamada: ${escapeHtml(currentLessonObj ? currentLessonObj.label + ' (' + currentLessonObj.date + ')' : '')}</th>
-                                    <th>Quadro Visual de Todos os Dias (A1 a A10 — Clique para alternar)</th>
-                                    <th>Total</th>
-                                    <th>Gerenciar Acesso</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${chamadaRowsHtml}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- TABELA DE CORREÇÃO DE ATIVIDADES E CÓDIGOS PRÁTICOS -->
-                <div class="panel-box">
-                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
-                        <div>
-                            <h3>📋 Entregas de Tarefas de Casa &amp; Códigos Práticos</h3>
-                            <p style="font-size:0.84rem;color:var(--text-secondary);">
-                                Veja quantos acertos/erros cada aluno teve no questionário e clique em <strong>"Ver Respostas &amp; Código"</strong> para corrigir a prática!
-                            </p>
-                        </div>
-                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                            <button type="button" class="tr-auth-tab ${adminFilterLesson === 'all' ? 'active' : ''}" data-adm-filter="all">Todas (${allSubs.length})</button>
-                            <button type="button" class="tr-auth-tab ${adminFilterLesson === 'aula02' ? 'active' : ''}" data-adm-filter="aula02">Aula 02 (${subAula02Count})</button>
-                            <button type="button" class="tr-auth-tab ${adminFilterLesson === 'aula03' ? 'active' : ''}" data-adm-filter="aula03">Aula 03 (${subAula03Count})</button>
-                        </div>
-                    </div>
-
-                    <div style="overflow-x:auto;">
-                        <table class="cls-table">
-                            <thead>
-                                <tr>
-                                    <th>Nome Completo do Aluno</th>
-                                    <th>Aula</th>
-                                    <th>Desempenho (5 Questões)</th>
-                                    <th>Nota</th>
-                                    <th>Código Prático</th>
-                                    <th>Data de Envio</th>
-                                    <th>Ação</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${rowsHtml}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
                 <!-- CONFIGURAÇÃO SUPABASE CLOUD & BACKUP JSON -->
                 <div class="panel-box">
                     <h3>☁️ Banco de Dados em Nuvem (Supabase) &amp; Backup</h3>
                     <p style="font-size:0.84rem;color:var(--text-secondary);margin-bottom:14px;">
-                        Para sincronizar automaticamente a chamada e as tarefas entre a sua casa e a casa dos outros dois professores (e com os celulares dos alunos), conecte sua URL e Anon Key do Supabase ou exporte/importe em JSON.
+                        Para sincronizar automaticamente a chamada, os desafios Beecrowd e as tarefas entre todos os professores e dispositivos dos alunos, mantenha o Supabase ativo ou exporte/importe em JSON.
                     </p>
                     <div class="adm-cloud-grid">
                         <div>
@@ -1903,19 +2959,6 @@
                         </div>
                         <button type="button" id="admSaveCloudBtn" class="tr-btn-primary">💾 Salvar &amp; Sincronizar</button>
                     </div>
-                    <details class="tr-hint-details">
-                        <summary>📜 Ver comando SQL para criar/liberar a tabela no Supabase (leva 10 segundos no SQL Editor)</summary>
-                        <pre class="nb-q-code" style="margin-top:8px;"><code>create table if not exists public.trilhando_sync (
-  id text primary key,
-  users_json jsonb default '[]'::jsonb,
-  submissions_json jsonb default '[]'::jsonb,
-  updated_at timestamptz default now()
-);
-alter table public.trilhando_sync enable row level security;
-drop policy if exists "Public classroom access" on public.trilhando_sync;
-create policy "Public classroom access" on public.trilhando_sync for all using (true) with check (true);
-grant all on table public.trilhando_sync to anon, authenticated, service_role;</code></pre>
-                    </details>
 
                     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.08);">
                         <button type="button" class="tr-btn-ghost" id="admExportJsonBtn">📥 Exportar Dados (JSON)</button>
@@ -1927,17 +2970,21 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
                 </div>
             `;
 
-            // Listeners da Lista de Chamada e Cadastro Rápido
             var refreshBtn = document.getElementById('admRefreshNowBtn');
             if (refreshBtn) {
                 refreshBtn.addEventListener('click', async function() {
                     refreshBtn.textContent = '⏳ Atualizando...';
                     await window.TrilhandoClassroom.pullFromCloudAsync();
-                    renderAdminView();
+                    renderAllViews();
                 });
             }
 
-            // Listeners do Painel de Liberação de Aulas para Alunos
+            var goChamadaBtn = document.getElementById('admGoToChamadaPageBtn');
+            if (goChamadaBtn) goChamadaBtn.addEventListener('click', function() { switchTab('admin-chamada'); });
+
+            var goCorrecoesBtn = document.getElementById('admGoToCorrecoesPageBtn');
+            if (goCorrecoesBtn) goCorrecoesBtn.addEventListener('click', function() { switchTab('admin-correcoes'); });
+
             container.querySelectorAll('[data-adm-toggle-lesson]').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     var lKey = btn.getAttribute('data-adm-toggle-lesson');
@@ -1946,7 +2993,6 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
                 });
             });
 
-            // Listeners de Liberação de Quizzes (Modo Apresentação do Professor vs Alunos)
             container.querySelectorAll('[data-adm-toggle-quiz]').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     var lKey = btn.getAttribute('data-adm-toggle-quiz');
@@ -1972,100 +3018,6 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
                 });
             }
 
-            container.querySelectorAll('[data-chamada-day]').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    adminChamadaLesson = btn.getAttribute('data-chamada-day');
-                    renderAdminView();
-                });
-            });
-
-            var quickAddBtn = document.getElementById('admQuickStuAddBtn');
-            var quickNameInp = document.getElementById('admQuickStuName');
-            var quickPassInp = document.getElementById('admQuickStuPass');
-            if (quickAddBtn && quickNameInp) {
-                var handleQuickAdd = function() {
-                    var res = window.TrilhandoClassroom.registerStudentByAdmin(
-                        quickNameInp.value,
-                        quickPassInp ? quickPassInp.value : '1234'
-                    );
-                    var msgBox = document.getElementById('admQuickStuMsg');
-                    if (!res.ok) {
-                        if (msgBox) msgBox.innerHTML = `<div class="tr-auth-alert" style="margin-bottom:10px;">⚠️ ${escapeHtml(res.error)}</div>`;
-                    } else {
-                        // Já marca presença automaticamente na aula selecionada ao cadastrar na chamada!
-                        window.TrilhandoClassroom.setStudentAttendance(res.user.id, adminChamadaLesson, true);
-                        renderAdminView();
-                    }
-                };
-                quickAddBtn.addEventListener('click', handleQuickAdd);
-                quickNameInp.addEventListener('keydown', function(e) {
-                    if (e.key === 'Enter') {
-                        e.preventDefault();
-                        handleQuickAdd();
-                    }
-                });
-            }
-
-            var markAllBtn = document.getElementById('admMarkAllPresentBtn');
-            if (markAllBtn) {
-                markAllBtn.addEventListener('click', function() {
-                    window.TrilhandoClassroom.markAllAttendance(adminChamadaLesson, true);
-                    renderAdminView();
-                });
-            }
-
-            function cycleAttendance(userId, lessonKey) {
-                var att = window.TrilhandoClassroom.getAttendance();
-                var cur = att[userId] && att[userId][lessonKey];
-                // Ciclo simples: Não marcado -> Presente (✅) -> Faltou (❌) -> Presente (✅)
-                var nextVal = true;
-                if (cur && cur.present === true) {
-                    nextVal = false;
-                } else {
-                    nextVal = true;
-                }
-                window.TrilhandoClassroom.setStudentAttendance(userId, lessonKey, nextVal);
-                renderAdminView();
-            }
-
-            container.querySelectorAll('[data-att-main-user]').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    cycleAttendance(btn.getAttribute('data-att-main-user'), btn.getAttribute('data-att-main-lesson'));
-                });
-            });
-
-            container.querySelectorAll('[data-att-user]').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    cycleAttendance(btn.getAttribute('data-att-user'), btn.getAttribute('data-att-lesson'));
-                });
-            });
-
-            container.querySelectorAll('[data-delete-student]').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    var stuId = btn.getAttribute('data-delete-student');
-                    var stuName = btn.getAttribute('data-delete-name') || 'este usuário';
-                    if (window.confirm('Tem certeza que deseja excluir o acesso de "' + stuName + '"?\n\nIsso removerá este usuário da lista de chamada e das entregas sem afetar os outros alunos.')) {
-                        window.TrilhandoClassroom.deleteStudentByAdmin(stuId);
-                        renderAdminView();
-                    }
-                });
-            });
-
-            // Attach listeners for homework filter & inspection
-            container.querySelectorAll('[data-adm-filter]').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    adminFilterLesson = btn.getAttribute('data-adm-filter');
-                    renderAdminView();
-                });
-            });
-
-            container.querySelectorAll('[data-inspect-sub]').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    var subId = btn.getAttribute('data-inspect-sub');
-                    openAdminInspectModal(subId);
-                });
-            });
-
             var saveCloudBtn = document.getElementById('admSaveCloudBtn');
             if (saveCloudBtn) {
                 saveCloudBtn.addEventListener('click', async function() {
@@ -2075,7 +3027,7 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
                     await window.TrilhandoClassroom.syncToCloudAsync();
                     await window.TrilhandoClassroom.pullFromCloudAsync();
                     alert('Configuração de nuvem salva!');
-                    renderAdminView();
+                    renderAllViews();
                 });
             }
 
@@ -2086,6 +3038,7 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
                         users: window.TrilhandoClassroom.getUsers(),
                         submissions: window.TrilhandoClassroom.getSubmissions(),
                         attendance: window.TrilhandoClassroom.getAttendance(),
+                        challenges: window.TrilhandoClassroom.getAllChallengesProgress(),
                         exportedAt: new Date().toISOString()
                     };
                     var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -2117,6 +3070,613 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
                     reader.readAsText(file);
                 });
             }
+        }
+
+        // =====================================================================
+        // ABA 7: PÁGINA EXCLUSIVA DE CHAMADA (ADM) — FILTRO POR DIA E POR ALUNO
+        // =====================================================================
+        function renderAdminChamadaView() {
+            var container = document.getElementById('adminChamadaViewContainer');
+            if (!container) return;
+            var user = window.TrilhandoClassroom.getCurrentUser();
+            if (!user || user.role !== 'admin') {
+                container.innerHTML = `<div class="panel-box">Acesso restrito aos professores administradores.</div>`;
+                return;
+            }
+
+            var allUsers = window.TrilhandoClassroom.getUsers();
+            var students = allUsers.filter(function(u) { return u.role === 'student'; });
+            var attendanceMap = window.TrilhandoClassroom.getAttendance();
+            var schedule = window.TrilhandoClassroom.LESSONS_SCHEDULE || [];
+            var currentLessonObj = schedule.find(function(l) { return l.key === adminChamadaLesson; }) || schedule[0];
+
+            var presentInSelectedDay = 0;
+            var absentInSelectedDay = 0;
+            students.forEach(function(st) {
+                var stAtt = attendanceMap[st.id] && attendanceMap[st.id][adminChamadaLesson];
+                if (stAtt && stAtt.present === true) presentInSelectedDay++;
+                else if (stAtt && stAtt.present === false) absentInSelectedDay++;
+            });
+
+            // Filtra os alunos na chamada por nome e por status no dia selecionado
+            var filteredStudents = students.filter(function(st) {
+                if (adminChamadaSearch) {
+                    var q = adminChamadaSearch.toLowerCase();
+                    if (st.fullName.toLowerCase().indexOf(q) < 0) return false;
+                }
+                var rec = attendanceMap[st.id] && attendanceMap[st.id][adminChamadaLesson];
+                if (adminChamadaStatus === 'present' && (!rec || rec.present !== true)) return false;
+                if (adminChamadaStatus === 'absent' && (!rec || rec.present !== false)) return false;
+                if (adminChamadaStatus === 'unmarked' && rec && typeof rec.present === 'boolean') return false;
+                return true;
+            });
+
+            var chamadaTabsHtml = schedule.map(function(les) {
+                var isAct = les.key === adminChamadaLesson;
+                var dayPresentCount = 0;
+                students.forEach(function(st) {
+                    var rec = attendanceMap[st.id] && attendanceMap[st.id][les.key];
+                    if (rec && rec.present === true) dayPresentCount++;
+                });
+                return `
+                    <button type="button" class="chamada-day-tab ${isAct ? 'active' : ''}" data-chamada-day="${les.key}">
+                        <span>${escapeHtml(les.label)} (${escapeHtml(les.date)})</span>
+                        <small>${dayPresentCount}/${students.length} presentes</small>
+                    </button>
+                `;
+            }).join('');
+
+            var daySelectOptionsHtml = schedule.map(function(les) {
+                return `<option value="${les.key}" ${les.key === adminChamadaLesson ? 'selected' : ''}>📅 ${escapeHtml(les.label)} — Dia ${escapeHtml(les.date)} (${escapeHtml(les.topic)})</option>`;
+            }).join('');
+
+            var chamadaRowsHtml = filteredStudents.length === 0 ? `
+                <tr>
+                    <td colspan="5" style="text-align:center;color:var(--text-secondary);padding:24px;">
+                        Nenhum aluno encontrado para este filtro na chamada.
+                    </td>
+                </tr>
+            ` : filteredStudents.map(function(st) {
+                var stMap = attendanceMap[st.id] || {};
+                var todayRec = stMap[adminChamadaLesson];
+                var btnStateClass = 'unmarked';
+                var btnLabel = '⚪ Marcar Presença';
+                if (todayRec && todayRec.present === true) {
+                    btnStateClass = 'present';
+                    btnLabel = '✅ Presente';
+                } else if (todayRec && todayRec.present === false) {
+                    btnStateClass = 'absent';
+                    btnLabel = '❌ Faltou';
+                }
+
+                var totalPresences = 0;
+                var miniPillsHtml = schedule.map(function(les) {
+                    var r = stMap[les.key];
+                    var pClass = '';
+                    var icon = '—';
+                    if (r && r.present === true) {
+                        pClass = 'present';
+                        icon = '✅';
+                        totalPresences++;
+                    } else if (r && r.present === false) {
+                        pClass = 'absent';
+                        icon = '❌';
+                    }
+                    return `
+                        <button type="button" class="att-mini-pill ${pClass}" data-att-user="${st.id}" data-att-lesson="${les.key}" title="Clique para alternar presença de ${escapeHtml(st.fullName)} em ${les.label} (${les.date})">
+                            <span>${les.shortLabel}</span>
+                            <span>${icon}</span>
+                        </button>
+                    `;
+                }).join('');
+
+                var isPassShown = Boolean(revealedPasswordsMap[st.id]);
+
+                return `
+                    <tr>
+                        <td>
+                            <strong style="color:#fff;font-size:0.9rem;">${escapeHtml(st.fullName)}</strong>
+                            <div style="font-size:0.72rem;color:#64748b;display:flex;align-items:center;gap:6px;margin-top:2px;">
+                                <span>Senha: <code>${isPassShown ? escapeHtml(st.password) : '••••••'}</code></span>
+                                <button type="button" data-toggle-pass="${st.id}" style="background:none;border:none;color:#38bdf8;cursor:pointer;font-size:0.72rem;font-weight:700;" title="Mostrar/Ocultar senha">
+                                    ${isPassShown ? '🙈 Ocultar' : '👁️ Ver'}
+                                </button>
+                                <button type="button" data-reset-pass="${st.id}" data-reset-name="${escapeHtml(st.fullName)}" style="background:none;border:none;color:#fbbf24;cursor:pointer;font-size:0.72rem;font-weight:700;" title="Redefinir senha deste aluno">
+                                    🔑 Trocar
+                                </button>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="att-toggle-btn ${btnStateClass}" data-att-main-user="${st.id}" data-att-main-lesson="${adminChamadaLesson}">
+                                ${btnLabel}
+                            </button>
+                        </td>
+                        <td>
+                            <div class="att-mini-grid">
+                                ${miniPillsHtml}
+                            </div>
+                        </td>
+                        <td>
+                            <span class="tr-badge-cyan" style="font-size:0.76rem;">
+                                📅 <strong>${totalPresences}</strong> / ${schedule.length}
+                            </span>
+                        </td>
+                        <td>
+                            <button type="button" class="delete-student-btn" data-delete-student="${st.id}" data-delete-name="${escapeHtml(st.fullName)}" title="Excluir o acesso deste aluno">
+                                🗑️ Excluir
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="panel-box" style="border-color:rgba(0,229,255,0.4);">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+                        <div>
+                            <span class="tr-badge-cyan">📅 PÁGINA EXCLUSIVA • CONTROLE DE FREQUÊNCIA POR DIA</span>
+                            <h3 style="margin-top:6px;">Lista de Chamada da Turma — ${escapeHtml(currentLessonObj ? currentLessonObj.label + ' (' + currentLessonObj.date + ')' : '')}</h3>
+                            <p style="font-size:0.84rem;color:var(--text-secondary);">
+                                Filtre a chamada pelo <strong>Dia da Aula</strong>, pesquise por <strong>Aluno</strong> ou filtre por status de presença.
+                            </p>
+                        </div>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <button type="button" class="tr-btn-ghost" id="chamadaBackAdmBtn" style="font-size:0.78rem;padding:8px 12px;">
+                                ⬅ Painel ADM
+                            </button>
+                            <button type="button" class="tr-btn-primary" id="admMarkAllPresentBtn" style="font-size:0.78rem;padding:8px 14px;">
+                                ✅ Marcar Todos Presentes em ${escapeHtml(currentLessonObj ? currentLessonObj.label : 'Aula')}
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- BARRA DE FILTROS DA CHAMADA (POR DIA, POR ALUNO E POR STATUS) -->
+                    <div class="adm-filter-toolbar">
+                        <div>
+                            <label class="tr-field-label" for="chamadaDaySelect">📅 Filtrar por Dia / Aula:</label>
+                            <select id="chamadaDaySelect" class="tr-input" style="background:#0f172a;color:#fff;">
+                                ${daySelectOptionsHtml}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="tr-field-label" for="chamadaStudentSearch">🔎 Filtrar por Nome do Aluno:</label>
+                            <input type="text" id="chamadaStudentSearch" class="tr-input" placeholder="Digite o nome do aluno..." value="${escapeHtml(adminChamadaSearch)}">
+                        </div>
+                        <div>
+                            <label class="tr-field-label" for="chamadaStatusFilter">📊 Status no Dia (${escapeHtml(currentLessonObj ? currentLessonObj.date : '')}):</label>
+                            <select id="chamadaStatusFilter" class="tr-input" style="background:#0f172a;color:#fff;">
+                                <option value="all" ${adminChamadaStatus === 'all' ? 'selected' : ''}>Todos os Alunos (${students.length})</option>
+                                <option value="present" ${adminChamadaStatus === 'present' ? 'selected' : ''}>✅ Presentes (${presentInSelectedDay})</option>
+                                <option value="absent" ${adminChamadaStatus === 'absent' ? 'selected' : ''}>❌ Faltaram (${absentInSelectedDay})</option>
+                                <option value="unmarked" ${adminChamadaStatus === 'unmarked' ? 'selected' : ''}>⚪ Não Marcados (${students.length - presentInSelectedDay - absentInSelectedDay})</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Abas rápidas de dias -->
+                    <div class="chamada-day-tabs">
+                        ${chamadaTabsHtml}
+                    </div>
+
+                    <!-- Cadastro Rápido Manual pelo Professor -->
+                    <div class="adm-quick-reg-bar" style="margin-top:12px;">
+                        <div>
+                            <label class="tr-field-label">➕ Adicionar Aluno Manualmente na Chamada:</label>
+                            <input type="text" id="admQuickStuName" class="tr-input" placeholder="Nome Completo (ex: Gabriel Costa)">
+                        </div>
+                        <div>
+                            <label class="tr-field-label">Senha Inicial:</label>
+                            <input type="text" id="admQuickStuPass" class="tr-input" placeholder="1234" value="1234">
+                        </div>
+                        <button type="button" id="admQuickStuAddBtn" class="tr-btn-primary" style="padding:10px 16px;">+ Cadastrar e Marcar Presença</button>
+                    </div>
+                    <div id="admQuickStuMsg"></div>
+
+                    <!-- Tabela Visual de Presença -->
+                    <div style="overflow-x:auto;">
+                        <table class="cls-table">
+                            <thead>
+                                <tr>
+                                    <th>Aluno(a) &amp; Senha Protegida</th>
+                                    <th>Chamada: ${escapeHtml(currentLessonObj ? currentLessonObj.label + ' (' + currentLessonObj.date + ')' : '')}</th>
+                                    <th>Histórico de Dias (A1 a A10 — Clique para alternar)</th>
+                                    <th>Total</th>
+                                    <th>Acesso</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${chamadaRowsHtml}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            var backBtn = document.getElementById('chamadaBackAdmBtn');
+            if (backBtn) backBtn.addEventListener('click', function() { switchTab('admin'); });
+
+            var daySelect = document.getElementById('chamadaDaySelect');
+            if (daySelect) {
+                daySelect.addEventListener('change', function() {
+                    adminChamadaLesson = daySelect.value;
+                    renderAdminChamadaView();
+                });
+            }
+
+            var stuSearch = document.getElementById('chamadaStudentSearch');
+            if (stuSearch) {
+                stuSearch.addEventListener('input', function() {
+                    adminChamadaSearch = stuSearch.value;
+                    renderAdminChamadaView();
+                    var el = document.getElementById('chamadaStudentSearch');
+                    if (el) {
+                        el.focus();
+                        el.setSelectionRange(el.value.length, el.value.length);
+                    }
+                });
+            }
+
+            var statusSel = document.getElementById('chamadaStatusFilter');
+            if (statusSel) {
+                statusSel.addEventListener('change', function() {
+                    adminChamadaStatus = statusSel.value;
+                    renderAdminChamadaView();
+                });
+            }
+
+            container.querySelectorAll('[data-chamada-day]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    adminChamadaLesson = btn.getAttribute('data-chamada-day');
+                    renderAdminChamadaView();
+                });
+            });
+
+            var quickAddBtn = document.getElementById('admQuickStuAddBtn');
+            var quickNameInp = document.getElementById('admQuickStuName');
+            var quickPassInp = document.getElementById('admQuickStuPass');
+            if (quickAddBtn && quickNameInp) {
+                var handleQuickAdd = function() {
+                    var res = window.TrilhandoClassroom.registerStudentByAdmin(
+                        quickNameInp.value,
+                        quickPassInp ? quickPassInp.value : '1234'
+                    );
+                    var msgBox = document.getElementById('admQuickStuMsg');
+                    if (!res.ok) {
+                        if (msgBox) msgBox.innerHTML = `<div class="tr-auth-alert" style="margin-bottom:10px;">⚠️ ${escapeHtml(res.error)}</div>`;
+                    } else {
+                        window.TrilhandoClassroom.setStudentAttendance(res.user.id, adminChamadaLesson, true);
+                        renderAdminChamadaView();
+                    }
+                };
+                quickAddBtn.addEventListener('click', handleQuickAdd);
+                quickNameInp.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        handleQuickAdd();
+                    }
+                });
+            }
+
+            var markAllBtn = document.getElementById('admMarkAllPresentBtn');
+            if (markAllBtn) {
+                markAllBtn.addEventListener('click', function() {
+                    window.TrilhandoClassroom.markAllAttendance(adminChamadaLesson, true);
+                    renderAdminChamadaView();
+                });
+            }
+
+            function cycleAttendance(userId, lessonKey) {
+                var att = window.TrilhandoClassroom.getAttendance();
+                var cur = att[userId] && att[userId][lessonKey];
+                var nextVal = (cur && cur.present === true) ? false : true;
+                window.TrilhandoClassroom.setStudentAttendance(userId, lessonKey, nextVal);
+                renderAdminChamadaView();
+            }
+
+            container.querySelectorAll('[data-att-main-user]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    cycleAttendance(btn.getAttribute('data-att-main-user'), btn.getAttribute('data-att-main-lesson'));
+                });
+            });
+
+            container.querySelectorAll('[data-att-user]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    cycleAttendance(btn.getAttribute('data-att-user'), btn.getAttribute('data-att-lesson'));
+                });
+            });
+
+            container.querySelectorAll('[data-toggle-pass]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var uid = btn.getAttribute('data-toggle-pass');
+                    revealedPasswordsMap[uid] = !revealedPasswordsMap[uid];
+                    renderAdminChamadaView();
+                });
+            });
+
+            container.querySelectorAll('[data-reset-pass]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var uid = btn.getAttribute('data-reset-pass');
+                    var uName = btn.getAttribute('data-reset-name') || 'aluno';
+                    var newP = window.prompt('Digite a nova senha para "' + uName + '" (mínimo 4 caracteres):', '1234');
+                    if (newP !== null) {
+                        var r = window.TrilhandoClassroom.resetStudentPasswordByAdmin(uid, newP);
+                        if (!r.ok) alert(r.error);
+                        else renderAdminChamadaView();
+                    }
+                });
+            });
+
+            container.querySelectorAll('[data-delete-student]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var stuId = btn.getAttribute('data-delete-student');
+                    var stuName = btn.getAttribute('data-delete-name') || 'este usuário';
+                    if (window.confirm('Tem certeza que deseja excluir o acesso de "' + stuName + '"?')) {
+                        window.TrilhandoClassroom.deleteStudentByAdmin(stuId);
+                        renderAdminChamadaView();
+                    }
+                });
+            });
+        }
+
+        // =====================================================================
+        // ABA 8: PÁGINA EXCLUSIVA DE CORREÇÃO DE ATIVIDADES (ADM) — FILTRO POR ALUNO E POR AULA
+        // =====================================================================
+        function renderAdminCorrecoesView() {
+            var container = document.getElementById('adminCorrecoesViewContainer');
+            if (!container) return;
+            var user = window.TrilhandoClassroom.getCurrentUser();
+            if (!user || user.role !== 'admin') {
+                container.innerHTML = `<div class="panel-box">Acesso restrito aos professores administradores.</div>`;
+                return;
+            }
+
+            var allUsers = window.TrilhandoClassroom.getUsers();
+            var students = allUsers.filter(function(u) { return u.role === 'student'; });
+            var allSubs = window.TrilhandoClassroom.getSubmissions();
+
+            // Filtra entregas por Aula, por Aluno (dropdown), por Busca de Nome e por Status de Revisão
+            var filteredSubs = allSubs.filter(function(sub) {
+                if (adminFilterLesson !== 'all' && sub.lessonKey !== adminFilterLesson) return false;
+                if (adminFilterStudent !== 'all' && sub.userId !== adminFilterStudent) return false;
+                if (adminFilterStatus === 'pending' && sub.codeReviewed) return false;
+                if (adminFilterStatus === 'reviewed' && !sub.codeReviewed) return false;
+                if (adminFilterSearch) {
+                    var q = adminFilterSearch.toLowerCase();
+                    if ((sub.studentName || '').toLowerCase().indexOf(q) < 0) return false;
+                }
+                return true;
+            });
+
+            var studentOptionsHtml = `<option value="all" ${adminFilterStudent === 'all' ? 'selected' : ''}>👥 Todos os Alunos (${students.length})</option>` +
+                students.map(function(st) {
+                    return `<option value="${st.id}" ${adminFilterStudent === st.id ? 'selected' : ''}>🎓 ${escapeHtml(st.fullName)}</option>`;
+                }).join('');
+
+            var rowsHtml = filteredSubs.length === 0 ? `
+                <tr>
+                    <td colspan="7" style="text-align:center;color:var(--text-secondary);padding:24px;">
+                        Nenhuma tarefa encontrada para o filtro selecionado (Aluno / Aula / Status).
+                    </td>
+                </tr>
+            ` : filteredSubs.map(function(sub) {
+                return `
+                    <tr>
+                        <td><strong>${escapeHtml(sub.studentName)}</strong></td>
+                        <td><span class="tr-badge-cyan">Aula 0${sub.lessonNumber}</span></td>
+                        <td><span style="color:#10b981;font-weight:800;">✅ ${sub.correctCount} acertos</span> / <span style="color:#f87171;">❌ ${sub.wrongCount} erros</span></td>
+                        <td><strong style="color:var(--cefet-cyan);">${sub.grade10} / 10</strong></td>
+                        <td>
+                            ${sub.codeReviewed
+                                ? '<span class="nb-feedback-pill nb-pill-correct">✅ Código Revisado</span>'
+                                : '<span class="tr-pending-badge">⏳ Pendente de Correção</span>'
+                            }
+                        </td>
+                        <td style="font-size:0.78rem;color:var(--text-secondary);">${formatDate(sub.submittedAt)}</td>
+                        <td>
+                            <button type="button" class="tr-btn-primary" style="padding:6px 12px;font-size:0.76rem;" data-inspect-sub="${sub.id}">
+                                🔎 Corrigir Atividade
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            // Resumo de Desafios Python (Beecrowd) filtrados pelos mesmos alunos
+            var leaderboard = window.TrilhandoBeecrowd ? window.TrilhandoBeecrowd.getClassLeaderboard() : [];
+            var filteredLeaderboard = leaderboard.filter(function(row) {
+                if (adminFilterStudent !== 'all' && row.userId !== adminFilterStudent) return false;
+                if (adminFilterSearch) {
+                    var q = adminFilterSearch.toLowerCase();
+                    if (row.fullName.toLowerCase().indexOf(q) < 0) return false;
+                }
+                return true;
+            });
+
+            var beeAdminRowsHtml = filteredLeaderboard.length === 0 ? `
+                <tr><td colspan="5" style="text-align:center;padding:20px;color:var(--text-secondary);">Nenhum aluno encontrado neste filtro.</td></tr>
+            ` : filteredLeaderboard.map(function(row) {
+                var tier = row.rankInfo.currentTier;
+                return `
+                    <tr>
+                        <td><strong>${escapeHtml(row.fullName)}</strong></td>
+                        <td>
+                            <span style="padding:4px 10px;border-radius:99px;background:${tier.bg};border:1px solid ${tier.color};color:#fff;font-size:0.76rem;font-weight:700;">
+                                ${tier.badge} ${escapeHtml(tier.name)}
+                            </span>
+                        </td>
+                        <td><strong style="color:#10b981;">${row.solvedCount} / 24</strong> desafios resolvidos</td>
+                        <td><strong style="color:#fbbf24;font-family:'JetBrains Mono',monospace;">⚡ ${row.totalXp} XP</strong></td>
+                        <td>
+                            <button type="button" class="tr-btn-ghost" style="font-size:0.75rem;padding:5px 11px;" data-adm-filter-stu="${row.userId}">
+                                🎯 Filtrar Aluno
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="panel-box" style="border-color:rgba(139,92,246,0.45);">
+                    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;">
+                        <div>
+                            <span class="tr-badge-cyan">📋 PÁGINA EXCLUSIVA • CORREÇÃO DE ATIVIDADES &amp; CÓDIGOS</span>
+                            <h3 style="margin-top:6px;">Entregas de Tarefas de Casa (Filtrar por Aluno ou por Aula)</h3>
+                            <p style="font-size:0.84rem;color:var(--text-secondary);">
+                                Use os filtros abaixo para selecionar uma <strong>Aula específica</strong> ou um <strong>Aluno específico</strong> e corrigir o código prático enviado.
+                            </p>
+                        </div>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <button type="button" class="tr-btn-ghost" id="correcoesBackAdmBtn" style="font-size:0.78rem;padding:8px 12px;">
+                                ⬅ Painel ADM
+                            </button>
+                            ${(adminFilterLesson !== 'all' || adminFilterStudent !== 'all' || adminFilterSearch || adminFilterStatus !== 'all') ? `
+                                <button type="button" class="tr-btn-ghost" id="correcoesClearFiltersBtn" style="font-size:0.78rem;padding:8px 12px;border-color:#f59e0b;color:#fcd34d;">
+                                    ↺ Limpar Filtros
+                                </button>
+                            ` : ''}
+                        </div>
+                    </div>
+
+                    <!-- BARRA DE FILTROS COMBINADOS: POR AULA, POR ALUNO, BUSCA E STATUS -->
+                    <div class="adm-filter-toolbar">
+                        <div>
+                            <label class="tr-field-label" for="admCorrLessonSelect">📚 Filtrar por Aula:</label>
+                            <select id="admCorrLessonSelect" class="tr-input" style="background:#0f172a;color:#fff;">
+                                <option value="all" ${adminFilterLesson === 'all' ? 'selected' : ''}>Todas as Aulas (${allSubs.length} entregas)</option>
+                                <option value="aula02" ${adminFilterLesson === 'aula02' ? 'selected' : ''}>Aula 02 — Variáveis &amp; Condicionais</option>
+                                <option value="aula03" ${adminFilterLesson === 'aula03' ? 'selected' : ''}>Aula 03 — try/except &amp; Laços</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="tr-field-label" for="admCorrStudentSelect">🎓 Filtrar por Aluno:</label>
+                            <select id="admCorrStudentSelect" class="tr-input" style="background:#0f172a;color:#fff;">
+                                ${studentOptionsHtml}
+                            </select>
+                        </div>
+                        <div>
+                            <label class="tr-field-label" for="admCorrSearchInput">🔎 Buscar Nome do Aluno:</label>
+                            <input type="text" id="admCorrSearchInput" class="tr-input" placeholder="Digite o nome..." value="${escapeHtml(adminFilterSearch)}">
+                        </div>
+                        <div>
+                            <label class="tr-field-label" for="admCorrStatusSelect">✅ Status da Correção:</label>
+                            <select id="admCorrStatusSelect" class="tr-input" style="background:#0f172a;color:#fff;">
+                                <option value="all" ${adminFilterStatus === 'all' ? 'selected' : ''}>Todas (${allSubs.length})</option>
+                                <option value="pending" ${adminFilterStatus === 'pending' ? 'selected' : ''}>⏳ Pendentes de Revisão</option>
+                                <option value="reviewed" ${adminFilterStatus === 'reviewed' ? 'selected' : ''}>✅ Já Revisadas</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="overflow-x:auto;">
+                        <table class="cls-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome Completo do Aluno</th>
+                                    <th>Aula</th>
+                                    <th>Questionário (5 Questões)</th>
+                                    <th>Nota</th>
+                                    <th>Status da Prática</th>
+                                    <th>Data de Envio</th>
+                                    <th>Ação</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${rowsHtml}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ACOMPANHAMENTO DOS DESAFIOS PYTHON (BEECROWD) POR ALUNO -->
+                <div class="panel-box" style="border-color:rgba(0,229,255,0.35);">
+                    <span class="tr-badge-cyan">🐍 DESEMPENHO NOS DESAFIOS PYTHON (ESTILO BEECROWD)</span>
+                    <h3 style="margin-top:6px;">Progresso e Rank dos Alunos na Arena Python</h3>
+                    <p style="font-size:0.84rem;color:var(--text-secondary);">
+                        Acompanhe quantos desafios extras cada aluno já resolveu por conta própria fora do horário de aula!
+                    </p>
+                    <div style="overflow-x:auto;">
+                        <table class="cls-table">
+                            <thead>
+                                <tr>
+                                    <th>Aluno(a)</th>
+                                    <th>Rank / Patente Atual</th>
+                                    <th>Desafios Resolvidos</th>
+                                    <th>XP Total</th>
+                                    <th>Filtro Rápido</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${beeAdminRowsHtml}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            var backBtn = document.getElementById('correcoesBackAdmBtn');
+            if (backBtn) backBtn.addEventListener('click', function() { switchTab('admin'); });
+
+            var clearBtn = document.getElementById('correcoesClearFiltersBtn');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', function() {
+                    adminFilterLesson = 'all';
+                    adminFilterStudent = 'all';
+                    adminFilterSearch = '';
+                    adminFilterStatus = 'all';
+                    renderAdminCorrecoesView();
+                });
+            }
+
+            var lesSel = document.getElementById('admCorrLessonSelect');
+            if (lesSel) {
+                lesSel.addEventListener('change', function() {
+                    adminFilterLesson = lesSel.value;
+                    renderAdminCorrecoesView();
+                });
+            }
+
+            var stuSel = document.getElementById('admCorrStudentSelect');
+            if (stuSel) {
+                stuSel.addEventListener('change', function() {
+                    adminFilterStudent = stuSel.value;
+                    renderAdminCorrecoesView();
+                });
+            }
+
+            var searchInp = document.getElementById('admCorrSearchInput');
+            if (searchInp) {
+                searchInp.addEventListener('input', function() {
+                    adminFilterSearch = searchInp.value;
+                    renderAdminCorrecoesView();
+                    var el = document.getElementById('admCorrSearchInput');
+                    if (el) {
+                        el.focus();
+                        el.setSelectionRange(el.value.length, el.value.length);
+                    }
+                });
+            }
+
+            var statusSel = document.getElementById('admCorrStatusSelect');
+            if (statusSel) {
+                statusSel.addEventListener('change', function() {
+                    adminFilterStatus = statusSel.value;
+                    renderAdminCorrecoesView();
+                });
+            }
+
+            container.querySelectorAll('[data-adm-filter-stu]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    adminFilterStudent = btn.getAttribute('data-adm-filter-stu');
+                    renderAdminCorrecoesView();
+                });
+            });
+
+            container.querySelectorAll('[data-inspect-sub]').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var subId = btn.getAttribute('data-inspect-sub');
+                    openAdminInspectModal(subId);
+                });
+            });
         }
 
         // Admin Inspection Modal for a specific student's submission
@@ -2203,6 +3763,7 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
                 window.TrilhandoClassroom.saveTutorFeedback(sub.id, fb, rev);
                 modal.classList.remove('active');
                 renderAdminView();
+                renderAdminCorrecoesView();
             });
         }
 
@@ -2309,6 +3870,36 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
             });
         }
 
+        function updateGateUsernameAvailabilityUI() {
+            var availEl = document.getElementById('gateUsernameAvailability');
+            var nameInp = document.getElementById('gateFullName');
+            if (!availEl) return;
+            if (gateMode !== 'register' || !nameInp) {
+                availEl.style.display = 'none';
+                availEl.innerHTML = '';
+                return;
+            }
+            var typed = (nameInp.value || '').trim();
+            if (!typed) {
+                availEl.style.display = 'none';
+                availEl.innerHTML = '';
+                return;
+            }
+            availEl.style.display = 'block';
+            if (typed.length < 3 || typed.split(/\s+/).length < 2) {
+                availEl.style.color = '#fbbf24';
+                availEl.innerHTML = '💡 Digite seu <strong>Nome e Sobrenome</strong> (ex: Maria Clara Souza) para evitar nomes iguais.';
+                return;
+            }
+            if (window.TrilhandoClassroom && window.TrilhandoClassroom.isUsernameTaken && window.TrilhandoClassroom.isUsernameTaken(typed)) {
+                availEl.style.color = '#f87171';
+                availEl.innerHTML = '🔒 <strong>Este nome de usuário já está cadastrado!</strong> Se esta conta é sua, clique na aba "🔑 Já Tenho Conta". Se outra pessoa tem o mesmo nome, adicione mais um sobrenome.';
+            } else {
+                availEl.style.color = '#10b981';
+                availEl.innerHTML = '✅ <strong>Nome disponível!</strong> Este nome de usuário será exclusivo seu.';
+            }
+        }
+
         function updateLoginGateModeUI() {
             document.querySelectorAll('[data-gate-mode]').forEach(function(btn) {
                 btn.classList.toggle('active', btn.getAttribute('data-gate-mode') === gateMode);
@@ -2319,11 +3910,20 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
             var passLabel = document.getElementById('gatePassLabel');
             var nameInp = document.getElementById('gateFullName');
             var passInp = document.getElementById('gatePassword');
+            var passConfirmWrap = document.getElementById('gatePassConfirmWrap');
+            var passConfirmInp = document.getElementById('gatePasswordConfirm');
             var submitBtn = document.getElementById('gateSubmitBtn');
             var errBox = document.getElementById('gateErrorBox');
             if (errBox) errBox.innerHTML = '';
 
             renderGateRecentUsers();
+
+            if (passConfirmWrap) {
+                passConfirmWrap.style.display = gateMode === 'register' ? 'block' : 'none';
+            }
+            if (passConfirmInp && gateMode !== 'register') {
+                passConfirmInp.value = '';
+            }
 
             if (gateMode === 'admin') {
                 if (titleText) titleText.textContent = 'Acesso do Professor (ADM)';
@@ -2335,21 +3935,23 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
                 if (submitBtn) submitBtn.textContent = '🛡️ Entrar no Painel do Professor';
             } else if (gateMode === 'register') {
                 if (titleText) titleText.textContent = 'Criar Conta de Aluno(a)';
-                if (subtitleText) subtitleText.innerHTML = 'Crie seu acesso com <strong>Nome Completo e Senha</strong>. Seu nome já entrará automaticamente na lista de chamada e ficará salvo para as próximas aulas!';
-                if (nameLabel) nameLabel.textContent = 'Seu Nome Completo (Nome e Sobrenome):';
-                if (passLabel) passLabel.textContent = 'Crie uma Senha (para usar nas próximas vezes):';
+                if (subtitleText) subtitleText.innerHTML = 'Crie seu acesso único com <strong>Nome Completo e Senha</strong>. O sistema bloqueia nomes repetidos para proteger seu Rank, seus desafios e suas notas!';
+                if (nameLabel) nameLabel.textContent = 'Seu Nome Completo Único (Nome e Sobrenome):';
+                if (passLabel) passLabel.textContent = 'Crie uma Senha Segura (mínimo 4 caracteres):';
                 if (nameInp) nameInp.placeholder = 'Ex: Lucas Almeida Santos';
-                if (passInp) passInp.placeholder = 'Crie uma senha (mín. 3 caracteres)';
-                if (submitBtn) submitBtn.textContent = '✨ Criar Conta e Abrir Menu de Aulas';
+                if (passInp) passInp.placeholder = 'Crie uma senha (mín. 4 caracteres)';
+                if (submitBtn) submitBtn.textContent = '✨ Criar Conta Segura e Abrir Portal';
             } else {
                 if (titleText) titleText.textContent = 'Entrar na Minha Conta';
-                if (subtitleText) subtitleText.innerHTML = 'Já tem cadastro? Digite seu <strong>Nome Completo e Senha</strong> para abrir o menu das aulas. Se for sua 1ª vez, clique na aba <strong>"✨ Criar Conta"</strong>!';
+                if (subtitleText) subtitleText.innerHTML = 'Já tem cadastro? Digite seu <strong>Nome Completo e Senha</strong> para abrir as aulas e seus desafios salvos. Se for sua 1ª vez, clique na aba <strong>"✨ Criar Conta"</strong>!';
                 if (nameLabel) nameLabel.textContent = 'Seu Nome Completo (Nome e Sobrenome):';
                 if (passLabel) passLabel.textContent = 'Sua Senha Cadastrada:';
                 if (nameInp) nameInp.placeholder = 'Ex: Lucas Almeida Santos';
                 if (passInp) passInp.placeholder = 'Digite sua senha cadastrada';
-                if (submitBtn) submitBtn.textContent = '🔑 Entrar na Conta e Abrir Menu';
+                if (submitBtn) submitBtn.textContent = '🔑 Entrar na Conta e Abrir Portal';
             }
+
+            updateGateUsernameAvailabilityUI();
         }
 
         function renderAllViews() {
@@ -2369,9 +3971,13 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
 
             renderNavbarUser();
             renderAulasView();
+            renderDesafiosView();
+            renderChatIaView();
             renderTarefasView();
             renderNotasView();
             renderAdminView();
+            renderAdminChamadaView();
+            renderAdminCorrecoesView();
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -2383,12 +3989,21 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
                 });
             });
 
+            var gateNameInput = document.getElementById('gateFullName');
+            if (gateNameInput) {
+                gateNameInput.addEventListener('input', function() {
+                    updateGateUsernameAvailabilityUI();
+                });
+            }
+
             var gateForm = document.getElementById('loginGateForm');
             if (gateForm) {
                 gateForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
                     var fullName = document.getElementById('gateFullName').value;
                     var password = document.getElementById('gatePassword').value;
+                    var confirmEl = document.getElementById('gatePasswordConfirm');
+                    var confirmPassword = confirmEl ? confirmEl.value : password;
                     var submitBtn = document.getElementById('gateSubmitBtn');
                     var origLabel = submitBtn ? submitBtn.textContent : '';
                     if (submitBtn) submitBtn.textContent = '⏳ Verificando na nuvem...';
@@ -2398,6 +4013,7 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
                     var res = window.TrilhandoClassroom.loginOrRegister({
                         fullName: fullName,
                         password: password,
+                        confirmPassword: gateMode === 'register' ? confirmPassword : password,
                         mode: gateMode
                     });
                     if (submitBtn) submitBtn.textContent = origLabel;
@@ -2409,6 +4025,7 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
                         if (errBox) errBox.innerHTML = '';
                         var passEl = document.getElementById('gatePassword');
                         if (passEl) passEl.value = '';
+                        if (confirmEl) confirmEl.value = '';
                         if (res.user.role === 'admin') {
                             switchTab('admin');
                         } else {
@@ -2450,6 +4067,7 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
                     var res = window.TrilhandoClassroom.loginOrRegister({
                         fullName: fullName,
                         password: password,
+                        confirmPassword: password,
                         mode: portalAuthMode
                     });
                     var errBox = document.getElementById('pAuthErrorBox');
@@ -2471,9 +4089,10 @@ grant all on table public.trilhando_sync to anon, authenticated, service_role;</
             window.addEventListener('trilhando:lessonschange', renderAllViews);
             window.addEventListener('trilhando:quizzeschange', renderAllViews);
 
-            // Check URL hash (#tarefas, #notas, #admin)
+            // Check URL hash (#desafios, #chat-ia, #tarefas, #notas, #admin, #admin-chamada, #admin-correcoes)
             var hash = window.location.hash.replace('#', '');
-            if (hash === 'tarefas' || hash === 'notas' || hash === 'admin') {
+            var validTabs = ['aulas', 'desafios', 'chat-ia', 'tarefas', 'notas', 'admin', 'admin-chamada', 'admin-correcoes'];
+            if (validTabs.indexOf(hash) >= 0) {
                 switchTab(hash);
             } else {
                 renderAllViews();
