@@ -1363,6 +1363,7 @@
         // Estado da Arena de Desafios Python (Estilo Beecrowd)
         var beeViewMode = 'problems'; // 'problems' | 'leaderboard'
         var beeSelectedCategory = 'all';
+        var beeSelectedDifficulty = 'all';
         var beeSelectedStatus = 'all';
         var beeSearchQuery = '';
         var beeActiveChallengeId = 'bee_1001';
@@ -2038,14 +2039,16 @@
             // Filter problems list
             var filteredChallenges = allChallenges.filter(function(ch) {
                 if (beeSelectedCategory !== 'all' && ch.category !== beeSelectedCategory) return false;
+                if (beeSelectedDifficulty !== 'all' && ch.difficulty !== beeSelectedDifficulty) return false;
                 var isSolved = Boolean(myStats.progressMap[ch.id] && myStats.progressMap[ch.id].solved);
                 if (beeSelectedStatus === 'solved' && !isSolved) return false;
                 if (beeSelectedStatus === 'unsolved' && isSolved) return false;
                 if (beeSearchQuery) {
                     var q = beeSearchQuery.toLowerCase();
                     var matchTitle = ch.title.toLowerCase().indexOf(q) >= 0;
+                    var matchDesc = (ch.description || '').toLowerCase().indexOf(q) >= 0;
                     var matchNum = String(ch.number).indexOf(q) >= 0;
-                    if (!matchTitle && !matchNum) return false;
+                    if (!matchTitle && !matchDesc && !matchNum) return false;
                 }
                 return true;
             });
@@ -2336,7 +2339,9 @@
                                     <span style="font-size:1.1rem;">🐍</span>
                                     <strong style="color:#fff;font-size:0.95rem;">Python 3 • Editor de Solução (#${activeProb.number})</strong>
                                 </div>
-                                <div style="display:flex;gap:6px;">
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                                    <button type="button" class="tr-btn-ghost" id="beeRandomProbBtn" style="font-size:0.74rem;padding:5px 10px;border-color:rgba(0,229,255,0.4);color:#38bdf8;">🎲 Sortear</button>
+                                    <button type="button" class="tr-btn-ghost" id="beeNextProbBtn" style="font-size:0.74rem;padding:5px 10px;border-color:rgba(16,185,129,0.4);color:#6ee7b7;">➡️ Próximo</button>
                                     <button type="button" class="tr-btn-ghost" id="beeResetStarterBtn" style="font-size:0.74rem;padding:5px 10px;">↺ Restaurar Modelo</button>
                                     <button type="button" class="tr-btn-ghost" id="beeCopyCodeBtn" style="font-size:0.74rem;padding:5px 10px;">📋 Copiar</button>
                                 </div>
@@ -2363,16 +2368,24 @@
                     </div>
 
                     <!-- ===============================================================
-                         CATÁLOGO DE TODOS OS 24 DESAFIOS PYTHON (DO INICIANTE AO AVANÇADO)
+                         CATÁLOGO COMPLETO DE ${allChallenges.length} DESAFIOS PYTHON (DO INICIANTE AO AVANÇADO)
                     =============================================================== -->
                     <div class="panel-box">
                         <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:14px;">
                             <div>
-                                <span class="tr-badge-cyan">📚 CATÁLOGO DE PROBLEMAS PYTHON</span>
-                                <h3 style="margin-top:6px;">Escolha um Desafio para Praticar (Nível Iniciante até Avançado)</h3>
+                                <span class="tr-badge-cyan">📚 CATÁLOGO DE ${allChallenges.length} PROBLEMAS PYTHON (#1001 A #1100)</span>
+                                <h3 style="margin-top:6px;">Escolha um Desafio para Praticar (Aberto para Alunos e Qualquer Aprendiz de Python!)</h3>
                             </div>
                             <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
-                                <input type="text" id="beeSearchInput" class="tr-input" style="width:210px;padding:7px 12px;font-size:0.82rem;" placeholder="🔎 Buscar #1001 ou título..." value="${escapeHtml(beeSearchQuery)}">
+                                <input type="text" id="beeSearchInput" class="tr-input" style="width:200px;padding:7px 12px;font-size:0.82rem;" placeholder="🔎 Buscar #1001 ou tema..." value="${escapeHtml(beeSearchQuery)}">
+                                <select id="beeDiffFilter" class="tr-input" style="width:160px;padding:7px 10px;font-size:0.82rem;background:#0f172a;color:#fff;">
+                                    <option value="all" ${beeSelectedDifficulty === 'all' ? 'selected' : ''}>🎯 Dificuldade: Todas</option>
+                                    <option value="Iniciante" ${beeSelectedDifficulty === 'Iniciante' ? 'selected' : ''}>🌱 Iniciante</option>
+                                    <option value="Fácil" ${beeSelectedDifficulty === 'Fácil' ? 'selected' : ''}>🟢 Fácil</option>
+                                    <option value="Médio" ${beeSelectedDifficulty === 'Médio' ? 'selected' : ''}>🟡 Médio</option>
+                                    <option value="Intermediário" ${beeSelectedDifficulty === 'Intermediário' ? 'selected' : ''}>🟣 Intermediário</option>
+                                    <option value="Avançado" ${beeSelectedDifficulty === 'Avançado' ? 'selected' : ''}>🔥 Avançado</option>
+                                </select>
                                 <select id="beeStatusFilter" class="tr-input" style="width:165px;padding:7px 10px;font-size:0.82rem;background:#0f172a;color:#fff;">
                                     <option value="all" ${beeSelectedStatus === 'all' ? 'selected' : ''}>Todos (${allChallenges.length})</option>
                                     <option value="solved" ${beeSelectedStatus === 'solved' ? 'selected' : ''}>✅ Resolvidos (${myStats.solvedCount})</option>
@@ -2421,10 +2434,46 @@
                 });
             });
 
+            var diffSel = document.getElementById('beeDiffFilter');
+            if (diffSel) {
+                diffSel.addEventListener('change', function() {
+                    beeSelectedDifficulty = diffSel.value;
+                    renderDesafiosView();
+                });
+            }
+
             var statusSel = document.getElementById('beeStatusFilter');
             if (statusSel) {
                 statusSel.addEventListener('change', function() {
                     beeSelectedStatus = statusSel.value;
+                    renderDesafiosView();
+                });
+            }
+
+            var randomProbBtn = document.getElementById('beeRandomProbBtn');
+            if (randomProbBtn) {
+                randomProbBtn.addEventListener('click', function() {
+                    var pool = filteredChallenges.length > 1 ? filteredChallenges : allChallenges;
+                    var unsolvedPool = pool.filter(function(c) {
+                        return !(myStats.progressMap[c.id] && myStats.progressMap[c.id].solved) && c.id !== activeProb.id;
+                    });
+                    var targetPool = unsolvedPool.length > 0 ? unsolvedPool : pool;
+                    var picked = targetPool[Math.floor(Math.random() * targetPool.length)];
+                    if (picked) {
+                        beeActiveChallengeId = picked.id;
+                        beeLastJudgeResult = null;
+                        renderDesafiosView();
+                    }
+                });
+            }
+
+            var nextProbBtn = document.getElementById('beeNextProbBtn');
+            if (nextProbBtn) {
+                nextProbBtn.addEventListener('click', function() {
+                    var curIdx = allChallenges.findIndex(function(c) { return c.id === activeProb.id; });
+                    var nextIdx = (curIdx + 1) % allChallenges.length;
+                    beeActiveChallengeId = allChallenges[nextIdx].id;
+                    beeLastJudgeResult = null;
                     renderDesafiosView();
                 });
             }
@@ -2595,30 +2644,23 @@
             var admConfigBarHtml = isAdm ? `
                 <details style="margin-bottom:16px;background:rgba(37,99,235,0.12);border:1px solid rgba(56,189,248,0.35);border-radius:12px;padding:12px 16px;">
                     <summary style="cursor:pointer;font-weight:800;color:#38bdf8;font-size:0.84rem;">
-                        🛡️ Configuração do Chat IA (Exclusivo Professor ADM — Sincroniza na Nuvem p/ Alunos)
+                        🛡️ Configuração do Chat IA 24/7 (Ativo na Nuvem Automaticamente — Sem Reboot e Sem Precisar do PC!)
                     </summary>
-                    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;">
-                        <div>
-                            <label class="tr-field-label">Chave Gemini API (Google AI Studio — Opcional):</label>
-                            <input type="password" id="admChatGeminiKeyInp" class="tr-input" placeholder="AIzaSy..." value="${escapeHtml(chatCfg.geminiApiKey || '')}">
-                        </div>
-                        <div>
-                            <label class="tr-field-label">Modo de Exibição:</label>
-                            <select id="admChatModeSel" class="tr-input" style="background:#0f172a;color:#fff;">
-                                <option value="native" ${chatCfg.mode !== 'iframe' ? 'selected' : ''}>⚡ Chat Nativo no Site (Mesmo Design do Streamlit)</option>
-                                <option value="iframe" ${chatCfg.mode === 'iframe' ? 'selected' : ''}>🌐 Incorporar Link Público do Streamlit (Iframe)</option>
-                            </select>
-                        </div>
-                        <button type="button" class="tr-btn-primary" id="admSaveChatCfgBtn">💾 Salvar Config IA</button>
+                    <div style="margin-top:10px;font-size:0.8rem;color:#cbd5e1;line-height:1.5;">
+                        ✅ <strong>Status: Sempre Online 24/7!</strong> O Chat IA roda diretamente no portal em nuvem, nunca hiberna, nunca pede "Reboot" e funciona mesmo com o seu computador desligado. Se desejar usar uma chave própria adicional do Google AI Studio, insira abaixo (opcional):
                     </div>
-                    <div style="margin-top:8px;">
-                        <label class="tr-field-label">URL do Streamlit (caso use o modo Iframe Incorporado):</label>
-                        <input type="text" id="admChatStreamlitUrlInp" class="tr-input" placeholder="https://seu-app.streamlit.app/?embed=true" value="${escapeHtml(chatCfg.streamlitUrl || '')}">
+                    <div style="margin-top:10px;display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;">
+                        <div>
+                            <label class="tr-field-label">Chave Gemini API Adicional (Google AI Studio — Opcional):</label>
+                            <input type="password" id="admChatGeminiKeyInp" class="tr-input" placeholder="AIzaSy... (Deixe em branco para usar o motor IA 24/7 integrado)" value="${escapeHtml(chatCfg.geminiApiKey || '')}">
+                        </div>
+                        <button type="button" class="tr-btn-primary" id="admSaveChatCfgBtn">💾 Salvar Chave Opcional</button>
                     </div>
                 </details>
             ` : '';
 
-            var useIframe = chatCfg.mode === 'iframe' && chatCfg.streamlitUrl && chatCfg.streamlitUrl.startsWith('http');
+            // Sempre utiliza o motor nativo 24/7 integrado na página (evita telas de "Reboot app" do Streamlit Cloud)
+            var useIframe = false;
 
             container.innerHTML = `
                 <div class="st-chat-replica-shell">
@@ -2740,13 +2782,12 @@
             var saveChatCfgBtn = document.getElementById('admSaveChatCfgBtn');
             if (saveChatCfgBtn) {
                 saveChatCfgBtn.addEventListener('click', function() {
-                    var keyVal = document.getElementById('admChatGeminiKeyInp').value.trim();
-                    var modeVal = document.getElementById('admChatModeSel').value;
-                    var urlVal = document.getElementById('admChatStreamlitUrlInp').value.trim();
+                    var keyEl = document.getElementById('admChatGeminiKeyInp');
+                    var keyVal = keyEl ? keyEl.value.trim() : '';
                     window.TrilhandoClassroom.saveChatbotConfig({
                         geminiApiKey: keyVal,
-                        mode: modeVal,
-                        streamlitUrl: urlVal
+                        mode: 'native',
+                        streamlitUrl: ''
                     }, false);
                     alert('Configuração do Chat Gemini IA salva e sincronizada para toda a turma!');
                     renderChatIaView();
@@ -3504,7 +3545,7 @@
                                 ${tier.badge} ${escapeHtml(tier.name)}
                             </span>
                         </td>
-                        <td><strong style="color:#10b981;">${row.solvedCount} / 24</strong> desafios resolvidos</td>
+                        <td><strong style="color:#10b981;">${row.solvedCount} / ${window.TrilhandoBeecrowd ? window.TrilhandoBeecrowd.PYTHON_CHALLENGES.length : 100}</strong> desafios resolvidos</td>
                         <td><strong style="color:#fbbf24;font-family:'JetBrains Mono',monospace;">⚡ ${row.totalXp} XP</strong></td>
                         <td>
                             <button type="button" class="tr-btn-ghost" style="font-size:0.75rem;padding:5px 11px;" data-adm-filter-stu="${row.userId}">

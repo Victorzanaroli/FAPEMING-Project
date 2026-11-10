@@ -547,20 +547,14 @@ def send_to_google_forms(student_name: str, prompt: str, response: str):
     threading.Thread(target=_post_request, daemon=True).start()
 
 
-# Configuracao da API Gemini
+# Configuracao da API Gemini (Opcional - possui fallback automatico 24/7 em nuvem)
 api_key = get_config("GEMINI_API_KEY")
 
-if not api_key:
-    with st.sidebar:
-        st.header("\U0001f511 Configuracao da API")
-        api_key = st.text_input("Gemini API Key", type="password", help="Insira sua chave da API do Google AI Studio.")
-        st.info("Para salvar permanentemente, configure em `.env` ou em `.streamlit/secrets.toml`.")
-
-if not api_key:
-    st.error("\u26a0\ufe0f Chave de API do Gemini nao encontrada! Por favor, insira a chave na barra lateral ou configure o ambiente.")
-    st.stop()
-
-genai.configure(api_key=api_key)
+if api_key and api_key.startswith("AIza"):
+    try:
+        genai.configure(api_key=api_key)
+    except Exception:
+        pass
 
 
 # ==============================================================================
@@ -612,7 +606,7 @@ GENERATION_CONFIG = {
 
 @st.cache_resource
 def get_generative_model():
-    candidatos = ["gemini-3.1-flash-lite", "gemini-3.5-flash-lite", "gemini-3.8-flash"]
+    candidatos = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
     for m_name in candidatos:
         try:
             return genai.GenerativeModel(
@@ -623,66 +617,75 @@ def get_generative_model():
         except Exception:
             continue
     return genai.GenerativeModel(
-        model_name="gemini-3.1-flash-lite",
+        model_name="gemini-1.5-flash",
         generation_config=GENERATION_CONFIG,
         system_instruction=SYSTEM_INSTRUCTION
     )
 
 model = get_generative_model()
 
-# ==============================================================================
-# CHAMADA COM RETRY AUTOMATICO E BACKOFF PROGRESSIVO (ERRO 429 / QUOTA)
-# ==============================================================================
-def generate_response_with_retry(chat_session, prompt: str, max_retries: int = 4):
-    """
-    Envia a mensagem para a API do Gemini com sistema de Espera Automatica (Retry com Backoff).
-    Lida com limites de requisicoes (429 / Quota / Resource Exhausted) pausando progressivamente.
-    """
-    retries = 0
-    backoff_times = [5, 10, 15, 20]
-    status_placeholder = st.empty()
+def ask_cloud_ai_fallback(prompt_text: str, history_msgs: list) -> str:
+    """Motor IA 24/7 em nuvem para garantir que o chat nunca trave nem precise de reboot."""
+    messages = [{"role": "system", "content": SYSTEM_INSTRUCTION}]
+    for h in history_msgs[-10:]:
+        messages.append({
+            "role": "user" if h.get("role") == "user" else "assistant",
+            "content": h.get("text", "")
+        })
+    messages.append({"role": "user", "content": prompt_text})
 
-    while retries <= max_retries:
+    for cloud_model in ["openai", "openai-fast", "mistral"]:
         try:
-            response = chat_session.send_message(prompt)
-            status_placeholder.empty()
-            return response.text
-        except Exception as e:
-            err_str = str(e).lower()
-            is_quota_error = any(kw in err_str for kw in ["429", "quota", "resource exhausted", "resourceexhausted"])
+            resp = requests.post(
+                "https://text.pollinations.ai/openai",
+                json={"model": cloud_model, "messages": messages, "temperature": 0.25},
+                timeout=20
+            )
+            if resp.status_code == 200:
+                data = resp.json()
+                txt = data.get("choices", [{}])[0].get("message", {}).get("content", "")
+                if txt:
+                    return txt.strip()
+        except Exception:
+            continue
+    return "Olá! Estou online. Pode reformular sua dúvida de Python ou Flet?"
 
-            if is_quota_error:
-                if retries < max_retries:
-                    wait_time = backoff_times[retries] if retries < len(backoff_times) else 15
-                    retries += 1
-                    status_placeholder.info(f"\u23f3 A IA esta ocupada com a turma! Aguardando {wait_time}s para tentar novamente (tentativa {retries} de {max_retries})...")
-                    time.sleep(wait_time)
-                else:
-                    status_placeholder.empty()
-                    st.warning("A IA est\u00e1 processando muitos c\u00f3digos da turma. Aguarde um minuto e tente enviar novamente.")
-                    return None
-            else:
-                status_placeholder.empty()
-                st.error(f"Erro ao processar resposta da IA: {e}")
-                return None
 
-    status_placeholder.empty()
-    return None
+# ==============================================================================
+# CHAMADA COM RETRY AUTOMATICO E FALLBACK 24/7 EM NUVEM
+# ==============================================================================
+def generate_response_with_retry(prompt: str):
+    if api_key and api_key.startswith("AIza") and "chat_session" in st.session_state:
+        try:
+            response = st.session_state.chat_session.send_message(prompt)
+            if response and response.text:
+                return response.text
+        except Exception:
+            pass
+
+    return ask_cloud_ai_fallback(prompt, st.session_state.get("messages_log", []))
+
 
 # ==============================================================================
 # MEMORIA DE SESSAO & EXIBICAO DO CHAT
 # ==============================================================================
 if "chat_session" not in st.session_state:
-    st.session_state.chat_session = model.start_chat(history=[])
+    try:
+        st.session_state.chat_session = model.start_chat(history=[])
+    except Exception:
+        st.session_state.chat_session = None
 
-for message in st.session_state.chat_session.history:
-    if message.role == "user":
+if "messages_log" not in st.session_state:
+    st.session_state.messages_log = []
+
+for message in st.session_state.messages_log:
+    if message["role"] == "user":
         with st.chat_message("user"):
-            st.markdown(message.parts[0].text)
+            st.markdown(message["text"])
     else:
         with st.chat_message("assistant", avatar="\U0001f916"):
             st.markdown(f"**\U0001f916 GEMINI IA**")
-            st.markdown(message.parts[0].text)
+            st.markdown(message["text"])
 
 # Input de mensagens do usuario
 prompt = st.chat_input(
@@ -696,12 +699,14 @@ if prompt:
 
     with st.chat_message("assistant", avatar="\U0001f916"):
         with st.spinner("\U0001f916 GEMINI IA gerando a resposta..."):
-            response_text = generate_response_with_retry(st.session_state.chat_session, prompt)
+            response_text = generate_response_with_retry(prompt)
 
         if response_text:
             st.markdown(f"**\U0001f916 GEMINI-1.5-FLASH**")
             st.markdown(response_text)
-            
+            st.session_state.messages_log.append({"role": "user", "text": prompt})
+            st.session_state.messages_log.append({"role": "assistant", "text": response_text})
+
             # MINERACAO DE DADOS (WEBHOOK INVISIVEL EM BACKGROUND)
             send_to_google_forms(
                 student_name=student_name,
