@@ -119,18 +119,59 @@
             </div>
         </section>
 
-        <!-- SLIDE 3 — BLOCO 2 (PARTE 1): TRY / EXCEPT -->
+        <!-- SLIDE 3 — TÓPICO 1 (EXPLICAÇÃO 1/2): CONCEITO DE TRY / EXCEPT -->
         <section class="slide">
             <div class="slide-header">
-                <span class="live-label"><span class="live-dot"></span> Live Coding 1 — Abra o VS Code (aula03_try.py)</span>
-                <h2 class="slide-title">Escudo Anti-Erro: <code>try</code> e <code>except</code></h2>
-                <p class="slide-subtitle">O que acontece se o usuário digitar <code>"quinze"</code> por extenso dentro do <code>int()</code>?</p>
+                <span class="step-badge">🛡️ Tópico 1 • Explicação (1/2) — Tratamento de Erros</span>
+                <h2 class="slide-title">Por que o programa quebra? Conheça o <code>try / except</code></h2>
+                <p class="slide-subtitle">Quando o usuário digita algo inesperado, o Python para tudo — a menos que você coloque um escudo!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div class="content-box warn-box">
+                        <h4>💥 Sem Proteção (O Programa Trava)</h4>
+                        <div class="prompt-code" style="font-size:.9rem;line-height:1.85">
+<span class="kw">idade</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Sua idade: "</span>))
+<span class="cm"># Se o usuário digitar "quinze" ou "abc":</span>
+<span class="cm"># ❌ ValueError: invalid literal for int()</span>
+<span class="cm"># O programa fecha na hora e perde tudo!</span>
+                        </div>
+                        <p style="font-size:.86rem;color:#cbd5e1;margin-top:10px;line-height:1.5">
+                            Qualquer linha abaixo do erro <strong>nunca chega a ser executada</strong> porque o Python interrompe o script imediatamente.
+                        </p>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        <div class="content-box accent-box" style="padding:16px">
+                            <h4 style="font-size:.98rem;margin-bottom:8px">🛡️ Anatomia do Escudo <code>try / except</code></h4>
+                            <ul>
+                                <li><code>try:</code> (<strong>Tentar</strong>) — Colocamos aqui dentro as linhas "perigosas" que dependem do que o usuário vai digitar.</li>
+                                <li><code>except:</code> (<strong>Exceção</strong>) — É o "Plano B": só executa se acontecer algum erro dentro do bloco <code>try</code>!</li>
+                            </ul>
+                        </div>
+                        <div class="content-box tip-box" style="padding:14px 16px">
+                            <h4 style="font-size:.94rem;margin-bottom:6px">⚠️ Os 2 Erros Mais Comuns de Entrada:</h4>
+                            <ul>
+                                <li><code>ValueError</code>: tentar converter letras ou vazio em <code>int()</code> ou <code>float()</code> (ex: digitar <code>"dez"</code> ou <code>1,75</code> com vírgula).</li>
+                                <li><code>ZeroDivisionError</code>: tentar dividir qualquer número por <code>0</code>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4 — TÓPICO 1 (EXPLICAÇÃO 2/2): LIVE CODING TRY / EXCEPT -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="live-label"><span class="live-dot"></span> Tópico 1 • Explicação (2/2) — Live Coding no VS Code (aula03_try.py)</span>
+                <h2 class="slide-title">Na Prática: Blindando com <code>try</code> e <code>except</code></h2>
+                <p class="slide-subtitle">Veja como proteger a leitura de dados sem deixar o programa fechar na cara do usuário!</p>
             </div>
             <div class="slide-body">
                 <div class="grid-2" style="gap:18px;align-items:start">
                     <div class="content-box accent-box">
                         <h4>💻 Código com Blindagem (<code>aula03_try.py</code>)</h4>
-                        <div class="prompt-code" style="font-size:.96rem;line-height:1.95">
+                        <div class="prompt-code" style="font-size:.94rem;line-height:1.9">
 <span class="cm"># 🛡️ Protegendo o programa contra letras em campos numéricos</span>
 <span class="kw">try</span>:
     <span class="kw">idade</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Digite sua idade em números: "</span>))
@@ -141,10 +182,10 @@
                     </div>
                     <div style="display:flex;flex-direction:column;gap:12px">
                         <div class="content-box tip-box" style="padding:16px">
-                            <h4 style="font-size:.98rem;margin-bottom:6px">🧠 Como funciona?</h4>
+                            <h4 style="font-size:.98rem;margin-bottom:6px">🧠 Passo a Passo da Execução</h4>
                             <ul>
-                                <li><code>try:</code> O Python <strong>tenta</strong> executar as linhas de dentro.</li>
-                                <li><code>except ValueError:</code> Só roda se der erro na conversão numérica!</li>
+                                <li><strong>Caminho Feliz:</strong> Se digitar <code>14</code>, o <code>try</code> roda até o fim e o Python <strong>pula</strong> o <code>except</code>.</li>
+                                <li><strong>Caminho de Erro:</strong> Se digitar <code>"catorze"</code> na linha do <code>int()</code>, o Python pula imediatamente para o <code>except ValueError:</code> e mostra o aviso amigável!</li>
                             </ul>
                         </div>
                         <div class="engage-label">❓ Pergunta para a Turma</div>
@@ -156,10 +197,10 @@
             </div>
         </section>
 
-        <!-- SLIDE 4 — MINI-DESAFIO 1: TRY / EXCEPT -->
+        <!-- SLIDE 5 — MINI-DESAFIO 1: TRY / EXCEPT -->
         <section class="slide">
             <div class="slide-header">
-                <span class="challenge-label">🎯 Mini-Desafio 1 — 3 minutos</span>
+                <span class="challenge-label">🎯 Tópico 1 • Mini-Tarefa (3/3) — 3 minutos</span>
                 <h2 class="slide-title">Sua vez com <code>try / except</code>!</h2>
                 <p class="slide-subtitle">Proteja um leitor de altura decimal contra erros de digitação — escreva do zero!</p>
             </div>
@@ -202,11 +243,52 @@
             </div>
         </section>
 
-        <!-- SLIDE 5 — BLOCO 2 (PARTE 2): LAÇO WHILE -->
+        <!-- SLIDE 6 — TÓPICO 2 (EXPLICAÇÃO 1/2): CONCEITO E ANATOMIA DO WHILE -->
         <section class="slide">
             <div class="slide-header">
-                <span class="live-label"><span class="live-dot"></span> Live Coding 2 — Repetição com Condição (aula03_loops.py)</span>
-                <h2 class="slide-title">Laço <code>while</code> — Repetir Enquanto...</h2>
+                <span class="step-badge">🔁 Tópico 2 • Explicação (1/2) — Laço Condicional while</span>
+                <h2 class="slide-title">Como funciona o Laço <code>while</code> (Enquanto)?</h2>
+                <p class="slide-subtitle">Enquanto a condição for verdadeira (<code>True</code>), o Python repete o bloco de código sem parar!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div class="content-box accent-box">
+                        <h4>🔢 Os 3 Elementos do <code>while</code> com Contador</h4>
+                        <div class="prompt-code" style="font-size:.92rem;line-height:1.9">
+<span class="cm"># 1️⃣ INÍCIO: Criamos a variável antes do laço</span>
+<span class="kw">contador</span> = <span class="num">1</span>
+
+<span class="cm"># 2️⃣ CONDIÇÃO: Repete enquanto for menor ou igual a 3</span>
+<span class="kw">while</span> contador &lt;= <span class="num">3</span>:
+    <span class="fn">print</span>(<span class="str">f"Volta número: <span class="kw">{contador}</span>"</span>)
+    <span class="cm"># 3️⃣ PASSO: Atualiza a variável para o laço avançar!</span>
+    <span class="kw">contador</span> = contador + <span class="num">1</span>
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        <div class="content-box tip-box" style="padding:15px 16px">
+                            <h4 style="font-size:.96rem;margin-bottom:6px">🧠 Quando usar o <code>while</code>?</h4>
+                            <ul>
+                                <li>Quando <strong>não sabemos</strong> quantas tentativas o usuário vai precisar (ex: digitar senha, jogar até acabar as vidas, menu interativo).</li>
+                                <li>Ou quando queremos controlar manualmente um contador (somando <code>+ 1</code>, <code>+ 2</code>, etc.).</li>
+                            </ul>
+                        </div>
+                        <div class="content-box warn-box" style="padding:14px 16px">
+                            <h4 style="font-size:.94rem;margin-bottom:4px">🚨 Cuidado com o Loop Infinito!</h4>
+                            <p style="font-size:.88rem;color:#cbd5e1;line-height:1.5;margin:0">
+                                Se você esquecer o <strong>3º elemento</strong> (atualizar a variável dentro do <code>while</code>), a condição será verdadeira para sempre! No terminal, aperte <kbd>Ctrl</kbd> + <kbd>C</kbd> para frear.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7 — TÓPICO 2 (EXPLICAÇÃO 2/2): LIVE CODING WHILE -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="live-label"><span class="live-dot"></span> Tópico 2 • Explicação (2/2) — Live Coding no VS Code (aula03_loops.py)</span>
+                <h2 class="slide-title">Na Prática: Cofre com Senha e Comando <code>break</code></h2>
                 <p class="slide-subtitle">Ideal para menus, jogos e validação de senha até o usuário acertar!</p>
             </div>
             <div class="slide-body">
@@ -232,17 +314,17 @@
                         </div>
                         <div class="engage-label">❓ Pergunta para a Turma</div>
                         <div class="content-box warn-box" style="padding:14px 16px;font-size:.94rem">
-                            <strong>O que aconteceria se esquecêssemos de atualizar a variável dentro do <code>while</code>? O programa pararia algum dia?</strong>
+                            <strong>O que aconteceria se esquecêssemos de pedir o <code>input()</code> dentro do <code>while</code>? O programa pararia algum dia?</strong>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 6 — MINI-DESAFIO 2: WHILE -->
+        <!-- SLIDE 8 — MINI-DESAFIO 2: WHILE -->
         <section class="slide">
             <div class="slide-header">
-                <span class="challenge-label">🎯 Mini-Desafio 2 — 3 minutos</span>
+                <span class="challenge-label">🎯 Tópico 2 • Mini-Tarefa (3/3) — 3 minutos</span>
                 <h2 class="slide-title">Sua vez com o <code>while</code>!</h2>
                 <p class="slide-subtitle">Crie um contador automático de 1 até 5 — escreva o código no VS Code!</p>
             </div>
@@ -285,17 +367,59 @@
             </div>
         </section>
 
-        <!-- SLIDE 7 — BLOCO 2 (PARTE 3): LAÇO FOR E RANGE() -->
+        <!-- SLIDE 9 — TÓPICO 3 (EXPLICAÇÃO 1/2): CONCEITO DO FOR E AS 3 FORMAS DO RANGE() -->
         <section class="slide">
             <div class="slide-header">
-                <span class="live-label"><span class="live-dot"></span> Live Coding 3 — Contagem Programada</span>
-                <h2 class="slide-title">Laço <code>for</code> com <code>range()</code></h2>
-                <p class="slide-subtitle">Quando você sabe exatamente quantas vezes quer repetir!</p>
+                <span class="step-badge">🚀 Tópico 3 • Explicação (1/2) — Repetição Contada com for</span>
+                <h2 class="slide-title">Entendendo o <code>for</code> e os Segredos do <code>range()</code></h2>
+                <p class="slide-subtitle">Ao contrário do <code>while</code>, o <code>for</code> já cria e avança a variável contadora sozinho para você!</p>
             </div>
             <div class="slide-body">
                 <div class="grid-2" style="gap:18px;align-items:start">
                     <div class="content-box accent-box">
-                        <h4>🚀 Exemplo: Contagem Regressiva e Tentativas</h4>
+                        <h4>🎛️ As 3 Formas de Usar o <code>range()</code></h4>
+                        <div class="prompt-code" style="font-size:.88rem;line-height:1.85">
+<span class="cm"># 1. range(fim) → Começa do 0 e para antes do fim</span>
+<span class="fn">range</span>(<span class="num">4</span>)          <span class="cm"># Gera: 0, 1, 2, 3</span>
+
+<span class="cm"># 2. range(início, fim) → Para 1 número ANTES do fim!</span>
+<span class="fn">range</span>(<span class="num">1</span>, <span class="num">6</span>)       <span class="cm"># Gera: 1, 2, 3, 4, 5</span>
+
+<span class="cm"># 3. range(início, fim, passo) → Pula de N em N</span>
+<span class="fn">range</span>(<span class="num">0</span>, <span class="num">10</span>, <span class="num">2</span>)   <span class="cm"># Pares: 0, 2, 4, 6, 8</span>
+<span class="fn">range</span>(<span class="num">5</span>, <span class="num">0</span>, <span class="num">-1</span>)   <span class="cm"># Regressiva: 5, 4, 3, 2, 1</span>
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        <div class="content-box tip-box" style="padding:16px">
+                            <h4 style="font-size:.96rem;margin-bottom:6px">📌 Regra de Ouro do <code>range(início, fim)</code></h4>
+                            <p style="font-size:.9rem;color:#cbd5e1;line-height:1.55">
+                                O número final é sempre <strong>exclusivo</strong> (o Python para um passo antes dele). Para contar de <code>1</code> até <code>10</code>, escrevemos <code>range(1, 11)</code>!
+                            </p>
+                        </div>
+                        <div class="content-box" style="padding:14px 16px;font-size:.9rem">
+                            <h4 style="font-size:.94rem;color:#38bdf8;margin-bottom:6px">⚡ <code>while</code> vs <code>for</code>: Qual escolher?</h4>
+                            <ul>
+                                <li>Use <code>for</code> quando souber <strong>quantas vezes</strong> vai repetir (ex: tabuada de 1 a 10, ler 5 notas).</li>
+                                <li>Use <code>while</code> quando depender de uma <strong>condição incerta</strong> (ex: até acertar a senha).</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 10 — TÓPICO 3 (EXPLICAÇÃO 2/2): LIVE CODING FOR COM RANGE() -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="live-label"><span class="live-dot"></span> Tópico 3 • Explicação (2/2) — Live Coding no VS Code</span>
+                <h2 class="slide-title">Na Prática: Laço <code>for</code> com <code>range()</code></h2>
+                <p class="slide-subtitle">Veja como programar rodadas de um jogo e uma contagem regressiva de foguete!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div class="content-box accent-box">
+                        <h4>🚀 Exemplo: Contagem Crescente e Regressiva</h4>
                         <div class="prompt-code" style="font-size:.92rem;line-height:1.88">
 <span class="cm"># 1. Repetindo 3 vezes (1, 2 e 3)</span>
 <span class="kw">for</span> rodada <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">4</span>):
@@ -310,8 +434,8 @@
                     </div>
                     <div style="display:flex;flex-direction:column;gap:12px">
                         <div class="content-box tip-box" style="padding:16px">
-                            <h4 style="font-size:.96rem;margin-bottom:6px">📌 Regra de Ouro do <code>range(início, fim)</code></h4>
-                            <p style="font-size:.9rem;color:#cbd5e1;line-height:1.55">O <code>range(1, 4)</code> começa no <strong>1</strong> e para <strong>ANTES do 4</strong> (gera <code>1, 2, 3</code>). Sempre coloque 1 número a mais no fim!</p>
+                            <h4 style="font-size:.96rem;margin-bottom:6px">🔍 O que é a variável <code>rodada</code> ou <code>seg</code>?</h4>
+                            <p style="font-size:.9rem;color:#cbd5e1;line-height:1.55">A cada volta do laço, ela recebe automaticamente o próximo número entregue pelo <code>range()</code> — sem precisar fazer <code>seg = seg - 1</code>!</p>
                         </div>
                         <div class="engage-label">❓ Pergunta para a Turma</div>
                         <div class="content-box" style="padding:15px 16px;font-size:.94rem">
@@ -322,10 +446,10 @@
             </div>
         </section>
 
-        <!-- SLIDE 8 — MINI-DESAFIO 3: EXERCÍCIO PRÁTICO COM O FOR -->
+        <!-- SLIDE 11 — MINI-DESAFIO 3: EXERCÍCIO PRÁTICO COM O FOR -->
         <section class="slide">
             <div class="slide-header">
-                <span class="challenge-label">🎯 Mini-Desafio 3 — 4 minutos</span>
+                <span class="challenge-label">🎯 Tópico 3 • Mini-Tarefa (3/3) — 4 minutos</span>
                 <h2 class="slide-title">Sua vez com o <code>for</code> e <code>range()</code>!</h2>
                 <p class="slide-subtitle">Escolha um dos exercícios abaixo e programe seu laço <code>for</code> no VS Code</p>
             </div>
@@ -563,7 +687,7 @@
 
     <!-- Bottom Navigation -->
     <footer class="bottom-nav">
-        <div class="slide-counter" id="slideCounter">1 / 14</div>
+        <div class="slide-counter" id="slideCounter">1 / 17</div>
         <div class="nav-buttons">
             <button class="nav-btn" id="prevBtn">← Anterior <span class="key-hint">←</span></button>
             <button class="nav-btn primary" id="nextBtn">Próximo → <span class="key-hint">→</span></button>
