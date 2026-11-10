@@ -1447,6 +1447,7 @@
         var beeActiveChallengeId = 'bee_1001';
         var beeDraftCodeMap = {};
         var beeDraftStdinMap = {};
+        var beeShowHintMap = {};
         var beeLastJudgeResult = null;
         var beeIsRunning = false;
 
@@ -2393,24 +2394,32 @@
                                     ${sampleRowsHtml}
                                 </tbody>
                             </table>
-
-                            <details class="tr-hint-details" style="margin-top:12px;">
-                                <summary>💡 Ver dica para o Problema #${activeProb.number}</summary>
-                                <p style="margin-top:6px;font-size:0.82rem;color:#fde68a;line-height:1.5;">${escapeHtml(activeProb.hint)}</p>
-                            </details>
                         </div>
 
                         <!-- COLUNA DIREITA: EDITOR DE CÓDIGO PYTHON 3 -->
                         <div class="panel-box" style="margin-bottom:0;padding:20px;border-color:rgba(139,92,246,0.4);">
-                            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:8px;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px;">
                                 <strong style="color:#fff;font-size:0.9rem;">🐍 Editor Python 3 (#${activeProb.number})</strong>
-                                <div style="display:flex;gap:6px;">
-                                    <button type="button" class="tr-btn-ghost" id="beeResetStarterBtn" style="font-size:0.73rem;padding:4px 9px;">↺ Modelo Inicial</button>
+                                <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                                    <button type="button" class="tr-btn-ghost" id="beeToggleHintBtn" style="font-size:0.75rem;padding:5px 11px;border-color:${beeShowHintMap[activeProb.id] ? 'rgba(251,191,36,0.8)' : 'rgba(251,191,36,0.45)'};background:${beeShowHintMap[activeProb.id] ? 'rgba(245,158,11,0.18)' : 'rgba(245,158,11,0.08)'};color:#fde68a;font-weight:700;">
+                                        ${beeShowHintMap[activeProb.id] ? '💡 Ocultar Dica' : '💡 Ver Dica'}
+                                    </button>
+                                    <button type="button" class="tr-btn-ghost" id="beeResetStarterBtn" style="font-size:0.73rem;padding:4px 9px;">🗑️ Limpar</button>
                                     <button type="button" class="tr-btn-ghost" id="beeCopyCodeBtn" style="font-size:0.73rem;padding:4px 9px;">📋 Copiar</button>
                                 </div>
                             </div>
 
-                            <textarea id="beeCodeEditor" class="bee-code-textarea" spellcheck="false" placeholder="# Digite seu código Python 3 aqui...">${escapeHtml(beeDraftCodeMap[activeProb.id] || '')}</textarea>
+                            ${beeShowHintMap[activeProb.id] ? `
+                                <div style="margin-bottom:12px;padding:14px 16px;border-radius:12px;background:rgba(245,158,11,0.09);border:1.5px solid rgba(251,191,36,0.4);color:#fef3c7;font-size:0.82rem;line-height:1.55;">
+                                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(251,191,36,0.2);">
+                                        <strong style="color:#fbbf24;font-size:0.86rem;">💡 Dica Passo a Passo — Problema #${activeProb.number}</strong>
+                                        <span style="font-size:0.72rem;color:#fcd34d;">Guia de Raciocínio</span>
+                                    </div>
+                                    <div>${window.TrilhandoBeecrowd.formatMarkdownMessage(activeProb.hint)}</div>
+                                </div>
+                            ` : ''}
+
+                            <textarea id="beeCodeEditor" class="bee-code-textarea" spellcheck="false" placeholder="# Digite sua solução em Python 3 aqui...">${escapeHtml(beeDraftCodeMap[activeProb.id] || '')}</textarea>
 
                             <div style="margin-top:10px;">
                                 <label class="tr-field-label" for="beeCustomStdin" style="font-size:0.75rem;">📥 Entrada de Teste (uma linha para cada <code>input()</code>):</label>
@@ -2622,6 +2631,14 @@
             if (stdinEditor) {
                 stdinEditor.addEventListener('input', function() {
                     beeDraftStdinMap[activeProb.id] = stdinEditor.value;
+                });
+            }
+
+            var toggleHintBtn = document.getElementById('beeToggleHintBtn');
+            if (toggleHintBtn) {
+                toggleHintBtn.addEventListener('click', function() {
+                    beeShowHintMap[activeProb.id] = !beeShowHintMap[activeProb.id];
+                    renderDesafiosView();
                 });
             }
 

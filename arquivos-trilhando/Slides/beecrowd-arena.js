@@ -46,8 +46,8 @@
                 "description": "Bem-vindo à Arena de Desafios Python! O seu primeiro desafio no estilo Beecrowd é o clássico universal da programação: faça o computador mostrar exatamente a mensagem \"Ola, Mundo!\" (sem acento no a) na tela.",
                 "inputSpec": "Este problema não possui nenhuma entrada.",
                 "outputSpec": "Imprima exatamente uma linha contendo: Ola, Mundo!",
-                "starterCode": "# Escreva seu código Python abaixo:\nprint(\"Ola, Mundo!\")\n",
-                "hint": "Use o comando print(\"Ola, Mundo!\") respeitando as letras maiúsculas e minúsculas.",
+                "starterCode": "# Desafio #1001 — Olá, Mundo do Código!\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** Este desafio não possui dados de entrada. Você não precisa usar `input()` — basta focar diretamente no processamento e no comando `print()`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Em desafios de entrada e saída no estilo Beecrowd, **nunca coloque mensagens dentro do `input()`** (use sempre `input()` vazio), pois qualquer texto extra reprova no juiz.\n• Para montar o texto final combinando palavras fixas com o conteúdo das suas variáveis, utilize uma **f-string**: coloque a letra `f` antes das aspas no `print(f\"...\")` e insira o nome de cada variável entre chaves `{variavel}`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima exatamente uma linha contendo: Ola, Mundo!*\n• Compare sua saída com o exemplo `Ola, Mundo!` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "",
@@ -73,8 +73,8 @@
                 "description": "O Robô CEFET está aprendendo a escutar! Leia uma palavra ou frase digitada pelo usuário usando input() e imprima exatamente a mesma mensagem na tela.",
                 "inputSpec": "A entrada contém 1 linha de texto.",
                 "outputSpec": "Imprima exatamente o mesmo texto lido na entrada.",
-                "starterCode": "# Leia o texto com input() e mostre na tela com print():\nmensagem = input()\nprint(mensagem)\n",
-                "hint": "Dica: No Beecrowd, use input() vazio (sem frase dentro dos parênteses) para não imprimir texto extra na saída!",
+                "starterCode": "# Desafio #1002 — Eco do Robô\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"Python\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Em desafios de entrada e saída no estilo Beecrowd, **nunca coloque mensagens dentro do `input()`** (use sempre `input()` vazio), pois qualquer texto extra reprova no juiz.\n• Para montar o texto final combinando palavras fixas com o conteúdo das suas variáveis, utilize uma **f-string**: coloque a letra `f` antes das aspas no `print(f\"...\")` e insira o nome de cada variável entre chaves `{variavel}`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima exatamente o mesmo texto lido na entrada.*\n• Compare sua saída com o exemplo `Python` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Python",
@@ -100,8 +100,8 @@
                 "description": "Um novo jogador acabou de entrar no servidor! Leia o nome do jogador e exiba uma mensagem de boas-vindas personalizada usando f-string.",
                 "inputSpec": "A entrada contém o nome de um jogador (texto).",
                 "outputSpec": "Imprima \"Bem-vindo, NOME!\" substituindo NOME pelo valor lido.",
-                "starterCode": "nome = input()\n# Use print(f\"Bem-vindo, {nome}!\")\n",
-                "hint": "Use f-string: print(f\"Bem-vindo, {nome}!\")",
+                "starterCode": "# Desafio #1003 — Saudação ao Herói\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"Lucas\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Em desafios de entrada e saída no estilo Beecrowd, **nunca coloque mensagens dentro do `input()`** (use sempre `input()` vazio), pois qualquer texto extra reprova no juiz.\n• Para montar o texto final combinando palavras fixas com o conteúdo das suas variáveis, utilize uma **f-string**: coloque a letra `f` antes das aspas no `print(f\"...\")` e insira o nome de cada variável entre chaves `{variavel}`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima \"Bem-vindo, NOME!\" substituindo NOME pelo valor lido.*\n• Compare sua saída com o exemplo `Bem-vindo, Lucas!` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Lucas",
@@ -127,8 +127,8 @@
                 "description": "Leia duas informações em linhas separadas: na primeira linha o Nome do aluno e na segunda linha a Turma dele. Em seguida, mostre o crachá formatado.",
                 "inputSpec": "Duas linhas de texto: a 1ª linha tem o nome e a 2ª linha tem a turma.",
                 "outputSpec": "Imprima: Aluno: NOME | Turma: TURMA",
-                "starterCode": "nome = input()\nturma = input()\n# Imprima no formato pedido:\n",
-                "hint": "Use: print(f\"Aluno: {nome} | Turma: {turma}\")",
+                "starterCode": "# Desafio #1004 — Crachá do Estudante\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **2 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Em desafios de entrada e saída no estilo Beecrowd, **nunca coloque mensagens dentro do `input()`** (use sempre `input()` vazio), pois qualquer texto extra reprova no juiz.\n• Para montar o texto final combinando palavras fixas com o conteúdo das suas variáveis, utilize uma **f-string**: coloque a letra `f` antes das aspas no `print(f\"...\")` e insira o nome de cada variável entre chaves `{variavel}`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: Aluno: NOME | Turma: TURMA*\n• Compare sua saída com o exemplo `Aluno: Ana | Turma: 8A` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Ana\n8A",
@@ -154,8 +154,8 @@
                 "description": "Leia o Nome, a Profissão e a Cidade de uma pessoa (um por linha) e imprima um cartão de visita em uma única linha separada por hífens.",
                 "inputSpec": "3 linhas de texto: Nome, Profissão e Cidade.",
                 "outputSpec": "Imprima: NOME - PROFISSAO - CIDADE",
-                "starterCode": "nome = input()\nprofissao = input()\ncidade = input()\n# Exiba no formato NOME - PROFISSAO - CIDADE\n",
-                "hint": "Use print(f\"{nome} - {profissao} - {cidade}\")",
+                "starterCode": "# Desafio #1025 — Cartão de Visita Digital\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **3 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Em desafios de entrada e saída no estilo Beecrowd, **nunca coloque mensagens dentro do `input()`** (use sempre `input()` vazio), pois qualquer texto extra reprova no juiz.\n• Para montar o texto final combinando palavras fixas com o conteúdo das suas variáveis, utilize uma **f-string**: coloque a letra `f` antes das aspas no `print(f\"...\")` e insira o nome de cada variável entre chaves `{variavel}`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: NOME - PROFISSAO - CIDADE*\n• Compare sua saída com o exemplo `Victor - Programador - Belo Horizonte` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Victor\nProgramador\nBelo Horizonte",
@@ -181,8 +181,8 @@
                 "description": "Em Python, multiplicar um texto por um número inteiro repete o texto várias vezes! Leia uma sílaba/palavra e imprima ela repetida 3 vezes grudada, seguida de um ponto de exclamação.",
                 "inputSpec": "Uma linha contendo uma palavra curta.",
                 "outputSpec": "A palavra repetida 3 vezes seguida de ! (ex: GolGolGol!).",
-                "starterCode": "palavra = input()\n# Repita a palavra 3 vezes e adicione !\n",
-                "hint": "Use print(f\"{palavra * 3}!\") ou print(palavra * 3 + \"!\")",
+                "starterCode": "# Desafio #1026 — Grito de Torcida (Repetição de Texto)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"Gol\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Em desafios de entrada e saída no estilo Beecrowd, **nunca coloque mensagens dentro do `input()`** (use sempre `input()` vazio), pois qualquer texto extra reprova no juiz.\n• Para montar o texto final combinando palavras fixas com o conteúdo das suas variáveis, utilize uma **f-string**: coloque a letra `f` antes das aspas no `print(f\"...\")` e insira o nome de cada variável entre chaves `{variavel}`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *A palavra repetida 3 vezes seguida de ! (ex: GolGolGol!).*\n• Compare sua saída com o exemplo `GolGolGol!` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Gol",
@@ -208,8 +208,8 @@
                 "description": "Leia dois textos A e B (um em cada linha) e imprima na ordem invertida: primeiro o valor de B na primeira linha e depois o valor de A na segunda linha.",
                 "inputSpec": "Duas linhas de texto: A e B.",
                 "outputSpec": "Duas linhas: na 1ª linha o valor de B, na 2ª linha o valor de A.",
-                "starterCode": "a = input()\nb = input()\n# Imprima primeiro b e depois a:\n",
-                "hint": "Use print(b) na primeira linha e print(a) na segunda linha.",
+                "starterCode": "# Desafio #1027 — Troca de Cristais (Swap A e B)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **2 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Em desafios de entrada e saída no estilo Beecrowd, **nunca coloque mensagens dentro do `input()`** (use sempre `input()` vazio), pois qualquer texto extra reprova no juiz.\n• Para montar o texto final combinando palavras fixas com o conteúdo das suas variáveis, utilize uma **f-string**: coloque a letra `f` antes das aspas no `print(f\"...\")` e insira o nome de cada variável entre chaves `{variavel}`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Duas linhas: na 1ª linha o valor de B, na 2ª linha o valor de A.*\n• Compare sua saída com o exemplo `Gelo ↵ Fogo` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Fogo\nGelo",
@@ -235,8 +235,8 @@
                 "description": "Leia 4 linhas: o nome do Time 1, os gols do Time 1, o nome do Time 2 e os gols do Time 2. Mostre o placar oficial da partida.",
                 "inputSpec": "4 linhas: Time1, Gols1, Time2, Gols2.",
                 "outputSpec": "Imprima: TIME1 GOLS1 x GOLS2 TIME2",
-                "starterCode": "time1 = input()\ngols1 = input()\ntime2 = input()\ngols2 = input()\n# Mostre o placar:\n",
-                "hint": "Use print(f\"{time1} {gols1} x {gols2} {time2}\")",
+                "starterCode": "# Desafio #1028 — Placar do Campeonato\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **4 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Em desafios de entrada e saída no estilo Beecrowd, **nunca coloque mensagens dentro do `input()`** (use sempre `input()` vazio), pois qualquer texto extra reprova no juiz.\n• Para montar o texto final combinando palavras fixas com o conteúdo das suas variáveis, utilize uma **f-string**: coloque a letra `f` antes das aspas no `print(f\"...\")` e insira o nome de cada variável entre chaves `{variavel}`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: TIME1 GOLS1 x GOLS2 TIME2*\n• Compare sua saída com o exemplo `Brasil 3 x 1 Franca` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Brasil\n3\nFranca\n1",
@@ -262,8 +262,8 @@
                 "description": "Na criação de sites web, textos ficam dentro de tags como <h1>Título</h1>. Leia o nome da tag na 1ª linha e o conteúdo na 2ª linha, e monte a tag HTML completa.",
                 "inputSpec": "Duas linhas: nome da tag (ex: h1) e texto.",
                 "outputSpec": "Imprima: <tag>texto</tag>",
-                "starterCode": "tag = input()\ntexto = input()\n# Monte a tag HTML:\n",
-                "hint": "Use print(f\"<{tag}>{texto}</{tag}>\")",
+                "starterCode": "# Desafio #1029 — Gerador de Tag HTML\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **2 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Em desafios de entrada e saída no estilo Beecrowd, **nunca coloque mensagens dentro do `input()`** (use sempre `input()` vazio), pois qualquer texto extra reprova no juiz.\n• Para montar o texto final combinando palavras fixas com o conteúdo das suas variáveis, utilize uma **f-string**: coloque a letra `f` antes das aspas no `print(f\"...\")` e insira o nome de cada variável entre chaves `{variavel}`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: <tag>texto</tag>*\n• Compare sua saída com o exemplo `<h1>Bem-vindo</h1>` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "h1\nBem-vindo",
@@ -289,8 +289,8 @@
                 "description": "Leia a posição X e a posição Y de um personagem no mapa (uma por linha) e exiba no formato matemático de par ordenado.",
                 "inputSpec": "Duas linhas contendo X e Y.",
                 "outputSpec": "Imprima: Posicao: (X, Y)",
-                "starterCode": "x = input()\ny = input()\n# Imprima Posicao: (X, Y)\n",
-                "hint": "Use print(f\"Posicao: ({x}, {y})\")",
+                "starterCode": "# Desafio #1030 — Coordenadas no Mapa 2D\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Em desafios de entrada e saída no estilo Beecrowd, **nunca coloque mensagens dentro do `input()`** (use sempre `input()` vazio), pois qualquer texto extra reprova no juiz.\n• Para montar o texto final combinando palavras fixas com o conteúdo das suas variáveis, utilize uma **f-string**: coloque a letra `f` antes das aspas no `print(f\"...\")` e insira o nome de cada variável entre chaves `{variavel}`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: Posicao: (X, Y)*\n• Compare sua saída com o exemplo `Posicao: (10, 25)` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "10\n25",
@@ -316,8 +316,8 @@
                 "description": "Leia o nome de usuário (login) na 1ª linha e o domínio da escola na 2ª linha, e forme o endereço de e-mail completo juntando os dois com @.",
                 "inputSpec": "Duas linhas: usuario e dominio.",
                 "outputSpec": "Imprima: usuario@dominio",
-                "starterCode": "usuario = input()\ndominio = input()\n# Imprima o e-mail completo:\n",
-                "hint": "Use print(f\"{usuario}@{dominio}\")",
+                "starterCode": "# Desafio #1031 — Gerador de E-mail Institucional\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **2 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Em desafios de entrada e saída no estilo Beecrowd, **nunca coloque mensagens dentro do `input()`** (use sempre `input()` vazio), pois qualquer texto extra reprova no juiz.\n• Para montar o texto final combinando palavras fixas com o conteúdo das suas variáveis, utilize uma **f-string**: coloque a letra `f` antes das aspas no `print(f\"...\")` e insira o nome de cada variável entre chaves `{variavel}`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: usuario@dominio*\n• Compare sua saída com o exemplo `aluno.python@cefetmg.br` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "aluno.python\ncefetmg.br",
@@ -343,8 +343,8 @@
                 "description": "Leia o nome de uma missão e a recompensa em moedas de ouro. Imprima o aviso oficial da guilda.",
                 "inputSpec": "Duas linhas: nome da missão e quantidade de moedas.",
                 "outputSpec": "Imprima: [MISSAO] NOME | Recompensa: MOEDAS moedas",
-                "starterCode": "missao = input()\nmoedas = input()\n# Imprima no formato da guilda:\n",
-                "hint": "Use print(f\"[MISSAO] {missao} | Recompensa: {moedas} moedas\")",
+                "starterCode": "# Desafio #1032 —  Anúncio de Missão RPG\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **2 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Em desafios de entrada e saída no estilo Beecrowd, **nunca coloque mensagens dentro do `input()`** (use sempre `input()` vazio), pois qualquer texto extra reprova no juiz.\n• Para montar o texto final combinando palavras fixas com o conteúdo das suas variáveis, utilize uma **f-string**: coloque a letra `f` antes das aspas no `print(f\"...\")` e insira o nome de cada variável entre chaves `{variavel}`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: [MISSAO] NOME | Recompensa: MOEDAS moedas*\n• Compare sua saída com o exemplo `[MISSAO] Derrotar o Dragao | Recompensa: 500 moedas` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Derrotar o Dragao\n500",
@@ -370,8 +370,8 @@
                 "description": "Inspirado no problema mais famoso do Beecrowd! Leia 2 valores inteiros e armazene-os nas variáveis A e B. Efetue a soma de A e B atribuindo o seu resultado na variável X e imprima como mostrado nos exemplos.",
                 "inputSpec": "A entrada contém 2 valores inteiros, um em cada linha.",
                 "outputSpec": "Imprima a mensagem \"X = \" (letra X maiúscula) seguido pelo valor da variável X.",
-                "starterCode": "a = int(input())\nb = int(input())\nx = a + b\nprint(f\"X = {x}\")\n",
-                "hint": "Lembre-se de usar int(input()) para converter o texto lido em número inteiro!",
+                "starterCode": "# Desafio #1005 — Extremamente Básico (Soma)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Use `+` (soma), `-` (subtração), `*` (multiplicação) ou `/` (divisão).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima a mensagem \"X = \" (letra X maiúscula) seguido pelo valor da variável X.*\n• Compare sua saída com o exemplo `X = 19` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "10\n9",
@@ -397,8 +397,8 @@
                 "description": "Leia dois valores inteiros. A seguir, calcule o produto (multiplicação) entre estes dois valores e atribua esta operação à variável PROD.",
                 "inputSpec": "O arquivo de entrada contém 2 valores inteiros, um em cada linha.",
                 "outputSpec": "Imprima a mensagem \"PROD = \" seguido pelo resultado da multiplicação.",
-                "starterCode": "n1 = int(input())\nn2 = int(input())\n# Calcule a multiplicação com * e imprima PROD = resultado\n",
-                "hint": "Em Python, o operador de multiplicação é o asterisco (*). Ex: prod = n1 * n2",
+                "starterCode": "# Desafio #1006 — Produto Simples\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Use `+` (soma), `-` (subtração), `*` (multiplicação) ou `/` (divisão).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima a mensagem \"PROD = \" seguido pelo resultado da multiplicação.*\n• Compare sua saída com o exemplo `PROD = 27` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "3\n9",
@@ -424,8 +424,8 @@
                 "description": "Leia um único número inteiro N. Calcule e mostre na primeira linha o dobro desse número e na segunda linha o triplo desse número.",
                 "inputSpec": "A entrada contém 1 número inteiro N.",
                 "outputSpec": "Duas linhas:\nDobro: X\nTriplo: Y",
-                "starterCode": "n = int(input())\n# Mostre o Dobro na 1ª linha e o Triplo na 2ª linha:\n",
-                "hint": "Use dois comandos print(): print(f\"Dobro: {n * 2}\") e print(f\"Triplo: {n * 3}\")",
+                "starterCode": "# Desafio #1007 — Dobro e Triplo de um Número\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `5`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Use `+` (soma), `-` (subtração), `*` (multiplicação) ou `/` (divisão).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Duas linhas: | Dobro: X | Triplo: Y*\n• Compare sua saída com o exemplo `Dobro: 10 ↵ Triplo: 15` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "5",
@@ -451,8 +451,8 @@
                 "description": "Leia 2 valores com casas decimais (float), que correspondem a 2 notas de um estudante. A seguir, calcule a média simples do aluno (soma das duas notas dividida por 2) e mostre com 1 casa decimal.",
                 "inputSpec": "Dois valores decimais (float), um em cada linha.",
                 "outputSpec": "Imprima \"MEDIA = \" seguido do resultado com 1 casa decimal (use :.1f).",
-                "starterCode": "nota1 = float(input())\nnota2 = float(input())\n# Calcule a média entre parênteses: (nota1 + nota2) / 2\n",
-                "hint": "Para formatar com 1 casa decimal na f-string, escreva: print(f\"MEDIA = {media:.1f}\")",
+                "starterCode": "# Desafio #1008 — Média Escolar Simples\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** numéricas. Leia cada linha na ordem descrita no enunciado usando `int(input())` para inteiros e `float(input())` para números com casas decimais.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Atenção à **ordem de precedência matemática**: a multiplicação `*` e a divisão `/` acontecem antes da soma `+` e subtração `-`. Use **parênteses `( )`** para somar valores antes de dividir ou multiplicar!\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima \"MEDIA = \" seguido do resultado com 1 casa decimal (use :.1f).* Formate o número com **1 casa decimal** usando `{valor:.1f}` dentro da f-string.\n• Compare sua saída com o exemplo `MEDIA = 6.0` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "5.0\n7.1",
@@ -478,8 +478,8 @@
                 "description": "Leia um número inteiro N e mostre na mesma linha o seu antecessor (N - 1) e o seu sucessor (N + 1).",
                 "inputSpec": "Um número inteiro N.",
                 "outputSpec": "Imprima: ANTECESSOR = X | SUCESSOR = Y",
-                "starterCode": "n = int(input())\n# Calcule n - 1 e n + 1:\n",
-                "hint": "Use print(f\"ANTECESSOR = {n - 1} | SUCESSOR = {n + 1}\")",
+                "starterCode": "# Desafio #1033 — Antecessor e Sucessor\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `10`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Use `+` (soma), `-` (subtração), `*` (multiplicação) ou `/` (divisão).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: ANTECESSOR = X | SUCESSOR = Y*\n• Compare sua saída com o exemplo `ANTECESSOR = 9 | SUCESSOR = 11` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "10",
@@ -505,8 +505,8 @@
                 "description": "Leia a base e a altura de um retângulo (inteiros). Calcule a Área (base * altura) e o Perímetro (2 * (base + altura)).",
                 "inputSpec": "Dois números inteiros: base e altura, um por linha.",
                 "outputSpec": "Duas linhas:\nAREA = X\nPERIMETRO = Y",
-                "starterCode": "base = int(input())\naltura = int(input())\n# Calcule a área e o perímetro:\n",
-                "hint": "area = base * altura e perimetro = 2 * (base + altura)",
+                "starterCode": "# Desafio #1034 — Área e Perímetro do Retângulo\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Atenção à **ordem de precedência matemática**: a multiplicação `*` e a divisão `/` acontecem antes da soma `+` e subtração `-`. Use **parênteses `( )`** para somar valores antes de dividir ou multiplicar!\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Duas linhas: | AREA = X | PERIMETRO = Y*\n• Compare sua saída com o exemplo `AREA = 20 ↵ PERIMETRO = 18` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "5\n4",
@@ -532,8 +532,8 @@
                 "description": "Leia uma temperatura em graus Celsius (float) e converta para Fahrenheit usando a fórmula: F = (C * 1.8) + 32. Mostre com 1 casa decimal.",
                 "inputSpec": "Um valor float representando graus Celsius.",
                 "outputSpec": "Imprima: FAHRENHEIT = X.X",
-                "starterCode": "c = float(input())\n# Aplique a fórmula f = (c * 1.8) + 32\n",
-                "hint": "Use print(f\"FAHRENHEIT = {f:.1f}\")",
+                "starterCode": "# Desafio #1035 — Conversor Celsius para Fahrenheit\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada contém 1 número com casas decimais (ex: `0`). Utilize `float(input())` para realizar a leitura convertendo para número real.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Atenção à **ordem de precedência matemática**: a multiplicação `*` e a divisão `/` acontecem antes da soma `+` e subtração `-`. Use **parênteses `( )`** para somar valores antes de dividir ou multiplicar!\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: FAHRENHEIT = X.X* Formate o número com **1 casa decimal** usando `{valor:.1f}` dentro da f-string.\n• Compare sua saída com o exemplo `FAHRENHEIT = 32.0` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "0",
@@ -559,8 +559,8 @@
                 "description": "Leia dois números inteiros A e B. Calcule o quociente da divisão inteira (A // B) e o resto da divisão (A % B).",
                 "inputSpec": "Dois números inteiros positivos A e B.",
                 "outputSpec": "Imprima: QUOCIENTE = X | RESTO = Y",
-                "starterCode": "a = int(input())\nb = int(input())\n# Use // para divisão inteira e % para o resto:\n",
-                "hint": "print(f\"QUOCIENTE = {a // b} | RESTO = {a % b}\")",
+                "starterCode": "# Desafio #1036 — Divisão Inteira e Resto\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Lembre-se da dupla poderosa da divisão em Python: `//` calcula o **quociente inteiro** (sem parte decimal) e `%` calcula o **resto da divisão**!\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: QUOCIENTE = X | RESTO = Y*\n• Compare sua saída com o exemplo `QUOCIENTE = 3 | RESTO = 2` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "17\n5",
@@ -586,8 +586,8 @@
                 "description": "Em Python, o operador ** calcula potências! Leia dois inteiros: a Base e o Expoente, e mostre o resultado de Base elevado ao Expoente.",
                 "inputSpec": "Dois inteiros: base e expoente.",
                 "outputSpec": "Imprima: POTENCIA = X",
-                "starterCode": "base = int(input())\nexp = int(input())\n# Calcule base ** exp:\n",
-                "hint": "Use print(f\"POTENCIA = {base ** exp}\")",
+                "starterCode": "# Desafio #1037 — Potência Matemática (Base e Expoente)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Para elevar um número a uma potência em Python, use dois asteriscos `**` (ex: `x ** 2` para ao quadrado, `x ** 3` para ao cubo, ou `x ** 0.5` para raiz quadrada).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: POTENCIA = X*\n• Compare sua saída com o exemplo `POTENCIA = 1024` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "2\n10",
@@ -613,8 +613,8 @@
                 "description": "Calcule o consumo médio de um automóvel sendo fornecidos a distância total percorrida (em Km) e o total de combustível gasto (em litros). Mostre com 2 casas decimais.",
                 "inputSpec": "Dois valores (float): distância em Km e litros gastos.",
                 "outputSpec": "Imprima: X.XX km/l",
-                "starterCode": "distancia = float(input())\nlitros = float(input())\n# Divida distancia por litros e formate com :.2f\n",
-                "hint": "consumo = distancia / litros e depois print(f\"{consumo:.2f} km/l\")",
+                "starterCode": "# Desafio #1038 — Consumo Médio de Combustível\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** numéricas. Leia cada linha na ordem descrita no enunciado usando `int(input())` para inteiros e `float(input())` para números com casas decimais.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Use `+` (soma), `-` (subtração), `*` (multiplicação) ou `/` (divisão).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: X.XX km/l* Formate o resultado com **2 casas decimais** usando `{valor:.2f}` dentro da f-string.\n• Compare sua saída com o exemplo `14.29 km/l` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "500\n35.0",
@@ -640,8 +640,8 @@
                 "description": "Faça um programa que leia o salário fixo de um vendedor e o valor total de vendas efetuadas por ele no mês. Sabendo que este vendedor ganha 15% (0.15) de comissão sobre suas vendas, calcule o total a receber no final do mês com 2 casas decimais.",
                 "inputSpec": "Dois valores float: salário fixo e total de vendas.",
                 "outputSpec": "Imprima: TOTAL = R$ X.XX",
-                "starterCode": "salario = float(input())\nvendas = float(input())\n# Some o salario com 15% das vendas (vendas * 0.15):\n",
-                "hint": "total = salario + (vendas * 0.15) e print(f\"TOTAL = R$ {total:.2f}\")",
+                "starterCode": "# Desafio #1039 — Salário com Bônus de Comissão\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** numéricas. Leia cada linha na ordem descrita no enunciado usando `int(input())` para inteiros e `float(input())` para números com casas decimais.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Use `+` (soma), `-` (subtração), `*` (multiplicação) ou `/` (divisão).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: TOTAL = R$ X.XX* Formate o resultado com **2 casas decimais** usando `{valor:.2f}` dentro da f-string.\n• Compare sua saída com o exemplo `TOTAL = R$ 684.54` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "500.00\n1230.30",
@@ -667,8 +667,8 @@
                 "description": "Leia um valor inteiro, que é o tempo de duração em segundos de um determinado evento em uma fábrica, e informe-o expresso no formato horas:minutos:segundos.",
                 "inputSpec": "Um número inteiro N (total de segundos).",
                 "outputSpec": "Imprima: H:M:S",
-                "starterCode": "segundos = int(input())\nhoras = segundos // 3600\nresto = segundos % 3600\nminutos = resto // 60\nseg_finais = resto % 60\n# Imprima no formato H:M:S\n",
-                "hint": "Use print(f\"{horas}:{minutos}:{seg_finais}\")",
+                "starterCode": "# Desafio #1040 — Conversão de Tempo (Segundos para HH:MM:SS)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `556`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Lembre-se da dupla poderosa da divisão em Python: `//` calcula o **quociente inteiro** (sem parte decimal) e `%` calcula o **resto da divisão**!\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: H:M:S*\n• Compare sua saída com o exemplo `0:9:16` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "556",
@@ -694,8 +694,8 @@
                 "description": "Leia quatro valores inteiros A, B, C e D. A seguir, calcule e mostre a diferença do produto de A e B pelo produto de C e D segundo a fórmula: DIFERENCA = (A * B - C * D).",
                 "inputSpec": "4 valores inteiros, um em cada linha.",
                 "outputSpec": "Imprima: DIFERENCA = X",
-                "starterCode": "a = int(input())\nb = int(input())\nc = int(input())\nd = int(input())\n# Calcule (a * b) - (c * d):\n",
-                "hint": "dif = (a * b) - (c * d) e print(f\"DIFERENCA = {dif}\")",
+                "starterCode": "# Desafio #1041 — Diferença de Produtos (A*B - C*D)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **4 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Use `+` (soma), `-` (subtração), `*` (multiplicação) ou `/` (divisão).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: DIFERENCA = X*\n• Compare sua saída com o exemplo `DIFERENCA = -26` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "5\n6\n7\n8",
@@ -721,8 +721,8 @@
                 "description": "Leia um valor inteiro múltiplo de 10 e calcule o menor número de notas de 100, 50 e 10 necessárias para formar esse valor.",
                 "inputSpec": "Um número inteiro múltiplo de 10.",
                 "outputSpec": "Imprima: 100: X | 50: Y | 10: Z",
-                "starterCode": "valor = int(input())\nn100 = valor // 100\nvalor = valor % 100\nn50 = valor // 50\nvalor = valor % 50\nn10 = valor // 10\n# Imprima no formato pedido:\n",
-                "hint": "Use print(f\"100: {n100} | 50: {n50} | 10: {n10}\")",
+                "starterCode": "# Desafio #1042 — Caixa Eletrônico (Notas de 100, 50 e 10)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `570`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Depois de converter as entradas para número (`int` ou `float`), crie uma variável para guardar o resultado da fórmula pedida no enunciado.\n• Use `+` (soma), `-` (subtração), `*` (multiplicação) ou `/` (divisão).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: 100: X | 50: Y | 10: Z*\n• Compare sua saída com o exemplo `100: 5 | 50: 1 | 10: 2` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "570",
@@ -748,8 +748,8 @@
                 "description": "Leia um número inteiro N e descubra se ele é PAR ou ÍMPAR. Lembre-se que um número é par quando o resto da divisão dele por 2 (N % 2) é igual a 0.",
                 "inputSpec": "A entrada contém 1 número inteiro.",
                 "outputSpec": "Imprima \"PAR\" se o número for par, ou \"IMPAR\" (sem acento) se for ímpar.",
-                "starterCode": "n = int(input())\n# Use if n % 2 == 0:\n",
-                "hint": "O operador % calcula o resto da divisão. Se n % 2 == 0, imprima PAR; senão (else), imprima IMPAR.",
+                "starterCode": "# Desafio #1009 — Detector de Par ou Ímpar\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `8`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima \"PAR\" se o número for par, ou \"IMPAR\" (sem acento) se for ímpar.*\n• Compare sua saída com o exemplo `PAR` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "8",
@@ -775,8 +775,8 @@
                 "description": "Leia um número inteiro e classifique-o usando if, elif e else: se for maior que zero, mostre POSITIVO; se for menor que zero, mostre NEGATIVO; se for igual a zero, mostre ZERO.",
                 "inputSpec": "Um único número inteiro.",
                 "outputSpec": "Imprima POSITIVO, NEGATIVO ou ZERO.",
-                "starterCode": "n = int(input())\n# Use if, elif e else:\n",
-                "hint": "Teste primeiro if n > 0:, depois elif n < 0:, e por fim else:.",
+                "starterCode": "# Desafio #1010 — Positivo, Negativo ou Zero\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `15`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima POSITIVO, NEGATIVO ou ZERO.*\n• Compare sua saída com o exemplo `POSITIVO` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "15",
@@ -802,8 +802,8 @@
                 "description": "Leia dois números inteiros A e B. Se forem diferentes, imprima o maior deles no formato \"MAIOR = X\". Se os dois números forem iguais, imprima \"IGUAIS\".",
                 "inputSpec": "Dois números inteiros, um por linha.",
                 "outputSpec": "Imprima \"MAIOR = X\" ou \"IGUAIS\".",
-                "starterCode": "a = int(input())\nb = int(input())\n# Compare a e b usando if / elif / else:\n",
-                "hint": "Se a > b, o maior é a; elif b > a, o maior é b; else, imprima IGUAIS.",
+                "starterCode": "# Desafio #1011 — Maior de Dois Números\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima \"MAIOR = X\" ou \"IGUAIS\".*\n• Compare sua saída com o exemplo `MAIOR = 25` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "10\n25",
@@ -829,8 +829,8 @@
                 "description": "Leia a nota final (float) de um estudante. Se a nota for maior ou igual a 7.0, imprima \"APROVADO\". Se for maior ou igual a 5.0 (e menor que 7.0), imprima \"RECUPERACAO\". Caso contrário, imprima \"REPROVADO\".",
                 "inputSpec": "Um valor numérico decimal (float) representando a nota.",
                 "outputSpec": "Imprima APROVADO, RECUPERACAO ou REPROVADO.",
-                "starterCode": "nota = float(input())\n# Complete a estrutura condicional:\n",
-                "hint": "Cuidado para não usar acento na palavra RECUPERACAO para bater com o juiz automático!",
+                "starterCode": "# Desafio #1012 — Boletim de Aprovação CEFET\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada contém 1 número com casas decimais (ex: `8.5`). Utilize `float(input())` para realizar a leitura convertendo para número real.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima APROVADO, RECUPERACAO ou REPROVADO.*\n• Compare sua saída com o exemplo `APROVADO` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "8.5",
@@ -856,8 +856,8 @@
                 "description": "No Mercadinho Gamer, compras de valor maior ou igual a R$ 100.00 ganham 10% de desconto (ou seja, você multiplica o valor por 0.90). Compras abaixo de R$ 100.00 pagam o valor normal. Leia o valor da compra e imprima o total final com 2 casas decimais.",
                 "inputSpec": "Um número decimal (float) com o valor da compra.",
                 "outputSpec": "Imprima \"TOTAL = \" seguido do valor com 2 casas decimais (:.2f).",
-                "starterCode": "valor = float(input())\n# Se valor >= 100, aplique 10% de desconto:\n",
-                "hint": "Se valor >= 100: final = valor * 0.90, senão final = valor. Depois use print(f\"TOTAL = {final:.2f}\").",
+                "starterCode": "# Desafio #1013 — Desconto VIP do Mercadinho\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada contém 1 número com casas decimais (ex: `150.00`). Utilize `float(input())` para realizar a leitura convertendo para número real.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima \"TOTAL = \" seguido do valor com 2 casas decimais (:.2f).* Formate o resultado com **2 casas decimais** usando `{valor:.2f}` dentro da f-string.\n• Compare sua saída com o exemplo `TOTAL = 135.00` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "150.00",
@@ -883,8 +883,8 @@
                 "description": "Leia a idade de uma pessoa (int). Se for menor que 12, imprima CRIANCA. Se tiver entre 12 e 17, imprima ADOLESCENTE. Se tiver entre 18 e 59, imprima ADULTO. Se tiver 60 ou mais, imprima IDOSO.",
                 "inputSpec": "Um número inteiro representando a idade.",
                 "outputSpec": "Imprima CRIANCA, ADOLESCENTE, ADULTO ou IDOSO.",
-                "starterCode": "idade = int(input())\n# Classifique com if / elif / else:\n",
-                "hint": "Teste em ordem: if idade < 12:, elif idade < 18:, elif idade < 60:, else:.",
+                "starterCode": "# Desafio #1043 — Classificador de Faixa Etária\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `9`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima CRIANCA, ADOLESCENTE, ADULTO ou IDOSO.*\n• Compare sua saída com o exemplo `CRIANCA` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "9",
@@ -914,8 +914,8 @@
                 "description": "Um ano é bissexto se for divisível por 400, OU se for divisível por 4 mas NÃO for divisível por 100. Leia um ano e imprima BISSEXTO ou NORMAL.",
                 "inputSpec": "Um número inteiro representando o ano.",
                 "outputSpec": "Imprima BISSEXTO ou NORMAL.",
-                "starterCode": "ano = int(input())\n# Verifique a regra do ano bissexto:\n",
-                "hint": "if (ano % 400 == 0) or (ano % 4 == 0 and ano % 100 != 0):",
+                "starterCode": "# Desafio #1044 — Detector de Ano Bissexto\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `2024`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima BISSEXTO ou NORMAL.*\n• Compare sua saída com o exemplo `BISSEXTO` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "2024",
@@ -945,8 +945,8 @@
                 "description": "Leia 3 lados inteiros A, B e C de um triângulo válido. Se os 3 lados forem iguais, imprima EQUILATERO. Se apenas 2 lados forem iguais, imprima ISOSCELES. Se todos os 3 forem diferentes, imprima ESCALENO.",
                 "inputSpec": "3 números inteiros, um por linha.",
                 "outputSpec": "Imprima EQUILATERO, ISOSCELES ou ESCALENO.",
-                "starterCode": "a = int(input())\nb = int(input())\nc = int(input())\n# Compare os lados a, b e c:\n",
-                "hint": "Se a == b and b == c -> EQUILATERO; elif a == b or b == c or a == c -> ISOSCELES; else -> ESCALENO.",
+                "starterCode": "# Desafio #1045 — Classificação de Triângulos\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **3 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima EQUILATERO, ISOSCELES ou ESCALENO.*\n• Compare sua saída com o exemplo `EQUILATERO` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "5\n5\n5",
@@ -972,8 +972,8 @@
                 "description": "Leia 2 valores inteiros positivos A e B. O programa deve indicar se os valores lidos são múltiplos entre si (ou seja, se A % B == 0 ou B % A == 0).",
                 "inputSpec": "Dois números inteiros positivos, um por linha.",
                 "outputSpec": "Imprima SAO MULTIPLOS ou NAO SAO MULTIPLOS.",
-                "starterCode": "a = int(input())\nb = int(input())\n# Verifique se a % b == 0 or b % a == 0:\n",
-                "hint": "if a % b == 0 or b % a == 0: print(\"SAO MULTIPLOS\") else: print(\"NAO SAO MULTIPLOS\")",
+                "starterCode": "# Desafio #1046 — São Múltiplos?\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima SAO MULTIPLOS ou NAO SAO MULTIPLOS.*\n• Compare sua saída com o exemplo `SAO MULTIPLOS` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "6\n24",
@@ -999,8 +999,8 @@
                 "description": "O limite de uma rodovia é 80 km/h. Se o motorista passar de 80 km/h, ele recebe uma multa de R$ 5 por cada km acima do limite. Leia a velocidade inteira: se for <= 80, imprima SEM MULTA. Se for > 80, imprima MULTA = R$ X.",
                 "inputSpec": "Um número inteiro com a velocidade do carro.",
                 "outputSpec": "Imprima SEM MULTA ou MULTA = R$ X",
-                "starterCode": "vel = int(input())\n# Verifique se vel > 80:\n",
-                "hint": "Se vel > 80: multa = (vel - 80) * 5 e print(f\"MULTA = R$ {multa}\")",
+                "starterCode": "# Desafio #1047 — Radar de Velocidade Rodoviário\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `75`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima SEM MULTA ou MULTA = R$ X*\n• Compare sua saída com o exemplo `SEM MULTA` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "75",
@@ -1026,8 +1026,8 @@
                 "description": "Leia a jogada do Jogador 1 e do Jogador 2 (PEDRA, PAPEL ou TESOURA). Imprima EMPATE se forem iguais, JOGADOR 1 se o 1º vencer, ou JOGADOR 2 se o 2º vencer.",
                 "inputSpec": "Duas linhas contendo PEDRA, PAPEL ou TESOURA.",
                 "outputSpec": "Imprima EMPATE, JOGADOR 1 ou JOGADOR 2.",
-                "starterCode": "j1 = input()\nj2 = input()\n# Regras: PEDRA vence TESOURA, TESOURA vence PAPEL, PAPEL vence PEDRA\n",
-                "hint": "Teste if j1 == j2: print(\"EMPATE\"), depois elif com as 3 combinações em que j1 vence!",
+                "starterCode": "# Desafio #1048 — Juiz de Pedra, Papel e Tesoura\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **2 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima EMPATE, JOGADOR 1 ou JOGADOR 2.*\n• Compare sua saída com o exemplo `JOGADOR 1` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "PEDRA\nTESOURA",
@@ -1053,8 +1053,8 @@
                 "description": "Leia 2 valores inteiros X e Y (diferentes de zero) e determine em qual quadrante do plano cartesiano o ponto está: Q1 (x>0, y>0), Q2 (x<0, y>0), Q3 (x<0, y<0) ou Q4 (x>0, y<0).",
                 "inputSpec": "Dois números inteiros X e Y (não nulos).",
                 "outputSpec": "Imprima Q1, Q2, Q3 ou Q4.",
-                "starterCode": "x = int(input())\ny = int(input())\n# Determine o quadrante:\n",
-                "hint": "if x > 0 and y > 0: Q1 | elif x < 0 and y > 0: Q2 | elif x < 0 and y < 0: Q3 | else: Q4",
+                "starterCode": "# Desafio #1049 — Coordenadas de um Ponto (Quadrantes)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima Q1, Q2, Q3 ou Q4.*\n• Compare sua saída com o exemplo `Q1` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "4\n5",
@@ -1084,8 +1084,8 @@
                 "description": "Leia um número inteiro que representa um código de DDD: 31 -> Belo Horizonte, 11 -> Sao Paulo, 21 -> Rio de Janeiro, 61 -> Brasilia. Qualquer outro número deve imprimir DDD NAO CADASTRADO.",
                 "inputSpec": "Um número inteiro (DDD).",
                 "outputSpec": "O nome da cidade correspondente ou DDD NAO CADASTRADO.",
-                "starterCode": "ddd = int(input())\n# Verifique o DDD com if / elif / else:\n",
-                "hint": "Compare ddd == 31, ddd == 11, ddd == 21, ddd == 61.",
+                "starterCode": "# Desafio #1050 — DDD de Cidades Brasileiras\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `31`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *O nome da cidade correspondente ou DDD NAO CADASTRADO.*\n• Compare sua saída com o exemplo `Belo Horizonte` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "31",
@@ -1111,8 +1111,8 @@
                 "description": "Leia 3 números inteiros (um por linha) e mostre qual é o maior valor entre os três.",
                 "inputSpec": "3 números inteiros, um em cada linha.",
                 "outputSpec": "Imprima: MAIOR = X",
-                "starterCode": "a = int(input())\nb = int(input())\nc = int(input())\n# Encontre o maior entre a, b e c:\n",
-                "hint": "Você pode usar if/elif/else ou a função max(a, b, c)!",
+                "starterCode": "# Desafio #1051 — Maior de Três Números\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **3 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: MAIOR = X*\n• Compare sua saída com o exemplo `MAIOR = 106` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "7\n14\n106",
@@ -1138,8 +1138,8 @@
                 "description": "Para aprovar um financiamento, a parcela mensal não pode ultrapassar 30% (0.30) do salário do cliente. Leia o salário e o valor da parcela: imprima APROVADO se parcela <= salario * 0.30, ou NEGADO caso contrário.",
                 "inputSpec": "Dois valores float: salário e parcela.",
                 "outputSpec": "Imprima APROVADO ou NEGADO.",
-                "starterCode": "salario = float(input())\nparcela = float(input())\n# Verifique se parcela <= salario * 0.30:\n",
-                "hint": "if parcela <= salario * 0.30: print(\"APROVADO\") else: print(\"NEGADO\")",
+                "starterCode": "# Desafio #1052 — Aprovação de Empréstimo Bancário\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** numéricas. Leia cada linha na ordem descrita no enunciado usando `int(input())` para inteiros e `float(input())` para números com casas decimais.\n\nfalse\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima APROVADO ou NEGADO.*\n• Compare sua saída com o exemplo `APROVADO` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "3000.00\n800.00",
@@ -1165,8 +1165,8 @@
                 "description": "Leia um número inteiro positivo N e utilize um laço de repetição (for ou while) para imprimir todos os números inteiros de 1 até N, um em cada linha.",
                 "inputSpec": "Um número inteiro N (1 <= N <= 20).",
                 "outputSpec": "Os números de 1 até N, um por linha.",
-                "starterCode": "n = int(input())\n# Use for i in range(1, n + 1):\n",
-                "hint": "Lembre-se que range(1, n + 1) começa no 1 e vai até incluir o n!",
+                "starterCode": "# Desafio #1014 — Contagem de 1 até N\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `4`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Como a repetição depende de uma condição dinâmica (ou de um valor de parada como `0`), utilize um laço **`while`** ou `while True:` com `break` quando o valor de parada for lido.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Os números de 1 até N, um por linha.*\n• Compare sua saída com o exemplo `1 ↵ 2 ↵ 3 ↵ 4` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "4",
@@ -1192,8 +1192,8 @@
                 "description": "Leia um número inteiro N e mostre os 5 primeiros resultados da tabuada dele (de 1 até 5) no formato \"N x i = resultado\".",
                 "inputSpec": "Um número inteiro N.",
                 "outputSpec": "5 linhas no formato: N x i = resultado",
-                "starterCode": "n = int(input())\nfor i in range(1, 6):\n    # Imprima f\"{n} x {i} = {n * i}\"\n    pass\n",
-                "hint": "Dentro do for i in range(1, 6): coloque print(f\"{n} x {i} = {n * i}\")",
+                "starterCode": "# Desafio #1015 — Mini Tabuada de 1 a 5\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `7`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Use `for i in range(inicio, fim + 1):` quando souber onde a contagem começa e termina (lembrando que o `range` para um número antes do limite final!).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *5 linhas no formato: N x i = resultado*\n• Compare sua saída com o exemplo `7 x 1 = 7 ↵ 7 x 2 = 14 ↵ 7 x 3 = 21 ↵ 7 x 4 = 28 ↵ 7 x 5 = 35` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "7",
@@ -1219,8 +1219,8 @@
                 "description": "Leia um número inteiro N e calcule a soma de todos os números inteiros de 1 até N (por exemplo, se N = 4, calcule 1 + 2 + 3 + 4 = 10).",
                 "inputSpec": "Um número inteiro N.",
                 "outputSpec": "Imprima \"SOMA = \" seguido do total acumulado.",
-                "starterCode": "n = int(input())\nsoma = 0\n# Some todos os valores de 1 até n:\n",
-                "hint": "Crie soma = 0 antes do for, e dentro de for i in range(1, n + 1): faça soma = soma + i.",
+                "starterCode": "# Desafio #1016 — Soma de 1 até N\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `4`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Crie uma variável **acumuladora** (ex: `soma = 0` ou `contador = 0`) ANTES do laço começar, e atualize seu valor dentro do bloco repetido usando `+=`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima \"SOMA = \" seguido do total acumulado.*\n• Compare sua saída com o exemplo `SOMA = 10` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "4",
@@ -1246,8 +1246,8 @@
                 "description": "Pratique a blindagem de erros da Aula 03! Leia uma entrada do usuário e tente convertê-la para número inteiro (int) dentro de um bloco try. Se funcionar, imprima o dobro desse número (\"DOBRO = X\"). Se o usuário tiver digitado letras e disparar ValueError, capture no except e imprima \"ERRO: DIGITE APENAS NUMEROS\".",
                 "inputSpec": "Uma linha contendo números ou letras.",
                 "outputSpec": "Imprima \"DOBRO = X\" ou \"ERRO: DIGITE APENAS NUMEROS\".",
-                "starterCode": "entrada = input()\ntry:\n    # Converta entrada para int e imprima DOBRO = ...\n    pass\nexcept ValueError:\n    # Imprima a mensagem de erro\n    pass\n",
-                "hint": "Dentro do try: n = int(entrada) e print(f\"DOBRO = {n * 2}\"). No except ValueError: print(\"ERRO: DIGITE APENAS NUMEROS\").",
+                "starterCode": "# Desafio #1017 — Cofre Blindado (try / except)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `21`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Use `for i in range(inicio, fim + 1):` quando souber onde a contagem começa e termina (lembrando que o `range` para um número antes do limite final!).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima \"DOBRO = X\" ou \"ERRO: DIGITE APENAS NUMEROS\".*\n• Compare sua saída com o exemplo `DOBRO = 42` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "21",
@@ -1273,8 +1273,8 @@
                 "description": "Leia um número inteiro N e faça uma contagem regressiva de N até 1 (um por linha) e, na última linha, imprima FOGO!",
                 "inputSpec": "Um número inteiro N (1 <= N <= 15).",
                 "outputSpec": "Números de N até 1 e FOGO! no final.",
-                "starterCode": "n = int(input())\n# Conte de n até 1 diminuindo 1 a cada passo:\n",
-                "hint": "Use for i in range(n, 0, -1): print(i) e depois fora do laço print(\"FOGO!\")",
+                "starterCode": "# Desafio #1053 — Contagem Regressiva de Foguete\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `3`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Crie uma variável **acumuladora** (ex: `soma = 0` ou `contador = 0`) ANTES do laço começar, e atualize seu valor dentro do bloco repetido usando `+=`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Números de N até 1 e FOGO! no final.*\n• Compare sua saída com o exemplo `3 ↵ 2 ↵ 1 ↵ FOGO!` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "3",
@@ -1300,8 +1300,8 @@
                 "description": "Leia um valor inteiro N (N >= 2). Mostre todos os valores pares entre 2 e N (inclusive N, se for par), um em cada linha.",
                 "inputSpec": "Um número inteiro N >= 2.",
                 "outputSpec": "Todos os números pares de 2 até N, um por linha.",
-                "starterCode": "n = int(input())\n# Imprima os pares de 2 até n:\n",
-                "hint": "Use for i in range(2, n + 1, 2): print(i)",
+                "starterCode": "# Desafio #1054 — Pares de 2 até N\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `6`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Crie uma variável **acumuladora** (ex: `soma = 0` ou `contador = 0`) ANTES do laço começar, e atualize seu valor dentro do bloco repetido usando `+=`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Todos os números pares de 2 até N, um por linha.*\n• Compare sua saída com o exemplo `2 ↵ 4 ↵ 6` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "6",
@@ -1327,8 +1327,8 @@
                 "description": "Ler um valor N. Calcular e escrever seu respectivo fatorial N! = N * (N-1) * ... * 1. Lembre-se que 0! = 1.",
                 "inputSpec": "Um número inteiro N (0 <= N <= 12).",
                 "outputSpec": "Imprima: FATORIAL = X",
-                "starterCode": "n = int(input())\nfat = 1\n# Multiplique fat pelos números de 1 até n:\n",
-                "hint": "for i in range(1, n + 1): fat = fat * i e depois print(f\"FATORIAL = {fat}\")",
+                "starterCode": "# Desafio #1055 — Fatorial Simples (N!)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `4`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Crie uma variável **acumuladora** (ex: `soma = 0` ou `contador = 0`) ANTES do laço começar, e atualize seu valor dentro do bloco repetido usando `+=`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: FATORIAL = X*\n• Compare sua saída com o exemplo `FATORIAL = 24` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "4",
@@ -1354,8 +1354,8 @@
                 "description": "Leia um inteiro positivo N. Para cada número i de 1 até N, imprima uma linha contendo o número i, seu quadrado (i**2) e seu cubo (i**3) separados por espaço.",
                 "inputSpec": "Um número inteiro N (1 <= N <= 15).",
                 "outputSpec": "N linhas no formato: i quadrado cubo",
-                "starterCode": "n = int(input())\nfor i in range(1, n + 1):\n    # Imprima i, i**2 e i**3 separados por espaço\n    pass\n",
-                "hint": "Use print(f\"{i} {i**2} {i**3}\")",
+                "starterCode": "# Desafio #1056 — Quadrado e ao Cubo\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `3`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Use `for i in range(inicio, fim + 1):` quando souber onde a contagem começa e termina (lembrando que o `range` para um número antes do limite final!).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *N linhas no formato: i quadrado cubo*\n• Compare sua saída com o exemplo `1 1 1 ↵ 2 4 8 ↵ 3 9 27` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "3",
@@ -1381,8 +1381,8 @@
                 "description": "Leia um inteiro N e desenhe uma escadinha de asteriscos de altura N: a 1ª linha tem 1 asterisco (*), a 2ª tem 2 (**), até a linha N.",
                 "inputSpec": "Um número inteiro N.",
                 "outputSpec": "N linhas de asteriscos crescentes.",
-                "starterCode": "n = int(input())\nfor i in range(1, n + 1):\n    # Imprima '*' repetido i vezes:\n    pass\n",
-                "hint": "Use print(\"*\" * i) dentro do laço for!",
+                "starterCode": "# Desafio #1057 — Escadinha de Asteriscos\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `3`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Use `for i in range(inicio, fim + 1):` quando souber onde a contagem começa e termina (lembrando que o `range` para um número antes do limite final!).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *N linhas de asteriscos crescentes.*\n• Compare sua saída com o exemplo `* ↵ ** ↵ ***` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "3",
@@ -1408,8 +1408,8 @@
                 "description": "Um número inteiro maior que 1 é PRIMO se for divisível apenas por 1 e por ele mesmo. Leia um inteiro N (N >= 2) e imprima PRIMO ou NAO PRIMO.",
                 "inputSpec": "Um número inteiro N >= 2.",
                 "outputSpec": "Imprima PRIMO ou NAO PRIMO.",
-                "starterCode": "n = int(input())\ndivisores = 0\nfor i in range(1, n + 1):\n    if n % i == 0:\n        divisores += 1\n# Se divisores == 2 é PRIMO, senão NAO PRIMO:\n",
-                "hint": "if divisores == 2: print(\"PRIMO\") else: print(\"NAO PRIMO\")",
+                "starterCode": "# Desafio #1058 — Detector de Número Primo\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `7`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Use `for i in range(inicio, fim + 1):` quando souber onde a contagem começa e termina (lembrando que o `range` para um número antes do limite final!).\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima PRIMO ou NAO PRIMO.*\n• Compare sua saída com o exemplo `PRIMO` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "7",
@@ -1435,8 +1435,8 @@
                 "description": "Ler um número inteiro N e calcular todos os seus divisores positivos em ordem crescente, um por linha.",
                 "inputSpec": "Um número inteiro N.",
                 "outputSpec": "Todos os divisores de N, um por linha.",
-                "starterCode": "n = int(input())\nfor i in range(1, n + 1):\n    # Se n % i == 0, imprima i\n    pass\n",
-                "hint": "Dentro do for: if n % i == 0: print(i)",
+                "starterCode": "# Desafio #1059 — Divisores de um Número\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `6`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Crie uma variável **acumuladora** (ex: `soma = 0` ou `contador = 0`) ANTES do laço começar, e atualize seu valor dentro do bloco repetido usando `+=`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Todos os divisores de N, um por linha.*\n• Compare sua saída com o exemplo `1 ↵ 2 ↵ 3 ↵ 6` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "6",
@@ -1462,8 +1462,8 @@
                 "description": "Leia vários números inteiros (um por linha) até que o número 0 seja digitado. Quando o 0 aparecer, pare de ler e mostre a soma de todos os números lidos.",
                 "inputSpec": "Várias linhas com inteiros, terminando com 0.",
                 "outputSpec": "Imprima: TOTAL = X",
-                "starterCode": "soma = 0\nwhile True:\n    num = int(input())\n    if num == 0:\n        break\n    soma += num\n# Imprima TOTAL = ...\n",
-                "hint": "Após o while, faça print(f\"TOTAL = {soma}\")",
+                "starterCode": "# Desafio #1060 — Soma até Digitar Zero (While Sentinela)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **4 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Como a repetição depende de uma condição dinâmica (ou de um valor de parada como `0`), utilize um laço **`while`** ou `while True:` com `break` quando o valor de parada for lido.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: TOTAL = X*\n• Compare sua saída com o exemplo `TOTAL = 35` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "10\n20\n5\n0",
@@ -1489,8 +1489,8 @@
                 "description": "Clássico Beecrowd #1114! Escreva um programa que repita a leitura de uma senha até que ela seja válida (2002). Para cada leitura incorreta, escrever 'Senha Invalida'. Quando a senha for '2002', escrever 'Acesso Permitido' e encerrar.",
                 "inputSpec": "Várias linhas com tentativas de senha até aparecer 2002.",
                 "outputSpec": "'Senha Invalida' para cada erro e 'Acesso Permitido' no final.",
-                "starterCode": "while True:\n    senha = input()\n    if senha == \"2002\":\n        print(\"Acesso Permitido\")\n        break\n    else:\n        print(\"Senha Invalida\")\n",
-                "hint": "O modelo já mostra a estrutura com while True e break! Teste e envie.",
+                "starterCode": "# Desafio #1061 — Validador de Senha Fixa (2002)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **4 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Como a repetição depende de uma condição dinâmica (ou de um valor de parada como `0`), utilize um laço **`while`** ou `while True:` com `break` quando o valor de parada for lido.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *'Senha Invalida' para cada erro e 'Acesso Permitido' no final.*\n• Compare sua saída com o exemplo `Senha Invalida ↵ Senha Invalida ↵ Senha Invalida ↵ Acesso Permitido` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "2200\n1020\n2022\n2002",
@@ -1516,8 +1516,8 @@
                 "description": "Leia dois inteiros A e B. Tente calcular a divisão inteira A // B dentro de um bloco try. Se B for 0 (ZeroDivisionError), capture o erro e imprima 'DIVISAO IMPOSSIVEL'. Caso contrário, imprima 'RESULTADO = X'.",
                 "inputSpec": "Dois números inteiros A e B.",
                 "outputSpec": "Imprima RESULTADO = X ou DIVISAO IMPOSSIVEL.",
-                "starterCode": "a = int(input())\nb = int(input())\ntry:\n    # Calcule a // b e imprima RESULTADO = ...\n    pass\nexcept ZeroDivisionError:\n    # Imprima DIVISAO IMPOSSIVEL\n    pass\n",
-                "hint": "No try: print(f\"RESULTADO = {a // b}\"). No except ZeroDivisionError: print(\"DIVISAO IMPOSSIVEL\").",
+                "starterCode": "# Desafio #1062 — Divisão Blindada contra Zero (try/except)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Como a repetição depende de uma condição dinâmica (ou de um valor de parada como `0`), utilize um laço **`while`** ou `while True:` com `break` quando o valor de parada for lido.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima RESULTADO = X ou DIVISAO IMPOSSIVEL.*\n• Compare sua saída com o exemplo `RESULTADO = 5` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "20\n4",
@@ -1543,8 +1543,8 @@
                 "description": "Dado um inteiro positivo N: enquanto N > 1, se N for par divida por 2 (N = N // 2); se N for ímpar multiplique por 3 e some 1 (N = 3 * N + 1). Conte quantos passos são necessários até N chegar em 1.",
                 "inputSpec": "Um número inteiro positivo N.",
                 "outputSpec": "Imprima: PASSOS = X",
-                "starterCode": "n = int(input())\npassos = 0\nwhile n > 1:\n    # Aplique a regra de Collatz e some 1 em passos\n    pass\n",
-                "hint": "Dentro do while: se n % 2 == 0 faça n = n // 2, senão n = 3 * n + 1. Aumente passos += 1.",
+                "starterCode": "# Desafio #1063 — Conjectura de Collatz (Passos até 1)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `6`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este problema exige repetição de passos (loops).\n• Como a repetição depende de uma condição dinâmica (ou de um valor de parada como `0`), utilize um laço **`while`** ou `while True:` com `break` quando o valor de parada for lido.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: PASSOS = X*\n• Compare sua saída com o exemplo `PASSOS = 8` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "6",
@@ -1570,8 +1570,8 @@
                 "description": "Leia 4 números inteiros (um em cada linha), guarde-os dentro de uma lista Python e depois mostre qual é o maior e qual é o menor valor da lista.",
                 "inputSpec": "4 números inteiros, um por linha.",
                 "outputSpec": "Duas linhas:\nMAIOR = X\nMENOR = Y",
-                "starterCode": "numeros = []\nfor i in range(4):\n    numeros.append(int(input()))\n# Mostre o maior e o menor valor:\n",
-                "hint": "Em Python, você pode usar max(numeros) para achar o maior e min(numeros) para achar o menor (ou percorrer com for)!",
+                "starterCode": "# Desafio #1018 — Maior e Menor da Lista\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **4 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Duas linhas: | MAIOR = X | MENOR = Y*\n• Compare sua saída com o exemplo `MAIOR = 45 ↵ MENOR = 3` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "10\n45\n3\n28",
@@ -1597,8 +1597,8 @@
                 "description": "Leia 5 números inteiros (um por linha), armazene em uma lista e conte quantos deles são números PARES.",
                 "inputSpec": "5 números inteiros, um em cada linha.",
                 "outputSpec": "Imprima \"PARES = X\" com a quantidade de números pares encontrados.",
-                "starterCode": "pares = 0\nfor i in range(5):\n    num = int(input())\n    # Verifique se num é par:\n",
-                "hint": "Se num % 2 == 0, aumente o contador pares += 1.",
+                "starterCode": "# Desafio #1021 — Caçador de Números Pares na Lista\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **5 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima \"PARES = X\" com a quantidade de números pares encontrados.*\n• Compare sua saída com o exemplo `PARES = 3` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "2\n5\n8\n11\n14",
@@ -1624,8 +1624,8 @@
                 "description": "Leia uma linha com vários números inteiros separados por espaço, converta para uma lista de inteiros e mostre a soma total deles.",
                 "inputSpec": "Uma linha com números inteiros separados por espaço.",
                 "outputSpec": "Imprima: SOMA = X",
-                "starterCode": "partes = input().split()\nnumeros = []\nfor p in partes:\n    numeros.append(int(p))\n# Calcule a soma da lista:\n",
-                "hint": "Você pode usar sum(numeros) e imprimir print(f\"SOMA = {sum(numeros)}\")!",
+                "starterCode": "# Desafio #1064 — Soma de Todos os Elementos da Lista\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** Os valores vêm em uma única linha separados por espaço (ex: `10 20 30 40`). Use `input().split()` para separar os itens e converta cada um para inteiro com `[int(x) for x in input().split()]` ou `map(int, input().split())`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: SOMA = X*\n• Compare sua saída com o exemplo `SOMA = 100` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "10 20 30 40",
@@ -1651,8 +1651,8 @@
                 "description": "Leia uma linha com palavras separadas por espaço, guarde em uma lista e imprima os itens na ordem inversa (do último para o primeiro), separados por espaço.",
                 "inputSpec": "Uma linha com palavras separadas por espaço.",
                 "outputSpec": "As palavras na ordem inversa, na mesma linha.",
-                "starterCode": "itens = input().split()\n# Inverta a lista e imprima com ' '.join():\n",
-                "hint": "Use itens.reverse() (ou itens[::-1]) e depois print(\" \".join(itens))",
+                "starterCode": "# Desafio #1065 — Inverter Ordem da Lista\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** Leia a linha inteira com `input()` e, se precisar separar as palavras por espaço, utilize o método `.split()` (que transforma a frase em uma lista de palavras).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *As palavras na ordem inversa, na mesma linha.*\n• Compare sua saída com o exemplo `bronze prata ouro` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "ouro prata bronze",
@@ -1678,8 +1678,8 @@
                 "description": "Leia uma sequência de números separados por espaço e crie uma nova lista sem números repetidos, preservando a ordem em que apareceram pela primeira vez.",
                 "inputSpec": "Uma linha de números separados por espaço.",
                 "outputSpec": "Os números únicos separados por espaço.",
-                "starterCode": "entrada = input().split()\nunicos = []\nfor item in entrada:\n    # Se item não estiver em unicos, adicione:\n    pass\n",
-                "hint": "if item not in unicos: unicos.append(item) e no final print(\" \".join(unicos))",
+                "starterCode": "# Desafio #1066 — Remover Duplicatas Mantendo a Ordem\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** Os valores vêm em uma única linha separados por espaço (ex: `1 2 2 3 1 4`). Use `input().split()` para separar os itens e converta cada um para inteiro com `[int(x) for x in input().split()]` ou `map(int, input().split())`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Os números únicos separados por espaço.*\n• Compare sua saída com o exemplo `1 2 3 4` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "1 2 2 3 1 4",
@@ -1705,8 +1705,8 @@
                 "description": "Em um torneio de e-sports, queremos premiar o 2º colocado! Leia uma linha de pontuações inteiras distintas separadas por espaço e mostre a segunda maior pontuação.",
                 "inputSpec": "Pelo menos 2 números inteiros distintos separados por espaço.",
                 "outputSpec": "Imprima: VICE = X",
-                "starterCode": " nums = [int(x) for x in input().split()]\n# Ordene a lista e pegue o penúltimo elemento:\n",
-                "hint": "Ordene com nums.sort() e pegue nums[-2]: print(f\"VICE = {nums[-2]}\")",
+                "starterCode": "# Desafio #1067 — Vice-Campeão (Segundo Maior Valor)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** Os valores vêm em uma única linha separados por espaço (ex: `10 50 30 80 40`). Use `input().split()` para separar os itens e converta cada um para inteiro com `[int(x) for x in input().split()]` ou `map(int, input().split())`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: VICE = X*\n• Compare sua saída com o exemplo `VICE = 50` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "10 50 30 80 40",
@@ -1732,8 +1732,8 @@
                 "description": "Leia uma linha com várias notas inteiras separadas por espaço. Calcule a média da turma e conte quantos alunos tiveram nota estritamente maior que a média.",
                 "inputSpec": "Uma linha de inteiros separados por espaço.",
                 "outputSpec": "Imprima: ACIMA = X",
-                "starterCode": "notas = [int(x) for x in input().split()]\nmedia = sum(notas) / len(notas)\n# Conte quantas notas são > media:\n",
-                "hint": "Use um contador para cada n in notas: se n > media, some 1. Depois print(f\"ACIMA = {cont}\")",
+                "starterCode": "# Desafio #1068 — Acima da Média da Turma\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** Os valores vêm em uma única linha separados por espaço (ex: `5 7 8 10`). Use `input().split()` para separar os itens e converta cada um para inteiro com `[int(x) for x in input().split()]` ou `map(int, input().split())`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: ACIMA = X*\n• Compare sua saída com o exemplo `ACIMA = 2` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "5 7 8 10",
@@ -1759,8 +1759,8 @@
                 "description": "Leia uma lista de números inteiros separados por espaço, ordene do menor para o maior e imprima os números ordenados separados por espaço.",
                 "inputSpec": "Uma linha de números inteiros separados por espaço.",
                 "outputSpec": "Os números em ordem crescente separados por espaço.",
-                "starterCode": "nums = [int(x) for x in input().split()]\n# Ordene nums e imprima separados por espaço:\n",
-                "hint": "Use nums.sort() e depois print(\" \".join(str(x) for x in nums))",
+                "starterCode": "# Desafio #1069 — Ordenação Crescente de Lista\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** Os valores vêm em uma única linha separados por espaço (ex: `9 3 7 1 5`). Use `input().split()` para separar os itens e converta cada um para inteiro com `[int(x) for x in input().split()]` ou `map(int, input().split())`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Os números em ordem crescente separados por espaço.*\n• Compare sua saída com o exemplo `1 3 5 7 9` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "9 3 7 1 5",
@@ -1786,8 +1786,8 @@
                 "description": "Na 1ª linha leia vários números separados por espaço. Na 2ª linha leia um número ALVO. Mostre quantas vezes o ALVO aparece na lista.",
                 "inputSpec": "1ª linha: números separados por espaço. 2ª linha: número alvo.",
                 "outputSpec": "Imprima: APARECEU = X",
-                "starterCode": "lista = input().split()\nalvo = input().strip()\n# Conte quantas vezes alvo aparece na lista:\n",
-                "hint": "Use lista.count(alvo) e print(f\"APARECEU = {lista.count(alvo)}\")",
+                "starterCode": "# Desafio #1070 — Contagem de Ocorrências do Alvo\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **2 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: APARECEU = X*\n• Compare sua saída com o exemplo `APARECEU = 3` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "1 4 2 4 5 4\n4",
@@ -1813,8 +1813,8 @@
                 "description": "Leia duas linhas, cada uma com 3 números inteiros separados por espaço (representando dois vetores A e B). Calcule o produto escalar: A[0]*B[0] + A[1]*B[1] + A[2]*B[2].",
                 "inputSpec": "Duas linhas, cada uma com 3 inteiros separados por espaço.",
                 "outputSpec": "Imprima: ESCALAR = X",
-                "starterCode": "a = [int(x) for x in input().split()]\nb = [int(x) for x in input().split()]\n# Some a[i] * b[i] para i de 0 a 2:\n",
-                "hint": "soma = a[0]*b[0] + a[1]*b[1] + a[2]*b[2]",
+                "starterCode": "# Desafio #1071 — Produto Escalar de Dois Vetores\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **2 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: ESCALAR = X*\n• Compare sua saída com o exemplo `ESCALAR = 32` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "1 2 3\n4 5 6",
@@ -1840,8 +1840,8 @@
                 "description": "Leia duas listas de 3 palavras cada (uma lista por linha) e gere uma única lista intercalando os elementos: A1 B1 A2 B2 A3 B3.",
                 "inputSpec": "Duas linhas com 3 palavras cada.",
                 "outputSpec": "As 6 palavras intercaladas separadas por espaço.",
-                "starterCode": "a = input().split()\nb = input().split()\nres = []\n# Adicione a[i] e b[i] dentro de um for:\n",
-                "hint": "for i in range(3): res.append(a[i]); res.append(b[i]) e print(\" \".join(res))",
+                "starterCode": "# Desafio #1072 — Intercalação de Duas Listas\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **2 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *As 6 palavras intercaladas separadas por espaço.*\n• Compare sua saída com o exemplo `A 1 B 2 C 3` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "A B C\n1 2 3",
@@ -1867,8 +1867,8 @@
                 "description": "Na estatística, a amplitude de um conjunto de dados é a diferença entre o maior e o menor valor. Leia uma linha de inteiros e mostre a amplitude.",
                 "inputSpec": "Uma linha de inteiros separados por espaço.",
                 "outputSpec": "Imprima: AMPLITUDE = X",
-                "starterCode": "dados = [int(x) for x in input().split()]\n# Calcule max(dados) - min(dados):\n",
-                "hint": "Use print(f\"AMPLITUDE = {max(dados) - min(dados)}\")",
+                "starterCode": "# Desafio #1073 — Amplitude da Amostra (Max - Min)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** Os valores vêm em uma única linha separados por espaço (ex: `10 25 5 40 18`). Use `input().split()` para separar os itens e converta cada um para inteiro com `[int(x) for x in input().split()]` ou `map(int, input().split())`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: AMPLITUDE = X*\n• Compare sua saída com o exemplo `AMPLITUDE = 35` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "10 25 5 40 18",
@@ -1894,8 +1894,8 @@
                 "description": "Leia uma matriz 3x3 (3 linhas, cada uma com 3 inteiros separados por espaço) e calcule a soma dos elementos da diagonal principal (posições [0][0], [1][1] e [2][2]).",
                 "inputSpec": "3 linhas com 3 inteiros cada.",
                 "outputSpec": "Imprima: DIAGONAL = X",
-                "starterCode": "l0 = [int(x) for x in input().split()]\nl1 = [int(x) for x in input().split()]\nl2 = [int(x) for x in input().split()]\n# Some l0[0] + l1[1] + l2[2]:\n",
-                "hint": "soma = l0[0] + l1[1] + l2[2] e print(f\"DIAGONAL = {soma}\")",
+                "starterCode": "# Desafio #1074 — Soma da Diagonal Principal (Matriz 3x3)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **3 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: DIAGONAL = X*\n• Compare sua saída com o exemplo `DIAGONAL = 15` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "1 2 3\n4 5 6\n7 8 9",
@@ -1921,8 +1921,8 @@
                 "description": "Leia uma fila de nomes separados por espaço. Mova o primeiro da fila para o final da fila e imprima a nova formação.",
                 "inputSpec": "Uma linha com pelo menos 2 nomes separados por espaço.",
                 "outputSpec": "A fila após mover o 1º elemento para o final.",
-                "starterCode": "fila = input().split()\n# Remova o primeiro com pop(0) e adicione no final com append():\n",
-                "hint": "primeiro = fila.pop(0); fila.append(primeiro); print(\" \".join(fila))",
+                "starterCode": "# Desafio #1075 — Rotação de Fila para a Esquerda\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** Leia a linha inteira com `input()` e, se precisar separar as palavras por espaço, utilize o método `.split()` (que transforma a frase em uma lista de palavras).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Aqui o objetivo é **blindar o programa contra falhas** usando tratamento de exceções (`try / except`).\n• Coloque a leitura/conversão numérica (ex: `int(input())` ou `float(input())`) e a operação dentro do bloco `try:`.\n• Caso o usuário digite texto inválido ou tente dividir por zero, capture o erro no bloco `except ValueError:` (ou `except ZeroDivisionError:`) e imprima a mensagem de erro exata pedida.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *A fila após mover o 1º elemento para o final.*\n• Compare sua saída com o exemplo `Bruno Carlos Diana Ana` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Ana Bruno Carlos Diana",
@@ -1948,8 +1948,8 @@
                 "description": "Leia uma palavra ou frase e conte quantas vogais (a, e, i, o, u — tanto maiúsculas quanto minúsculas, sem acento) aparecem nela.",
                 "inputSpec": "Uma linha de texto.",
                 "outputSpec": "Imprima \"VOGAIS = X\" onde X é a quantidade total de vogais.",
-                "starterCode": "texto = input().lower()\ncont = 0\n# Percorra cada letra do texto e conte se estiver em \"aeiou\":\n",
-                "hint": "Use: for letra in texto: if letra in \"aeiou\": cont += 1",
+                "starterCode": "# Desafio #1019 — Contador de Vogais\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"Programador\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Para manipular textos (`str`), lembre-se que `texto[::-1]` inverte uma string, `.upper()` / `.lower()` alteram a caixa das letras, `.replace(antigo, novo)` substitui trechos e você pode percorrer letra por letra com `for letra in texto:`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima \"VOGAIS = X\" onde X é a quantidade total de vogais.*\n• Compare sua saída com o exemplo `VOGAIS = 4` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Programador",
@@ -1975,8 +1975,8 @@
                 "description": "Para decifrar um pergaminho secreto do jogo, você precisa ler uma palavra, transformá-la em letras MAIÚSCULAS e imprimi-la de trás para frente (invertida)!",
                 "inputSpec": "Uma palavra ou frase em uma linha.",
                 "outputSpec": "A palavra invertida e toda em letras maiúsculas.",
-                "starterCode": "palavra = input().upper()\n# Inverta a string e imprima:\n",
-                "hint": "Em Python, palavra[::-1] inverte um texto automaticamente (ou você pode usar um laço for)!",
+                "starterCode": "# Desafio #1020 — Mensagem Espelhada (Inversor)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"python\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Para manipular textos (`str`), lembre-se que `texto[::-1]` inverte uma string, `.upper()` / `.lower()` alteram a caixa das letras, `.replace(antigo, novo)` substitui trechos e você pode percorrer letra por letra com `for letra in texto:`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *A palavra invertida e toda em letras maiúsculas.*\n• Compare sua saída com o exemplo `NOHTYP` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "python",
@@ -2002,8 +2002,8 @@
                 "description": "Um palíndromo é uma palavra ou frase que é lida da mesma forma da esquerda para a direita e da direita para a esquerda (desconsiderando espaços e maiúsculas, ex: 'arara', 'apos a sopa'). Leia um texto e imprima PALINDROMO ou COMUM.",
                 "inputSpec": "Uma linha de texto.",
                 "outputSpec": "Imprima PALINDROMO ou COMUM.",
-                "starterCode": "limpo = input().lower().replace(\" \", \"\")\n# Compare limpo com limpo[::-1]:\n",
-                "hint": "if limpo == limpo[::-1]: print(\"PALINDROMO\") else: print(\"COMUM\")",
+                "starterCode": "# Desafio #1076 — Detector de Palíndromo\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"Arara\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Para manipular textos (`str`), lembre-se que `texto[::-1]` inverte uma string, `.upper()` / `.lower()` alteram a caixa das letras, `.replace(antigo, novo)` substitui trechos e você pode percorrer letra por letra com `for letra in texto:`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima PALINDROMO ou COMUM.*\n• Compare sua saída com o exemplo `PALINDROMO` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Arara",
@@ -2029,8 +2029,8 @@
                 "description": "Leia uma frase completa e informe quantas palavras existem nela.",
                 "inputSpec": "Uma linha contendo uma frase.",
                 "outputSpec": "Imprima: PALAVRAS = X",
-                "starterCode": "frase = input()\n# Use .split() e len() para contar as palavras:\n",
-                "hint": "palavras = frase.split() e print(f\"PALAVRAS = {len(palavras)}\")",
+                "starterCode": "# Desafio #1077 — Contador de Palavras na Frase\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"Trilhando o Caminho do Codigo\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Para manipular textos (`str`), lembre-se que `texto[::-1]` inverte uma string, `.upper()` / `.lower()` alteram a caixa das letras, `.replace(antigo, novo)` substitui trechos e você pode percorrer letra por letra com `for letra in texto:`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: PALAVRAS = X*\n• Compare sua saída com o exemplo `PALAVRAS = 5` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Trilhando o Caminho do Codigo",
@@ -2056,8 +2056,8 @@
                 "description": "Leia um nome composto ou frase e gere uma sigla formada pela primeira letra de cada palavra em MAIÚSCULO.",
                 "inputSpec": "Uma linha com palavras separadas por espaço.",
                 "outputSpec": "A sigla em letras maiúsculas.",
-                "starterCode": "palavras = input().upper().split()\nsigla = \"\"\nfor p in palavras:\n    # Concatene a primeira letra p[0] em sigla:\n    pass\n",
-                "hint": "Dentro do for: sigla += p[0] e depois print(sigla)",
+                "starterCode": "# Desafio #1078 — Gerador de Sigla / Acrônimo\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** Leia a linha inteira com `input()` e, se precisar separar as palavras por espaço, utilize o método `.split()` (que transforma a frase em uma lista de palavras).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Para manipular textos (`str`), lembre-se que `texto[::-1]` inverte uma string, `.upper()` / `.lower()` alteram a caixa das letras, `.replace(antigo, novo)` substitui trechos e você pode percorrer letra por letra com `for letra in texto:`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *A sigla em letras maiúsculas.*\n• Compare sua saída com o exemplo `CFDET` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Centro Federal de Educacao Tecnologica",
@@ -2083,8 +2083,8 @@
                 "description": "Leia uma mensagem e substitua todas as vogais (maiúsculas ou minúsculas) pelo caractere asterisco (*), mantendo as consoantes e espaços intactos.",
                 "inputSpec": "Uma linha de texto.",
                 "outputSpec": "O texto com vogais substituídas por *.",
-                "starterCode": "texto = input()\nresultado = \"\"\nfor c in texto:\n    # Se c.lower() estiver em 'aeiou', adicione '*', senão adicione c:\n    pass\n",
-                "hint": "if c.lower() in \"aeiou\": resultado += \"*\" else: resultado += c",
+                "starterCode": "# Desafio #1079 — Censura Secreta (Trocar Vogais por *)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"Secreto\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Para manipular textos (`str`), lembre-se que `texto[::-1]` inverte uma string, `.upper()` / `.lower()` alteram a caixa das letras, `.replace(antigo, novo)` substitui trechos e você pode percorrer letra por letra com `for letra in texto:`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *O texto com vogais substituídas por *.*\n• Compare sua saída com o exemplo `S*cr*t*` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Secreto",
@@ -2110,8 +2110,8 @@
                 "description": "Leia um número inteiro positivo grande (como texto) e calcule a soma de todos os seus algarismos individuais (ex: '2026' -> 2 + 0 + 2 + 6 = 10).",
                 "inputSpec": "Uma string contendo apenas dígitos numéricos.",
                 "outputSpec": "Imprima: SOMA DOS DIGITOS = X",
-                "starterCode": "numero_txt = input().strip()\nsoma = 0\nfor digito in numero_txt:\n    # Converta digito para int e some:\n    pass\n",
-                "hint": "soma += int(digito) e no final print(f\"SOMA DOS DIGITOS = {soma}\")",
+                "starterCode": "# Desafio #1080 — Soma dos Dígitos de um Número Gigante\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `2026`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Explore funções nativas de listas como `len(lista)`, `sum(lista)`, `max(lista)`, `min(lista)` e `sorted(lista)`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: SOMA DOS DIGITOS = X*\n• Compare sua saída com o exemplo `SOMA DOS DIGITOS = 10` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "2026",
@@ -2137,8 +2137,8 @@
                 "description": "Duas palavras são anagramas se possuem exatamente as mesmas letras em qualquer ordem (ex: 'amor' e 'roma'). Leia duas palavras e imprima ANAGRAMA ou DIFERENTES.",
                 "inputSpec": "Duas linhas contendo uma palavra cada.",
                 "outputSpec": "Imprima ANAGRAMA ou DIFERENTES.",
-                "starterCode": "p1 = input().strip().lower()\np2 = input().strip().lower()\n# Dica: sorted(p1) == sorted(p2)\n",
-                "hint": "if sorted(p1) == sorted(p2): print(\"ANAGRAMA\") else: print(\"DIFERENTES\")",
+                "starterCode": "# Desafio #1081 — Verificador de Anagramas\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **2 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Para manipular textos (`str`), lembre-se que `texto[::-1]` inverte uma string, `.upper()` / `.lower()` alteram a caixa das letras, `.replace(antigo, novo)` substitui trechos e você pode percorrer letra por letra com `for letra in texto:`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima ANAGRAMA ou DIFERENTES.*\n• Compare sua saída com o exemplo `ANAGRAMA` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "amor\nroma",
@@ -2164,8 +2164,8 @@
                 "description": "Júlio César protegia suas mensagens trocando cada letra maiúscula por outra 3 posições à frente no alfabeto (A->D, B->E, ..., X->A, Y->B, Z->C). Leia uma palavra em letras MAIÚSCULAS (A-Z) e codifique-a com deslocamento +3.",
                 "inputSpec": "Uma palavra contendo apenas letras maiúsculas de A a Z.",
                 "outputSpec": "A palavra cifrada.",
-                "starterCode": "alfabeto = \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\"\ntexto = input().strip()\ncifrado = \"\"\nfor letra in texto:\n    pos = alfabeto.index(letra)\n    nova_pos = (pos + 3) % 26\n    cifrado += alfabeto[nova_pos]\nprint(cifrado)\n",
-                "hint": "O uso de (pos + 3) % 26 garante que X, Y e Z deem a volta para A, B e C!",
+                "starterCode": "# Desafio #1082 — Cifra de César (+3 Posições)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"ABC\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Para manipular textos (`str`), lembre-se que `texto[::-1]` inverte uma string, `.upper()` / `.lower()` alteram a caixa das letras, `.replace(antigo, novo)` substitui trechos e você pode percorrer letra por letra com `for letra in texto:`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *A palavra cifrada.*\n• Compare sua saída com o exemplo `DEF` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "ABC",
@@ -2191,8 +2191,8 @@
                 "description": "Leia uma string contendo exatamente 11 dígitos numéricos (ex: 12345678901) e formate-a no padrão oficial de CPF: XXX.XXX.XXX-XX.",
                 "inputSpec": "Uma linha com 11 dígitos.",
                 "outputSpec": "O CPF formatado com pontos e traço.",
-                "starterCode": "cpf = input().strip()\n# Use fatiamento cpf[0:3], cpf[3:6], cpf[6:9] e cpf[9:11]:\n",
-                "hint": "print(f\"{cpf[0:3]}.{cpf[3:6]}.{cpf[6:9]}-{cpf[9:11]}\")",
+                "starterCode": "# Desafio #1083 — Formatador de CPF\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"12345678901\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Para manipular textos (`str`), lembre-se que `texto[::-1]` inverte uma string, `.upper()` / `.lower()` alteram a caixa das letras, `.replace(antigo, novo)` substitui trechos e você pode percorrer letra por letra com `for letra in texto:`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *O CPF formatado com pontos e traço.*\n• Compare sua saída com o exemplo `123.456.789-01` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "12345678901",
@@ -2218,8 +2218,8 @@
                 "description": "Leia uma frase e descubra qual é a palavra com o maior número de letras. Se houver empate, mantenha a primeira que apareceu.",
                 "inputSpec": "Uma frase em uma linha.",
                 "outputSpec": "Imprima: MAIOR PALAVRA = X",
-                "starterCode": "palavras = input().split()\nmaior = \"\"\nfor p in palavras:\n    # Se len(p) > len(maior), atualize maior:\n    pass\n",
-                "hint": "if len(p) > len(maior): maior = p e no final print(f\"MAIOR PALAVRA = {maior}\")",
+                "starterCode": "# Desafio #1084 — Palavra Mais Longa da Frase\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"Eu estudo programacao no CEFET\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Para manipular textos (`str`), lembre-se que `texto[::-1]` inverte uma string, `.upper()` / `.lower()` alteram a caixa das letras, `.replace(antigo, novo)` substitui trechos e você pode percorrer letra por letra com `for letra in texto:`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: MAIOR PALAVRA = X*\n• Compare sua saída com o exemplo `MAIOR PALAVRA = programacao` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Eu estudo programacao no CEFET",
@@ -2245,8 +2245,8 @@
                 "description": "Uma senha é considerada FORTE se tiver pelo menos 8 caracteres E contiver pelo menos um número (0-9). Caso contrário, é FRACA. Leia uma senha e classifique-a.",
                 "inputSpec": "Uma string representando a senha.",
                 "outputSpec": "Imprima FORTE ou FRACA.",
-                "starterCode": "senha = input().strip()\ntem_numero = False\nfor c in senha:\n    if c in \"0123456789\":\n        tem_numero = True\n# Verifique se len(senha) >= 8 and tem_numero:\n",
-                "hint": "if len(senha) >= 8 and tem_numero: print(\"FORTE\") else: print(\"FRACA\")",
+                "starterCode": "# Desafio #1085 — Validador de Senha Forte\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"Python2026\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Explore funções nativas de listas como `len(lista)`, `sum(lista)`, `max(lista)`, `min(lista)` e `sorted(lista)`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima FORTE ou FRACA.*\n• Compare sua saída com o exemplo `FORTE` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Python2026",
@@ -2272,8 +2272,8 @@
                 "description": "Em Python, nomes de variáveis usam o estilo snake_case (tudo em minúsculo e espaços trocados por underline _). Leia um título e converta para snake_case.",
                 "inputSpec": "Uma linha de texto.",
                 "outputSpec": "O texto em minúsculas com espaços substituídos por _.",
-                "starterCode": "titulo = input().strip()\n# Use .lower() e .replace(' ', '_'):\n",
-                "hint": "print(titulo.lower().replace(\" \", \"_\"))",
+                "starterCode": "# Desafio #1086 — Conversor Snake_Case\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"Nome Completo do Aluno\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Explore funções nativas de listas como `len(lista)`, `sum(lista)`, `max(lista)`, `min(lista)` e `sorted(lista)`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *O texto em minúsculas com espaços substituídos por _.*\n• Compare sua saída com o exemplo `nome_completo_do_aluno` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Nome Completo do Aluno",
@@ -2299,8 +2299,8 @@
                 "description": "Leia uma frase e conte quantas letras MAIÚSCULAS (A-Z) existem nela.",
                 "inputSpec": "Uma linha de texto.",
                 "outputSpec": "Imprima: MAIUSCULAS = X",
-                "starterCode": "texto = input()\ncont = 0\nfor c in texto:\n    if c in \"ABCDEFGHIJKLMNOPQRSTUVWXYZ\":\n        cont += 1\n# Imprima MAIUSCULAS = ...\n",
-                "hint": "print(f\"MAIUSCULAS = {cont}\")",
+                "starterCode": "# Desafio #1087 — Contador de Letras Maiúsculas\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"CEFET-MG e FAPEMIG\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Este desafio explora coleções de dados (**Listas** ou **Strings**).\n• Para manipular textos (`str`), lembre-se que `texto[::-1]` inverte uma string, `.upper()` / `.lower()` alteram a caixa das letras, `.replace(antigo, novo)` substitui trechos e você pode percorrer letra por letra com `for letra in texto:`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: MAIUSCULAS = X*\n• Compare sua saída com o exemplo `MAIUSCULAS = 14` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "CEFET-MG e FAPEMIG",
@@ -2326,8 +2326,8 @@
                 "description": "Crie uma função chamada calcular_dano(ataque, multiplicador) usando def que devolva (return) o ataque multiplicado pelo multiplicador mais um bônus fixo de 10 pontos. Depois leia os dois inteiros e mostre o resultado.",
                 "inputSpec": "Dois números inteiros (ataque e multiplicador), um por linha.",
                 "outputSpec": "Imprima \"DANO TOTAL = X\".",
-                "starterCode": "def calcular_dano(ataque, multiplicador):\n    return (ataque * multiplicador) + 10\n\natk = int(input())\nmult = int(input())\n# Chame a função e imprima DANO TOTAL = ...\n",
-                "hint": "resultado = calcular_dano(atk, mult) e depois print(f\"DANO TOTAL = {resultado}\")",
+                "starterCode": "# Desafio #1022 — Função de Dano Crítico (def)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Organize seu código usando estruturas modulares (**Funções `def`** ou **Dicionários**).\n• Defina sua função com `def nome_da_funcao(parametros):`, calcule o resultado lá dentro e devolva com `return`. Depois, leia a entrada e chame sua função dentro do `print()`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima \"DANO TOTAL = X\".*\n• Compare sua saída com o exemplo `DANO TOTAL = 70` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "20\n3",
@@ -2353,8 +2353,8 @@
                 "description": "Armazene os dados de um personagem em um dicionário Python contendo \"nome\", \"nivel\" (int) e \"xp\" (int). Se o xp for maior ou igual a 100, aumente o nível do herói em +1! Ao final, imprima a ficha atualizada.",
                 "inputSpec": "3 linhas: Nome (str), Nível atual (int) e XP acumulado (int).",
                 "outputSpec": "Imprima: Heroi: NOME | Nivel: X",
-                "starterCode": "heroi = {\n    \"nome\": input(),\n    \"nivel\": int(input()),\n    \"xp\": int(input())\n}\n# Se heroi[\"xp\"] >= 100, some 1 em heroi[\"nivel\"]:\n",
-                "hint": "Use if heroi[\"xp\"] >= 100: heroi[\"nivel\"] += 1 e depois print(f'Heroi: {heroi[\"nome\"]} | Nivel: {heroi[\"nivel\"]}')",
+                "starterCode": "# Desafio #1023 — Ficha de Herói com Dicionário\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **3 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Organize seu código usando estruturas modulares (**Funções `def`** ou **Dicionários**).\n• Use um **dicionário** `{chave: valor}` para associar cada identificador ao seu respectivo dado. O método `dicionario.get(chave, valor_padrao)` é excelente para buscar uma chave com segurança sem gerar erro caso ela não exista!\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: Heroi: NOME | Nivel: X*\n• Compare sua saída com o exemplo `Heroi: Arthas | Nivel: 6` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Arthas\n5\n120",
@@ -2380,8 +2380,8 @@
                 "description": "Use um dicionário com os códigos e preços de lanches: 1 -> 4.00, 2 -> 4.50, 3 -> 5.00, 4 -> 2.00, 5 -> 1.50. Leia o código do item e a quantidade, e mostre o total com 2 casas decimais.",
                 "inputSpec": "Dois inteiros (código e quantidade), um por linha.",
                 "outputSpec": "Imprima: Total: R$ X.XX",
-                "starterCode": "precos = {1: 4.00, 2: 4.50, 3: 5.00, 4: 2.00, 5: 1.50}\ncodigo = int(input())\nqtd = int(input())\n# Calcule precos[codigo] * qtd:\n",
-                "hint": "total = precos[codigo] * qtd e print(f\"Total: R$ {total:.2f}\")",
+                "starterCode": "# Desafio #1088 — Cardápio da Lanchonete (Dicionário)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Organize seu código usando estruturas modulares (**Funções `def`** ou **Dicionários**).\n• Use um **dicionário** `{chave: valor}` para associar cada identificador ao seu respectivo dado. O método `dicionario.get(chave, valor_padrao)` é excelente para buscar uma chave com segurança sem gerar erro caso ela não exista!\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: Total: R$ X.XX* Formate o resultado com **2 casas decimais** usando `{valor:.2f}` dentro da f-string.\n• Compare sua saída com o exemplo `Total: R$ 10.00` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "3\n2",
@@ -2407,8 +2407,8 @@
                 "description": "Crie um dicionário que traduza: red -> vermelho, blue -> azul, green -> verde, yellow -> amarelo. Se a cor digitada não estiver no dicionário, imprima COR DESCONHECIDA.",
                 "inputSpec": "Uma palavra em inglês (minúscula).",
                 "outputSpec": "A tradução em português ou COR DESCONHECIDA.",
-                "starterCode": "cores = {\n    \"red\": \"vermelho\",\n    \"blue\": \"azul\",\n    \"green\": \"verde\",\n    \"yellow\": \"amarelo\"\n}\ncor = input().strip().lower()\n# Use cores.get(cor, 'COR DESCONHECIDA'):\n",
-                "hint": "print(cores.get(cor, \"COR DESCONHECIDA\"))",
+                "starterCode": "# Desafio #1089 — Tradutor de Cores Inglês-Português\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"blue\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Organize seu código usando estruturas modulares (**Funções `def`** ou **Dicionários**).\n• Use um **dicionário** `{chave: valor}` para associar cada identificador ao seu respectivo dado. O método `dicionario.get(chave, valor_padrao)` é excelente para buscar uma chave com segurança sem gerar erro caso ela não exista!\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *A tradução em português ou COR DESCONHECIDA.*\n• Compare sua saída com o exemplo `azul` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "blue",
@@ -2434,8 +2434,8 @@
                 "description": "Em jogos de tabuleiro em grade, a distância de Manhattan entre (x1, y1) e (x2, y2) é |x1 - x2| + |y1 - y2|. Crie uma função que calcule essa distância.",
                 "inputSpec": "Duas linhas, cada uma com 2 inteiros separados por espaço.",
                 "outputSpec": "Imprima: DISTANCIA = X",
-                "starterCode": "def manhattan(x1, y1, x2, y2):\n    return abs(x1 - x2) + abs(y1 - y2)\n\nx1, y1 = [int(v) for v in input().split()]\nx2, y2 = [int(v) for v in input().split()]\n# Chame a função e imprima DISTANCIA = ...\n",
-                "hint": "d = manhattan(x1, y1, x2, y2) e print(f\"DISTANCIA = {d}\")",
+                "starterCode": "# Desafio #1090 — Função Distância de Manhattan\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada é composta por **2 linhas** lidas em sequência. Use um comando `input()` para cada linha (convertendo com `int()` ou `float()` apenas nas linhas que forem números para cálculo).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Organize seu código usando estruturas modulares (**Funções `def`** ou **Dicionários**).\n• Defina sua função com `def nome_da_funcao(parametros):`, calcule o resultado lá dentro e devolva com `return`. Depois, leia a entrada e chame sua função dentro do `print()`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: DISTANCIA = X*\n• Compare sua saída com o exemplo `DISTANCIA = 7` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "0 0\n3 4",
@@ -2461,8 +2461,8 @@
                 "description": "Leia uma linha com vários nomes votados separados por espaço. Conte os votos usando um dicionário e imprima o nome mais votado e quantos votos ele recebeu.",
                 "inputSpec": "Nomes separados por espaço.",
                 "outputSpec": "Imprima: VENCEDOR = NOME (X votos)",
-                "starterCode": "votos = input().split()\ncontagem = {}\nfor nome in votos:\n    contagem[nome] = contagem.get(nome, 0) + 1\n# Descubra quem teve mais votos:\n",
-                "hint": "vencedor = max(contagem, key=contagem.get) e print(f\"VENCEDOR = {vencedor} ({contagem[vencedor]} votos)\")",
+                "starterCode": "# Desafio #1091 — Contagem de Votos (Urna Eletrônica)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** Leia a linha inteira com `input()` e, se precisar separar as palavras por espaço, utilize o método `.split()` (que transforma a frase em uma lista de palavras).\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Organize seu código usando estruturas modulares (**Funções `def`** ou **Dicionários**).\n• Use um **dicionário** `{chave: valor}` para associar cada identificador ao seu respectivo dado. O método `dicionario.get(chave, valor_padrao)` é excelente para buscar uma chave com segurança sem gerar erro caso ela não exista!\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: VENCEDOR = NOME (X votos)*\n• Compare sua saída com o exemplo `VENCEDOR = Ana (3 votos)` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "Ana Lucas Ana Pedro Ana Lucas",
@@ -2488,8 +2488,8 @@
                 "description": "Crie uma função conceito(nota) que receba uma nota inteira (0 a 100) e retorne: 'A' (>=90), 'B' (>=75), 'C' (>=60) ou 'D' (<60).",
                 "inputSpec": "Um número inteiro de 0 a 100.",
                 "outputSpec": "Imprima: CONCEITO = X",
-                "starterCode": "def conceito(n):\n    if n >= 90:\n        return \"A\"\n    elif n >= 75:\n        return \"B\"\n    elif n >= 60:\n        return \"C\"\n    else:\n        return \"D\"\n\nnota = int(input())\n# Imprima CONCEITO = ...\n",
-                "hint": "print(f\"CONCEITO = {conceito(nota)}\")",
+                "starterCode": "# Desafio #1092 — Função Conversora de Nota para Conceito\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `95`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Organize seu código usando estruturas modulares (**Funções `def`** ou **Dicionários**).\n• Defina sua função com `def nome_da_funcao(parametros):`, calcule o resultado lá dentro e devolva com `return`. Depois, leia a entrada e chame sua função dentro do `print()`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: CONCEITO = X*\n• Compare sua saída com o exemplo `CONCEITO = A` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "95",
@@ -2519,8 +2519,8 @@
                 "description": "Leia uma frase em letras minúsculas e mostre quantas palavras DIFERENTES (únicas) existem nela.",
                 "inputSpec": "Uma linha de texto.",
                 "outputSpec": "Imprima: UNICAS = X",
-                "starterCode": "palavras = input().lower().split()\nunicas = []\nfor p in palavras:\n    if p not in unicas:\n        unicas.append(p)\n# Imprima UNICAS = ...\n",
-                "hint": "print(f\"UNICAS = {len(unicas)}\")",
+                "starterCode": "# Desafio #1093 — Frequência de Palavras Únicas\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"sol lua sol estrela lua sol\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Organize seu código usando estruturas modulares (**Funções `def`** ou **Dicionários**).\n• Defina sua função com `def nome_da_funcao(parametros):`, calcule o resultado lá dentro e devolva com `return`. Depois, leia a entrada e chame sua função dentro do `print()`.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: UNICAS = X*\n• Compare sua saída com o exemplo `UNICAS = 3` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "sol lua sol estrela lua sol",
@@ -2546,8 +2546,8 @@
                 "description": "A sequência de Fibonacci começa com 0 e 1, e cada número seguinte é sempre a soma dos dois anteriores (0, 1, 1, 2, 3, 5, 8, 13...). Leia um inteiro N (1 <= N <= 15) e imprima os N primeiros números dessa sequência separados por um espaço.",
                 "inputSpec": "Um número inteiro N (entre 1 e 15).",
                 "outputSpec": "Os N primeiros termos de Fibonacci na mesma linha, separados por espaço.",
-                "starterCode": "n = int(input())\ntermos = []\na = 0\nb = 1\nfor i in range(n):\n    termos.append(str(a))\n    proximo = a + b\n    a = b\n    b = proximo\nprint(\" \".join(termos))\n",
-                "hint": "Guarde cada termo convertido em str(a) na lista e use \" \".join(termos) para imprimir separado por espaço!",
+                "starterCode": "# Desafio #1024 — Sequência de Fibonacci (Desafio Mestre)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `5`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Desafio de lógica e algoritmos! Antes de programar, acompanhe no papel como o Primeiro Exemplo de Entrada (`5`) se transforma na Saída Esperada (`0 1 1 2 3`).\n• Estruture variáveis claras para controlar o estado do algoritmo a cada passo do laço ou condição.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Os N primeiros termos de Fibonacci na mesma linha, separados por espaço.*\n• Compare sua saída com o exemplo `0 1 1 2 3` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "5",
@@ -2573,8 +2573,8 @@
                 "description": "O Algoritmo de Euclides encontra o maior número que divide A e B ao mesmo tempo (MDC). Enquanto B != 0, atualize A, B = B, A % B. Ao final, A é o MDC!",
                 "inputSpec": "Dois inteiros positivos A e B, um por linha.",
                 "outputSpec": "Imprima: MDC = X",
-                "starterCode": "a = int(input())\nb = int(input())\nwhile b != 0:\n    resto = a % b\n    a = b\n    b = resto\n# Imprima MDC = ...\n",
-                "hint": "print(f\"MDC = {a}\")",
+                "starterCode": "# Desafio #1094 — Máximo Divisor Comum (MDC de Euclides)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Desafio de lógica e algoritmos! Antes de programar, acompanhe no papel como o Primeiro Exemplo de Entrada (`12, 18`) se transforma na Saída Esperada (`MDC = 6`).\n• Estruture variáveis claras para controlar o estado do algoritmo a cada passo do laço ou condição.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: MDC = X*\n• Compare sua saída com o exemplo `MDC = 6` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "12\n18",
@@ -2600,8 +2600,8 @@
                 "description": "Leia dois inteiros positivos A e B e calcule o Mínimo Múltiplo Comum (MMC) entre eles. Dica: MMC(A, B) = (A * B) // MDC(A, B).",
                 "inputSpec": "Dois inteiros positivos A e B, um por linha.",
                 "outputSpec": "Imprima: MMC = X",
-                "starterCode": "a = int(input())\nb = int(input())\nx, y = a, b\nwhile y != 0:\n    x, y = y, x % y\nmmc = (a * b) // x\n# Imprima MMC = ...\n",
-                "hint": "print(f\"MMC = {mmc}\")",
+                "starterCode": "# Desafio #1095 — Mínimo Múltiplo Comum (MMC)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Desafio de lógica e algoritmos! Antes de programar, acompanhe no papel como o Primeiro Exemplo de Entrada (`4, 6`) se transforma na Saída Esperada (`MMC = 12`).\n• Estruture variáveis claras para controlar o estado do algoritmo a cada passo do laço ou condição.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: MMC = X*\n• Compare sua saída com o exemplo `MMC = 12` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "4\n6",
@@ -2627,8 +2627,8 @@
                 "description": "Os computadores funcionam na base binária (0 e 1). Leia um número inteiro positivo N na base 10 e imprima sua representação em binário.",
                 "inputSpec": "Um número inteiro N >= 0.",
                 "outputSpec": "Imprima: BINARIO = X",
-                "starterCode": "n = int(input())\n# Dica: bin(n)[2:] converte inteiro para binário em Python!\n",
-                "hint": "Use print(f\"BINARIO = {bin(n)[2:]}\")",
+                "starterCode": "# Desafio #1096 — Conversor Decimal para Binário\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `10`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Desafio de lógica e algoritmos! Antes de programar, acompanhe no papel como o Primeiro Exemplo de Entrada (`10`) se transforma na Saída Esperada (`BINARIO = 1010`).\n• Estruture variáveis claras para controlar o estado do algoritmo a cada passo do laço ou condição.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: BINARIO = X*\n• Compare sua saída com o exemplo `BINARIO = 1010` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "10",
@@ -2654,8 +2654,8 @@
                 "description": "Leia uma sequência de 0s e 1s (número binário) e converta para o valor correspondente na base decimal (base 10).",
                 "inputSpec": "Uma string contendo dígitos 0 e 1.",
                 "outputSpec": "Imprima: DECIMAL = X",
-                "starterCode": "binario = input().strip()\n# Dica: int(binario, 2) converte da base 2 para decimal!\n",
-                "hint": "Use print(f\"DECIMAL = {int(binario, 2)}\")",
+                "starterCode": "# Desafio #1097 — Conversor Binário para Decimal\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha de texto (ex: `\"1010\"`). Use `input()` (com os parênteses vazios, sem perguntas dentro) e guarde o resultado em uma variável.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Desafio de lógica e algoritmos! Antes de programar, acompanhe no papel como o Primeiro Exemplo de Entrada (`1010`) se transforma na Saída Esperada (`DECIMAL = 10`).\n• Estruture variáveis claras para controlar o estado do algoritmo a cada passo do laço ou condição.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: DECIMAL = X*\n• Compare sua saída com o exemplo `DECIMAL = 10` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "1010",
@@ -2681,8 +2681,8 @@
                 "description": "Na matemática, um número perfeito é aquele cuja soma de seus divisores próprios (menores que ele mesmo) é igual ao próprio número (ex: 6 = 1 + 2 + 3). Leia N e imprima PERFEITO ou NAO PERFEITO.",
                 "inputSpec": "Um número inteiro positivo N.",
                 "outputSpec": "Imprima PERFEITO ou NAO PERFEITO.",
-                "starterCode": "n = int(input())\nsoma_div = 0\nfor i in range(1, n):\n    if n % i == 0:\n        soma_div += i\n# Compare soma_div com n:\n",
-                "hint": "if soma_div == n: print(\"PERFEITO\") else: print(\"NAO PERFEITO\")",
+                "starterCode": "# Desafio #1098 — Detector de Número Perfeito\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `6`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Desafio de lógica e algoritmos! Antes de programar, acompanhe no papel como o Primeiro Exemplo de Entrada (`6`) se transforma na Saída Esperada (`PERFEITO`).\n• Estruture variáveis claras para controlar o estado do algoritmo a cada passo do laço ou condição.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima PERFEITO ou NAO PERFEITO.*\n• Compare sua saída com o exemplo `PERFEITO` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "6",
@@ -2708,8 +2708,8 @@
                 "description": "Um número de K dígitos é um Número de Armstrong se a soma de cada dígito elevado a K resulta no próprio número (ex: 153 = 1^3 + 5^3 + 3^3 = 1 + 125 + 27 = 153). Leia um inteiro e imprima ARMSTRONG ou COMUM.",
                 "inputSpec": "Um número inteiro positivo.",
                 "outputSpec": "Imprima ARMSTRONG ou COMUM.",
-                "starterCode": "txt = input().strip()\nk = len(txt)\nsoma = 0\nfor d in txt:\n    soma += int(d) ** k\n# Verifique se soma == int(txt):\n",
-                "hint": "if soma == int(txt): print(\"ARMSTRONG\") else: print(\"COMUM\")",
+                "starterCode": "# Desafio #1099 — Número de Armstrong (Narcisista)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui 1 linha contendo um número inteiro (ex: `153`). Use `int(input())` para ler o texto do teclado e já convertê-lo para o tipo numérico `int`.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Desafio de lógica e algoritmos! Antes de programar, acompanhe no papel como o Primeiro Exemplo de Entrada (`153`) se transforma na Saída Esperada (`ARMSTRONG`).\n• Estruture variáveis claras para controlar o estado do algoritmo a cada passo do laço ou condição.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima ARMSTRONG ou COMUM.*\n• Compare sua saída com o exemplo `ARMSTRONG` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "153",
@@ -2735,8 +2735,8 @@
                 "description": "Desafio #1100! O Herói enfrenta o Boss Final. Leia a vida do Boss (HP) e o dano por turno do Herói (DANO). Calcule em quantos turnos de ataque o Herói derrota o Boss (HP <= 0).",
                 "inputSpec": "Dois números inteiros positivos: HP do Boss e DANO por turno.",
                 "outputSpec": "Imprima: TURNOS PARA VENCER = X",
-                "starterCode": "hp = int(input())\ndano = int(input())\nturnos = 0\nwhile hp > 0:\n    hp -= dano\n    turnos += 1\n# Imprima TURNOS PARA VENCER = ...\n",
-                "hint": "print(f\"TURNOS PARA VENCER = {turnos}\")",
+                "starterCode": "# Desafio #1100 — Simulador de Batalha Boss Final (#1100)\n# Escreva sua solução em Python 3 abaixo:\n\n",
+                "hint": "📥 **1. Como ler a Entrada:** A entrada possui **2 linhas** com números inteiros (uma por linha). Chame `int(input())` para cada linha (ou dentro de um laço, se a quantidade for variável) e armazene em variáveis separadas.\n\n🧠 **2. Raciocínio e Conceito Python:**\n• Desafio de lógica e algoritmos! Antes de programar, acompanhe no papel como o Primeiro Exemplo de Entrada (`100, 25`) se transforma na Saída Esperada (`TURNOS PARA VENCER = 4`).\n• Estruture variáveis claras para controlar o estado do algoritmo a cada passo do laço ou condição.\n\n📤 **3. Atenção ao Formato de Saída:**\n• Especificação: *Imprima: TURNOS PARA VENCER = X*\n• Compare sua saída com o exemplo `TURNOS PARA VENCER = 4` (respeitando letras maiúsculas, acentos e espaços antes/depois do sinal de `=` ou `:`).",
                 "testCases": [
                         {
                                 "input": "100\n25",
