@@ -550,7 +550,7 @@ def send_to_google_forms(student_name: str, prompt: str, response: str):
 # Configuracao da API Gemini (Opcional - possui fallback automatico 24/7 em nuvem)
 api_key = get_config("GEMINI_API_KEY")
 
-if api_key and api_key.startswith("AIza"):
+if api_key and len(api_key) >= 20:
     try:
         genai.configure(api_key=api_key)
     except Exception:
@@ -606,7 +606,7 @@ GENERATION_CONFIG = {
 
 @st.cache_resource
 def get_generative_model():
-    candidatos = ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-1.5-flash"]
+    candidatos = ["gemini-flash-lite-latest", "gemini-3.5-flash-lite", "gemini-3.5-flash", "gemini-3.6-flash", "gemini-3.8-flash"]
     for m_name in candidatos:
         try:
             return genai.GenerativeModel(
@@ -617,7 +617,7 @@ def get_generative_model():
         except Exception:
             continue
     return genai.GenerativeModel(
-        model_name="gemini-1.5-flash",
+        model_name="gemini-flash-lite-latest",
         generation_config=GENERATION_CONFIG,
         system_instruction=SYSTEM_INSTRUCTION
     )
@@ -655,7 +655,7 @@ def ask_cloud_ai_fallback(prompt_text: str, history_msgs: list) -> str:
 # CHAMADA COM RETRY AUTOMATICO E FALLBACK 24/7 EM NUVEM
 # ==============================================================================
 def generate_response_with_retry(prompt: str):
-    if api_key and api_key.startswith("AIza") and "chat_session" in st.session_state:
+    if api_key and len(api_key) >= 20 and "chat_session" in st.session_state and st.session_state.chat_session is not None:
         try:
             response = st.session_state.chat_session.send_message(prompt)
             if response and response.text:

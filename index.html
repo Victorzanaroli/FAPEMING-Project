@@ -2689,47 +2689,40 @@
         }
 
         // =====================================================================
-        // ABA 3: CHAT GEMINI IA 24/7 — DESIGN LIMPO E SEM CAMPOS REDUNDANTES (NIELSEN H8)
+        // ABA 3: CHAT GEMINI IA 24/7 — DESIGN LIMPO E SEM APAGAR DIGITAÇÃO (NIELSEN H1, H3, H8)
         // =====================================================================
         var chatIaSending = false;
+        var chatIaDraftText = '';
+        var chatIaMountedUserKey = null;
 
-        function renderChatIaView() {
-            var container = document.getElementById('chatIaViewContainer');
-            if (!container || !window.TrilhandoBeecrowd) return;
-
-            var user = window.TrilhandoClassroom.getCurrentUser();
-            var isAdm = Boolean(user && user.role === 'admin');
-            var activeStudentName = user ? user.fullName : '';
-            var chatCfg = window.TrilhandoClassroom.getChatbotConfig();
-            var history = window.TrilhandoBeecrowd.getChatHistory();
-
-            var messagesHtml = '';
+        function buildChatMessagesHtml(activeStudentName, history) {
+            var listHtml = '';
             if (history.length === 0) {
-                messagesHtml = `
+                listHtml = `
                     <div class="st-chat-msg-assistant">
                         <div style="font-weight:800;color:#38BDF8;margin-bottom:4px;display:flex;align-items:center;gap:8px;font-size:0.85rem;">
-                            <span>🤖</span> <span>TUTOR IA • PYTHON &amp; FLET</span>
+                            <span>🤖</span> <span>GEMINI FLASH • TUTOR PYTHON &amp; FLET</span>
                         </div>
                         <div style="color:#F3F4F6;font-size:0.92rem;">
-                            Olá, <strong>${escapeHtml(activeStudentName)}</strong>! Como posso ajudar nos seus estudos de <strong>Python</strong> ou nos <strong>Desafios</strong> hoje? Escolha uma sugestão abaixo ou digite sua pergunta!
+                            Olá, <strong>${escapeHtml(activeStudentName)}</strong>! Pode digitar qualquer dúvida de <strong>Python</strong>, pedir exemplos de código, ajuda nos <strong>Desafios</strong> ou clicar em um tema rápido abaixo!
                         </div>
                     </div>
                 `;
             } else {
-                messagesHtml = history.map(function(msg) {
+                listHtml = history.map(function(msg) {
                     var txt = (msg.parts && msg.parts[0] && msg.parts[0].text) ? msg.parts[0].text : '';
                     if (msg.role === 'user') {
                         return `
                             <div class="st-chat-msg-user">
                                 <span style="font-size:1.15rem;">🧑‍💻</span>
-                                <div style="flex:1;color:#F8FAFC;">${escapeHtml(txt)}</div>
+                                <div style="flex:1;color:#F8FAFC;white-space:pre-wrap;">${escapeHtml(txt)}</div>
                             </div>
                         `;
                     } else {
                         return `
                             <div class="st-chat-msg-assistant">
                                 <div style="font-weight:800;color:#38BDF8;margin-bottom:4px;display:flex;align-items:center;gap:6px;font-size:0.8rem;">
-                                    <span>🤖</span> <span>TUTOR IA</span>
+                                    <span>🤖</span> <span>GEMINI FLASH</span>
                                 </div>
                                 <div style="color:#F3F4F6;">${window.TrilhandoBeecrowd.formatMarkdownMessage(txt)}</div>
                             </div>
@@ -2738,14 +2731,85 @@
                 }).join('');
             }
 
+            if (chatIaSending) {
+                listHtml += `
+                    <div class="st-chat-msg-assistant" style="opacity:0.9;">
+                        <strong style="color:#38BDF8;">🤖 Gemini Flash gerando resposta...</strong>
+                    </div>
+                `;
+            }
+            return listHtml;
+        }
+
+        function bindChatCopyButtons(scopeEl) {
+            if (!scopeEl) return;
+            scopeEl.querySelectorAll('.st-copy-code-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var raw = decodeURIComponent(btn.getAttribute('data-raw-code') || '');
+                    navigator.clipboard.writeText(raw).then(function() {
+                        btn.textContent = '✅ Copiado!';
+                        setTimeout(function() { btn.textContent = '📋 Copiar código'; }, 1800);
+                    });
+                });
+            });
+        }
+
+        function updateChatIaMessagesOnly() {
+            var container = document.getElementById('chatIaViewContainer');
+            var msgBox = document.getElementById('stChatMessagesBox');
+            var promptInp = document.getElementById('stChatPromptInput');
+            var sendBtn = document.getElementById('stChatSendBtn');
+            var clearBtn = document.getElementById('stClearChatBtn');
+            if (!container || !msgBox || !window.TrilhandoBeecrowd) return false;
+
+            var user = window.TrilhandoClassroom.getCurrentUser();
+            var activeStudentName = user ? user.fullName : '';
+            var history = window.TrilhandoBeecrowd.getChatHistory();
+
+            msgBox.innerHTML = buildChatMessagesHtml(activeStudentName, history);
+            msgBox.scrollTop = msgBox.scrollHeight;
+            bindChatCopyButtons(msgBox);
+
+            if (clearBtn) {
+                clearBtn.style.display = history.length > 0 ? 'inline-flex' : 'none';
+            }
+            if (promptInp) {
+                promptInp.disabled = chatIaSending;
+            }
+            if (sendBtn) {
+                sendBtn.disabled = chatIaSending;
+            }
+            return true;
+        }
+
+        function renderChatIaView(forceFullRebuild) {
+            var container = document.getElementById('chatIaViewContainer');
+            if (!container || !window.TrilhandoBeecrowd) return;
+
+            var user = window.TrilhandoClassroom.getCurrentUser();
+            var isAdm = Boolean(user && user.role === 'admin');
+            var activeStudentName = user ? user.fullName : '';
+            var userKey = (user ? user.id + ':' + user.role : 'anon');
+
+            // Se a estrutura do chat já está montada para este usuário, atualiza APENAS as mensagens
+            // para NUNCA apagar nem tirar o foco do que o usuário está digitando!
+            if (!forceFullRebuild && chatIaMountedUserKey === userKey && document.getElementById('stChatPromptInput')) {
+                updateChatIaMessagesOnly();
+                return;
+            }
+
+            chatIaMountedUserKey = userKey;
+            var chatCfg = window.TrilhandoClassroom.getChatbotConfig();
+            var history = window.TrilhandoBeecrowd.getChatHistory();
+
             var admConfigBarHtml = isAdm ? `
                 <details style="margin-bottom:12px;background:rgba(37,99,235,0.1);border:1px solid rgba(56,189,248,0.3);border-radius:10px;padding:10px 14px;">
                     <summary style="cursor:pointer;font-weight:700;color:#38bdf8;font-size:0.8rem;">
-                        🛡️ Configuração Opcional de Chave Gemini API (Motor IA 24/7 já ativo automaticamente)
+                        🛡️ Configuração da API Gemini Flash (Já ativa e integrada ao site)
                     </summary>
                     <div style="margin-top:8px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:end;">
                         <div>
-                            <input type="password" id="admChatGeminiKeyInp" class="tr-input" style="padding:7px 10px;font-size:0.8rem;" placeholder="AIzaSy... (Opcional)" value="${escapeHtml(chatCfg.geminiApiKey || '')}">
+                            <input type="password" id="admChatGeminiKeyInp" class="tr-input" style="padding:7px 10px;font-size:0.8rem;" placeholder="Chave Gemini API" value="${escapeHtml(chatCfg.geminiApiKey || '')}">
                         </div>
                         <button type="button" class="tr-btn-primary" id="admSaveChatCfgBtn" style="padding:7px 12px;font-size:0.8rem;">💾 Salvar</button>
                     </div>
@@ -2760,11 +2824,11 @@
                         <div style="display:flex;align-items:center;gap:10px;">
                             <span style="font-size:1.5rem;">🤖</span>
                             <div>
-                                <h3 style="font-size:1.05rem;color:#fff;margin:0;">Tutor Inteligente de Python &amp; Flet</h3>
-                                <span style="font-size:0.75rem;color:#10b981;font-weight:600;">● Online 24/7 na Nuvem</span>
+                                <h3 style="font-size:1.05rem;color:#fff;margin:0;">Tutor Inteligente • Gemini Flash</h3>
+                                <span style="font-size:0.75rem;color:#10b981;font-weight:600;">● Online 24/7 (API Gemini Flash Integrada)</span>
                             </div>
                         </div>
-                        ${history.length > 0 ? `<button type="button" class="tr-btn-ghost" id="stClearChatBtn" style="font-size:0.76rem;padding:5px 11px;border-color:rgba(239,68,68,0.4);color:#fca5a5;">🗑️ Limpar Conversa</button>` : ''}
+                        <button type="button" class="tr-btn-ghost" id="stClearChatBtn" style="font-size:0.76rem;padding:5px 11px;border-color:rgba(239,68,68,0.4);color:#fca5a5;display:${history.length > 0 ? 'inline-flex' : 'none'};">🗑️ Limpar Conversa</button>
                     </div>
 
                     <!-- SUGESTÕES RÁPIDAS COM 1 CLIQUE (H6) -->
@@ -2778,17 +2842,12 @@
 
                     <!-- ÁREA DE MENSAGENS DO CHAT -->
                     <div class="st-chat-messages-area" id="stChatMessagesBox" style="max-height:500px;">
-                        ${messagesHtml}
-                        ${chatIaSending ? `
-                            <div class="st-chat-msg-assistant" style="opacity:0.85;">
-                                <strong style="color:#38BDF8;">🤖 Gerando resposta...</strong>
-                            </div>
-                        ` : ''}
+                        ${buildChatMessagesHtml(activeStudentName, history)}
                     </div>
 
                     <!-- BARRA DE DIGITAÇÃO ARREDONDADA -->
                     <div class="st-chat-input-pill">
-                        <textarea id="stChatPromptInput" rows="1" placeholder="Digite sua dúvida de Python..." ${chatIaSending ? 'disabled' : ''}></textarea>
+                        <textarea id="stChatPromptInput" rows="1" placeholder="Digite sua dúvida de Python ou peça qualquer código (pressione Enter para enviar)..." ${chatIaSending ? 'disabled' : ''}></textarea>
                         <button type="button" class="st-chat-send-btn" id="stChatSendBtn" title="Enviar pergunta" ${chatIaSending ? 'disabled' : ''}>
                             ➤
                         </button>
@@ -2796,28 +2855,18 @@
                 </div>
             `;
 
-            // Scroll messages to bottom
             var msgBox = document.getElementById('stChatMessagesBox');
             if (msgBox) {
                 msgBox.scrollTop = msgBox.scrollHeight;
+                bindChatCopyButtons(msgBox);
             }
-
-            // Copy code buttons inside chat
-            container.querySelectorAll('.st-copy-code-btn').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    var raw = decodeURIComponent(btn.getAttribute('data-raw-code') || '');
-                    navigator.clipboard.writeText(raw).then(function() {
-                        btn.textContent = '✅ Copiado!';
-                        setTimeout(function() { btn.textContent = '📋 Copiar código'; }, 1800);
-                    });
-                });
-            });
 
             // Quick prompt chips
             container.querySelectorAll('[data-chat-quick]').forEach(function(chip) {
                 chip.addEventListener('click', function() {
                     var qText = chip.getAttribute('data-chat-quick');
-                    sendPromptToChatIa(qText, activeStudentName);
+                    var currentU = window.TrilhandoClassroom.getCurrentUser();
+                    sendPromptToChatIa(qText, currentU ? currentU.fullName : activeStudentName);
                 });
             });
 
@@ -2825,22 +2874,35 @@
             if (clearBtn) {
                 clearBtn.addEventListener('click', function() {
                     window.TrilhandoBeecrowd.clearChatHistory();
-                    renderChatIaView();
+                    updateChatIaMessagesOnly();
                 });
             }
 
             var promptInp = document.getElementById('stChatPromptInput');
             var sendBtn = document.getElementById('stChatSendBtn');
 
+            if (promptInp && chatIaDraftText) {
+                promptInp.value = chatIaDraftText;
+            }
+
             function triggerSend() {
                 if (!promptInp || chatIaSending) return;
                 var text = promptInp.value.trim();
                 if (!text) return;
-                sendPromptToChatIa(text, activeStudentName);
+                promptInp.value = '';
+                chatIaDraftText = '';
+                promptInp.style.height = 'auto';
+                var currentU = window.TrilhandoClassroom.getCurrentUser();
+                sendPromptToChatIa(text, currentU ? currentU.fullName : activeStudentName);
             }
 
             if (sendBtn) sendBtn.addEventListener('click', triggerSend);
             if (promptInp) {
+                promptInp.addEventListener('input', function() {
+                    chatIaDraftText = promptInp.value;
+                    promptInp.style.height = 'auto';
+                    promptInp.style.height = Math.min(promptInp.scrollHeight, 120) + 'px';
+                });
                 promptInp.addEventListener('keydown', function(e) {
                     if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault();
@@ -2861,7 +2923,7 @@
                         streamlitUrl: ''
                     }, false);
                     alert('Configuração do Chat IA salva!');
-                    renderChatIaView();
+                    renderChatIaView(true);
                 });
             }
         }
@@ -2869,10 +2931,11 @@
         async function sendPromptToChatIa(promptText, studentName) {
             if (chatIaSending) return;
             chatIaSending = true;
-            renderChatIaView();
-            await window.TrilhandoBeecrowd.askGeminiApiAsync(promptText, studentName);
+            var reqPromise = window.TrilhandoBeecrowd.askGeminiApiAsync(promptText, studentName);
+            updateChatIaMessagesOnly();
+            await reqPromise;
             chatIaSending = false;
-            renderChatIaView();
+            updateChatIaMessagesOnly();
             var inp = document.getElementById('stChatPromptInput');
             if (inp) inp.focus();
         }
@@ -3999,7 +4062,16 @@
             updateGateUsernameAvailabilityUI();
         }
 
-        function renderAllViews() {
+        function isUserTypingInside(containerId) {
+            var el = document.activeElement;
+            if (!el) return false;
+            var tag = (el.tagName || '').toUpperCase();
+            if (tag !== 'INPUT' && tag !== 'TEXTAREA' && tag !== 'SELECT') return false;
+            var box = document.getElementById(containerId);
+            return Boolean(box && box.contains(el));
+        }
+
+        function renderAllViews(isBackgroundSync) {
             var user = window.TrilhandoClassroom.getCurrentUser();
             var gateEl = document.getElementById('loginGateScreen');
             var appEl = document.getElementById('classroomAppContent');
@@ -4007,7 +4079,9 @@
             if (!user) {
                 if (gateEl) gateEl.style.display = 'flex';
                 if (appEl) appEl.style.display = 'none';
-                updateLoginGateModeUI();
+                if (!isBackgroundSync || !isUserTypingInside('loginGateScreen')) {
+                    updateLoginGateModeUI();
+                }
                 return;
             }
 
@@ -4016,13 +4090,23 @@
 
             renderNavbarUser();
             renderAulasView();
-            renderDesafiosView();
-            renderChatIaView();
+            if (!isBackgroundSync || !isUserTypingInside('desafiosViewContainer')) {
+                renderDesafiosView();
+            }
+            if (!isBackgroundSync) {
+                renderChatIaView();
+            }
             renderTarefasView();
             renderNotasView();
-            renderAdminView();
-            renderAdminChamadaView();
-            renderAdminCorrecoesView();
+            if (!isBackgroundSync || !isUserTypingInside('adminViewContainer')) {
+                renderAdminView();
+            }
+            if (!isBackgroundSync || !isUserTypingInside('adminChamadaViewContainer')) {
+                renderAdminChamadaView();
+            }
+            if (!isBackgroundSync || !isUserTypingInside('adminCorrecoesViewContainer')) {
+                renderAdminCorrecoesView();
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -4129,10 +4213,10 @@
                 });
             }
 
-            window.addEventListener('trilhando:authchange', renderAllViews);
-            window.addEventListener('trilhando:datasync', renderAllViews);
-            window.addEventListener('trilhando:lessonschange', renderAllViews);
-            window.addEventListener('trilhando:quizzeschange', renderAllViews);
+            window.addEventListener('trilhando:authchange', function() { renderAllViews(false); });
+            window.addEventListener('trilhando:datasync', function() { renderAllViews(true); });
+            window.addEventListener('trilhando:lessonschange', function() { renderAllViews(true); });
+            window.addEventListener('trilhando:quizzeschange', function() { renderAllViews(true); });
 
             // Check URL hash (#desafios, #chat-ia, #tarefas, #notas, #admin, #admin-chamada, #admin-correcoes)
             var hash = window.location.hash.replace('#', '');

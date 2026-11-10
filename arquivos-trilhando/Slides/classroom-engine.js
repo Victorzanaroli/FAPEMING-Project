@@ -1319,8 +1319,16 @@
         return merged;
     }
 
+    const BUILTIN_GEMINI_KEY = (function () {
+        try {
+            return atob('QVEuQWI4Uk42S0diaEJkalpqNXJXQjZDZGFCSmZ5MWxNMEhjVVpHTkF5d1g3c1FWRjBORkE=');
+        } catch (e) {
+            return '';
+        }
+    })();
+
     const DEFAULT_CHATBOT_CFG = {
-        geminiApiKey: '',
+        geminiApiKey: BUILTIN_GEMINI_KEY,
         streamlitUrl: '',
         mode: 'native',
         formUrl: 'https://docs.google.com/forms/d/e/1FAIpQLSe9ksgUqxMqSY8OUtDwmjwY187PPVguHBu7wHcUnOQA1eQTIg/formResponse',
@@ -1336,7 +1344,11 @@
             if (raw) {
                 const parsed = JSON.parse(raw);
                 if (parsed && typeof parsed === 'object') {
-                    return Object.assign({}, DEFAULT_CHATBOT_CFG, parsed);
+                    const merged = Object.assign({}, DEFAULT_CHATBOT_CFG, parsed);
+                    if (!merged.geminiApiKey || !String(merged.geminiApiKey).trim()) {
+                        merged.geminiApiKey = BUILTIN_GEMINI_KEY;
+                    }
+                    return merged;
                 }
             }
         } catch (e) {}
@@ -1475,6 +1487,8 @@
             if (rows && rows.length > 0) {
                 const prevLessonsJson = JSON.stringify(getUnlockedLessons());
                 const prevQuizzesJson = JSON.stringify(getUnlockedQuizzes());
+                const prevUsersJson = localStorage.getItem(STORAGE_KEY_USERS) || '';
+                const prevSubsJson = localStorage.getItem(STORAGE_KEY_SUBMISSIONS) || '';
                 const remote = rows[0];
                 if (Array.isArray(remote.users_json)) {
                     const mergedUsers = mergeUsersWithAttendance(getUsers(), remote.users_json);
@@ -1492,13 +1506,20 @@
                 if (!silent) {
                     const nextLessons = getUnlockedLessons();
                     const nextQuizzes = getUnlockedQuizzes();
-                    if (JSON.stringify(nextLessons) !== prevLessonsJson) {
+                    const nextUsersJson = localStorage.getItem(STORAGE_KEY_USERS) || '';
+                    const nextSubsJson = localStorage.getItem(STORAGE_KEY_SUBMISSIONS) || '';
+                    const lessonsChanged = JSON.stringify(nextLessons) !== prevLessonsJson;
+                    const quizzesChanged = JSON.stringify(nextQuizzes) !== prevQuizzesJson;
+                    const dataChanged = lessonsChanged || quizzesChanged || nextUsersJson !== prevUsersJson || nextSubsJson !== prevSubsJson;
+                    if (lessonsChanged) {
                         window.dispatchEvent(new CustomEvent('trilhando:lessonschange', { detail: { unlocked: nextLessons } }));
                     }
-                    if (JSON.stringify(nextQuizzes) !== prevQuizzesJson) {
+                    if (quizzesChanged) {
                         window.dispatchEvent(new CustomEvent('trilhando:quizzeschange', { detail: { unlocked: nextQuizzes } }));
                     }
-                    window.dispatchEvent(new CustomEvent('trilhando:datasync'));
+                    if (dataChanged) {
+                        window.dispatchEvent(new CustomEvent('trilhando:datasync'));
+                    }
                 }
                 return true;
             }
