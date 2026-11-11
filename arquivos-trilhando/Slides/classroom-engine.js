@@ -2239,10 +2239,14 @@
         users.forEach(u => {
             if (u.role === 'student') {
                 if (!att[u.id]) att[u.id] = {};
-                att[u.id][lessonKey] = {
-                    present: Boolean(isPresent),
-                    updatedAt: now
-                };
+                if (isPresent === null || typeof isPresent === 'undefined') {
+                    delete att[u.id][lessonKey];
+                } else {
+                    att[u.id][lessonKey] = {
+                        present: Boolean(isPresent),
+                        updatedAt: now
+                    };
+                }
                 u.attendance = att[u.id];
                 u.updatedAt = now;
             }

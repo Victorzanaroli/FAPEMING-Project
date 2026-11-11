@@ -1453,6 +1453,7 @@
         var adminChamadaLesson = 'aula02';
         var adminChamadaSearch = '';
         var adminChamadaStatus = 'all';
+        var adminChamadaNotice = '';
         var adminCorrecoesSubTab = 'tarefas'; // 'tarefas' | 'desafios'
         var revealedPasswordsMap = {};
 
@@ -3467,25 +3468,53 @@
                 `;
             }).join('');
 
+            var noticeHtml = adminChamadaNotice ? `
+                <div style="background:rgba(16,185,129,0.18);border:1px solid #10b981;border-radius:8px;padding:10px 14px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;color:#a7f3d0;font-size:0.84rem;font-weight:600;">
+                    <span>${adminChamadaNotice}</span>
+                    <button type="button" id="closeChamadaNoticeBtn" style="background:none;border:none;color:#a7f3d0;cursor:pointer;font-size:1rem;padding:0 4px;" title="Fechar aviso">✕</button>
+                </div>
+            ` : '';
+
             container.innerHTML = `
                 <div class="panel-box" style="border-color:rgba(0,229,255,0.35);padding:20px;">
                     <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:10px;">
                         <div>
                             <h3>📅 Chamada — ${escapeHtml(currentLessonObj ? currentLessonObj.label + ' (' + currentLessonObj.date + ')' : '')}</h3>
                             <p style="font-size:0.82rem;color:var(--text-secondary);">
-                                Selecione o dia abaixo e clique para registrar presença ou falta.
+                                Selecione o dia abaixo e marque a presença individualmente ou use o botão de marcar todos presentes.
                             </p>
-                        </div>
-                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                            <button type="button" class="tr-btn-primary" id="admMarkAllPresentBtn" style="font-size:0.78rem;padding:8px 14px;">
-                                ✅ Marcar Todos Presentes (${escapeHtml(currentLessonObj ? currentLessonObj.label : 'Dia')})
-                            </button>
                         </div>
                     </div>
 
+                    ${noticeHtml}
+
                     <!-- SELETOR VISUAL DE DIAS -->
-                    <div class="chamada-day-tabs" style="margin:10px 0 12px;">
+                    <div class="chamada-day-tabs" style="margin:6px 0 12px;">
                         ${chamadaTabsHtml}
+                    </div>
+
+                    <!-- BARRA DE AÇÕES RÁPIDAS COM DESTAQUE (MARCAR TODOS) -->
+                    <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:14px;padding:12px 16px;background:rgba(16,185,129,0.12);border:1.5px solid rgba(16,185,129,0.4);border-radius:10px;">
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <span style="font-size:1.4rem;">📋</span>
+                            <div>
+                                <strong style="color:#10b981;font-size:0.92rem;">Chamada Rápida: ${escapeHtml(currentLessonObj ? currentLessonObj.label + ' (' + currentLessonObj.date + ')' : 'Dia')}</strong>
+                                <div style="font-size:0.76rem;color:#94a3b8;">
+                                    Presentes neste dia: <strong style="color:#10b981;">${presentInSelectedDay}</strong> de ${students.length} alunos
+                                </div>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                            <button type="button" class="tr-btn-primary" id="admMarkAllPresentBtn" style="font-size:0.84rem;padding:8px 16px;background:#10b981;border-color:#10b981;font-weight:700;box-shadow:0 0 10px rgba(16,185,129,0.3);">
+                                ✅ Marcar Todos como Presente
+                            </button>
+                            <button type="button" class="tr-btn-ghost" id="admMarkAllAbsentBtn" style="font-size:0.78rem;padding:7px 12px;border-color:rgba(239,68,68,0.4);color:#fca5a5;">
+                                ❌ Marcar Todos Falta
+                            </button>
+                            <button type="button" class="tr-btn-ghost" id="admClearAllAttendanceBtn" style="font-size:0.78rem;padding:7px 12px;border-color:rgba(255,255,255,0.2);color:#94a3b8;">
+                                ⚪ Limpar Dia
+                            </button>
+                        </div>
                     </div>
 
                     <!-- BUSCA E FILTRO DE STATUS ENXUTO -->
@@ -3519,7 +3548,14 @@
                             <thead>
                                 <tr>
                                     <th>Aluno(a)</th>
-                                    <th>Dia Selecionado</th>
+                                    <th style="min-width:180px;">
+                                        <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+                                            <span>${escapeHtml(currentLessonObj ? currentLessonObj.label : 'Dia')}</span>
+                                            <button type="button" class="tr-btn-primary" id="tableHeaderMarkAllPresentBtn" title="Marcar todos como presentes nesta aula" style="padding:3px 8px;font-size:0.7rem;background:#10b981;border-color:#10b981;white-space:nowrap;">
+                                                ✅ Todos
+                                            </button>
+                                        </div>
+                                    </th>
                                     <th>Histórico (A1 a A10)</th>
                                     <th>Total</th>
                                     <th></th>
@@ -3557,6 +3593,7 @@
             container.querySelectorAll('[data-chamada-day]').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     adminChamadaLesson = btn.getAttribute('data-chamada-day');
+                    adminChamadaNotice = '';
                     renderAdminChamadaView();
                 });
             });
@@ -3587,10 +3624,48 @@
                 });
             }
 
+            function markEveryone(val, noticeText) {
+                window.TrilhandoClassroom.markAllAttendance(adminChamadaLesson, val);
+                adminChamadaNotice = noticeText;
+                renderAdminChamadaView();
+            }
+
             var markAllBtn = document.getElementById('admMarkAllPresentBtn');
             if (markAllBtn) {
                 markAllBtn.addEventListener('click', function() {
-                    window.TrilhandoClassroom.markAllAttendance(adminChamadaLesson, true);
+                    var lName = currentLessonObj ? currentLessonObj.label : 'esta aula';
+                    markEveryone(true, '✅ Sucesso: Todos os ' + students.length + ' alunos foram marcados como PRESENTES na ' + lName + '! Se algum aluno faltou, basta clicar no botão dele para alternar para falta.');
+                });
+            }
+
+            var headerMarkAllBtn = document.getElementById('tableHeaderMarkAllPresentBtn');
+            if (headerMarkAllBtn) {
+                headerMarkAllBtn.addEventListener('click', function() {
+                    var lName = currentLessonObj ? currentLessonObj.label : 'esta aula';
+                    markEveryone(true, '✅ Sucesso: Todos os ' + students.length + ' alunos foram marcados como PRESENTES na ' + lName + '!');
+                });
+            }
+
+            var markAllAbsentBtn = document.getElementById('admMarkAllAbsentBtn');
+            if (markAllAbsentBtn) {
+                markAllAbsentBtn.addEventListener('click', function() {
+                    var lName = currentLessonObj ? currentLessonObj.label : 'esta aula';
+                    markEveryone(false, '⚠️ Todos os ' + students.length + ' alunos foram marcados com FALTA na ' + lName + '.');
+                });
+            }
+
+            var clearAllBtn = document.getElementById('admClearAllAttendanceBtn');
+            if (clearAllBtn) {
+                clearAllBtn.addEventListener('click', function() {
+                    var lName = currentLessonObj ? currentLessonObj.label : 'esta aula';
+                    markEveryone(null, '⚪ As marcações de presença da ' + lName + ' foram limpas.');
+                });
+            }
+
+            var closeNoticeBtn = document.getElementById('closeChamadaNoticeBtn');
+            if (closeNoticeBtn) {
+                closeNoticeBtn.addEventListener('click', function() {
+                    adminChamadaNotice = '';
                     renderAdminChamadaView();
                 });
             }
