@@ -3,165 +3,335 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aula 06 - Funções e Modularização em Python</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Aula 06 — Sprint Final, Integração IA &amp; Pitch | Trilhando o Caminho do Código</title>
     <link rel="stylesheet" href="slides-style.css">
+    <style>
+        .pillar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 10px 0; }
+        .pillar-card { background: rgba(255,255,255,.04); border: 1.5px solid rgba(255,255,255,.12); border-radius: 16px; padding: 16px 14px; text-align: center; }
+        .pillar-icon { font-size: 2.1rem; margin-bottom: 6px; }
+        .pillar-name { font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 800; color: #00e5ff; margin-bottom: 5px; }
+        .pillar-label { font-size: .78rem; color: #94a3b8; line-height: 1.45; }
+
+        .step-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,99,235,.22); border: 1px solid rgba(0,229,255,.35); border-radius: 100px; padding: 5px 16px; font-size: .75rem; font-weight: 700; color: #00e5ff; letter-spacing: .5px; margin-bottom: 6px; text-transform: uppercase; }
+        .engage-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.45); border-radius: 8px; padding: 4px 12px; font-size: .76rem; font-weight: 700; color: #f59e0b; margin-bottom: 6px; }
+
+        .prompt-code { background: #040916; border: 1px solid rgba(0,229,255,.25); border-radius: 10px; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: .82rem; color: #a7f3d0; line-height: 1.65; white-space: pre-wrap; margin: 6px 0; }
+        .prompt-code .kw { color: #00e5ff; font-weight: 700; }
+        .prompt-code .str { color: #fde68a; }
+        .prompt-code .cm { color: #64748b; font-style: italic; }
+        .prompt-code .fn { color: #c084fc; }
+        .prompt-code .num { color: #fb923c; }
+
+        .summary-item { display: flex; align-items: flex-start; gap: 12px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; padding: 9px 14px; }
+        .summary-check { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+        .summary-text { font-size: .82rem; color: #cbd5e1; line-height: 1.45; }
+        .summary-text strong { color: #fff; display: block; margin-bottom: 2px; }
+
+        .hw-gate-card {
+            background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.22), rgba(10, 18, 38, 0.95));
+            border: 2px solid rgba(0, 229, 255, 0.45);
+            border-radius: 22px;
+            padding: 32px;
+            text-align: center;
+            max-width: 780px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.55);
+        }
+        .hw-gate-icon { font-size: 3.4rem; }
+        .hw-gate-btn {
+            background: linear-gradient(135deg, #2563eb, #00e5ff);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.35);
+            transition: transform .2s ease;
+        }
+        .hw-gate-btn:hover { transform: translateY(-3px) scale(1.02); }
+    </style>
 </head>
 <body>
-    <div class="progress-bar" id="progressBar"></div>
-    <div class="bg-glow">
-        <div class="glow-orb glow-orb-1"></div>
-        <div class="glow-orb glow-orb-2"></div>
-    </div>
 
+    <div class="bg-grid"></div>
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+    <!-- Top Bar -->
     <header class="top-bar">
         <div class="brand-badge">
-            <span>⚡ TRILHANDO O CAMINHO DO CÓDIGO</span>
-            <span style="opacity:0.4">|</span>
-            <span>AULA 06</span>
+            <span class="cefet-tag">CEFET-MG &amp; FAPEMING</span>
+            <span style="opacity:.3">|</span>
+            <span>TRILHANDO O CAMINHO DO CÓDIGO</span>
+            <span style="opacity:.3">•</span>
+            <span style="color:#00e5ff">AULA 06</span>
         </div>
         <div class="top-controls">
-            <a href="../../index.html" class="control-btn">🏠 Menu</a>
+            <a href="../../index.html" class="control-btn">🏠 Classroom</a>
+            <button class="control-btn" data-open-homework="aula06" style="border-color:rgba(0,229,255,.45);color:#00e5ff">📝 Tarefa de Casa</button>
             <button class="control-btn" id="fullscreenToggle">⛶ Tela Cheia (F)</button>
         </div>
     </header>
 
     <main class="presentation-stage">
-        <!-- Slide 1: Capa -->
+
+        <!-- SLIDE 1 — CAPA DA AULA 06 -->
         <section class="slide active">
             <div class="slide-header">
-                <span class="slide-step">MÓDULO 06 • MODULARIZAÇÃO</span>
-                <h1 class="slide-title">Funções e Reutilização de Código</h1>
-                <p class="slide-subtitle">Empacotando lógica com <code>def</code>, parâmetros e valores de retorno <code>return</code></p>
+                <span class="slide-step">MÓDULO 06 • SPRINT FINAL, INTEGRAÇÃO IA, TESTES &amp; ENSAIO DO PITCH</span>
+                <h1 class="slide-title">Reta Final: Polimento do App &amp; Ensaio Geral</h1>
+                <p class="slide-subtitle">Preparando o código, a blindagem e a apresentação de 3 atos para a Feira de Soluções (09/12)!</p>
+            </div>
+            <div class="slide-body">
+                <div class="pillar-grid">
+                    <div class="pillar-card" style="border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.06)">
+                        <div class="pillar-icon">🤖</div>
+                        <div class="pillar-name">GEMINI.md</div>
+                        <div class="pillar-label">Regras de contexto para a IA ajudar no polimento do projeto sem sair do que dominamos!</div>
+                    </div>
+                    <div class="pillar-card" style="border-color:rgba(139,92,246,.4)">
+                        <div class="pillar-icon">🛡️</div>
+                        <div class="pillar-name" style="color:#a78bfa">Blindagem Total</div>
+                        <div class="pillar-label">Revisão de <code>try/except</code>, campos vazios e atualização visual com <code>page.update()</code>.</div>
+                    </div>
+                    <div class="pillar-card" style="border-color:rgba(16,185,129,.4)">
+                        <div class="pillar-icon">🔄</div>
+                        <div class="pillar-name" style="color:#34d399">Teste Cruzado</div>
+                        <div class="pillar-label">Dupla A testa o app da Dupla B tentando encontrar bugs antes do dia da Feira!</div>
+                    </div>
+                    <div class="pillar-card" style="border-color:rgba(245,158,11,.45);background:rgba(245,158,11,.06)">
+                        <div class="pillar-icon">🎤</div>
+                        <div class="pillar-name" style="color:#fbbf24">Pitch em 3 Atos</div>
+                        <div class="pillar-label">1) Problema Real/ODS → 2) Demo ao Vivo → 3) Bastidores do Código Python!</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2 — BLOCO 1: QUIZ ESTILO NOTEBOOK LM (10 QUESTÕES DA AULA 05) -->
+        <section class="slide">
+            <div class="slide-header" style="margin-bottom:10px">
+                <span class="step-badge">⚡ Bloco 1 — Quiz Interativo de Aquecimento (10 Questões)</span>
+                <h2 class="slide-title" style="font-size:1.55rem">Relembrando: Interfaces Visuais com <code>Flet</code></h2>
+            </div>
+            <div class="slide-body" style="justify-content:flex-start">
+                <div id="quizAula06Container" data-trilhando-quiz="aula06"></div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3 — TÓPICO 1: INTEGRAÇÃO COM IA E GEMINI.MD (EXPLICAÇÃO 1/2) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🤖 Tópico 1 • Co-Piloto IA &amp; Checklist — Explicação (1/2)</span>
+                <h2 class="slide-title">Configurando o Co-Piloto com <code>GEMINI.md</code></h2>
+                <p class="slide-subtitle">Um bom desenvolvedor orienta a IA com o contexto exato do projeto e as ferramentas permitidas!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45)">
+                        <span class="engage-label" style="margin-bottom:6px">📄 Arquivo GEMINI.md na pasta do projeto</span>
+                        <div class="prompt-code" style="font-size:.82rem;line-height:1.65">
+<span class="kw"># REGRAS DO NOSSO PROJETO FINAL</span>
+1. Nosso app resolve: [Descreva o problema/ODS da dupla]
+2. Use apenas Python + Flet básico:
+   - Variáveis, if/elif/else, try/except
+   - Laços while e for
+   - Listas [] e Dicionários {}
+   - Funções def e controles Flet (Text, TextField, ElevatedButton, Column, Row, NavigationBar)
+3. Comente cada bloco em português simples!
+                        </div>
+                    </div>
+                    <div class="content-box tip-box">
+                        <h4>✅ Os 5 Requisitos Obrigatórios do App Final</h4>
+                        <ul style="font-size:.85rem;color:#e2e8f0;line-height:1.85;padding-left:18px">
+                            <li><strong>1. Interface Flet Funcional:</strong> Janela com título, tema e botões com <code>on_click</code>.</li>
+                            <li><strong>2. Coleção de Dados:</strong> Pelo menos 1 <code>Lista</code> ou <code>Dicionário</code> guardando registros.</li>
+                            <li><strong>3. Modularização:</strong> Funções definidas com <code>def</code>.</li>
+                            <li><strong>4. Decisão / Repetição:</strong> Uso de <code>if/else</code> e/ou <code>for/while</code>.</li>
+                            <li><strong>5. Blindagem:</strong> Proteção com <code>try/except</code> ou validação de campos vazios!</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4 — TÓPICO 1: POLIMENTO E TESTE CRUZADO (EXPLICAÇÃO 2/2) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🤖 Tópico 1 • Co-Piloto IA &amp; Checklist — Explicação (2/2)</span>
+                <h2 class="slide-title">Teste de Usabilidade Cruzado entre Duplas</h2>
+                <p class="slide-subtitle">Antes de apresentar para a banca, outra dupla vai usar o seu aplicativo por 5 minutos!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div class="content-box">
+                        <h4 style="color:#00e5ff;margin-bottom:8px">🕵️ Regra do Teste Silencioso</h4>
+                        <p style="font-size:.86rem;color:#cbd5e1;line-height:1.65">
+                            A Dupla A senta no computador da Dupla B e tenta usar o app <strong>sem que a Dupla B explique onde clicar</strong>!<br><br>
+                            Se o colega ficar em dúvida sobre o que digitar, melhore o <code>label</code> do seu <code>ft.TextField</code> ou o texto do botão!
+                        </p>
+                    </div>
+                    <div class="content-box warn-box">
+                        <h4 style="margin-bottom:8px">🔨 Os 3 Testes que a Dupla Visitante Deve Fazer</h4>
+                        <ol style="font-size:.86rem;color:#cbd5e1;line-height:1.75;padding-left:18px">
+                            <li>Clicar no botão principal com todos os campos em branco.</li>
+                            <li>Digitar letras (ex: <code>"abc"</code>) onde o app pede números.</li>
+                            <li>Cadastrar 3 itens seguidos e verificar se a lista na tela atualiza certinho!</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 5 — TÓPICO 1: EXERCÍCIO PRÁTICO DE REVISÃO DO APP (3/3) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(16,185,129,.18);border-color:#10b981;color:#6ee7b7">⚡ Tópico 1 • Exercício Prático (3/3) — Mão na Massa!</span>
+                <h2 class="slide-title">Blindando o Botão Principal do Seu Projeto</h2>
+                <p class="slide-subtitle">Abra o arquivo do projeto da sua dupla e garanta que o clique principal tenha validação completa!</p>
+            </div>
+            <div class="slide-body">
+                <div class="content-box" style="background:rgba(0,0,0,.45);padding:16px">
+                    <div class="prompt-code" style="font-size:.84rem;line-height:1.7">
+<span class="kw">def</span> <span class="fn">acao_principal</span>(e):
+    <span class="cm"># 1. Verifica se o campo de texto está vazio:</span>
+    <span class="kw">if</span> campo_texto.value.<span class="fn">strip</span>() == <span class="str">""</span>:
+        feedback.value = <span class="str">"⚠️ Por favor, preencha o campo antes de confirmar!"</span>
+        feedback.color = <span class="str">"orange"</span>
+        page.<span class="fn">update</span>()
+        <span class="kw">return</span>
+
+    <span class="cm"># 2. Protege conversões numéricas com try / except:</span>
+    <span class="kw">try</span>:
+        <span class="kw">numero</span> = <span class="fn">float</span>(campo_numero.value)
+        feedback.value = <span class="str">"✅ Registro salvo com sucesso!"</span>
+        feedback.color = <span class="str">"green"</span>
+    <span class="kw">except</span> <span class="fn">ValueError</span>:
+        feedback.value = <span class="str">"🚨 Digite apenas números válidos no campo numérico!"</span>
+        feedback.color = <span class="str">"red"</span>
+    page.<span class="fn">update</span>()
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 6 — TÓPICO 2: COMO FAZER UM PITCH CAMPEÃO (EXPLICAÇÃO 1/2) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🎤 Tópico 2 • O Pitch de 3 Atos — Explicação (1/2)</span>
+                <h2 class="slide-title">Como Apresentar Seu App em 3 a 5 Minutos</h2>
+                <p class="slide-subtitle">Divida o tempo entre os dois integrantes da dupla seguindo os 3 Atos abaixo!</p>
             </div>
             <div class="slide-body">
                 <div class="grid-3">
-                    <div class="content-box accent-box">
-                        <div class="big-icon">🧩</div>
-                        <h4>O que é uma Função?</h4>
-                        <p>Um bloco de código nomeado que realiza uma tarefa específica e pode ser executado várias vezes.</p>
+                    <div class="content-box" style="border-color:rgba(245,158,11,.45)">
+                        <h4 style="color:#fbbf24">1️⃣ Ato 1: O Problema (1 min)</h4>
+                        <p style="font-size:.84rem;color:#cbd5e1;line-height:1.6">
+                            Qual dor real da escola, da casa ou da cidade vocês escolheram resolver? Qual ODS se conecta com essa ideia?
+                        </p>
                     </div>
-                    <div class="content-box accent-box">
-                        <div class="big-icon">📥</div>
-                        <h4>Parâmetros (Entradas)</h4>
-                        <p>Variáveis recebidas pela função para personalizar seu comportamento dinamicamente.</p>
+                    <div class="content-box" style="border-color:rgba(0,229,255,.45)">
+                        <h4 style="color:#00e5ff">2️⃣ Ato 2: A Demo ao Vivo (2 min)</h4>
+                        <p style="font-size:.84rem;color:#cbd5e1;line-height:1.6">
+                            Mostrem a janela do Flet aberta! Façam um cadastro real ao vivo e mostrem a proteção contra erro funcionando!
+                        </p>
                     </div>
-                    <div class="content-box accent-box">
-                        <div class="big-icon">📤</div>
-                        <h4>Retorno (<code>return</code>)</h4>
-                        <p>O resultado final calculado pela função enviado de volta para quem a chamou.</p>
+                    <div class="content-box" style="border-color:rgba(16,185,129,.45)">
+                        <h4 style="color:#34d399">3️⃣ Ato 3: O Código (1-2 min)</h4>
+                        <p style="font-size:.84rem;color:#cbd5e1;line-height:1.6">
+                            Abram o VS Code e mostrem onde estão a Lista/Dicionário, as Funções (<code>def</code>) e o <code>try/except</code>!
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 2: Sintaxe Básica def -->
+        <!-- SLIDE 7 — TÓPICO 2: AUDITORIA VIVA (EXPLICAÇÃO 2/2) -->
         <section class="slide">
             <div class="slide-header">
-                <span class="slide-step">CONCEITO 1 • DEFINIÇÃO DE FUNÇÃO</span>
-                <h2 class="slide-title">Definindo uma Função com <code>def</code></h2>
-                <p class="slide-subtitle">Sintaxe limpa e legível</p>
+                <span class="step-badge">🎤 Tópico 2 • Auditoria Viva — Explicação (2/2)</span>
+                <h2 class="slide-title">Preparando para as Perguntas da Banca</h2>
+                <p class="slide-subtitle">Os dois integrantes da dupla devem saber responder qualquer uma destas 3 perguntas no próprio código:</p>
             </div>
             <div class="slide-body">
-                <div class="grid-2">
-                    <div class="content-box">
-                        <h4>📌 Regra DRY (Don't Repeat Yourself)</h4>
-                        <p>Se você escreveu o mesmo bloco de código mais de duas vezes, transforme-o em uma função!</p>
+                <div style="display:flex;flex-direction:column;gap:10px">
+                    <div class="summary-item" style="padding:14px">
+                        <span class="summary-check">❓</span>
+                        <div class="summary-text"><strong>Pergunta 1: "Onde os dados ficam guardados quando clicamos no botão?"</strong>Aponte para a sua Lista (<code>[]</code>) ou Dicionário (<code>{}</code>) e mostre o <code>.append()</code>!</div>
                     </div>
-                    <div class="content-box accent-box">
-                        <h4>💻 Exemplo Simples</h4>
-                        <div class="prompt-code"><span class="cm"># Definição da função</span>
-<span class="kw">def</span> <span class="fn">exibir_saudacao</span>(nome):
-    <span class="fn">print</span>(<span class="str">f"👋 Olá <span class="kw">{nome}</span>, bem-vindo(a) ao laboratório!"</span>)
-
-<span class="cm"># Chamadas da função</span>
-<span class="fn">exibir_saudacao</span>(<span class="str">"Gabriel"</span>)
-<span class="fn">exibir_saudacao</span>(<span class="str">"Larissa"</span>)</div>
+                    <div class="summary-item" style="padding:14px">
+                        <span class="summary-check">❓</span>
+                        <div class="summary-text"><strong>Pergunta 2: "O que acontece se alguém digitar letras ou deixar em branco?"</strong>Aponte para o seu <code>if</code> de validação ou para o bloco <code>try / except ValueError</code>!</div>
+                    </div>
+                    <div class="summary-item" style="padding:14px">
+                        <span class="summary-check">❓</span>
+                        <div class="summary-text"><strong>Pergunta 3: "Qual função atualiza a janela quando o botão é clicado?"</strong>Mostre o <code>def</code> conectado ao <code>on_click</code> e o comando <code>page.update()</code> no final!</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 3: Retornando Valores com return -->
+        <!-- SLIDE 8 — TÓPICO 2: EXERCÍCIO DE ROTEIRO DO PITCH (3/3) -->
         <section class="slide">
             <div class="slide-header">
-                <span class="slide-step">CONCEITO 2 • RETORNO DE VALORES</span>
-                <h2 class="slide-title">Diferença entre <code>print()</code> e <code>return</code></h2>
-                <p class="slide-subtitle">Como reaproveitar o resultado de um cálculo em outras partes do sistema</p>
+                <span class="step-badge" style="background:rgba(16,185,129,.18);border-color:#10b981;color:#6ee7b7">⚡ Tópico 2 • Exercício do Pitch (3/3) — Ensaio da Dupla!</span>
+                <h2 class="slide-title">Escrevendo o Roteiro de 3 Frases no Topo do Código</h2>
+                <p class="slide-subtitle">Coloque um cabeçalho comentado no topo do arquivo <code>.py</code> da dupla definindo quem fala cada parte!</p>
             </div>
             <div class="slide-body">
-                <div class="grid-2">
-                    <div class="content-box bad-box">
-                        <h4>⚠️ Apenas Imprime (Sem Retorno)</h4>
-                        <div class="prompt-code"><span class="kw">def</span> <span class="fn">somar_bad</span>(a, b):
-    <span class="fn">print</span>(a + b)
-
-res = <span class="fn">somar_bad</span>(<span class="num">4</span>, <span class="num">5</span>)
-<span class="cm"># res é None! Não dá pra usar em cálculos.</span></div>
-                    </div>
-                    <div class="content-box good-box">
-                        <h4>✅ Retorna o Valor (Com return)</h4>
-                        <div class="prompt-code"><span class="kw">def</span> <span class="fn">somar_good</span>(a, b):
-    <span class="kw">return</span> a + b
-
-res = <span class="fn">somar_good</span>(<span class="num">4</span>, <span class="num">5</span>)
-total = res * <span class="num">2</span> <span class="cm"># total = 18! Funciona perfeitamente.</span></div>
+                <div class="content-box" style="background:rgba(0,0,0,.45);padding:16px">
+                    <div class="prompt-code" style="font-size:.86rem;line-height:1.75">
+<span class="cm"># ==========================================================</span>
+<span class="cm"># PROJETO FINAL: [NOME DO APLICATIVO]</span>
+<span class="cm"># DUPLA: [Integrante 1] e [Integrante 2]</span>
+<span class="cm"># ATO 1 (Problema/ODS - Integrante 1): ...</span>
+<span class="cm"># ATO 2 (Demonstração Flet - Integrante 2): ...</span>
+<span class="cm"># ATO 3 (Explicação do Código - Ambos): ...</span>
+<span class="cm"># ==========================================================</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 4: Organizando o Código em Módulos -->
+        <!-- SLIDE 9 — CAPA / TRAVA ANTI-SPOILER DA TAREFA DE CASA DA AULA 06 -->
         <section class="slide">
             <div class="slide-header">
-                <span class="slide-step">CONCEITO 3 • ARQUITETURA</span>
-                <h2 class="slide-title">Organizando o Código do Projeto Final</h2>
-                <p class="slide-subtitle">Separando a lógica de negócios da interface do usuário</p>
+                <span class="slide-step">🏠 ATIVIDADE PARA CASA • ENTREGA PRÉVIA DO PROJETO</span>
+                <h2 class="slide-title">Tarefa de Casa — Aula 06</h2>
+                <p class="slide-subtitle">Registre o questionário de revisão e cole o código atual do projeto da sua dupla!</p>
             </div>
             <div class="slide-body">
-                <div class="content-box accent-box">
-                    <div class="prompt-code"><span class="cm"># Módulo de Regras de Negócio (funções de cálculo/validação)</span>
-<span class="kw">def</span> <span class="fn">calcular_pegada_carbono</span>(km_percorridos, meio_transporte):
-    <span class="kw">if</span> meio_transporte == <span class="str">"carro"</span>:
-        <span class="kw">return</span> km_percorridos * <span class="num">0.19</span>
-    <span class="kw">elif</span> meio_transporte == <span class="str">"onibus"</span>:
-        <span class="kw">return</span> km_percorridos * <span class="num">0.05</span>
-    <span class="kw">return</span> <span class="num">0.0</span> <span class="cm"># bicicleta / a pe</span></div>
+                <div class="hw-gate-card">
+                    <div class="hw-gate-icon">🔒🚀</div>
+                    <span class="tr-badge-cyan">5 QUESTÕES DE REVISÃO + REGISTRO DO CÓDIGO E PITCH</span>
+                    <h3 style="font-size:1.45rem;color:#fff;font-weight:800;">Preparação Oficial para a Feira (09/12)</h3>
+                    <p style="font-size:0.92rem;color:#cbd5e1;max-width:600px;line-height:1.6;">
+                        Clique abaixo para responder às 5 questões sobre Blindagem, Testes e Pitch e salvar o código do seu projeto no Classroom!
+                    </p>
+                    <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+                        <button type="button" class="hw-gate-btn" data-open-homework="aula06">
+                            🚀 Abrir Tarefa da Aula 06 Agora
+                        </button>
+                        <a href="../../index.html#tarefas" class="control-btn" style="padding:12px 20px;font-size:0.9rem;border-color:rgba(0,229,255,.4);color:#00e5ff;">
+                            📊 Ver Minhas Notas no Classroom
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 5: Desafio Prático da Aula 06 -->
-        <section class="slide">
-            <div class="slide-header">
-                <span class="slide-step">PRÁTICA • DESAFIO 06</span>
-                <h2 class="slide-title">Desafio: Pacote de Funções do App Final</h2>
-                <p class="slide-subtitle">Construindo o "motor" funcional do seu aplicativo ODS</p>
-            </div>
-            <div class="slide-body">
-                <div class="grid-2">
-                    <div class="content-box tip-box">
-                        <h4>🎯 Requisitos:</h4>
-                        <ul>
-                            <li>Criar pelo menos 2 funções com parâmetros e <code>return</code>.</li>
-                            <li>Exemplo 1: Função para validar se um campo não está vazio.</li>
-                            <li>Exemplo 2: Função para calcular o indicador principal do app (ex: média, total, status).</li>
-                            <li>Testar as funções no terminal.</li>
-                        </ul>
-                    </div>
-                    <div class="content-box accent-box">
-                        <h4>🤖 Prompt para Gemini CLI:</h4>
-                        <div class="prompt-code"><span class="str">"Atue como revisor de código. Analise minha função Python abaixo e sugira melhorias na nomenclatura de parâmetros e tratamento de erros."</span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
+    <!-- Bottom Navigation -->
     <footer class="bottom-nav">
-        <div class="slide-counter" id="slideCounter">1 / 5</div>
+        <div class="slide-counter" id="slideCounter">1 / 9</div>
         <div class="nav-buttons">
             <button class="nav-btn" id="prevBtn">← Anterior <span class="key-hint">←</span></button>
             <button class="nav-btn primary" id="nextBtn">Próximo → <span class="key-hint">→</span></button>

@@ -3,173 +3,928 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aula 05 - Listas e Coleções de Dados em Python</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Aula 05 — Interfaces Visuais com Flet (Básico &amp; Avançado) | Trilhando o Caminho do Código</title>
     <link rel="stylesheet" href="slides-style.css">
+    <style>
+        .pillar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 10px 0; }
+        .pillar-card { background: rgba(255,255,255,.04); border: 1.5px solid rgba(255,255,255,.12); border-radius: 16px; padding: 16px 14px; text-align: center; }
+        .pillar-icon { font-size: 2.1rem; margin-bottom: 6px; }
+        .pillar-name { font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 800; color: #00e5ff; margin-bottom: 5px; }
+        .pillar-label { font-size: .78rem; color: #94a3b8; line-height: 1.45; }
+
+        .step-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,99,235,.22); border: 1px solid rgba(0,229,255,.35); border-radius: 100px; padding: 5px 16px; font-size: .75rem; font-weight: 700; color: #00e5ff; letter-spacing: .5px; margin-bottom: 6px; text-transform: uppercase; }
+        .engage-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.45); border-radius: 8px; padding: 4px 12px; font-size: .76rem; font-weight: 700; color: #f59e0b; margin-bottom: 6px; }
+
+        .prompt-code { background: #040916; border: 1px solid rgba(0,229,255,.25); border-radius: 10px; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: .82rem; color: #a7f3d0; line-height: 1.65; white-space: pre-wrap; margin: 6px 0; }
+        .prompt-code .kw { color: #00e5ff; font-weight: 700; }
+        .prompt-code .str { color: #fde68a; }
+        .prompt-code .cm { color: #64748b; font-style: italic; }
+        .prompt-code .fn { color: #c084fc; }
+        .prompt-code .num { color: #fb923c; }
+
+        .mission-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .mission-card { border-radius: 16px; padding: 16px; border: 1.5px solid; cursor: pointer; transition: transform .22s ease, box-shadow .22s ease; }
+        .mission-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 14px 32px rgba(0,0,0,.45); }
+        .mission-card h4 { font-size: .95rem; font-weight: 800; margin-bottom: 6px; }
+        .mission-card p { font-size: .76rem; line-height: 1.5; color: #cbd5e1; }
+        .mission-atm { background: rgba(139,92,246,.08); border-color: rgba(139,92,246,.45); }
+        .mission-quiz { background: rgba(37,99,235,.08); border-color: rgba(37,99,235,.45); }
+        .mission-health { background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.45); }
+
+        .stress-table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: 8px; }
+        .stress-table th { background: rgba(37,99,235,.3); color: #00e5ff; font-weight: 700; padding: 9px 12px; text-align: left; border-bottom: 1px solid rgba(0,229,255,.3); }
+        .stress-table td { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,.07); color: #cbd5e1; vertical-align: top; }
+        .stress-table tr:nth-child(even) td { background: rgba(255,255,255,.03); }
+
+        .summary-item { display: flex; align-items: flex-start; gap: 12px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; padding: 9px 14px; }
+        .summary-check { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+        .summary-text { font-size: .82rem; color: #cbd5e1; line-height: 1.45; }
+        .summary-text strong { color: #fff; display: block; margin-bottom: 2px; }
+
+        .hw-gate-card {
+            background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.22), rgba(10, 18, 38, 0.95));
+            border: 2px solid rgba(0, 229, 255, 0.45);
+            border-radius: 22px;
+            padding: 32px;
+            text-align: center;
+            max-width: 780px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.55);
+        }
+        .hw-gate-icon { font-size: 3.4rem; }
+        .hw-gate-btn {
+            background: linear-gradient(135deg, #2563eb, #00e5ff);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.35);
+            transition: transform .2s ease;
+        }
+        .hw-gate-btn:hover { transform: translateY(-3px) scale(1.02); }
+    </style>
 </head>
 <body>
-    <div class="progress-bar" id="progressBar"></div>
-    <div class="bg-glow">
-        <div class="glow-orb glow-orb-1"></div>
-        <div class="glow-orb glow-orb-2"></div>
-    </div>
 
+    <div class="bg-grid"></div>
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+    <!-- Top Bar -->
     <header class="top-bar">
         <div class="brand-badge">
-            <span>⚡ TRILHANDO O CAMINHO DO CÓDIGO</span>
-            <span style="opacity:0.4">|</span>
-            <span>AULA 05</span>
+            <span class="cefet-tag">CEFET-MG &amp; FAPEMING</span>
+            <span style="opacity:.3">|</span>
+            <span>TRILHANDO O CAMINHO DO CÓDIGO</span>
+            <span style="opacity:.3">•</span>
+            <span style="color:#00e5ff">AULA 05</span>
         </div>
         <div class="top-controls">
-            <a href="../../index.html" class="control-btn">🏠 Menu</a>
+            <a href="../../index.html" class="control-btn">🏠 Classroom</a>
+            <button class="control-btn" data-open-homework="aula05" style="border-color:rgba(0,229,255,.45);color:#00e5ff">📝 Tarefa de Casa</button>
             <button class="control-btn" id="fullscreenToggle">⛶ Tela Cheia (F)</button>
         </div>
     </header>
 
     <main class="presentation-stage">
-        <!-- Slide 1: Capa -->
+
+        <!-- SLIDE 1 — CAPA DA AULA 05 -->
         <section class="slide active">
             <div class="slide-header">
-                <span class="slide-step">MÓDULO 05 • ESTRUTURAS DE DADOS</span>
-                <h1 class="slide-title">Listas e Coleções</h1>
-                <p class="slide-subtitle">Organizando múltiplos elementos em uma única estrutura sequencial</p>
+                <span class="slide-step">MÓDULO 05 • DO TERMINAL PARA AS TELAS: INTERFACES VISUAIS COM FLET</span>
+                <h1 class="slide-title">Construindo Aplicativos Reais com <code>Flet</code></h1>
+                <p class="slide-subtitle">Janelas gráficas, Botões, Campos de Texto, Temas, Ícones e Navegação Multi-Telas em Python!</p>
             </div>
             <div class="slide-body">
-                <div class="grid-3">
-                    <div class="content-box accent-box">
-                        <div class="big-icon">📋</div>
-                        <h4>O que é uma Lista?</h4>
-                        <p>Uma sequência ordenada de itens armazenados sob o mesmo nome de variável, demarcada por colchetes <code>[]</code>.</p>
+                <div class="pillar-grid">
+                    <div class="pillar-card" style="border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.06)">
+                        <div class="pillar-icon">📱</div>
+                        <div class="pillar-name">Text &amp; TextField</div>
+                        <div class="pillar-label">Substituem o <code>print()</code> e o <code>input()</code> por textos estilizados e caixas de digitação visuais!</div>
                     </div>
-                    <div class="content-box accent-box">
-                        <div class="big-icon">🔢</div>
-                        <h4>Indexação (Índices)</h4>
-                        <p>Acesso rápido a cada elemento usando sua posição numérica, começando SEMPRE do índice 0.</p>
+                    <div class="pillar-card" style="border-color:rgba(139,92,246,.4)">
+                        <div class="pillar-icon">🖱️</div>
+                        <div class="pillar-name" style="color:#a78bfa">on_click &amp; update</div>
+                        <div class="pillar-label">Conecta botões às nossas funções <code>def</code> e atualiza a tela em tempo real com <code>page.update()</code>.</div>
                     </div>
-                    <div class="content-box accent-box">
-                        <div class="big-icon">🛠️</div>
-                        <h4>Métodos Dinâmicos</h4>
-                        <p>Adicionando, removendo e manipulando elementos com <code>append()</code>, <code>pop()</code> e <code>len()</code>.</p>
+                    <div class="pillar-card" style="border-color:rgba(16,185,129,.4)">
+                        <div class="pillar-icon">🎨</div>
+                        <div class="pillar-name" style="color:#34d399">Temas &amp; Ícones</div>
+                        <div class="pillar-label">Modo escuro, cores hexadecimais (<code>bgcolor</code>), <code>Column</code>, <code>Row</code> e ícones <code>ft.Icons</code>!</div>
                     </div>
+                    <div class="pillar-card" style="border-color:rgba(245,158,11,.45);background:rgba(245,158,11,.06)">
+                        <div class="pillar-icon">🧭</div>
+                        <div class="pillar-name" style="color:#fbbf24">NavigationBar</div>
+                        <div class="pillar-label">Barra inferior de aplicativo mobile para alternar entre abas (Início, Cadastro e Sobre)!</div>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:12px;font-size:.8rem;color:#94a3b8">
+                    ⚡ Começaremos agora com o <strong>Quiz Interativo de Revisão (10 questões rápidas)</strong> da Aula 04 (<code>Funções def/return</code> e <code>Dicionários dict</code>)!
                 </div>
             </div>
         </section>
 
-        <!-- Slide 2: Criação e Acesso por Índices -->
+        <!-- SLIDE 2 — BLOCO 1: QUIZ ESTILO NOTEBOOK LM (10 QUESTÕES DA AULA 04) -->
+        <section class="slide">
+            <div class="slide-header" style="margin-bottom:10px">
+                <span class="step-badge">⚡ Bloco 1 — Quiz Interativo de Aquecimento (10 Questões)</span>
+                <h2 class="slide-title" style="font-size:1.55rem">Relembrando: Funções (<code>def / return</code>) e Dicionários (<code>dict</code>)</h2>
+            </div>
+            <div class="slide-body" style="justify-content:flex-start">
+                <div id="quizAula05Container" data-trilhando-quiz="aula05"></div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3 — TÓPICO 1: FLET BÁSICO & WIDGETS (EXPLICAÇÃO 1/2) -->
         <section class="slide">
             <div class="slide-header">
-                <span class="slide-step">CONCEITO 1 • SINTAXE DE LISTAS</span>
-                <h2 class="slide-title">Criando Listas e Acessando Índices</h2>
-                <p class="slide-subtitle">A regra de ouro: O primeiro elemento fica na posição <code>0</code></p>
+                <span class="step-badge">📱 Tópico 1 • Flet Básico — Explicação (1/2)</span>
+                <h2 class="slide-title">Adeus Tela Preta! Como funciona o <code>Flet</code>?</h2>
+                <p class="slide-subtitle">Com <code>import flet as ft</code>, a função <code>main(page: ft.Page)</code> vira a janela do nosso aplicativo!</p>
             </div>
             <div class="slide-body">
-                <div class="grid-2">
-                    <div class="content-box">
-                        <h4>📌 Conceito de Posição</h4>
-                        <div class="prompt-code">frutas = [<span class="str">"Maçã"</span>, <span class="str">"Banana"</span>, <span class="str">"Laranja"</span>]
-<span class="cm"># ÍNDICES:    0         1           2</span></div>
-                        <ul style="margin-top:12px">
-                            <li><code>frutas[0]</code> ➔ "Maçã"</li>
-                            <li><code>frutas[2]</code> ➔ "Laranja"</li>
-                            <li><code>frutas[-1]</code> ➔ Último elemento ("Laranja")</li>
-                        </ul>
-                    </div>
-                    <div class="content-box accent-box">
-                        <h4>💻 Alterando Elementos</h4>
-                        <div class="prompt-code">frutas[1] = <span class="str">"Morango"</span> <span class="cm"># Substitui "Banana"</span>
-<span class="fn">print</span>(frutas)
-<span class="cm"># Saída: ['Maçã', 'Morango', 'Laranja']</span>
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45)">
+                        <span class="engage-label" style="margin-bottom:6px">⌨️ Esqueleto Mínimo — meu_primeiro_app.py</span>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.7">
+<span class="kw">import</span> flet <span class="kw">as</span> ft
 
-<span class="fn">print</span>(<span class="fn">len</span>(frutas)) <span class="cm"># Tamanho da lista: 3</span></div>
+<span class="kw">def</span> <span class="fn">main</span>(page: ft.Page):
+    page.title = <span class="str">"Meu Primeiro App!"</span>
+    
+    <span class="cm"># Criamos um texto visual e penduramos na página:</span>
+    <span class="kw">titulo</span> = ft.<span class="fn">Text</span>(<span class="str">"🚀 Olá, Mundo Visual!"</span>, size=<span class="num">28</span>)
+    page.<span class="fn">add</span>(titulo)
+
+ft.<span class="fn">app</span>(target=main)
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="summary-item" style="padding:12px 14px">
+                            <span class="summary-check">🪟</span>
+                            <div class="summary-text"><strong>page: ft.Page → A Janela em Branco</strong>É o quadro onde configuramos o título (<code>page.title</code>) e adicionamos componentes.</div>
+                        </div>
+                        <div class="summary-item" style="padding:12px 14px">
+                            <span class="summary-check">➕</span>
+                            <div class="summary-text"><strong>page.add(...) → Coloca na Tela</strong>Sem <code>page.add()</code>, o componente fica só na memória e não aparece na janela!</div>
+                        </div>
+                        <div class="summary-item" style="padding:12px 14px">
+                            <span class="summary-check">▶️</span>
+                            <div class="summary-text"><strong>ft.app(target=main) → Liga o Motor</strong>É a última linha do arquivo que abre a janela gráfica do aplicativo.</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 3: Métodos Principais de Listas -->
+        <!-- SLIDE 4 — TÓPICO 1: FLET BÁSICO & WIDGETS (EXPLICAÇÃO 2/2) -->
         <section class="slide">
             <div class="slide-header">
-                <span class="slide-step">CONCEITO 2 • MÉTODOS DE LISTA</span>
-                <h2 class="slide-title">Manipulando Listas no Python</h2>
-                <p class="slide-subtitle">Adicionando e removendo elementos dinamicamente</p>
+                <span class="step-badge">📱 Tópico 1 • Flet Básico — Explicação (2/2)</span>
+                <h2 class="slide-title">Os 3 Blocos de LEGO: <code>Text</code>, <code>TextField</code> e <code>ElevatedButton</code></h2>
+                <p class="slide-subtitle">Veja a tradução direta do que fazíamos no terminal para os componentes visuais do Flet!</p>
             </div>
             <div class="slide-body">
-                <div class="grid-3">
-                    <div class="content-box">
-                        <h4 style="color:var(--accent-green)"><code>append(valor)</code></h4>
-                        <p>Adiciona um novo elemento ao final da lista.</p>
-                        <div class="prompt-code">tarefas.<span class="fn">append</span>(<span class="str">"Estudar Python"</span>)</div>
-                    </div>
-                    <div class="content-box">
-                        <h4 style="color:var(--accent-red)"><code>remove(valor)</code></h4>
-                        <p>Remove a primeira ocorrência do valor especificado.</p>
-                        <div class="prompt-code">tarefas.<span class="fn">remove</span>(<span class="str">"Estudar Python"</span>)</div>
-                    </div>
-                    <div class="content-box">
-                        <h4 style="color:var(--accent-yellow)"><code>pop(indice)</code></h4>
-                        <p>Remove e retorna o elemento no índice informado.</p>
-                        <div class="prompt-code">item = tarefas.<span class="fn">pop</span>(<span class="num">0</span>)</div>
-                    </div>
+                <table class="stress-table">
+                    <thead>
+                        <tr><th>O que queremos fazer</th><th>No Terminal (Antigo)</th><th>No Flet Visual (Novo!)</th><th>Como ler/mudar o valor?</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Mostrar texto na tela</strong></td>
+                            <td><code>print("Olá!")</code></td>
+                            <td><code style="color:#00e5ff">msg = ft.Text("Olá!", size=20)</code></td>
+                            <td><code>msg.value = "Novo texto"</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pedir digitação do usuário</strong></td>
+                            <td><code>nome = input("Nome: ")</code></td>
+                            <td><code style="color:#00e5ff">campo = ft.TextField(label="Nome")</code></td>
+                            <td><code>campo.value</code> (guarda o que foi digitado!)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Executar uma ação</strong></td>
+                            <td>Apertar <kbd>Enter</kbd></td>
+                            <td><code style="color:#00e5ff">btn = ft.ElevatedButton("Enviar", on_click=acao)</code></td>
+                            <td>Chama a função <code>def acao(e):</code> no clique!</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="content-box tip-box" style="margin-top:12px;padding:12px 16px;font-size:.86rem">
+                    💡 <strong>Dica importante:</strong> Tanto o <code>ft.Text</code> quanto o <code>ft.TextField</code> guardam seu texto atual dentro da propriedade <code>.value</code>!
                 </div>
             </div>
         </section>
 
-        <!-- Slide 4: Iterando sobre Listas com for -->
+        <!-- SLIDE 5 — TÓPICO 1: EXERCÍCIO BÁSICO DE WIDGETS (3/3) -->
         <section class="slide">
             <div class="slide-header">
-                <span class="slide-step">CONCEITO 3 • ITERAÇÃO</span>
-                <h2 class="slide-title">Percorrendo Listas com <code>for</code></h2>
-                <p class="slide-subtitle">Processando elemento por elemento automaticamente</p>
+                <span class="step-badge" style="background:rgba(16,185,129,.18);border-color:#10b981;color:#6ee7b7">⚡ Tópico 1 • Exercício Básico de Flet (3/3) — Mão na Massa!</span>
+                <h2 class="slide-title">Treino Relâmpago: Minha Primeira Janela Flet</h2>
+                <p class="slide-subtitle">Crie uma janela com Título, um <code>ft.Text</code> grande, um <code>ft.TextField</code> e um <code>ft.ElevatedButton</code>!</p>
             </div>
             <div class="slide-body">
-                <div class="content-box accent-box">
-                    <div class="prompt-code">alunos_projeto = [<span class="str">"Carlos"</span>, <span class="str">"Beatriz"</span>, <span class="str">"Daniel"</span>, <span class="str">"Elena"</span>]
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="border-color:rgba(16,185,129,.45);background:rgba(16,185,129,.06);padding:16px">
+                        <h4 style="color:#34d399;font-size:1rem;margin-bottom:8px">🪟 Siga os 4 passos no VS Code:</h4>
+                        <ol style="font-size:.88rem;color:#e2e8f0;line-height:1.85;padding-left:20px;margin:0">
+                            <li>Crie o arquivo <code>ola_flet.py</code> e importe <code>import flet as ft</code>.</li>
+                            <li>Dentro de <code>def main(page: ft.Page):</code>, mude o <code>page.title</code> para o seu nome.</li>
+                            <li>Crie um <code>ft.Text</code> de boas-vindas, um <code>ft.TextField(label="Seu sonho")</code> e um <code>ft.ElevatedButton("Salvar")</code>.</li>
+                            <li>Adicione os 3 na tela com <code>page.add(...)</code> e rode o arquivo ▶️!</li>
+                        </ol>
+                    </div>
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:16px">
+                        <h4 style="font-size:.86rem;color:#94a3b8;margin-bottom:8px;text-transform:uppercase">Código Base para Testar:</h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.68;padding:10px 14px">
+<span class="kw">import</span> flet <span class="kw">as</span> ft
 
-<span class="fn">print</span>(<span class="str">"📋 Lista de Integrantes da Equipe:"</span>)
-<span class="kw">for</span> aluno <span class="kw">in</span> alunos_projeto:
-    <span class="fn">print</span>(<span class="str">f" • Estudanate: <span class="kw">{aluno}</span>"</span>)</div>
+<span class="kw">def</span> <span class="fn">main</span>(page: ft.Page):
+    page.title = <span class="str">"App do Victor"</span>
+
+    <span class="kw">titulo</span> = ft.<span class="fn">Text</span>(<span class="str">"🌟 Mural dos Sonhos"</span>, size=<span class="num">26</span>, weight=<span class="str">"bold"</span>)
+    <span class="kw">caixa</span> = ft.<span class="fn">TextField</span>(label=<span class="str">"Digite uma meta sua..."</span>)
+    <span class="kw">botao</span> = ft.<span class="fn">ElevatedButton</span>(<span class="str">"Registrar Meta"</span>)
+
+    page.<span class="fn">add</span>(titulo, caixa, botao)
+
+ft.<span class="fn">app</span>(target=main)
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 5: Desafio Prático da Aula 05 -->
+        <!-- SLIDE 6 — TÓPICO 2: LAYOUTS E EVENTOS ON_CLICK (EXPLICAÇÃO 1/2) -->
         <section class="slide">
             <div class="slide-header">
-                <span class="slide-step">PRÁTICA • DESAFIO 05</span>
-                <h2 class="slide-title">Desafio: Gerenciador de Tarefas do App ODS</h2>
-                <p class="slide-subtitle">Construindo a estrutura de dados base do seu projeto final</p>
+                <span class="step-badge">🖱️ Tópico 2 • Eventos &amp; Layouts — Explicação (1/2)</span>
+                <h2 class="slide-title">Dando Vida ao Botão: <code>on_click</code> e <code>page.update()</code></h2>
+                <p class="slide-subtitle">Quando o usuário clica no botão, uma função <code>def</code> lê o <code>.value</code>, altera a tela e chama <code>page.update()</code>!</p>
             </div>
             <div class="slide-body">
-                <div class="grid-2">
-                    <div class="content-box tip-box">
-                        <h4>🎯 Requisitos:</h4>
-                        <ul>
-                            <li>Criar uma lista vazia chamada <code>lista_ods = []</code>.</li>
-                            <li>Usar um loop <code>while</code> para permitir cadastrar novos itens.</li>
-                            <li>Permitir listar todos os cadastros numerados.</li>
-                            <li>Permitir remover um item pelo número do índice.</li>
-                        </ul>
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45)">
+                        <span class="engage-label" style="margin-bottom:6px">⚡ Como conectar o clique do botão:</span>
+                        <div class="prompt-code" style="font-size:.82rem;line-height:1.62">
+<span class="kw">nome_input</span> = ft.<span class="fn">TextField</span>(label=<span class="str">"Qual é o seu nome?"</span>)
+<span class="kw">resposta</span> = ft.<span class="fn">Text</span>(<span class="str">""</span>, size=<span class="num">20</span>, color=<span class="str">"cyan"</span>)
+
+<span class="cm"># 1. Função que roda quando o botão é clicado:</span>
+<span class="kw">def</span> <span class="fn">saudar</span>(e):
+    resposta.value = <span class="str">f"🎉 Olá, <span class="kw">{nome_input.value}</span>!"</span>
+    page.<span class="fn">update</span>() <span class="cm"># OBRIGATÓRIO para atualizar a tela!</span>
+
+<span class="cm"># 2. Passamos o nome da função SEM parênteses no on_click:</span>
+<span class="kw">btn</span> = ft.<span class="fn">ElevatedButton</span>(<span class="str">"Dizer Olá"</span>, on_click=saudar)
+page.<span class="fn">add</span>(nome_input, btn, resposta)
+                        </div>
                     </div>
-                    <div class="content-box accent-box">
-                        <h4>🤖 Prompt Gemini CLI sugerido:</h4>
-                        <div class="prompt-code"><span class="str">"Como posso formatar uma lista em Python usando enumerate() para exibir o número do índice junto com o texto do elemento para o usuário?"</span></div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="content-box warn-box" style="padding:14px">
+                            <h4 style="font-size:.9rem;margin-bottom:6px">🚨 As 2 Pegadinhas Mais Comuns no Flet:</h4>
+                            <p style="font-size:.82rem;color:#cbd5e1;line-height:1.55;margin-bottom:8px">
+                                <strong>1. Esquecer o <code>page.update()</code>:</strong> Se você mudar <code>resposta.value</code> mas não chamar <code>page.update()</code>, a tela continua igualzinha!
+                            </p>
+                            <p style="font-size:.82rem;color:#cbd5e1;line-height:1.55;margin:0">
+                                <strong>2. Colocar parênteses no <code>on_click</code>:</strong> Escreva <code>on_click=saudar</code> (sem <code>()</code>), senão a função roda antes de clicar!
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- SLIDE 7 — TÓPICO 2: LAYOUTS COLUMN E ROW (EXPLICAÇÃO 2/2) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🖱️ Tópico 2 • Eventos &amp; Layouts — Explicação (2/2)</span>
+                <h2 class="slide-title">Organizando a Tela: <code>ft.Column</code> (Vertical) vs <code>ft.Row</code> (Horizontal)</h2>
+                <p class="slide-subtitle">Use <code>Column</code> para empilhar um abaixo do outro e <code>Row</code> para colocar elementos lado a lado!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div class="content-box" style="border-color:rgba(0,229,255,.35)">
+                        <h4 style="color:#00e5ff;margin-bottom:8px">⬇️ <code>ft.Column([...])</code> → Empilha na Vertical</h4>
+                        <div class="prompt-code" style="font-size:.82rem;line-height:1.65">
+<span class="kw">coluna</span> = ft.<span class="fn">Column</span>([
+    ft.<span class="fn">Text</span>(<span class="str">"Título em cima"</span>),
+    ft.<span class="fn">TextField</span>(label=<span class="str">"Campo no meio"</span>),
+    ft.<span class="fn">ElevatedButton</span>(<span class="str">"Botão embaixo"</span>)
+], spacing=<span class="num">15</span>)
+                        </div>
+                    </div>
+                    <div class="content-box" style="border-color:rgba(167,139,250,.4)">
+                        <h4 style="color:#a78bfa;margin-bottom:8px">➡️ <code>ft.Row([...])</code> → Alinha Lado a Lado</h4>
+                        <div class="prompt-code" style="font-size:.82rem;line-height:1.65">
+<span class="kw">linha_botoes</span> = ft.<span class="fn">Row</span>([
+    ft.<span class="fn">ElevatedButton</span>(<span class="str">"➕ Somar"</span>),
+    ft.<span class="fn">ElevatedButton</span>(<span class="str">"➖ Subtrair"</span>),
+    ft.<span class="fn">ElevatedButton</span>(<span class="str">"🧹 Limpar"</span>)
+], alignment=ft.MainAxisAlignment.CENTER)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 8 — TÓPICO 2: EXERCÍCIO BÁSICO DE EVENTOS (3/3) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(16,185,129,.18);border-color:#10b981;color:#6ee7b7">⚡ Tópico 2 • Exercício Básico de Eventos (3/3) — Mão na Massa!</span>
+                <h2 class="slide-title">Treino Relâmpago: Contador de Cliques Gamer</h2>
+                <p class="slide-subtitle">Crie dois botões lado a lado em um <code>ft.Row</code> (<code>+1 Ponto</code> e <code>Zerar</code>) que atualizam o placar na tela!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="border-color:rgba(16,185,129,.45);background:rgba(16,185,129,.06);padding:16px">
+                        <h4 style="color:#34d399;font-size:1rem;margin-bottom:8px">🎮 Siga os passos no VS Code:</h4>
+                        <ol style="font-size:.86rem;color:#e2e8f0;line-height:1.8;padding-left:20px;margin:0">
+                            <li>Crie um <code>placar = ft.Text("0", size=40)</code>.</li>
+                            <li>Crie a função <code>def somar(e):</code> que converte <code>int(placar.value) + 1</code>, atualiza <code>placar.value</code> e chama <code>page.update()</code>.</li>
+                            <li>Coloque os botões de Somar e Zerar lado a lado dentro de um <code>ft.Row([...])</code>!</li>
+                        </ol>
+                    </div>
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:14px">
+                        <div class="prompt-code" style="font-size:.8rem;line-height:1.58;padding:10px 12px">
+<span class="kw">import</span> flet <span class="kw">as</span> ft
+
+<span class="kw">def</span> <span class="fn">main</span>(page: ft.Page):
+    page.title = <span class="str">"Contador Gamer"</span>
+    <span class="kw">placar</span> = ft.<span class="fn">Text</span>(<span class="str">"0"</span>, size=<span class="num">45</span>, weight=<span class="str">"bold"</span>)
+
+    <span class="kw">def</span> <span class="fn">ganhar_ponto</span>(e):
+        placar.value = <span class="fn">str</span>(<span class="fn">int</span>(placar.value) + <span class="num">1</span>)
+        page.<span class="fn">update</span>()
+
+    <span class="kw">def</span> <span class="fn">zerar</span>(e):
+        placar.value = <span class="str">"0"</span>
+        page.<span class="fn">update</span>()
+
+    page.<span class="fn">add</span>(
+        placar,
+        ft.<span class="fn">Row</span>([
+            ft.<span class="fn">ElevatedButton</span>(<span class="str">"⚡ +1 Ponto"</span>, on_click=ganhar_ponto),
+            ft.<span class="fn">ElevatedButton</span>(<span class="str">"🔄 Zerar"</span>, on_click=zerar)
+        ])
+    )
+
+ft.<span class="fn">app</span>(target=main)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 9 — TÓPICO 3: FLET AVANÇADO: TEMAS, CORES E ÍCONES (EXPLICAÇÃO 1/2) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🎨 Tópico 3 • Flet Avançado — Explicação (1/2)</span>
+                <h2 class="slide-title">Identidade Visual: Temas, Cores (<code>bgcolor</code>) e Ícones</h2>
+                <p class="slide-subtitle">Deixe seu aplicativo com cara de startup usando Modo Escuro, paleta de cores e ícones oficiais!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45)">
+                        <h4 style="color:#00e5ff;margin-bottom:8px">🌙 Tema Escuro, Cores e Janela Mobile</h4>
+                        <div class="prompt-code" style="font-size:.82rem;line-height:1.65">
+<span class="kw">def</span> <span class="fn">main</span>(page: ft.Page):
+    page.title = <span class="str">"EcoÁgua App"</span>
+    page.theme_mode = ft.ThemeMode.DARK
+    page.bgcolor = <span class="str">"#0f172a"</span> <span class="cm"># Azul escuro elegante</span>
+    page.window.width = <span class="num">420</span>  <span class="cm"># Formato de celular!</span>
+    page.window.height = <span class="num">720</span>
+                        </div>
+                    </div>
+                    <div class="content-box" style="border-color:rgba(16,185,129,.4)">
+                        <h4 style="color:#34d399;margin-bottom:8px">✨ Ícones com <code>ft.Icons</code> nos Botões e Cards</h4>
+                        <div class="prompt-code" style="font-size:.82rem;line-height:1.65">
+<span class="cm"># Ícone isolado:</span>
+<span class="kw">icone</span> = ft.<span class="fn">Icon</span>(ft.Icons.ECO, color=<span class="str">"green"</span>, size=<span class="num">36</span>)
+
+<span class="cm"># Botão com ícone + cor personalizada:</span>
+<span class="kw">btn</span> = ft.<span class="fn">ElevatedButton</span>(
+    <span class="str">"Salvar Registro"</span>,
+    icon=ft.Icons.CHECK_CIRCLE,
+    bgcolor=<span class="str">"#10b981"</span>,
+    color=<span class="str">"white"</span>
+)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 10 — TÓPICO 3: FLET AVANÇADO: CONTAINERS / CARDS E AVISOS (EXPLICAÇÃO 2/2) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🎨 Tópico 3 • Flet Avançado — Explicação (2/2)</span>
+                <h2 class="slide-title">Criando Cards Bonitos (<code>ft.Container</code>) e Blindagem Visual</h2>
+                <p class="slide-subtitle">Envolva seus elementos em um <code>ft.Container</code> com bordas arredondadas e valide campos vazios!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45)">
+                        <h4 style="color:#a78bfa;margin-bottom:6px">🃏 Criando um Card Estilizado com <code>Container</code></h4>
+                        <div class="prompt-code" style="font-size:.82rem;line-height:1.62">
+<span class="kw">card_resumo</span> = ft.<span class="fn">Container</span>(
+    content=ft.<span class="fn">Column</span>([
+        ft.<span class="fn">Text</span>(<span class="str">"💧 Consumo de Hoje"</span>, size=<span class="num">18</span>, weight=<span class="str">"bold"</span>),
+        ft.<span class="fn">Text</span>(<span class="str">"Meta: 110 litros/dia"</span>, color=<span class="str">"#94a3b8"</span>)
+    ]),
+    bgcolor=<span class="str">"#1e293b"</span>,
+    padding=<span class="num">16</span>,
+    border_radius=<span class="num">14</span>
+)
+                        </div>
+                    </div>
+                    <div class="content-box" style="border-color:rgba(245,158,11,.4)">
+                        <h4 style="color:#fbbf24;margin-bottom:6px">🛡️ Blindagem Visual com <code>try / except</code> no Flet</h4>
+                        <div class="prompt-code" style="font-size:.82rem;line-height:1.62">
+<span class="kw">def</span> <span class="fn">calcular</span>(e):
+    <span class="kw">try</span>:
+        <span class="kw">valor</span> = <span class="fn">float</span>(campo_num.value)
+        aviso.value = <span class="str">f"✅ Valor válido: <span class="kw">{valor}</span>"</span>
+        aviso.color = <span class="str">"green"</span>
+    <span class="kw">except</span> <span class="fn">ValueError</span>:
+        aviso.value = <span class="str">"⚠️ Digite apenas números!"</span>
+        aviso.color = <span class="str">"red"</span>
+    page.<span class="fn">update</span>()
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 11 — TÓPICO 3: EXERCÍCIO BÁSICO DE ESTILO E BLINDAGEM (3/3) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(16,185,129,.18);border-color:#10b981;color:#6ee7b7">⚡ Tópico 3 • Exercício Básico de Estilo (3/3) — Mão na Massa!</span>
+                <h2 class="slide-title">Treino Relâmpago: Card Estilizado + Proteção contra Campo Vazio</h2>
+                <p class="slide-subtitle">Personalize o tema da janela, adicione um ícone ao botão e mostre alerta vermelho se o campo estiver vazio!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="border-color:rgba(16,185,129,.45);background:rgba(16,185,129,.06);padding:16px">
+                        <h4 style="color:#34d399;font-size:1rem;margin-bottom:8px">🎨 Missão Visual:</h4>
+                        <ol style="font-size:.86rem;color:#e2e8f0;line-height:1.8;padding-left:20px;margin:0">
+                            <li>Ative <code>page.theme_mode = ft.ThemeMode.DARK</code> e uma cor em <code>page.bgcolor</code>.</li>
+                            <li>Crie um <code>ft.TextField</code> e um botão com <code>icon=ft.Icons.SEND</code>.</li>
+                            <li>Na função do botão, se <code>campo.value.strip() == ""</code>, mostre mensagem em vermelho (<code>color="red"</code>); senão, mostre em verde!</li>
+                        </ol>
+                    </div>
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:14px">
+                        <div class="prompt-code" style="font-size:.8rem;line-height:1.58;padding:10px 12px">
+<span class="kw">def</span> <span class="fn">enviar</span>(e):
+    <span class="kw">if</span> campo.value.<span class="fn">strip</span>() == <span class="str">""</span>:
+        status.value = <span class="str">"⚠️ Preencha o campo antes de enviar!"</span>
+        status.color = <span class="str">"red"</span>
+    <span class="kw">else</span>:
+        status.value = <span class="str">f"✅ Recebido: <span class="kw">{campo.value}</span>"</span>
+        status.color = <span class="str">"green"</span>
+    page.<span class="fn">update</span>()
+
+<span class="kw">btn</span> = ft.<span class="fn">ElevatedButton</span>(<span class="str">"Enviar"</span>, icon=ft.Icons.SEND, on_click=enviar)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 12 — TÓPICO 4: NAVEGAÇÃO MULTI-TELAS (EXPLICAÇÃO 1/2) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(245,158,11,.16);border-color:#f59e0b;color:#fcd34d">🔥 Tópico 4 • Multi-Telas &amp; Listas no Flet — Explicação (1/2)</span>
+                <h2 class="slide-title">Navegação de App Mobile com <code>ft.NavigationBar</code></h2>
+                <p class="slide-subtitle">Como ter 2 ou 3 abas no mesmo app? Criamos um container para cada aba e alternamos <code>.visible = True / False</code>!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45)">
+                        <span class="engage-label" style="margin-bottom:6px">🧭 Alternando Telas com .visible</span>
+                        <div class="prompt-code" style="font-size:.78rem;line-height:1.55">
+<span class="kw">tela_inicio</span> = ft.<span class="fn">Column</span>([ft.<span class="fn">Text</span>(<span class="str">"🏠 Aba Início"</span>)], visible=<span class="kw">True</span>)
+<span class="kw">tela_sobre</span>  = ft.<span class="fn">Column</span>([ft.<span class="fn">Text</span>(<span class="str">"ℹ️ Sobre a Dupla"</span>)], visible=<span class="kw">False</span>)
+
+<span class="kw">def</span> <span class="fn">mudar_aba</span>(e):
+    <span class="kw">idx</span> = e.control.selected_index
+    tela_inicio.visible = (idx == <span class="num">0</span>)
+    tela_sobre.visible  = (idx == <span class="num">1</span>)
+    page.<span class="fn">update</span>()
+
+page.navigation_bar = ft.<span class="fn">NavigationBar</span>(
+    on_change=mudar_aba,
+    destinations=[
+        ft.<span class="fn">NavigationBarDestination</span>(icon=ft.Icons.HOME, label=<span class="str">"Início"</span>),
+        ft.<span class="fn">NavigationBarDestination</span>(icon=ft.Icons.INFO, label=<span class="str">"Sobre"</span>)
+    ]
+)
+page.<span class="fn">add</span>(tela_inicio, tela_sobre)
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="content-box tip-box" style="padding:14px">
+                            <h4 style="font-size:.88rem;margin-bottom:6px">💡 Por que essa técnica é tão boa?</h4>
+                            <p style="font-size:.82rem;color:#cbd5e1;line-height:1.55;margin:0">
+                                Não apaga o que o usuário já digitou! Quando clicamos na aba <code>0</code>, mostramos <code>tela_inicio</code> e escondemos <code>tela_sobre</code>; na aba <code>1</code>, fazemos o inverso!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 13 — TÓPICO 4: CONECTANDO LISTA + FOR + FLET (EXPLICAÇÃO 2/2) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(245,158,11,.16);border-color:#f59e0b;color:#fcd34d">🔥 Tópico 4 • Multi-Telas &amp; Listas no Flet — Explicação (2/2)</span>
+                <h2 class="slide-title">Adicionando Itens Dinamicamente na Tela com <code>.controls.append()</code></h2>
+                <p class="slide-subtitle">Quando o usuário cadastra algo, guardamos na nossa lista Python e adicionamos um novo <code>ft.Text</code> na <code>Column</code>!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45)">
+                        <span class="engage-label" style="margin-bottom:6px">📋 Lista Dinâmica na Interface Visual</span>
+                        <div class="prompt-code" style="font-size:.8rem;line-height:1.6">
+<span class="kw">dados</span> = []
+<span class="kw">campo</span> = ft.<span class="fn">TextField</span>(label=<span class="str">"Novo item..."</span>)
+<span class="kw">lista_visual</span> = ft.<span class="fn">Column</span>() <span class="cm"># Começa vazia na tela</span>
+
+<span class="kw">def</span> <span class="fn">adicionar</span>(e):
+    <span class="kw">if</span> campo.value.<span class="fn">strip</span>() != <span class="str">""</span>:
+        dados.<span class="fn">append</span>(campo.value)
+        <span class="cm"># Adiciona um novo Text visual dentro da Column:</span>
+        lista_visual.controls.<span class="fn">append</span>(
+            ft.<span class="fn">Text</span>(<span class="str">f"✅ <span class="kw">{campo.value}</span> (Total: <span class="kw">{len(dados)}</span>)"</span>)
+        )
+        campo.value = <span class="str">""</span> <span class="cm"># Limpa a caixa</span>
+        page.<span class="fn">update</span>()
+                        </div>
+                    </div>
+                    <div class="content-box" style="border-color:rgba(0,229,255,.35)">
+                        <h4 style="color:#00e5ff;margin-bottom:8px">🔗 Tudo se Conecta!</h4>
+                        <p style="font-size:.84rem;color:#cbd5e1;line-height:1.6">
+                            Veja como usamos exatamente o que aprendemos nas aulas anteriores:<br>
+                            • <code>if / else</code> valida se o campo não está vazio.<br>
+                            • <code>dados.append()</code> salva na lista Python.<br>
+                            • <code>lista_visual.controls.append()</code> desenha o item na tela do Flet!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 14 — TÓPICO 4: EXERCÍCIO FINAL INTEGRADOR (3/3) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(16,185,129,.2);border-color:#10b981;color:#6ee7b7">🏆 Tópico 4 • Exercício Final Integrador (3/3) — Protótipo do App!</span>
+                <h2 class="slide-title">Desafio Mestre: App Completo com Lista, <code>try/except</code> e Tema</h2>
+                <p class="slide-subtitle">Construa um aplicativo visual que cadastra itens, valida erros e lista tudo na tela!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.05);padding:15px">
+                        <h4 style="color:#00e5ff;font-size:.96rem;margin-bottom:8px">🎯 Checklist do seu App Flet:</h4>
+                        <ol style="font-size:.84rem;color:#e2e8f0;line-height:1.72;padding-left:18px;margin:0">
+                            <li>Janela com <code>page.title</code>, <code>ThemeMode.DARK</code> e tamanho mobile.</li>
+                            <li>Dois campos: <code>nome_item</code> (texto) e <code>valor_item</code> (número).</li>
+                            <li>Função no botão que usa <code>try/except ValueError</code> para validar o número, salva em uma lista e adiciona na <code>ft.Column</code> da tela!</li>
+                        </ol>
+                    </div>
+                    <div class="content-box" style="background:rgba(0,0,0,.48);padding:12px 14px">
+                        <div class="prompt-code" style="font-size:.76rem;line-height:1.52;padding:8px 10px">
+<span class="kw">import</span> flet <span class="kw">as</span> ft
+
+<span class="kw">def</span> <span class="fn">main</span>(page: ft.Page):
+    page.title = <span class="str">"Controle Inteligente"</span>
+    page.theme_mode = ft.ThemeMode.DARK
+    <span class="kw">nome</span> = ft.<span class="fn">TextField</span>(label=<span class="str">"Descrição"</span>)
+    <span class="kw">valor</span> = ft.<span class="fn">TextField</span>(label=<span class="str">"Valor numérico"</span>)
+    <span class="kw">aviso</span> = ft.<span class="fn">Text</span>(<span class="str">""</span>)
+    <span class="kw">historico</span> = ft.<span class="fn">Column</span>()
+
+    <span class="kw">def</span> <span class="fn">salvar</span>(e):
+        <span class="kw">try</span>:
+            <span class="kw">v</span> = <span class="fn">float</span>(valor.value)
+            historico.controls.<span class="fn">append</span>(ft.<span class="fn">Text</span>(<span class="str">f"📌 <span class="kw">{nome.value}</span>: <span class="kw">{v}</span>"</span>))
+            aviso.value = <span class="str">"✅ Salvo com sucesso!"</span>
+            aviso.color = <span class="str">"green"</span>
+        <span class="kw">except</span> <span class="fn">ValueError</span>:
+            aviso.value = <span class="str">"⚠️ Digite um número válido!"</span>
+            aviso.color = <span class="str">"red"</span>
+        page.<span class="fn">update</span>()
+
+    page.<span class="fn">add</span>(nome, valor, ft.<span class="fn">ElevatedButton</span>(<span class="str">"Adicionar"</span>, on_click=salvar), aviso, historico)
+
+ft.<span class="fn">app</span>(target=main)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 15 — INTERVALO -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="slide-step">☕ PAUSA</span>
+                <h2 class="slide-title">Intervalo — 15 Minutos</h2>
+                <p class="slide-subtitle">Descanse e tome água! Na volta: Sprint de construção do Aplicativo da Dupla com Flet e IA!</p>
+            </div>
+            <div class="slide-body" style="display:flex;align-items:center;justify-content:center">
+                <div style="text-align:center;padding:30px">
+                    <div style="font-size:5rem;margin-bottom:16px">☕</div>
+                    <div style="font-size:1.3rem;font-weight:700;color:#f8fafc;margin-bottom:10px">Pausa para Intervalo</div>
+                    <div style="font-size:.9rem;color:#94a3b8;max-width:460px;margin:0 auto;line-height:1.6">Quando voltar, você e sua dupla vão transformar o projeto em um <strong style="color:#00e5ff">Aplicativo Visual Flet</strong> completo com abas e ícones!</div>
+                    <div style="margin-top:20px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.3);border-radius:12px;padding:14px 24px;display:inline-block">
+                        <div style="font-size:.78rem;color:#94a3b8;margin-bottom:4px">DEIXE O VS CODE ABERTO</div>
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#00e5ff">app_projeto_dupla.py</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 16 — BLOCO 4: 3 MISSÕES PRÁTICAS COM IA -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🤖 Bloco 4 — Sprint do Aplicativo com IA (50 min)</span>
+                <h2 class="slide-title">Construa o App Visual da Sua Dupla!</h2>
+                <p class="slide-subtitle">Clique no card que melhor combina com o momento do seu projeto para copiar o Prompt Flet</p>
+            </div>
+            <div class="slide-body">
+                <div class="mission-grid">
+                    <div class="mission-card mission-atm" onclick="openMissionModal('calc_ods')">
+                        <div style="font-size:2rem;margin-bottom:8px">💧</div>
+                        <h4 style="color:#a78bfa">MISSÃO A — Calculadora Eco / Saúde no Flet</h4>
+                        <p>App visual com <code>TextField</code>, botão com ícone, cálculo com <code>try/except</code> e feedback colorido (verde/amarelo/vermelho)!</p>
+                        <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.4);border-radius:100px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#c4b5fd">✨ Ver Prompt &amp; Instruções 🔍</div>
+                    </div>
+                    <div class="mission-card mission-quiz" onclick="openMissionModal('cadastro_flet')">
+                        <div style="font-size:2rem;margin-bottom:8px">📋</div>
+                        <h4 style="color:#60a5fa">MISSÃO B — Sistema de Cadastro Visual</h4>
+                        <p>App Flet para cadastrar itens (Achados e Perdidos, Biblioteca, Doações ou Tarefas) salvando em lista de dicionários!</p>
+                        <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(96,165,250,.18);border:1px solid rgba(96,165,250,.4);border-radius:100px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#93c5fd">✨ Ver Prompt &amp; Instruções 🔍</div>
+                    </div>
+                    <div class="mission-card mission-health" onclick="openMissionModal('multitelas')">
+                        <div style="font-size:2rem;margin-bottom:8px">🧭</div>
+                        <h4 style="color:#34d399">MISSÃO C — App Completo Multi-Telas (NavigationBar)</h4>
+                        <p>Aplicativo com barra inferior de 3 abas (Início, Cadastro/Lista e Sobre a Dupla) pronto para a Feira Final!</p>
+                        <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(52,211,153,.18);border:1px solid rgba(52,211,153,.4);border-radius:100px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#6ee7b7">✨ Ver Prompt &amp; Instruções 🔍</div>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:12px;font-size:.78rem;color:#94a3b8">
+                    💡 <strong>Dica:</strong> Clique em qualquer missão acima para copiar o Prompt e colar no Chat IA!
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 17 — BLOCO 5: TESTE DE ESTRESSE NO FLET -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🔨 Bloco 5 — Operação Destruição na Interface</span>
+                <h2 class="slide-title">Teste de Estresse Visual no Flet</h2>
+                <p class="slide-subtitle">Antes de salvar, faça os 3 testes abaixo na janela do seu aplicativo!</p>
+            </div>
+            <div class="slide-body">
+                <table class="stress-table">
+                    <thead>
+                        <tr><th>Teste na Janela</th><th>O que fazer no App</th><th>O que acontece sem proteção?</th><th>Como deixar blindado?</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1. Clique Vazio</td><td>Clicar no botão sem digitar nada nos campos</td><td>Cadastra linha em branco ou dá <code>ValueError</code></td><td>Testar <code>if campo.value.strip() == "":</code></td></tr>
+                        <tr><td>2. Letras em Número</td><td>Digitar <code>"abc"</code> num campo de preço/quantidade</td><td>Erro vermelho no terminal (<code>ValueError</code>)</td><td>Usar <code>try / except ValueError</code> mostrando aviso na tela</td></tr>
+                        <tr><td>3. Tela Congelada</td><td>Mudar <code>texto.value</code> e nada acontecer na janela</td><td>Esqueceu de atualizar a página</td><td>Chamar <code>page.update()</code> no final da função!</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- SLIDE 18 — BLOCO 6: RESUMÃO DA AULA 05 -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="slide-step">BLOCO 6 • SÍNTESE DO DIA</span>
+                <h2 class="slide-title">Tudo que Dominamos na Aula 05!</h2>
+                <p class="slide-subtitle">Salve o código do aplicativo da sua dupla (<code>Ctrl + S</code>)!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:14px">
+                    <div style="display:flex;flex-direction:column;gap:8px">
+                        <div class="summary-item"><span class="summary-check">🪟</span><div class="summary-text"><strong>ft.Text, ft.TextField e ft.ElevatedButton</strong>Os 3 controles base para mostrar textos, ler entradas (<code>.value</code>) e disparar cliques</div></div>
+                        <div class="summary-item"><span class="summary-check">🔄</span><div class="summary-text"><strong>on_click &amp; page.update()</strong>Conecta botões às funções <code>def</code> e redesenha a tela instantaneamente</div></div>
+                        <div class="summary-item"><span class="summary-check">🎨</span><div class="summary-text"><strong>Column, Row, ThemeMode e ft.Icons</strong>Organiza layouts verticais/horizontais e estiliza com cores e ícones</div></div>
+                        <div class="summary-item"><span class="summary-check">🧭</span><div class="summary-text"><strong>ft.NavigationBar + .visible</strong>Cria navegação multi-telas de aplicativo profissional!</div></div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        <div class="content-box tip-box" style="padding:14px">
+                            <h4 style="font-size:.86rem;margin-bottom:6px">🚀 Próxima Aula (Aula 06 — 02/12):</h4>
+                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5"><strong>Sprint Final, Integração IA (<code>GEMINI.md</code>), Testes Cruzados &amp; Ensaio do Pitch</strong> — Últimos ajustes antes da Grande Feira de Soluções de 09/12!</p>
+                        </div>
+                        <div class="content-box accent-box" style="padding:14px">
+                            <h4 style="font-size:.86rem;margin-bottom:6px">🏠 Tarefa de Casa no Próximo Slide!</h4>
+                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5">5 questões rápidas sobre Flet + envio do esqueleto visual do seu app no Classroom!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 19 — CAPA / TRAVA ANTI-SPOILER DA TAREFA DE CASA DA AULA 05 -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="slide-step">🏠 ATIVIDADE PARA CASA • PROTEÇÃO ANTI-SPOILER</span>
+                <h2 class="slide-title">Tarefa de Casa — Aula 05</h2>
+                <p class="slide-subtitle">As questões estão protegidas nesta tela para não dar spoiler durante a aula!</p>
+            </div>
+            <div class="slide-body">
+                <div class="hw-gate-card">
+                    <div class="hw-gate-icon">🔒📱</div>
+                    <span class="tr-badge-cyan">5 QUESTÕES DE MÚLTIPLA ESCOLHA + 1 PRÁTICA DE INTERFACE</span>
+                    <h3 style="font-size:1.45rem;color:#fff;font-weight:800;">Missão de Casa: Interfaces Visuais com Flet</h3>
+                    <p style="font-size:0.92rem;color:#cbd5e1;max-width:600px;line-height:1.6;">
+                        Entre com seu <strong>Nome Completo e Senha</strong> para responder às 5 questões sobre <code>Flet</code> (widgets, eventos, layouts e navegação) e registrar o código da sua interface!
+                    </p>
+                    <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+                        <button type="button" class="hw-gate-btn" data-open-homework="aula05">
+                            🚀 Abrir Tarefa da Aula 05 Agora
+                        </button>
+                        <a href="../../index.html#tarefas" class="control-btn" style="padding:12px 20px;font-size:0.9rem;border-color:rgba(0,229,255,.4);color:#00e5ff;">
+                            📊 Ver Minhas Notas no Classroom
+                        </a>
+                    </div>
+                    <p style="font-size:0.76rem;color:#64748b;margin-top:4px;">
+                        💡 As questões só aparecem ao clicar no botão acima.
+                    </p>
+                </div>
+            </div>
+        </section>
+
     </main>
 
+    <!-- Bottom Navigation -->
     <footer class="bottom-nav">
-        <div class="slide-counter" id="slideCounter">1 / 5</div>
+        <div class="slide-counter" id="slideCounter">1 / 19</div>
         <div class="nav-buttons">
             <button class="nav-btn" id="prevBtn">← Anterior <span class="key-hint">←</span></button>
             <button class="nav-btn primary" id="nextBtn">Próximo → <span class="key-hint">→</span></button>
         </div>
     </footer>
 
+    <!-- Mission Prompt Modal -->
+    <div id="missionModal" style="display:none;position:fixed;inset:0;z-index:99998;background:rgba(5,10,25,.90);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;">
+        <div id="missionModalCard" style="background:#0b1329;border:1.5px solid rgba(0,229,255,.3);border-radius:20px;max-width:720px;width:100%;max-height:88vh;overflow-y:auto;padding:24px 28px;box-shadow:0 25px 60px rgba(0,0,0,.8);position:relative;">
+            <button id="missionModalClose" title="Fechar (Esc)" style="position:absolute;top:18px;right:20px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1.2rem;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+            <div id="missionModalBody"></div>
+        </div>
+    </div>
+
     <script src="slides-engine.js"></script>
     <script src="classroom-engine.js"></script>
+    <script>
+    (function() {
+        var missionModal = document.getElementById('missionModal');
+        var missionBody  = document.getElementById('missionModalBody');
+        var missionClose = document.getElementById('missionModalClose');
+
+        var missionData = {
+            calc_ods: {
+                badge: '💧 MISSÃO A — CALCULADORA ECO / SAÚDE NO FLET',
+                badgeBg: 'rgba(167,139,250,.15)',
+                badgeColor: '#a78bfa',
+                badgeBorder: 'rgba(167,139,250,.4)',
+                title: 'App Visual de Cálculo e Classificação com Flet',
+                subtitle: 'Interface gráfica com TextField, ElevatedButton, cores dinâmicas e try/except!',
+                prompt: `Atue como desenvolvedor Python especialista em Flet.
+Crie um aplicativo visual completo em Flet (import flet as ft):
+1. Configure page.title, page.theme_mode = ft.ThemeMode.DARK, page.window.width = 420 e page.window.height = 680.
+2. Crie 2 campos ft.TextField para o usuário digitar valores numéricos (ex: minutos de banho ou consumo diário).
+3. Crie um botão ft.ElevatedButton com ícone (ft.Icons.CALCULATE) conectado a uma função on_click.
+4. Na função, use try/except ValueError para validar os números, faça o cálculo e mostre o diagnóstico colorido (verde/laranja/vermelho) em um ft.Text chamando page.update().
+5. Código limpo, máximo 45 linhas, usando ft.Icons (com I maiúsculo), comentado em português.`,
+                steps: [
+                    'Clique em "📋 Copiar Prompt" e cole no Chat IA.',
+                    'No VS Code, crie o arquivo <code>app_calculadora.py</code>.',
+                    'Cole o código gerado, salve (<code>Ctrl + S</code>) e execute ▶️!'
+                ],
+                questions: [
+                    'Qual função é chamada quando você clica no botão?',
+                    'Como o <code>try/except</code> impede o app de travar se alguém digitar letras?'
+                ]
+            },
+            cadastro_flet: {
+                badge: '📋 MISSÃO B — SISTEMA DE CADASTRO VISUAL NO FLET',
+                badgeBg: 'rgba(96,165,250,.15)',
+                badgeColor: '#60a5fa',
+                badgeBorder: 'rgba(96,165,250,.4)',
+                title: 'App de Cadastro com Lista de Dicionários na Tela',
+                subtitle: 'Ideal para projetos de Biblioteca, Achados e Perdidos, Cantina ou Doações!',
+                prompt: `Atue como desenvolvedor Python especialista em Flet.
+Crie um aplicativo visual de cadastro em Flet:
+1. Configure tema escuro e janela formato mobile (420x700).
+2. Crie uma lista vazia cadastros = [] e uma ft.Column() chamada lista_visual para exibir os cards na tela.
+3. Crie 2 campos ft.TextField (ex: Nome do Item e Categoria/Valor) e um botão "Cadastrar" com ícone ft.Icons.ADD.
+4. Ao clicar, verifique se os campos não estão vazios, salve um dicionário na lista cadastros, adicione um ft.Container estilizado dentro de lista_visual.controls e chame page.update().
+5. Máximo 50 linhas, usando ft.Icons, comentado em português.`,
+                steps: [
+                    'Clique em "📋 Copiar Prompt" e envie para a IA.',
+                    'No VS Code, crie o arquivo <code>app_cadastro.py</code>.',
+                    'Cole o código, salve (<code>Ctrl + S</code>) e teste adicionando 3 itens ▶️!'
+                ],
+                questions: [
+                    'Onde os itens ficam guardados na memória do Python?',
+                    'Como cada novo item aparece visualmente na tela após clicar no botão?'
+                ]
+            },
+            multitelas: {
+                badge: '🧭 MISSÃO C — APP MULTI-TELAS COM NAVIGATION BAR',
+                badgeBg: 'rgba(52,211,153,.15)',
+                badgeColor: '#34d399',
+                badgeBorder: 'rgba(52,211,153,.4)',
+                title: 'Esqueleto Oficial de 3 Abas para a Feira de Soluções',
+                subtitle: 'Aba 1: Início/Resumo | Aba 2: Cadastro/Ação | Aba 3: Sobre a Dupla e ODS!',
+                prompt: `Atue como mentor de projetos em Python e Flet.
+Crie um aplicativo Flet multi-telas usando page.navigation_bar = ft.NavigationBar:
+1. Configure tema escuro e janela mobile (420x720).
+2. Crie 3 containers ft.Column: tela_inicio (visible=True), tela_acao (visible=False) e tela_sobre (visible=False).
+3. Na tela_acao, coloque um ft.TextField, um botão que adiciona itens em uma lista na tela e validação contra campo vazio.
+4. Na tela_sobre, mostre um card com o Objetivo de Desenvolvimento Sustentável (ODS) e os nomes dos criadores.
+5. Conecte a NavigationBar com 3 destinos (HOME, ADD_TASK, INFO) alternando .visible e chamando page.update().
+6. Máximo 60 linhas, usando ft.Icons, comentado em português.`,
+                steps: [
+                    'Clique em "📋 Copiar Prompt" e envie para a IA.',
+                    'No VS Code, salve como <code>app_oficial_dupla.py</code>.',
+                    'Personalize os textos com o tema e os nomes da sua dupla!'
+                ],
+                questions: [
+                    'Como a função <code>mudar_aba</code> sabe em qual botão da barra inferior você clicou?',
+                    'Por que usamos <code>.visible = True / False</code> para trocar de tela?'
+                ]
+            }
+        };
+
+        function escapeHtml(str) {
+            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        window.openMissionModal = function(key) {
+            var data = missionData[key];
+            if (!data) return;
+            missionBody.innerHTML = `
+                <div style="display:inline-block;background:${data.badgeBg};color:${data.badgeColor};border:1px solid ${data.badgeBorder};padding:4px 14px;border-radius:100px;font-size:.73rem;font-weight:800;margin-bottom:10px">${data.badge}</div>
+                <h3 style="font-size:1.25rem;color:#f8fafc;margin-bottom:4px">${data.title}</h3>
+                <p style="font-size:.83rem;color:#94a3b8;margin-bottom:16px">${data.subtitle}</p>
+                <div style="background:rgba(0,0,0,.5);border:1px solid rgba(0,229,255,.3);border-radius:12px;padding:14px 16px;margin-bottom:16px">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                        <span style="font-size:.75rem;font-weight:800;color:#00e5ff;text-transform:uppercase">🤖 Prompt para copiar e colar na IA:</span>
+                        <button id="copyPromptBtn" style="background:rgba(0,229,255,.15);border:1px solid rgba(0,229,255,.4);color:#00e5ff;padding:4px 12px;border-radius:6px;font-size:.73rem;font-weight:700;cursor:pointer">📋 Copiar Prompt</button>
+                    </div>
+                    <pre style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:#a7f3d0;white-space:pre-wrap;line-height:1.6;margin:0">${escapeHtml(data.prompt)}</pre>
+                </div>
+                <div class="content-box tip-box" style="padding:14px;margin-bottom:14px">
+                    <h4 style="font-size:.85rem;margin-bottom:8px">🚀 Como fazer no VS Code:</h4>
+                    <ol style="font-size:.8rem;color:#cbd5e1;line-height:1.8;padding-left:18px;margin:0">
+                        ${data.steps.map(function(s) { return '<li>' + s + '</li>'; }).join('')}
+                    </ol>
+                </div>
+                <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:12px 16px">
+                    <h4 style="font-size:.82rem;color:#f59e0b;margin-bottom:6px">🕵️ Desafio Detetive:</h4>
+                    <ul style="font-size:.78rem;color:#cbd5e1;line-height:1.6;padding-left:16px;margin:0">
+                        ${data.questions.map(function(q) { return '<li>' + q + '</li>'; }).join('')}
+                    </ul>
+                </div>
+            `;
+            missionModal.style.display = 'flex';
+            var copyBtn = document.getElementById('copyPromptBtn');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(data.prompt).then(function() {
+                        copyBtn.textContent = '✅ Copiado!';
+                        setTimeout(function() { copyBtn.textContent = '📋 Copiar Prompt'; }, 2000);
+                    });
+                });
+            }
+        };
+
+        function closeMissionModal() {
+            missionModal.style.display = 'none';
+            missionBody.innerHTML = '';
+        }
+        if (missionClose) missionClose.addEventListener('click', closeMissionModal);
+        if (missionModal) {
+            missionModal.addEventListener('click', function(e) {
+                if (e.target === missionModal) closeMissionModal();
+            });
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && missionModal.style.display === 'flex') closeMissionModal();
+        });
+    })();
+    </script>
 </body>
 </html>

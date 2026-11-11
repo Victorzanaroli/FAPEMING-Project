@@ -24,15 +24,18 @@
             --cefet-green: #10b981;
             --cefet-red: #ef4444;
         }
+        html, body {
+            overflow-x: clip;
+            overflow-y: visible;
+            height: auto !important;
+        }
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
-            height: auto;
-            overflow-y: auto;
             user-select: text;
-            padding: 24px 20px 60px;
+            padding: 16px 20px 60px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -41,12 +44,15 @@
                 radial-gradient(circle at 85% 85%, rgba(0, 229, 255, 0.14), transparent 40%);
         }
 
-        /* Classroom Top Navbar — Clean & Minimalist (Nielsen H4 & H8) */
+        /* Classroom Top Navbar — Fixed/Sticky on Scroll (Nielsen H4 & H8) */
         .classroom-navbar {
+            position: sticky;
+            top: 10px;
+            z-index: 950;
             width: 100%;
             max-width: 1200px;
-            background: rgba(15, 23, 42, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(11, 19, 41, 0.95);
+            border: 1px solid rgba(0, 229, 255, 0.25);
             border-radius: 16px;
             padding: 10px 18px;
             display: flex;
@@ -54,8 +60,9 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 12px;
-            backdrop-filter: blur(16px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
             margin-bottom: 20px;
         }
         .nav-brand {
@@ -571,10 +578,15 @@
             }
 
             .classroom-navbar {
+                position: sticky !important;
+                top: 6px !important;
+                z-index: 950 !important;
                 padding: 12px 14px !important;
                 border-radius: 16px !important;
                 gap: 10px !important;
                 margin-bottom: 20px !important;
+                background: rgba(11, 19, 41, 0.97) !important;
+                backdrop-filter: blur(18px) !important;
             }
 
             .nav-brand {
@@ -1302,6 +1314,7 @@
             <button type="button" class="cls-tab-btn" data-tab="admin-correcoes" id="adminCorrecoesTabBtn" style="display:none;">📋 Correções</button>
             <button type="button" class="cls-tab-btn active" data-tab="aulas" id="aulasTabBtn">📚 Aulas</button>
             <button type="button" class="cls-tab-btn" data-tab="desafios" id="desafiosTabBtn">🐍 Desafios</button>
+            <button type="button" class="cls-tab-btn" data-tab="ranking" id="rankingTabBtn">🏆 Ranking</button>
             <button type="button" class="cls-tab-btn" data-tab="chat-ia" id="chatIaTabBtn">🤖 Chat IA</button>
             <button type="button" class="cls-tab-btn" data-tab="tarefas" id="tarefasTabBtn">📝 Tarefas</button>
             <button type="button" class="cls-tab-btn" data-tab="notas" id="notasTabBtn">📊 Notas</button>
@@ -1329,6 +1342,13 @@
     ======================================================================= -->
     <section class="cls-view-section" id="view-desafios">
         <div id="desafiosViewContainer"></div>
+    </section>
+
+    <!-- =======================================================================
+         NOVA ABA: RANKING PÚBLICO DA TURMA (VISÍVEL PARA TODOS OS ALUNOS)
+    ======================================================================= -->
+    <section class="cls-view-section" id="view-ranking">
+        <div id="publicRankingViewContainer"></div>
     </section>
 
     <!-- =======================================================================
@@ -1480,10 +1500,10 @@
                 key: 'aula03',
                 number: 3,
                 date: '11/11',
-                title: 'Tratamento de Erros (try/except) e Laços de Repetição',
-                desc: 'Blindagem contra erros (<code>ValueError</code>) e repetições automáticas com <code>while</code> e <code>for</code>.',
+                title: 'Erros (try/except), Laços (while/for) & Listas em Python',
+                desc: 'Blindagem de erros, repetições automáticas e manipulação completa de <code>Listas []</code> com <code>.append()</code>, <code>.remove()</code>, <code>.pop()</code> e <code>len()</code>.',
                 slideFile: 'aula-03-slides.html',
-                slideCount: 17,
+                slideCount: 22,
                 hasQuiz: true,
                 hasHw: true,
                 tagDone: '🔓 LIBERADA'
@@ -1492,78 +1512,45 @@
                 key: 'aula04',
                 number: 4,
                 date: '18/11',
-                title: 'Estruturas de Dados: Listas em Python',
-                desc: 'Coleções de dados, índices, <code>append()</code>, <code>len()</code>, <code>pop()</code> e percurso com <code>for</code>.',
+                title: 'Modularização (Funções def/return) & Dicionários (dict)',
+                desc: 'Criação de comandos reutilizáveis com <code>def</code>, <code>return</code>, escopo local e estruturas estruturadas de chave-valor <code>{chave: valor}</code>.',
                 slideFile: 'aula-04-slides.html',
-                slideCount: 15,
-                hasQuiz: false,
-                hasHw: false
+                slideCount: 19,
+                hasQuiz: true,
+                hasHw: true
             },
             {
                 key: 'aula05',
                 number: 5,
                 date: '25/11',
-                title: 'Modularização e Criação de Funções (def)',
-                desc: 'Organização de código com funções, parâmetros, <code>return</code> e escopo de variáveis.',
+                title: 'Interfaces Visuais: Flet Básico & Avançado',
+                desc: 'Do terminal para o app gráfico: <code>Text</code>, <code>TextField</code>, botões <code>on_click</code>, <code>Column/Row</code>, temas, <code>ft.Icons</code> e <code>ft.NavigationBar</code>.',
                 slideFile: 'aula-05-slides.html',
-                slideCount: 15,
-                hasQuiz: false,
-                hasHw: false
+                slideCount: 19,
+                hasQuiz: true,
+                hasHw: true
             },
             {
                 key: 'aula06',
                 number: 6,
                 date: '02/12',
-                title: 'Dicionários e Integração da Lógica',
-                desc: 'Pares chave-valor, método <code>.get()</code>, listas de dicionários e revisão geral da lógica.',
+                title: 'Sprint Final, Integração IA (GEMINI.md) & Ensaio do Pitch',
+                desc: 'Polimento do app, testes cruzados de usabilidade entre duplas e preparação da apresentação em 3 atos.',
                 slideFile: 'aula-06-slides.html',
-                slideCount: 15,
-                hasQuiz: false,
-                hasHw: false
+                slideCount: 9,
+                hasQuiz: true,
+                hasHw: true
             },
             {
                 key: 'aula07',
                 number: 7,
                 date: '09/12',
-                title: 'Criando Apps Visuais com Flet',
-                desc: 'Do terminal para aplicativos reais: textos, campos, botões, layouts e eventos com Flet.',
+                title: 'Feira Final de Soluções, Pós-Teste T1 & Certificação 30h',
+                desc: 'Apresentação pública dos aplicativos desenvolvidos no CEFET-MG, avaliação final e entrega de certificados.',
                 slideFile: 'aula-07-slides.html',
-                slideCount: 15,
-                hasQuiz: false,
-                hasHw: false
-            },
-            {
-                key: 'aula08',
-                number: 8,
-                date: '16/12',
-                title: 'Flet Avançado e Sprint do Projeto',
-                desc: 'Navegação entre telas, ícones, alertas (<code>SnackBar</code>) e desenvolvimento do app em equipe.',
-                slideFile: 'aula-08-slides.html',
-                slideCount: 15,
-                hasQuiz: false,
-                hasHw: false
-            },
-            {
-                key: 'aula09',
-                number: 9,
-                date: '23/12',
-                title: 'Polimento, Testes de Usabilidade e Pitch',
-                desc: 'Ajustes finais de interface, testes entre equipes e preparação da apresentação.',
-                slideFile: 'aula-09-slides.html',
-                slideCount: 15,
-                hasQuiz: false,
-                hasHw: false
-            },
-            {
-                key: 'aula10',
-                number: 10,
-                date: '30/12',
-                title: 'Feira Final de Apps e Certificação (30h)',
-                desc: 'Apresentação dos aplicativos desenvolvidos, avaliação final e entrega dos certificados.',
-                slideFile: 'aula-10-slides.html',
-                slideCount: 15,
-                hasQuiz: false,
-                hasHw: false
+                slideCount: 4,
+                hasQuiz: true,
+                hasHw: true
             }
         ];
 
@@ -1915,8 +1902,107 @@
             });
         }
 
-        // Render Tab 3: Minhas Notas & Correções (Boletim Escolar)
-        function renderNotasView() {
+        // Render Tab: Ranking Público da Turma (Aberto para todos os alunos e professores)
+        function renderPublicRankingView() {
+            var container = document.getElementById('publicRankingViewContainer');
+            if (!container || !window.TrilhandoBeecrowd) return;
+
+            var user = window.TrilhandoClassroom.getCurrentUser();
+            var leaderboard = window.TrilhandoBeecrowd.getClassLeaderboard();
+            var allChallenges = window.TrilhandoBeecrowd.PYTHON_CHALLENGES;
+            var subs = window.TrilhandoClassroom.getSubmissions();
+
+            var myRankPos = user ? (leaderboard.findIndex(function(r) { return r.userId === user.id; }) + 1) : 0;
+            var myEntry = user ? leaderboard.find(function(r) { return r.userId === user.id; }) : null;
+
+            var myHwCount = user ? subs.filter(function(s) { return s.userId === user.id; }).length : 0;
+
+            var rowsHtml = leaderboard.length === 0 ? `
+                <tr><td colspan="6" style="text-align:center;padding:24px;color:var(--text-secondary);">Nenhum estudante com pontos registrados ainda.</td></tr>
+            ` : leaderboard.map(function(row) {
+                var tier = row.rankInfo.currentTier;
+                var medal = row.position === 1 ? '🥇 1º' : (row.position === 2 ? '🥈 2º' : (row.position === 3 ? '🥉 3º' : row.position + 'º'));
+                var isMe = user && row.userId === user.id;
+                var studentSubsCount = subs.filter(function(s) { return s.userId === row.userId; }).length;
+
+                return `
+                    <tr style="${isMe ? 'background:rgba(0,229,255,0.12);' : ''}">
+                        <td><strong style="font-size:0.95rem;color:${row.position <= 3 ? '#fbbf24' : '#cbd5e1'};">${medal}</strong></td>
+                        <td>
+                            <strong style="color:#fff;font-size:0.92rem;">${escapeHtml(row.fullName)}</strong>
+                            ${isMe ? '<span class="tr-badge-cyan" style="margin-left:6px;font-size:0.68rem;padding:2px 8px;">VOCÊ</span>' : ''}
+                        </td>
+                        <td>
+                            <span style="display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:99px;background:${tier.bg};border:1px solid ${tier.color};color:#fff;font-size:0.75rem;font-weight:700;">
+                                ${tier.badge} ${escapeHtml(tier.name)}
+                            </span>
+                        </td>
+                        <td><strong style="color:#38bdf8;">${row.solvedCount} / ${allChallenges.length}</strong></td>
+                        <td><strong style="color:#34d399;">${studentSubsCount} entregas</strong></td>
+                        <td><strong style="font-family:'JetBrains Mono',monospace;color:#fbbf24;font-size:0.95rem;">⚡ ${row.totalXp} XP</strong></td>
+                    </tr>
+                `;
+            }).join('');
+
+            container.innerHTML = `
+                <div class="panel-box" style="padding:24px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;margin-bottom:18px;">
+                        <div>
+                            <span class="tr-badge-cyan">🏆 PLACAR OFICIAL • TRILHANDO O CÓDIGO</span>
+                            <h2 style="font-size:1.45rem;color:#fff;margin-top:6px;">Ranking Geral da Turma</h2>
+                            <p style="font-size:0.86rem;color:var(--text-secondary);margin-top:2px;">
+                                Acompanhe sua pontuação em tempo real! Ganhe XP resolvendo desafios na aba <strong>🐍 Desafios</strong> e entregando as atividades na aba <strong>📝 Tarefas</strong>.
+                            </p>
+                        </div>
+                        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                            <button type="button" class="tr-btn-primary" id="rankGoToDesafiosBtn" style="font-size:0.84rem;padding:9px 18px;">
+                                🐍 Resolver Desafios (+XP)
+                            </button>
+                        </div>
+                    </div>
+
+                    ${user && myEntry ? `
+                    <div style="background:rgba(0,229,255,0.08);border:1.5px solid rgba(0,229,255,0.35);border-radius:14px;padding:14px 18px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+                        <div style="display:flex;align-items:center;gap:12px;">
+                            <div style="font-size:1.8rem;">${myEntry.rankInfo.currentTier.badge}</div>
+                            <div>
+                                <div style="font-size:0.88rem;color:#fff;">Sua Posição Atual: <strong style="color:#fbbf24;font-size:1.05rem;">#${myRankPos}º Lugar</strong></div>
+                                <div style="font-size:0.78rem;color:#94a3b8;">Patente: <strong style="color:#38bdf8;">${escapeHtml(myEntry.rankInfo.currentTier.name)}</strong> • ${myEntry.solvedCount} desafios resolvidos • ${myHwCount} tarefas entregues</div>
+                            </div>
+                        </div>
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:1.25rem;font-weight:800;color:#fbbf24;">
+                            ⚡ ${myEntry.totalXp} XP
+                        </div>
+                    </div>
+                    ` : ''}
+
+                    <div style="overflow-x:auto;">
+                        <table class="cls-table">
+                            <thead>
+                                <tr>
+                                    <th>Posição</th>
+                                    <th>Estudante</th>
+                                    <th>Patente</th>
+                                    <th>Desafios</th>
+                                    <th>Tarefas</th>
+                                    <th>XP Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${rowsHtml}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+
+            var goDesafiosBtn = document.getElementById('rankGoToDesafiosBtn');
+            if (goDesafiosBtn) {
+                goDesafiosBtn.addEventListener('click', function() {
+                    switchTab('desafios');
+                });
+            }
+        }
             var container = document.getElementById('notasViewContainer');
             if (!container) return;
             var user = window.TrilhandoClassroom.getCurrentUser();
@@ -3671,8 +3757,10 @@
                             <label class="tr-field-label" for="admCorrLessonSelect">📚 Aula:</label>
                             <select id="admCorrLessonSelect" class="tr-input" style="background:#0f172a;color:#fff;padding:7px 10px;font-size:0.82rem;">
                                 <option value="all" ${adminFilterLesson === 'all' ? 'selected' : ''}>Todas (${allSubs.length})</option>
-                                <option value="aula02" ${adminFilterLesson === 'aula02' ? 'selected' : ''}>Aula 02</option>
-                                <option value="aula03" ${adminFilterLesson === 'aula03' ? 'selected' : ''}>Aula 03</option>
+                                ${Object.keys(homeworks).map(function(k) {
+                                    var hwObj = homeworks[k];
+                                    return `<option value="${k}" ${adminFilterLesson === k ? 'selected' : ''}>Aula 0${hwObj.lessonNumber} (${allSubs.filter(function(s){return s.lessonKey===k;}).length})</option>`;
+                                }).join('')}
                             </select>
                         </div>
                         ` : ''}
@@ -3847,12 +3935,45 @@
                         ${qBreakdownHtml}
                     </div>
 
+                    <!-- ENUNCIADO COMPLETO DA ATIVIDADE PRÁTICA PARA FACILITAR A CORREÇÃO DO ADM -->
+                    <div style="background:rgba(245,158,11,0.08);border:1.5px solid rgba(245,158,11,0.35);border-radius:14px;padding:14px 16px;">
+                        <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+                            <span style="font-size:1.15rem;">📌</span>
+                            <h4 style="font-size:0.94rem;color:#fcd34d;font-weight:800;margin:0;">
+                                Enunciado da Prática: ${escapeHtml(hw.practicalTask ? hw.practicalTask.title : 'Desafio Prático')}
+                            </h4>
+                        </div>
+                        <p style="font-size:0.83rem;color:#cbd5e1;line-height:1.5;margin-bottom:10px;">
+                            ${escapeHtml(hw.practicalTask ? hw.practicalTask.description : '')}
+                        </p>
+                        ${(hw.practicalTask && Array.isArray(hw.practicalTask.options)) ? `
+                            <div style="display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:10px;">
+                                ${hw.practicalTask.options.map(function(opt) {
+                                    return `
+                                        <div style="background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.08);border-radius:8px;padding:8px 12px;font-size:0.8rem;line-height:1.45;">
+                                            <strong style="color:#6ee7b7;display:block;margin-bottom:2px;">${escapeHtml(opt.badge)}</strong>
+                                            <span style="color:#cbd5e1;">${escapeHtml(opt.text)}</span>
+                                        </div>
+                                    `;
+                                }).join('')}
+                            </div>
+                        ` : ''}
+                        ${(hw.practicalTask && hw.practicalTask.starterHint) ? `
+                            <details style="background:rgba(0,0,0,0.4);border:1px dashed rgba(245,158,11,0.3);border-radius:8px;padding:8px 12px;">
+                                <summary style="font-size:0.75rem;color:#fcd34d;font-weight:700;cursor:pointer;">
+                                    💡 Ver Modelo / Gabarito de Referência da Atividade
+                                </summary>
+                                <pre class="nb-q-code" style="margin-top:8px;font-size:0.76rem;line-height:1.45;"><code>${escapeHtml(hw.practicalTask.starterHint)}</code></pre>
+                            </details>
+                        ` : ''}
+                    </div>
+
                     <div>
                         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
-                            <h4 style="font-size:0.92rem;color:#c4b5fd;">💻 Código Prático Enviado:</h4>
+                            <h4 style="font-size:0.92rem;color:#c4b5fd;">💻 Código Prático Enviado pelo Aluno:</h4>
                             <button type="button" class="tr-btn-ghost" id="copyStudentCodeBtn" style="font-size:0.76rem;padding:5px 10px;">📋 Copiar Código</button>
                         </div>
-                        <pre class="nb-q-code" style="max-height:240px;overflow-y:auto;"><code>${escapeHtml(sub.practicalCode)}</code></pre>
+                        <pre class="nb-q-code" style="max-height:240px;overflow-y:auto;"><code>${escapeHtml(sub.practicalCode || '(Nenhum código prático enviado)')}</code></pre>
                         ${sub.studentComment ? `<p style="font-size:0.83rem;color:#fde68a;margin-top:6px;">💬 <strong>Comentário do Aluno:</strong> "${escapeHtml(sub.studentComment)}"</p>` : ''}
                     </div>
 
@@ -4111,6 +4232,9 @@
                 renderDesafiosView();
             }
             if (!isBackgroundSync) {
+                renderPublicRankingView();
+            }
+            if (!isBackgroundSync) {
                 renderChatIaView();
             }
             renderTarefasView();
@@ -4235,9 +4359,9 @@
             window.addEventListener('trilhando:lessonschange', function() { renderAllViews(true); });
             window.addEventListener('trilhando:quizzeschange', function() { renderAllViews(true); });
 
-            // Check URL hash (#desafios, #chat-ia, #tarefas, #notas, #admin, #admin-chamada, #admin-correcoes)
+            // Check URL hash (#desafios, #ranking, #chat-ia, #tarefas, #notas, #admin, #admin-chamada, #admin-correcoes)
             var hash = window.location.hash.replace('#', '');
-            var validTabs = ['aulas', 'desafios', 'chat-ia', 'tarefas', 'notas', 'admin', 'admin-chamada', 'admin-correcoes'];
+            var validTabs = ['aulas', 'desafios', 'ranking', 'chat-ia', 'tarefas', 'notas', 'admin', 'admin-chamada', 'admin-correcoes'];
             if (validTabs.indexOf(hash) >= 0) {
                 switchTab(hash);
             } else {

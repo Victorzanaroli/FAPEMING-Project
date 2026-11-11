@@ -3,166 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aula 07 - Interfaces Gráficas Multiplataforma com Flet</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Aula 07 — Feira Final de Soluções, T1 &amp; Certificação | Trilhando o Caminho do Código</title>
     <link rel="stylesheet" href="slides-style.css">
+    <style>
+        .pillar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 10px 0; }
+        .pillar-card { background: rgba(255,255,255,.04); border: 1.5px solid rgba(255,255,255,.12); border-radius: 16px; padding: 16px 14px; text-align: center; }
+        .pillar-icon { font-size: 2.1rem; margin-bottom: 6px; }
+        .pillar-name { font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 800; color: #00e5ff; margin-bottom: 5px; }
+        .pillar-label { font-size: .78rem; color: #94a3b8; line-height: 1.45; }
+
+        .step-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,99,235,.22); border: 1px solid rgba(0,229,255,.35); border-radius: 100px; padding: 5px 16px; font-size: .75rem; font-weight: 700; color: #00e5ff; letter-spacing: .5px; margin-bottom: 6px; text-transform: uppercase; }
+        .prompt-code { background: #040916; border: 1px solid rgba(0,229,255,.25); border-radius: 10px; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: .82rem; color: #a7f3d0; line-height: 1.65; white-space: pre-wrap; margin: 6px 0; }
+        .summary-item { display: flex; align-items: flex-start; gap: 12px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; padding: 9px 14px; }
+        .summary-check { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+        .summary-text { font-size: .82rem; color: #cbd5e1; line-height: 1.45; }
+        .summary-text strong { color: #fff; display: block; margin-bottom: 2px; }
+
+        .hw-gate-card {
+            background: radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.22), rgba(10, 18, 38, 0.95));
+            border: 2px solid rgba(16, 185, 129, 0.5);
+            border-radius: 22px;
+            padding: 32px;
+            text-align: center;
+            max-width: 780px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.55);
+        }
+        .hw-gate-icon { font-size: 3.4rem; }
+        .hw-gate-btn {
+            background: linear-gradient(135deg, #10b981, #00e5ff);
+            color: #04131a;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.35);
+            transition: transform .2s ease;
+        }
+        .hw-gate-btn:hover { transform: translateY(-3px) scale(1.02); }
+    </style>
 </head>
 <body>
-    <div class="progress-bar" id="progressBar"></div>
-    <div class="bg-glow">
-        <div class="glow-orb glow-orb-1"></div>
-        <div class="glow-orb glow-orb-2"></div>
-    </div>
 
+    <div class="bg-grid"></div>
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+    <!-- Top Bar -->
     <header class="top-bar">
         <div class="brand-badge">
-            <span>⚡ TRILHANDO O CAMINHO DO CÓDIGO</span>
-            <span style="opacity:0.4">|</span>
-            <span>AULA 07</span>
+            <span class="cefet-tag">CEFET-MG &amp; FAPEMING</span>
+            <span style="opacity:.3">|</span>
+            <span>TRILHANDO O CAMINHO DO CÓDIGO</span>
+            <span style="opacity:.3">•</span>
+            <span style="color:#00e5ff">AULA 07 (09/12)</span>
         </div>
         <div class="top-controls">
-            <a href="../../index.html" class="control-btn">🏠 Menu</a>
+            <a href="../../index.html" class="control-btn">🏠 Classroom</a>
+            <button class="control-btn" data-open-homework="aula07" style="border-color:rgba(16,185,129,.55);color:#6ee7b7">🏆 Portfólio Final</button>
             <button class="control-btn" id="fullscreenToggle">⛶ Tela Cheia (F)</button>
         </div>
     </header>
 
     <main class="presentation-stage">
-        <!-- Slide 1: Capa -->
+
+        <!-- SLIDE 1 — CAPA DA AULA 07 (GRANDE FINAL 09/12) -->
         <section class="slide active">
             <div class="slide-header">
-                <span class="slide-step">MÓDULO 07 • INTERFACES VISUAIS (GUI)</span>
-                <h1 class="slide-title">Interfaces Gráficas com Flet</h1>
-                <p class="slide-subtitle">Construindo aplicativos visuais modernos para Web, Desktop e Mobile usando apenas Python</p>
+                <span class="slide-step">AULA 07 • 09/12/2026 • GRANDE FINAL &amp; ENCERRAMENTO</span>
+                <h1 class="slide-title">Feira de Soluções, Pós-Teste T1 &amp; Certificação!</h1>
+                <p class="slide-subtitle">Chegou o grande dia de apresentar os aplicativos criados por vocês no CEFET-MG!</p>
+            </div>
+            <div class="slide-body">
+                <div class="pillar-grid">
+                    <div class="pillar-card" style="border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.06)">
+                        <div class="pillar-icon">🧠</div>
+                        <div class="pillar-name">Quiz Final</div>
+                        <div class="pillar-label">Revisão geral celebrando todos os conceitos dominados na nossa trilha!</div>
+                    </div>
+                    <div class="pillar-card" style="border-color:rgba(245,158,11,.45)">
+                        <div class="pillar-icon">🎤</div>
+                        <div class="pillar-name" style="color:#fbbf24">Feira de Apps</div>
+                        <div class="pillar-label">Pitch de 3 a 5 minutos por dupla com demonstração ao vivo do aplicativo Flet!</div>
+                    </div>
+                    <div class="pillar-card" style="border-color:rgba(139,92,246,.4)">
+                        <div class="pillar-icon">📊</div>
+                        <div class="pillar-name" style="color:#a78bfa">Pós-Teste T1</div>
+                        <div class="pillar-label">Avaliação diagnóstica final FAPEMIG para medir toda a nossa evolução desde o T0!</div>
+                    </div>
+                    <div class="pillar-card" style="border-color:rgba(16,185,129,.45);background:rgba(16,185,129,.06)">
+                        <div class="pillar-icon">🎓</div>
+                        <div class="pillar-name" style="color:#34d399">Certificado 30h</div>
+                        <div class="pillar-label">Cerimônia de encerramento e entrega dos certificados oficiais de extensão CEFET-MG!</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 2 — QUIZ DA GRANDE FINAL -->
+        <section class="slide">
+            <div class="slide-header" style="margin-bottom:10px">
+                <span class="step-badge">⚡ Bloco 1 — Quiz da Grande Final (10 Questões)</span>
+                <h2 class="slide-title" style="font-size:1.55rem">Revisão Geral: Python, Estruturas de Dados, Flet &amp; Pitch</h2>
+            </div>
+            <div class="slide-body" style="justify-content:flex-start">
+                <div id="quizAula07Container" data-trilhando-quiz="aula07"></div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3 — REGRAS DO PITCH E AUDITORIA VIVA -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🎤 Bloco 2 — Apresentações das Duplas (Feira de Soluções)</span>
+                <h2 class="slide-title">Roteiro Oficial no Palco (3 a 5 minutos por Dupla)</h2>
+                <p class="slide-subtitle">Respeito, escuta ativa e aplausos para todas as equipes!</p>
             </div>
             <div class="slide-body">
                 <div class="grid-3">
-                    <div class="content-box accent-box">
-                        <div class="big-icon">📱</div>
-                        <h4>O Framework Flet</h4>
-                        <p>Permite criar apps com o poder gráfico do Flutter usando sintaxe 100% Python simples.</p>
+                    <div class="content-box" style="border-color:rgba(245,158,11,.45)">
+                        <h4 style="color:#fbbf24">1. O Problema &amp; ODS</h4>
+                        <p style="font-size:.86rem;color:#cbd5e1;line-height:1.6">Apresentem os nomes da dupla, o nome do aplicativo e qual problema real ele resolve.</p>
                     </div>
-                    <div class="content-box accent-box">
-                        <div class="big-icon">🧩</div>
-                        <h4>Widgets Básicos</h4>
-                        <p>Textos (<code>ft.Text</code>), campos de entrada (<code>ft.TextField</code>) e botões (<code>ft.ElevatedButton</code>).</p>
+                    <div class="content-box" style="border-color:rgba(0,229,255,.45)">
+                        <h4 style="color:#00e5ff">2. Demonstração ao Vivo</h4>
+                        <p style="font-size:.86rem;color:#cbd5e1;line-height:1.6">Mostrem a interface Flet funcionando, cadastrem um dado real e provem que o app está blindado!</p>
                     </div>
-                    <div class="content-box accent-box">
-                        <div class="big-icon">⚡</div>
-                        <h4>Eventos e Reatividade</h4>
-                        <p>Respondendo ao clique do usuário através de funções de evento (<code>on_click</code>) e atualizando a tela com <code>page.update()</code>.</p>
+                    <div class="content-box" style="border-color:rgba(16,185,129,.45)">
+                        <h4 style="color:#34d399">3. Bastidores do Código</h4>
+                        <p style="font-size:.86rem;color:#cbd5e1;line-height:1.6">Mostrem no VS Code onde estão suas funções (<code>def</code>), listas/dicionários e <code>try/except</code>!</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 2: Estrutura Base de um App Flet -->
+        <!-- SLIDE 4 — PORTFÓLIO FINAL E CERTIFICAÇÃO -->
         <section class="slide">
             <div class="slide-header">
-                <span class="slide-step">CONCEITO 1 • ESTRUTURA BASE</span>
-                <h2 class="slide-title">A Estrutura de um App Flet</h2>
-                <p class="slide-subtitle">O ponto de entrada e o objeto <code>page</code></p>
+                <span class="slide-step">🏆 PORTFÓLIO OFICIAL &amp; CONCLUSÃO DO CURSO</span>
+                <h2 class="slide-title">Registro Final do Projeto — Aula 07</h2>
+                <p class="slide-subtitle">Salve o código final apresentado pela sua dupla no seu portfólio oficial!</p>
             </div>
             <div class="slide-body">
-                <div class="content-box accent-box">
-                    <div class="prompt-code"><span class="kw">import</span> flet <span class="kw">as</span> ft
-
-<span class="kw">def</span> <span class="fn">main</span>(page: ft.Page):
-    page.title = <span class="str">"Meu Primeiro App ODS"</span>
-    page.padding = <span class="num">20</span>
-    
-    <span class="cm"># Adicionando um componente visual à página</span>
-    page.<span class="fn">add</span>(ft.<span class="fn">Text</span>(<span class="str">"Olá, Mundo Flet!"</span>, size=<span class="num">24</span>, weight=<span class="str">"bold"</span>))
-
-<span class="cm"># Inicia o aplicativo</span>
-ft.<span class="fn">app</span>(target=main)</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 3: Layouts (Columns e Rows) -->
-        <section class="slide">
-            <div class="slide-header">
-                <span class="slide-step">CONCEITO 2 • LAYOUT & ORGANIZAÇÃO</span>
-                <h2 class="slide-title">Organizando Elementos: <code>Column</code> e <code>Row</code></h2>
-                <p class="slide-subtitle">Dispondo componentes na vertical e na horizontal</p>
-            </div>
-            <div class="slide-body">
-                <div class="grid-2">
-                    <div class="content-box">
-                        <h4 style="color:var(--accent-purple)"><code>ft.Column</code> (Vertical)</h4>
-                        <p>Empilha elementos de cima para baixo.</p>
-                        <div class="prompt-code">ft.<span class="fn">Column</span>([
-    ft.<span class="fn">Text</span>(<span class="str">"Título"</span>),
-    ft.<span class="fn">TextField</span>(label=<span class="str">"Nome"</span>),
-    ft.<span class="fn">ElevatedButton</span>(<span class="str">"Salvar"</span>)
-])</div>
-                    </div>
-                    <div class="content-box">
-                        <h4 style="color:var(--accent-blue)"><code>ft.Row</code> (Horizontal)</h4>
-                        <p>Alinha elementos lado a lado na mesma linha.</p>
-                        <div class="prompt-code">ft.<span class="fn">Row</span>([
-    ft.<span class="fn">ElevatedButton</span>(<span class="str">"Sim"</span>),
-    ft.<span class="fn">ElevatedButton</span>(<span class="str">"Não"</span>)
-])</div>
+                <div class="hw-gate-card">
+                    <div class="hw-gate-icon">🎓🏆</div>
+                    <span class="tr-badge-cyan">CONSOLIDAÇÃO FINAL + REGISTRO DO PORTFÓLIO (30 HORAS)</span>
+                    <h3 style="font-size:1.45rem;color:#fff;font-weight:800;">Parabéns, Desenvolvedores(as)!</h3>
+                    <p style="font-size:0.92rem;color:#cbd5e1;max-width:600px;line-height:1.6;">
+                        Clique abaixo para responder às 5 questões de consolidação e salvar o código oficial apresentado na Feira de Soluções!
+                    </p>
+                    <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+                        <button type="button" class="hw-gate-btn" data-open-homework="aula07">
+                            🏆 Registrar Portfólio Final (Aula 07)
+                        </button>
+                        <a href="../../index.html#ranking" class="control-btn" style="padding:12px 20px;font-size:0.9rem;border-color:rgba(0,229,255,.4);color:#00e5ff;">
+                            🏆 Ver Ranking Oficial da Turma
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Slide 4: Eventos e page.update() -->
-        <section class="slide">
-            <div class="slide-header">
-                <span class="slide-step">CONCEITO 3 • INTERATIVIDADE</span>
-                <h2 class="slide-title">Eventos de Clique e <code>page.update()</code></h2>
-                <p class="slide-subtitle">Fazendo a interface responder às ações do usuário</p>
-            </div>
-            <div class="slide-body">
-                <div class="content-box accent-box">
-                    <div class="prompt-code"><span class="kw">def</span> <span class="fn">main</span>(page: ft.Page):
-    campo_nome = ft.<span class="fn">TextField</span>(label=<span class="str">"Digite seu nome"</span>)
-    texto_saida = ft.<span class="fn">Text</span>(<span class="str">""</span>, color=<span class="str">"green"</span>)
-
-    <span class="kw">def</span> <span class="fn">ao_clicar</span>(e):
-        texto_saida.value = <span class="str">f"Bem-vindo(a), <span class="kw">{campo_nome.value}</span>!"</span>
-        page.<span class="fn">update</span>() <span class="cm"># Re-renderiza a tela com o novo valor</span>
-
-    botao = ft.<span class="fn">ElevatedButton</span>(<span class="str">"Entrar"</span>, on_click=ao_clicar)
-    page.<span class="fn">add</span>(campo_nome, botao, texto_saida)</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 5: Desafio Prático da Aula 07 -->
-        <section class="slide">
-            <div class="slide-header">
-                <span class="slide-step">PRÁTICA • DESAFIO 07</span>
-                <h2 class="slide-title">Desafio: Primeira Versão Visual do App ODS</h2>
-                <p class="slide-subtitle">Construindo a tela inicial do seu projeto final</p>
-            </div>
-            <div class="slide-body">
-                <div class="grid-2">
-                    <div class="content-box tip-box">
-                        <h4>🎯 Requisitos:</h4>
-                        <ul>
-                            <li>Criar uma interface com Título, Subtítulo e Logo/Ícone.</li>
-                            <li>Adicionar 2 campos de entrada (ex: <code>TextField</code>).</li>
-                            <li>Adicionar um botão <code>ElevatedButton</code> que processa os dados.</li>
-                            <li>Exibir a resposta formatada na tela usando <code>Text</code>.</li>
-                        </ul>
-                    </div>
-                    <div class="content-box accent-box">
-                        <h4>🤖 Prompt para Gemini CLI:</h4>
-                        <div class="prompt-code"><span class="str">"Como criar um layout em Flet usando ft.Card e ft.Container com bordas arredondadas e cor de fundo personalizada?"</span></div>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
 
+    <!-- Bottom Navigation -->
     <footer class="bottom-nav">
-        <div class="slide-counter" id="slideCounter">1 / 5</div>
+        <div class="slide-counter" id="slideCounter">1 / 4</div>
         <div class="nav-buttons">
             <button class="nav-btn" id="prevBtn">← Anterior <span class="key-hint">←</span></button>
             <button class="nav-btn primary" id="nextBtn">Próximo → <span class="key-hint">→</span></button>

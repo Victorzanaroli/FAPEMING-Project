@@ -35,18 +35,15 @@
         localStorage.removeItem(STORAGE_KEY_SESSION);
     } catch (e) {}
 
-    // Cronograma oficial de aulas atualizado (Aula 01 em 07/10, Aula 02 em 04/11, quartas-feiras)
+    // Cronograma oficial de aulas atualizado (conclusão em 09/12/2026)
     const LESSONS_SCHEDULE = [
         { key: 'aula01', shortLabel: 'A1', label: 'Aula 01', date: '07/10', topic: 'Abertura, T0 & Prompt' },
         { key: 'aula02', shortLabel: 'A2', label: 'Aula 02', date: '04/11', topic: 'Variáveis & Condicionais (if/else)' },
-        { key: 'aula03', shortLabel: 'A3', label: 'Aula 03', date: '11/11', topic: 'Erros (try/except) & Repetição' },
-        { key: 'aula04', shortLabel: 'A4', label: 'Aula 04', date: '18/11', topic: 'Estruturas de Dados: Listas' },
-        { key: 'aula05', shortLabel: 'A5', label: 'Aula 05', date: '25/11', topic: 'Modularização & Funções (def)' },
-        { key: 'aula06', shortLabel: 'A6', label: 'Aula 06', date: '02/12', topic: 'Dicionários & Integração' },
-        { key: 'aula07', shortLabel: 'A7', label: 'Aula 07', date: '09/12', topic: 'Prototipagem Mobile com Flet' },
-        { key: 'aula08', shortLabel: 'A8', label: 'Aula 08', date: '16/12', topic: 'Sprint de Desenvolvimento Flet' },
-        { key: 'aula09', shortLabel: 'A9', label: 'Aula 09', date: '23/12', topic: 'Polimento, Testes & Ensaio' },
-        { key: 'aula10', shortLabel: 'A10', label: 'Aula 10', date: '30/12', topic: 'Feira Final, Pós-teste T1 & Certificados' }
+        { key: 'aula03', shortLabel: 'A3', label: 'Aula 03', date: '11/11', topic: 'Erros (try/except), Laços (while/for) & Listas' },
+        { key: 'aula04', shortLabel: 'A4', label: 'Aula 04', date: '18/11', topic: 'Funções (def/return) & Dicionários (dict)' },
+        { key: 'aula05', shortLabel: 'A5', label: 'Aula 05', date: '25/11', topic: 'Interfaces Visuais: Flet Básico & Avançado' },
+        { key: 'aula06', shortLabel: 'A6', label: 'Aula 06', date: '02/12', topic: 'Sprint Final, Integração IA & Pitch' },
+        { key: 'aula07', shortLabel: 'A7', label: 'Aula 07', date: '09/12', topic: 'Feira Final de Soluções, T1 & Certificados' }
     ];
 
     // Default Admin Accounts (Victor + 2 Discentes do Projeto)
@@ -394,6 +391,491 @@
                     ]
                 }
             ]
+        },
+
+        aula04: {
+            id: 'quiz_aula04',
+            lessonNumber: 4,
+            title: 'Quiz de Revisão — Aula 03 (try/except, while, for e Listas)',
+            subtitle: '10 questões rápidas sobre tratamento de erros, laços de repetição e listas em Python',
+            questions: [
+                {
+                    id: 'q4_1',
+                    topic: 'Aula 03 • Tratamento de Erros',
+                    question: 'Qual estrutura usamos em Python para impedir que o programa trave quando o usuário digita algo inválido (ex: letras em vez de números)?',
+                    code: '________:\n    idade = int(input("Sua idade: "))\n________ ValueError:\n    print("⚠️ Digite apenas números!")',
+                    options: [
+                        { letter: 'A', text: 'if / else', isCorrect: false, explanation: 'O if/else testa condições lógicas, mas não impede que o int() quebre ao receber letras.' },
+                        { letter: 'B', text: 'try / except', isCorrect: true, explanation: 'Exato! O try tenta rodar o código perigoso e o except captura o erro sem fechar o programa!' },
+                        { letter: 'C', text: 'while / break', isCorrect: false, explanation: 'O while repete código e o break para o loop, mas não tratam exceções como ValueError.' },
+                        { letter: 'D', text: 'error / catch', isCorrect: false, explanation: 'Em Python as palavras reservadas corretas são try e except.' }
+                    ]
+                },
+                {
+                    id: 'q4_2',
+                    topic: 'Aula 03 • Laço while',
+                    question: 'Quando devemos escolher o laço WHILE em vez do laço FOR?',
+                    options: [
+                        { letter: 'A', text: 'Quando queremos repetir enquanto uma condição for verdadeira, sem saber exatamente quantas tentativas o usuário vai precisar.', isCorrect: true, explanation: 'Perfeito! O while é ideal para validação de senha, menus e jogos onde o loop depende de uma condição.' },
+                        { letter: 'B', text: 'Apenas quando queremos somar dois números inteiros uma única vez.', isCorrect: false, explanation: 'Para executar algo uma única vez não precisamos de laço de repetição.' },
+                        { letter: 'C', text: 'Para criar uma lista vazia na memória.', isCorrect: false, explanation: 'Listas são criadas com colchetes [], e não com while.' },
+                        { letter: 'D', text: 'Para converter um texto em número decimal.', isCorrect: false, explanation: 'Quem converte texto em decimal é a função float().' }
+                    ]
+                },
+                {
+                    id: 'q4_3',
+                    topic: 'Aula 03 • Laço for e range()',
+                    question: 'Quais números serão exibidos pelo código abaixo?',
+                    code: 'for n in range(1, 5):\n    print(n)',
+                    options: [
+                        { letter: 'A', text: '1, 2, 3, 4 e 5', isCorrect: false, explanation: 'Pegadinha clássica! O segundo número do range(início, fim) nunca é incluído!' },
+                        { letter: 'B', text: '1, 2, 3 e 4', isCorrect: true, explanation: 'Certíssimo! O range(1, 5) começa no 1 e para ANTES do 5, gerando 1, 2, 3 e 4.' },
+                        { letter: 'C', text: '0, 1, 2, 3, 4 e 5', isCorrect: false, explanation: 'Como informamos o início 1 em range(1, 5), ele começa no 1 e para no 4.' },
+                        { letter: 'D', text: 'Apenas o número 1 e o número 5', isCorrect: false, explanation: 'O range gera toda a sequência inteira do início até fim - 1.' }
+                    ]
+                },
+                {
+                    id: 'q4_4',
+                    topic: 'Aula 03 • Comando break',
+                    question: 'O que o comando "break" faz quando é executado dentro de um laço while ou for?',
+                    options: [
+                        { letter: 'A', text: 'Interrompe e sai do laço de repetição imediatamente.', isCorrect: true, explanation: 'Isso mesmo! O break funciona como um freio de emergência que encerra o loop na hora.' },
+                        { letter: 'B', text: 'Apaga todas as variáveis criadas no programa.', isCorrect: false, explanation: 'O break apenas encerra o loop atual; as variáveis continuam salvas normalmente.' },
+                        { letter: 'C', text: 'Reinicia o computador do usuário.', isCorrect: false, explanation: 'O break só controla o fluxo do laço de repetição no Python.' },
+                        { letter: 'D', text: 'Faz o loop rodar duas vezes mais rápido.', isCorrect: false, explanation: 'O break interrompe a repetição em vez de acelerá-la.' }
+                    ]
+                },
+                {
+                    id: 'q4_5',
+                    topic: 'Aula 03 • Listas e Índices (Base 0)',
+                    question: 'Dada a lista abaixo, o que será impresso pelo comando print(jogos[0])?',
+                    code: 'jogos = ["Minecraft", "Roblox", "Valorant", "FIFA"]\nprint(jogos[0])',
+                    options: [
+                        { letter: 'A', text: 'Roblox', isCorrect: false, explanation: '"Roblox" está na posição de índice 1 (segunda posição).' },
+                        { letter: 'B', text: 'Minecraft', isCorrect: true, explanation: 'Exato! Em Python a contagem dos índices começa sempre no ZERO (0)!' },
+                        { letter: 'C', text: 'FIFA', isCorrect: false, explanation: '"FIFA" está no índice 3 (ou índice -1).' },
+                        { letter: 'D', text: 'Dá erro porque não existe posição 0.', isCorrect: false, explanation: 'Em Python, toda lista com elementos começa justamente na posição 0.' }
+                    ]
+                },
+                {
+                    id: 'q4_6',
+                    topic: 'Aula 03 • Adicionando na Lista',
+                    question: 'Qual método usamos para adicionar um NOVO item no final de uma lista existente?',
+                    code: 'mochila = ["Caderno", "Caneta"]\nmochila.________("Borracha")',
+                    options: [
+                        { letter: 'A', text: 'add', isCorrect: false, explanation: 'Em listas do Python não usamos .add(); o método correto é .append().' },
+                        { letter: 'B', text: 'append', isCorrect: true, explanation: 'Perfeito! O método .append() pendura um novo item no final da lista.' },
+                        { letter: 'C', text: 'push', isCorrect: false, explanation: 'O método .push() é usado em JavaScript; no Python usamos .append().' },
+                        { letter: 'D', text: 'novo', isCorrect: false, explanation: 'Os métodos do Python são em inglês: .append() adiciona ao final.' }
+                    ]
+                },
+                {
+                    id: 'q4_7',
+                    topic: 'Aula 03 • Removendo Itens (.remove vs .pop)',
+                    question: 'Qual é a diferença entre lista.remove("Maçã") e lista.pop(0)?',
+                    options: [
+                        { letter: 'A', text: 'O .remove() apaga buscando pelo VALOR/NOME do item, enquanto o .pop() apaga pela POSIÇÃO (índice).', isCorrect: true, explanation: 'Mandou muito bem! .remove("Maçã") procura o valor "Maçã", já .pop(0) remove quem estiver na gaveta 0.' },
+                        { letter: 'B', text: 'Os dois fazem exatamente a mesma coisa sem nenhuma diferença.', isCorrect: false, explanation: 'Eles funcionam de maneiras diferentes: um recebe o valor e o outro recebe o índice.' },
+                        { letter: 'C', text: 'O .pop() adiciona itens e o .remove() apaga itens.', isCorrect: false, explanation: 'Ambos removem itens da lista; quem adiciona é o .append().' },
+                        { letter: 'D', text: 'O .remove() apaga a lista inteira da memória.', isCorrect: false, explanation: 'O .remove(x) apaga apenas a primeira ocorrência do valor x.' }
+                    ]
+                },
+                {
+                    id: 'q4_8',
+                    topic: 'Aula 03 • Tamanho da Lista',
+                    question: 'Qual função retorna a quantidade total de itens guardados dentro de uma lista?',
+                    code: 'amigos = ["Ana", "Bruno", "Carla"]\nprint(________(amigos)) # Mostra 3',
+                    options: [
+                        { letter: 'A', text: 'size(amigos)', isCorrect: false, explanation: 'A função size() não existe por padrão para listas em Python.' },
+                        { letter: 'B', text: 'count(amigos)', isCorrect: false, explanation: 'Para medir o tamanho total da lista usamos a função nativa len().' },
+                        { letter: 'C', text: 'len(amigos)', isCorrect: true, explanation: 'Exato! len() vem de "length" (comprimento/tamanho) e conta quantos itens existem na lista.' },
+                        { letter: 'D', text: 'total(amigos)', isCorrect: false, explanation: 'A função correta do Python para medir o tamanho é len().' }
+                    ]
+                },
+                {
+                    id: 'q4_9',
+                    topic: 'Aula 03 • Erro de Índice (IndexError)',
+                    question: 'Se uma lista tem 3 elementos (índices 0, 1 e 2) e tentamos acessar lista[5], qual erro acontece?',
+                    options: [
+                        { letter: 'A', text: 'ValueError', isCorrect: false, explanation: 'ValueError ocorre quando um valor tem conteúdo inválido (ex: int("abc") ou .remove() de item ausente).' },
+                        { letter: 'B', text: 'IndexError', isCorrect: true, explanation: 'Certíssimo! IndexError avisa que você tentou abrir uma gaveta (índice) que não existe na lista!' },
+                        { letter: 'C', text: 'ZeroDivisionError', isCorrect: false, explanation: 'ZeroDivisionError só ocorre em divisões matemáticas por zero.' },
+                        { letter: 'D', text: 'NameError', isCorrect: false, explanation: 'NameError ocorre quando usamos o nome de uma variável que nunca foi criada.' }
+                    ]
+                },
+                {
+                    id: 'q4_10',
+                    topic: 'Aula 03 • Percorrendo Lista com for + if',
+                    question: 'O que o código abaixo faz ao percorrer a lista de notas?',
+                    code: 'notas = [5.0, 8.5, 9.0, 4.0]\nfor n in notas:\n    if n >= 7.0:\n        print(n)',
+                    options: [
+                        { letter: 'A', text: 'Imprime todas as 4 notas da lista sem filtro.', isCorrect: false, explanation: 'O bloco if n >= 7.0 filtra apenas as notas maiores ou iguais a 7.0.' },
+                        { letter: 'B', text: 'Imprime apenas as notas aprovadas (8.5 e 9.0).', isCorrect: true, explanation: 'Perfeito! O for visita cada nota da lista e o if seleciona apenas aquelas >= 7.0!' },
+                        { letter: 'C', text: 'Apaga todas as notas da lista.', isCorrect: false, explanation: 'O comando print(n) apenas exibe na tela sem apagar nada da lista.' },
+                        { letter: 'D', text: 'Mostra apenas a primeira nota (5.0).', isCorrect: false, explanation: '5.0 é menor que 7.0, então o if ignora o 5.0 e mostra 8.5 e 9.0.' }
+                    ]
+                }
+            ]
+        },
+
+        aula05: {
+            id: 'quiz_aula05',
+            lessonNumber: 5,
+            title: 'Quiz de Revisão — Aula 04 (Funções def e Dicionários)',
+            subtitle: '10 questões rápidas para revisar def, parâmetros, return e dicionários {chave: valor}',
+            questions: [
+                {
+                    id: 'q5_1',
+                    topic: 'Aula 04 • Criando Funções',
+                    question: 'Qual palavra-chave usamos em Python para CRIAR (definir) uma nova função?',
+                    code: '________ saudar():\n    print("Olá, dev!")',
+                    options: [
+                        { letter: 'A', text: 'function', isCorrect: false, explanation: 'A palavra "function" é usada em JavaScript; em Python usamos a abreviação "def".' },
+                        { letter: 'B', text: 'def', isCorrect: true, explanation: 'Exato! "def" vem de "define" (definir) e ensina um novo comando ao Python!' },
+                        { letter: 'C', text: 'fun', isCorrect: false, explanation: 'Em Python usamos "def" seguido do nome da função e parênteses.' },
+                        { letter: 'D', text: 'criar', isCorrect: false, explanation: 'Os comandos do Python são em inglês: usamos "def".' }
+                    ]
+                },
+                {
+                    id: 'q5_2',
+                    topic: 'Aula 04 • Chamando uma Função',
+                    question: 'Se criamos a função def pular():, por que ela NÃO executa nada se não escrevermos pular() depois?',
+                    options: [
+                        { letter: 'A', text: 'Porque o def apenas ensina a receita ao Python; para executar de verdade precisamos CHAMAR a função pelo nome com parênteses.', isCorrect: true, explanation: 'Perfeito! Definir (def) guarda a receita na memória; chamar pular() coloca a receita em ação!' },
+                        { letter: 'B', text: 'Porque funções em Python só funcionam dentro de arquivos diferentes.', isCorrect: false, explanation: 'Funções funcionam no mesmo arquivo, bastando chamá-las com nome() após o def.' },
+                        { letter: 'C', text: 'Porque toda função precisa obrigatoriamente de um laço while.', isCorrect: false, explanation: 'Funções não precisam de while para funcionar; só precisam ser chamadas.' },
+                        { letter: 'D', text: 'Porque o Python ignora funções que não usam try/except.', isCorrect: false, explanation: 'O try/except é opcional; o que executa a função é a sua chamada.' }
+                    ]
+                },
+                {
+                    id: 'q5_3',
+                    topic: 'Aula 04 • Parâmetros',
+                    question: 'No código def somar(a, b):, o que são "a" e "b" dentro dos parênteses?',
+                    options: [
+                        { letter: 'A', text: 'São parâmetros (os "ingredientes" que a função recebe para trabalhar).', isCorrect: true, explanation: 'Isso mesmo! Parâmetros são variáveis de entrada que recebem os valores enviados quando chamamos somar(3, 5).' },
+                        { letter: 'B', text: 'São erros de sintaxe que travam o programa.', isCorrect: false, explanation: 'Colocar variáveis separadas por vírgula nos parênteses é a sintaxe correta de parâmetros.' },
+                        { letter: 'C', text: 'São listas vazias criadas automaticamente.', isCorrect: false, explanation: 'Parâmetros podem receber qualquer tipo de valor (números, textos, listas).' },
+                        { letter: 'D', text: 'São chaves fixas de um dicionário.', isCorrect: false, explanation: 'Nos parênteses de um def, eles são parâmetros da função.' }
+                    ]
+                },
+                {
+                    id: 'q5_4',
+                    topic: 'Aula 04 • return vs print',
+                    question: 'Qual é a diferença entre usar print() e usar return dentro de uma função?',
+                    options: [
+                        { letter: 'A', text: 'O print() apenas mostra na tela, enquanto o return DEVOLVE o valor para podermos guardar em uma variável ou usar em outra conta.', isCorrect: true, explanation: 'Exato! Sem return, a função devolve None e não conseguimos reaproveitar o resultado em outra variável.' },
+                        { letter: 'B', text: 'O return imprime o texto em letras vermelhas no terminal.', isCorrect: false, explanation: 'O return não imprime nada na tela sozinho; ele entrega o resultado para quem chamou a função.' },
+                        { letter: 'C', text: 'Não existe diferença, os dois comandos são sinônimos.', isCorrect: false, explanation: 'Eles têm papéis bem diferentes: print exibe na tela, return entrega o dado de volta ao programa.' },
+                        { letter: 'D', text: 'O return serve para apagar a função da memória.', isCorrect: false, explanation: 'A função continua existindo normalmente para ser chamada outras vezes.' }
+                    ]
+                },
+                {
+                    id: 'q5_5',
+                    topic: 'Aula 04 • Escopo Local',
+                    question: 'Se criarmos uma variável "pontos = 10" DENTRO de uma função def, o que acontece se tentarmos dar print(pontos) FORA da função (sem usar return)?',
+                    options: [
+                        { letter: 'A', text: 'Dá NameError, porque variáveis criadas dentro da função são locais (só existem lá dentro).', isCorrect: true, explanation: 'Mandou bem! O que nasce dentro da função fica dentro da função (escopo local), a menos que seja devolvido com return!' },
+                        { letter: 'B', text: 'Mostra o número 10 normalmente em qualquer lugar.', isCorrect: false, explanation: 'Fora da função a variável local não é enxergada, gerando NameError.' },
+                        { letter: 'C', text: 'Mostra o número 0 por padrão.', isCorrect: false, explanation: 'O Python não cria variáveis com zero sozinho; ele avisa NameError.' },
+                        { letter: 'D', text: 'Dá ZeroDivisionError.', isCorrect: false, explanation: 'ZeroDivisionError só acontece em divisões por zero.' }
+                    ]
+                },
+                {
+                    id: 'q5_6',
+                    topic: 'Aula 04 • Dicionários vs Listas',
+                    question: 'Qual símbolo usamos para criar um DICIONÁRIO com pares de {chave: valor} em Python?',
+                    code: 'heroi = ________"nome": "Link", "vida": 100________',
+                    options: [
+                        { letter: 'A', text: 'Colchetes [ ]', isCorrect: false, explanation: 'Colchetes [ ] são usados para criar Listas e acessar índices.' },
+                        { letter: 'B', text: 'Chaves { } com dois-pontos separando chave e valor', isCorrect: true, explanation: 'Perfeito! Dicionários usam chaves { "chave": valor } para etiquetar cada informação!' },
+                        { letter: 'C', text: 'Parênteses ( )', isCorrect: false, explanation: 'Parênteses são usados em chamadas de funções e tuplas.' },
+                        { letter: 'D', text: 'Barras / /', isCorrect: false, explanation: 'Barras são operadores de divisão matemática.' }
+                    ]
+                },
+                {
+                    id: 'q5_7',
+                    topic: 'Aula 04 • Acessando Dados no Dicionário',
+                    question: 'Dado o dicionário abaixo, como mostramos na tela o valor 1500?',
+                    code: 'jogador = {"nick": "Shadow", "xp": 1500}',
+                    options: [
+                        { letter: 'A', text: 'print(jogador[0])', isCorrect: false, explanation: 'Dicionários não são acessados por posição 0, e sim pelo nome da chave!' },
+                        { letter: 'B', text: 'print(jogador["xp"])', isCorrect: true, explanation: 'Exato! Passamos a etiqueta (chave) "xp" entre colchetes para abrir o valor 1500!' },
+                        { letter: 'C', text: 'print(jogador[1500])', isCorrect: false, explanation: 'Para buscar no dicionário usamos a chave ("xp"), e não o valor.' },
+                        { letter: 'D', text: 'print(xp)', isCorrect: false, explanation: '"xp" é uma chave dentro de jogador, e não uma variável solta.' }
+                    ]
+                },
+                {
+                    id: 'q5_8',
+                    topic: 'Aula 04 • Erro de Chave (KeyError) e .get()',
+                    question: 'Por que usar jogador.get("guilda", "Sem guilda") é mais seguro do que jogador["guilda"]?',
+                    options: [
+                        { letter: 'A', text: 'Porque se a chave "guilda" não existir, o .get() devolve o valor padrão ("Sem guilda") sem travar o programa com KeyError.', isCorrect: true, explanation: 'Certíssimo! O método .get() evita o temido KeyError quando uma chave ainda não foi cadastrada.' },
+                        { letter: 'B', text: 'Porque o .get() apaga todas as outras chaves do dicionário.', isCorrect: false, explanation: 'O .get() apenas consulta o valor com segurança, sem apagar nada.' },
+                        { letter: 'C', text: 'Porque colchetes não funcionam em dicionários do Python.', isCorrect: false, explanation: 'Colchetes funcionam quando a chave existe, mas dão KeyError se a chave faltar.' },
+                        { letter: 'D', text: 'Porque o .get() transforma o dicionário em número inteiro.', isCorrect: false, explanation: 'O .get() apenas busca o valor associado à chave informada.' }
+                    ]
+                },
+                {
+                    id: 'q5_9',
+                    topic: 'Aula 04 • Modificando e Criando Chaves',
+                    question: 'O que acontece ao executar aluno["nota"] = 9.5 em um dicionário aluno = {"nome": "Bia"}?',
+                    options: [
+                        { letter: 'A', text: 'Cria automaticamente a nova chave "nota" com o valor 9.5 dentro do dicionário aluno.', isCorrect: true, explanation: 'Exato! Em dicionários, atribuir a uma chave nova adiciona o par chave:valor na hora (e se já existir, atualiza o valor).' },
+                        { letter: 'B', text: 'Trava o programa porque dicionários não podem receber novas chaves.', isCorrect: false, explanation: 'Dicionários em Python são dinâmicos e podem receber novas chaves a qualquer momento.' },
+                        { letter: 'C', text: 'Apaga a chave "nome" para dar lugar à chave "nota".', isCorrect: false, explanation: 'A chave "nome" continua intacta; "nota" é adicionada ao lado dela.' },
+                        { letter: 'D', text: 'Precisa usar .append() porque dicionários usam o mesmo método das listas.', isCorrect: false, explanation: 'Dicionários NÃO têm .append()! Neles usamos dicionario["nova_chave"] = valor.' }
+                    ]
+                },
+                {
+                    id: 'q5_10',
+                    topic: 'Aula 04 • Lista de Dicionários',
+                    question: 'Quando combinamos uma LISTA contendo vários DICIONÁRIOS (ex: catalogo = [{"nome": "Poção"}, {"nome": "Espada"}]), como acessamos o nome "Espada"?',
+                    options: [
+                        { letter: 'A', text: 'catalogo[1]["nome"]', isCorrect: true, explanation: 'Brilhante! Primeiro pegamos o item de índice 1 da lista (o 2º dicionário) e depois abrimos a chave ["nome"]!' },
+                        { letter: 'B', text: 'catalogo["nome"][0]', isCorrect: false, explanation: 'Como catalogo é uma lista por fora, primeiro precisamos informar o índice numérico [1] e depois a chave ["nome"].' },
+                        { letter: 'C', text: 'catalogo(1, "nome")', isCorrect: false, explanation: 'Acessos a índices de lista e chaves de dicionário usam colchetes: catalogo[1]["nome"].' },
+                        { letter: 'D', text: 'catalogo.get(1)', isCorrect: false, explanation: 'Listas não possuem o método .get(); usamos colchetes para o índice da lista.' }
+                    ]
+                }
+            ]
+        },
+
+        aula06: {
+            id: 'quiz_aula06',
+            lessonNumber: 6,
+            title: 'Quiz de Revisão — Aula 05 (Interfaces Visuais com Flet)',
+            subtitle: '10 questões rápidas sobre páginas, widgets, eventos on_click, layouts e navegação no Flet',
+            questions: [
+                {
+                    id: 'q6_1',
+                    topic: 'Aula 05 • O que é o Flet',
+                    question: 'Para que serve a biblioteca Flet (import flet as ft) que aprendemos na Aula 05?',
+                    options: [
+                        { letter: 'A', text: 'Para transformar nossos códigos Python de terminal em aplicativos visuais com janelas, botões, cores e ícones.', isCorrect: true, explanation: 'Exato! O Flet permite criar interfaces gráficas modernas (web, desktop e mobile) usando apenas Python!' },
+                        { letter: 'B', text: 'Apenas para fazer contas matemáticas sem mostrar nada na tela.', isCorrect: false, explanation: 'O foco do Flet é justamente construir a interface visual (GUI) do aplicativo.' },
+                        { letter: 'C', text: 'Para desinstalar o Python do computador.', isCorrect: false, explanation: 'O Flet é um pacote instalado via pip que trabalha junto com o Python.' },
+                        { letter: 'D', text: 'Para substituir o uso de variáveis por arquivos de áudio.', isCorrect: false, explanation: 'No Flet continuamos usando variáveis, funções, listas e dicionários normalmente.' }
+                    ]
+                },
+                {
+                    id: 'q6_2',
+                    topic: 'Aula 05 • Estrutura Base do App',
+                    question: 'Na função principal def main(page: ft.Page):, o que o objeto "page" representa?',
+                    options: [
+                        { letter: 'A', text: 'Representa a tela / janela do aplicativo onde adicionamos os componentes visuais.', isCorrect: true, explanation: 'Perfeito! A page é a "tela em branco" onde penduramos textos, campos e botões com page.add().' },
+                        { letter: 'B', text: 'Representa um erro de conexão com a internet.', isCorrect: false, explanation: 'O objeto page é a janela principal da interface gráfica.' },
+                        { letter: 'C', text: 'Representa apenas o ícone de fechar o programa.', isCorrect: false, explanation: 'Ele representa toda a página e suas configurações (título, tema, componentes).' },
+                        { letter: 'D', text: 'É uma lista que só aceita números inteiros.', isCorrect: false, explanation: 'O objeto page aceita diversos controles visuais (widgets) do Flet.' }
+                    ]
+                },
+                {
+                    id: 'q6_3',
+                    topic: 'Aula 05 • Widgets de Entrada e Saída',
+                    question: 'No Flet, quais componentes substituem o print() e o input() do terminal?',
+                    options: [
+                        { letter: 'A', text: 'ft.Text() para exibir textos na tela e ft.TextField() para criar uma caixa onde o usuário digita.', isCorrect: true, explanation: 'Certíssimo! ft.Text mostra informações na janela e ft.TextField cria o campo de digitação!' },
+                        { letter: 'B', text: 'ft.Print() e ft.Input()', isCorrect: false, explanation: 'No Flet os nomes corretos dos controles são ft.Text e ft.TextField.' },
+                        { letter: 'C', text: 'ft.Column() e ft.Row()', isCorrect: false, explanation: 'Column e Row são organizadores de layout (vertical e horizontal), não caixas de texto.' },
+                        { letter: 'D', text: 'ft.Icon() e ft.Color()', isCorrect: false, explanation: 'Ícones e cores são elementos visuais de estilo, não substituem entrada e saída de texto.' }
+                    ]
+                },
+                {
+                    id: 'q6_4',
+                    topic: 'Aula 05 • Lendo o Valor Digitado',
+                    question: 'Se criamos o campo nome_input = ft.TextField(label="Seu nome"), como pegamos o texto que o usuário digitou lá dentro?',
+                    options: [
+                        { letter: 'A', text: 'Usando nome_input.value', isCorrect: true, explanation: 'Exato! A propriedade .value guarda o conteúdo atual de um TextField ou Text!' },
+                        { letter: 'B', text: 'Usando nome_input.label', isCorrect: false, explanation: 'A propriedade .label é apenas o título de dica da caixa ("Seu nome"), e não o que o usuário digitou.' },
+                        { letter: 'C', text: 'Usando input(nome_input)', isCorrect: false, explanation: 'Não usamos input() do terminal em widgets do Flet; acessamos direto .value.' },
+                        { letter: 'D', text: 'Usando nome_input[0]', isCorrect: false, explanation: 'Um TextField não é uma lista; lemos seu conteúdo com .value.' }
+                    ]
+                },
+                {
+                    id: 'q6_5',
+                    topic: 'Aula 05 • Atualizando a Tela',
+                    question: 'Depois de alterar o texto de um componente dentro de uma função de clique (ex: resultado.value = "Salvo!"), qual comando é OBRIGATÓRIO para a mudança aparecer na tela?',
+                    options: [
+                        { letter: 'A', text: 'page.update()', isCorrect: true, explanation: 'Regra de ouro do Flet! Sempre que mudamos algo visualmente, chamamos page.update() para redesenhar a tela!' },
+                        { letter: 'B', text: 'page.close()', isCorrect: false, explanation: 'page.update() é quem atualiza os controles na janela.' },
+                        { letter: 'C', text: 'print(page)', isCorrect: false, explanation: 'print() só escreve no terminal e não atualiza a janela gráfica.' },
+                        { letter: 'D', text: 'ft.restart()', isCorrect: false, explanation: 'Para refletir as alterações nos controles usamos page.update().' }
+                    ]
+                },
+                {
+                    id: 'q6_6',
+                    topic: 'Aula 05 • Eventos de Clique',
+                    question: 'No botão ft.ElevatedButton("Calcular", on_click=calcular_imc), por que escrevemos on_click=calcular_imc SEM parênteses no nome da função?',
+                    options: [
+                        { letter: 'A', text: 'Porque queremos passar a referência da função para o botão executar SÓ quando o usuário clicar (com parênteses ela rodaria na hora de abrir o app).', isCorrect: true, explanation: 'Perfeito! Passamos apenas o nome da função para o evento on_click acioná-la no momento do clique!' },
+                        { letter: 'B', text: 'Porque funções no Python nunca usam parênteses.', isCorrect: false, explanation: 'Ao definir ou chamar funções normalmente usamos parênteses; só omitimos ao passar como callback no on_click.' },
+                        { letter: 'C', text: 'Porque o botão não aceita funções criadas com def.', isCorrect: false, explanation: 'O on_click foi feito justamente para receber funções criadas com def!' },
+                        { letter: 'D', text: 'Porque com parênteses o botão muda de cor para vermelho.', isCorrect: false, explanation: 'Colocar parênteses executa a função imediatamente ao iniciar em vez de esperar o clique.' }
+                    ]
+                },
+                {
+                    id: 'q6_7',
+                    topic: 'Aula 05 • Layouts Column e Row',
+                    question: 'Qual é a diferença entre organizar componentes dentro de ft.Column([...]) e ft.Row([...])?',
+                    options: [
+                        { letter: 'A', text: 'ft.Column empilha os itens na VERTICAL (um embaixo do outro) e ft.Row alinha na HORIZONTAL (lado a lado).', isCorrect: true, explanation: 'Isso mesmo! Column = Coluna (vertical) e Row = Linha (horizontal, ótimo para colocar botões lado a lado).' },
+                        { letter: 'B', text: 'ft.Column apaga os itens e ft.Row duplica os itens.', isCorrect: false, explanation: 'Ambos são containers de posicionamento visual na tela.' },
+                        { letter: 'C', text: 'ft.Row só aceita números e ft.Column só aceita textos.', isCorrect: false, explanation: 'Ambos aceitam qualquer componente visual do Flet (botões, textos, ícones, cards).' },
+                        { letter: 'D', text: 'Não há diferença visual entre os dois.', isCorrect: false, explanation: 'Eles organizam em eixos opostos: vertical vs horizontal.' }
+                    ]
+                },
+                {
+                    id: 'q6_8',
+                    topic: 'Aula 05 • Temas e Cores',
+                    question: 'Como ativamos o modo escuro ou mudamos a cor de fundo da janela no Flet?',
+                    options: [
+                        { letter: 'A', text: 'Usando page.theme_mode = ft.ThemeMode.DARK ou definindo page.bgcolor = "#0f172a".', isCorrect: true, explanation: 'Exato! Podemos configurar tanto o tema claro/escuro quanto o código hexadecimal em page.bgcolor!' },
+                        { letter: 'B', text: 'Desligando o monitor do computador.', isCorrect: false, explanation: 'Controlamos o tema diretamente pelo código através das propriedades da page.' },
+                        { letter: 'C', text: 'Usando int("escuro") no início do código.', isCorrect: false, explanation: 'int("escuro") causaria um ValueError!' },
+                        { letter: 'D', text: 'Não é possível mudar cores em aplicativos Flet.', isCorrect: false, explanation: 'O Flet permite personalizar cores de fundo, textos, botões e ícones livremente.' }
+                    ]
+                },
+                {
+                    id: 'q6_9',
+                    topic: 'Aula 05 • Navegação Multi-Telas',
+                    question: 'Qual componente do Flet cria aquela barra inferior de aplicativo de celular com abas (ex: Início, Cadastro, Sobre)?',
+                    options: [
+                        { letter: 'A', text: 'page.navigation_bar = ft.NavigationBar(...)', isCorrect: true, explanation: 'Perfeito! O ft.NavigationBar com ft.NavigationBarDestination cria a navegação clássica de apps mobile!' },
+                        { letter: 'B', text: 'ft.TextField()', isCorrect: false, explanation: 'TextField é apenas um campo de digitação de texto.' },
+                        { letter: 'C', text: 'ft.ElevatedButton()', isCorrect: false, explanation: 'ElevatedButton cria um botão único, não a barra de navegação inferior.' },
+                        { letter: 'D', text: 'range(1, 3)', isCorrect: false, explanation: 'range() gera sequências numéricas para laços for.' }
+                    ]
+                },
+                {
+                    id: 'q6_10',
+                    topic: 'Aula 05 • Blindagem no Flet',
+                    question: 'O que acontece se o usuário clicar em "Calcular" deixando um ft.TextField numérico em branco e tentarmos fazer float(campo.value) sem proteção?',
+                    options: [
+                        { letter: 'A', text: 'Dá ValueError! Por isso devemos verificar se o campo está vazio ou usar try/except para mostrar um aviso amigável na tela.', isCorrect: true, explanation: 'Excelente! Um app profissional nunca trava: validamos o campo ou usamos try/except e avisamos o usuário na interface!' },
+                        { letter: 'B', text: 'O Python adivinha automaticamente o número que o usuário pensou.', isCorrect: false, explanation: 'String vazia "" não pode ser convertida por float() ou int(), gerando ValueError.' },
+                        { letter: 'C', text: 'O computador formata o disco rígido.', isCorrect: false, explanation: 'Ele apenas dispara uma exceção ValueError no console do app.' },
+                        { letter: 'D', text: 'O Flet fecha o navegador e abre o bloco de notas.', isCorrect: false, explanation: 'Sem tratamento, a função falha com ValueError e a tela para de atualizar.' }
+                    ]
+                }
+            ]
+        },
+
+        aula07: {
+            id: 'quiz_aula07',
+            lessonNumber: 7,
+            title: 'Quiz da Grande Final — Revisão Geral da Trilha Python + Flet + IA',
+            subtitle: '10 questões integrando todos os pilares da nossa jornada antes da Feira de Soluções!',
+            questions: [
+                {
+                    id: 'q7_1',
+                    topic: 'Revisão Geral • Engenharia de Prompt e IA',
+                    question: 'Ao usar uma IA generativa como co-piloto no projeto (com o arquivo GEMINI.md), qual é a postura correta do programador?',
+                    options: [
+                        { letter: 'A', text: 'Dar contexto claro, pedir explicações passo a passo, auditar e testar cada linha antes de colocar no app.', isCorrect: true, explanation: 'Perfeito! Você é o piloto e arquiteto do software; a IA é sua copiloto!' },
+                        { letter: 'B', text: 'Copiar qualquer código sem ler e sem saber explicar na apresentação.', isCorrect: false, explanation: 'Na banca e na vida real, precisamos compreender e validar tudo que está no nosso código.' },
+                        { letter: 'C', text: 'Pedir apenas "faz tudo aí" sem dizer qual é o problema nem as regras.', isCorrect: false, explanation: 'Prompts vagos geram códigos genéricos ou cheios de bugs.' },
+                        { letter: 'D', text: 'Desativar o try/except porque a IA nunca comete erros.', isCorrect: false, explanation: 'Toda aplicação real precisa de validação e testes humanos.' }
+                    ]
+                },
+                {
+                    id: 'q7_2',
+                    topic: 'Revisão Geral • Variáveis e Condicionais',
+                    question: 'Qual estrutura decide qual caminho o programa deve seguir com base em uma condição (ex: verificar se o consumo de água passou da meta)?',
+                    options: [
+                        { letter: 'A', text: 'if / elif / else', isCorrect: true, explanation: 'Exato! As condicionais permitem ao app tomar decisões inteligentes!' },
+                        { letter: 'B', text: 'import flet', isCorrect: false, explanation: 'import serve para carregar bibliotecas no código.' },
+                        { letter: 'C', text: '.append()', isCorrect: false, explanation: '.append() adiciona elementos ao final de uma lista.' },
+                        { letter: 'D', text: 'page.title', isCorrect: false, explanation: 'page.title define o título da janela no Flet.' }
+                    ]
+                },
+                {
+                    id: 'q7_3',
+                    topic: 'Revisão Geral • Blindagem com try/except',
+                    question: 'Durante a demonstração ao vivo na Feira de Soluções, um visitante digita "abc" em um campo de preço do seu app. O que garante que seu app não vai travar?',
+                    options: [
+                        { letter: 'A', text: 'Ter envolvido a conversão int()/float() em um bloco try / except ValueError mostrando um aviso visual na tela.', isCorrect: true, explanation: 'Isso mesmo! O try/except blinda o seu app durante a auditoria ao vivo!' },
+                        { letter: 'B', text: 'Aumentar o tamanho da fonte do título.', isCorrect: false, explanation: 'Estética não impede exceções de conversão de tipo.' },
+                        { letter: 'C', text: 'Usar apenas variáveis globais sem validação.', isCorrect: false, explanation: 'Sem validação ou try/except, converter "abc" para número sempre gera ValueError.' },
+                        { letter: 'D', text: 'Trocar a cor de fundo para azul.', isCorrect: false, explanation: 'A cor de fundo não trata erros de entrada de dados.' }
+                    ]
+                },
+                {
+                    id: 'q7_4',
+                    topic: 'Revisão Geral • Laços de Repetição',
+                    question: 'Para percorrer todos os itens cadastrados em uma lista e criar um card visual para cada um na tela do Flet, qual laço usamos?',
+                    options: [
+                        { letter: 'A', text: 'for item in lista:', isCorrect: true, explanation: 'Perfeito! O laço for percorre cada elemento da lista de forma limpa e automática!' },
+                        { letter: 'B', text: 'except ValueError:', isCorrect: false, explanation: 'except captura erros, não percorre listas.' },
+                        { letter: 'C', text: 'def item():', isCorrect: false, explanation: 'def define uma função.' },
+                        { letter: 'D', text: 'break', isCorrect: false, explanation: 'break interrompe um laço.' }
+                    ]
+                },
+                {
+                    id: 'q7_5',
+                    topic: 'Revisão Geral • Listas + Dicionários',
+                    question: 'Qual combinação de estruturas é perfeita para guardar vários registros completos na memória do app (ex: vários livros, cada um com título, autor e status)?',
+                    options: [
+                        { letter: 'A', text: 'Uma Lista de Dicionários: [ {"titulo": "...", "autor": "..."}, ... ]', isCorrect: true, explanation: 'Combinação campeã! A lista guarda a coleção inteira e cada dicionário organiza os campos com chaves claras!' },
+                        { letter: 'B', text: 'Trinta variáveis soltas chamadas livro1, livro2, livro3...', isCorrect: false, explanation: 'Variáveis soltas não escalam e são difíceis de percorrer com for.' },
+                        { letter: 'C', text: 'Apenas um número float.', isCorrect: false, explanation: 'Um float guarda apenas um único número decimal.' },
+                        { letter: 'D', text: 'Um comando break solto.', isCorrect: false, explanation: 'break é um controle de loop, não uma estrutura de dados.' }
+                    ]
+                },
+                {
+                    id: 'q7_6',
+                    topic: 'Revisão Geral • Funções (def)',
+                    question: 'Por que dividimos o código do nosso aplicativo em funções (def) em vez de misturar tudo?',
+                    options: [
+                        { letter: 'A', text: 'Para organizar o código em blocos reutilizáveis, fáceis de ler, testar e conectar aos botões (on_click).', isCorrect: true, explanation: 'Exato! Modularizar com def deixa o projeto limpo e permite conectar ações aos eventos do Flet.' },
+                        { letter: 'B', text: 'Porque o Python proíbe códigos com mais de 10 linhas fora de funções.', isCorrect: false, explanation: 'O Python não impõe esse limite, mas organizar em funções é uma prática essencial de engenharia.' },
+                        { letter: 'C', text: 'Para deixar o código impossível de ser lido por outras pessoas.', isCorrect: false, explanation: 'Pelo contrário: boas funções deixam o código muito mais legível!' },
+                        { letter: 'D', text: 'Para apagar os dados da lista toda vez que o app abre.', isCorrect: false, explanation: 'Funções executam exatamente a lógica que programarmos nelas.' }
+                    ]
+                },
+                {
+                    id: 'q7_7',
+                    topic: 'Revisão Geral • Flet UI',
+                    question: 'Qual dupla de comandos usamos no Flet para adicionar um componente na janela inicial e para atualizar a janela após mudanças?',
+                    options: [
+                        { letter: 'A', text: 'page.add(...) e page.update()', isCorrect: true, explanation: 'Certíssimo! page.add() coloca os controles na página e page.update() atualiza a tela!' },
+                        { letter: 'B', text: 'page.append(...) e page.print()', isCorrect: false, explanation: 'Em Flet usamos page.add() e page.update().' },
+                        { letter: 'C', text: 'input() e print()', isCorrect: false, explanation: 'Esses são comandos de terminal em modo texto.' },
+                        { letter: 'D', text: 'ft.start() e ft.stop()', isCorrect: false, explanation: 'Os métodos corretos do objeto page são .add() e .update().' }
+                    ]
+                },
+                {
+                    id: 'q7_8',
+                    topic: 'Revisão Geral • Estrutura do Pitch',
+                    question: 'Em um Pitch de 3 a 5 minutos na Feira de Soluções, qual é a sequência mais clara para encantar a banca?',
+                    options: [
+                        { letter: 'A', text: '1º Problema Real (Dor/ODS) → 2º Solução (Demonstração ao vivo do App Flet) → 3º Arquitetura do Código (Bastidores Python).', isCorrect: true, explanation: 'Perfeito! Começar pelo problema engaja a plateia, a demo prova que funciona e a arquitetura mostra seu domínio técnico!' },
+                        { letter: 'B', text: 'Ler 200 linhas de código em voz alta sem mostrar o aplicativo funcionando.', isCorrect: false, explanation: 'Mostrar o problema e a demonstração visual primeiro torna a apresentação muito mais clara.' },
+                        { letter: 'C', text: 'Falar apenas sobre a cor do botão e encerrar em 10 segundos.', isCorrect: false, explanation: 'O pitch deve apresentar o problema, a solução prática e a lógica construída pela equipe.' },
+                        { letter: 'D', text: 'Esconder o código caso alguém faça uma pergunta técnica.', isCorrect: false, explanation: 'Na Auditoria Viva, mostrar e explicar suas listas, funções e try/except valoriza o trabalho da dupla!' }
+                    ]
+                },
+                {
+                    id: 'q7_9',
+                    topic: 'Revisão Geral • ODS e Impacto Real',
+                    question: 'O que significa conectar o seu aplicativo a um ODS (Objetivo de Desenvolvimento Sustentável) ou problema da escola/comunidade?',
+                    options: [
+                        { letter: 'A', text: 'Usar a programação como ferramenta para resolver uma necessidade real das pessoas ao nosso redor.', isCorrect: true, explanation: 'Exato! Programar ganha propósito quando transforma e melhora a vida da nossa escola ou comunidade!' },
+                        { letter: 'B', text: 'Criar um programa que ninguém nunca vai conseguir usar.', isCorrect: false, explanation: 'O objetivo do projeto é criar soluções úteis, acessíveis e funcionais.' },
+                        { letter: 'C', text: 'Decorar siglas sem relação com o aplicativo.', isCorrect: false, explanation: 'O ODS escolhido reflete o impacto prático do problema que sua dupla decidiu resolver.' },
+                        { letter: 'D', text: 'Proibir o uso de listas e dicionários no projeto.', isCorrect: false, explanation: 'Listas e dicionários são a base técnica para armazenar os dados da solução.' }
+                    ]
+                },
+                {
+                    id: 'q7_10',
+                    topic: 'Revisão Geral • Mentalidade Dev',
+                    question: 'Ao olhar para trás desde a Aula 01 até hoje, qual é a maior conquista de quem domina a lógica de programação com Python?',
+                    options: [
+                        { letter: 'A', text: 'Deixar de ser apenas consumidor passivo de tecnologia para se tornar CRIADOR de soluções digitais com pensamento crítico!', isCorrect: true, explanation: 'Parabéns pela jornada! Vocês agora sabem transformar ideias em software real com Python, Flet e IA responsável!' },
+                        { letter: 'B', text: 'Nunca mais precisar testar nenhum código.', isCorrect: false, explanation: 'Testar e refinar faz parte do trabalho até dos programadores mais experientes do mundo.' },
+                        { letter: 'C', text: 'Decorar todos os dicionários do mundo sem entender a lógica.', isCorrect: false, explanation: 'Programar não é decorar, e sim saber raciocinar, estruturar e resolver problemas!' },
+                        { letter: 'D', text: 'Usar apenas um único comando para tudo.', isCorrect: false, explanation: 'Nossa caixa de ferramentas agora é completa: variáveis, if/else, try/except, loops, listas, funções, dicts e Flet!' }
+                    ]
+                }
+            ]
         }
     };
 
@@ -580,10 +1062,10 @@
         aula03: {
             id: 'hw_aula03',
             lessonNumber: 3,
-            lessonTag: 'AULA 03 • TRY/EXCEPT E LAÇOS (WHILE / FOR)',
-            title: 'Tarefa de Casa — Aula 03: Blindagem de Erros e Repetição',
-            subtitle: '5 questões rápidas sobre try/except, while e for + 1 desafio prático simples',
-            dueInfo: 'Entregar antes da Aula 04',
+            lessonTag: 'AULA 03 • TRY/EXCEPT, LAÇOS (WHILE / FOR) E LISTAS',
+            title: 'Tarefa de Casa — Aula 03: Blindagem de Erros, Repetição e Listas',
+            subtitle: '5 questões rápidas sobre try/except, while/for e listas + 1 desafio prático à sua escolha',
+            dueInfo: 'Entregar antes da Aula 04 (18/11)',
             questions: [
                 {
                     id: 'hw3_q1',
@@ -618,68 +1100,38 @@
                 },
                 {
                     id: 'hw3_q2',
-                    question: '2. Qual erro (exceção) o Python dispara quando tentamos converter a palavra "dez" para inteiro usando int("dez")?',
+                    question: '2. Quando devemos usar o laço WHILE e qual comando usamos se quisermos PARAR o laço imediatamente?',
+                    code: 'while True:\n    senha = input("Digite a senha: ")\n    if senha == "1234":\n        break',
                     options: [
                         {
                             letter: 'A',
-                            text: 'ZeroDivisionError',
-                            isCorrect: false,
-                            explanation: 'ZeroDivisionError só acontece quando tentamos dividir um número por zero (ex: 10 / 0).'
+                            text: 'O while repete ENQUANTO uma condição for verdadeira, e o comando break encerra o loop na mesma hora.',
+                            isCorrect: true,
+                            explanation: 'Mandou muito bem! O while mantém a repetição ativa e o break funciona como freio imediato quando o objetivo é atingido.'
                         },
                         {
                             letter: 'B',
-                            text: 'ValueError',
-                            isCorrect: true,
-                            explanation: 'Exato! ValueError significa "Erro de Valor": o tipo é texto, mas o conteúdo ("dez") não tem dígitos válidos para virar int.'
+                            text: 'O while testa a condição apenas uma única vez, e o comando stop para o programa.',
+                            isCorrect: false,
+                            explanation: 'Quem testa uma única vez é o if, e a palavra reservada do Python para interromper loops é break (não stop).'
                         },
                         {
                             letter: 'C',
-                            text: 'TypeError',
+                            text: 'O while serve apenas para apagar listas da memória.',
                             isCorrect: false,
-                            explanation: 'TypeError ocorre quando aplicamos uma operação a tipos incompatíveis; na conversão de texto com letras para int, o erro disparado é ValueError.'
+                            explanation: 'O while é uma estrutura de repetição baseada em condição lógica.'
                         },
                         {
                             letter: 'D',
-                            text: 'SyntaxError',
+                            text: 'O comando break faz o loop repetir o dobro de vezes.',
                             isCorrect: false,
-                            explanation: 'SyntaxError é erro na escrita do código pelo programador; com int("dez") a sintaxe está certa, mas o valor inserido é inválido (ValueError).'
+                            explanation: 'O comando break interrompe o laço imediatamente em vez de multiplicá-lo.'
                         }
                     ]
                 },
                 {
                     id: 'hw3_q3',
-                    question: '3. Quando devemos usar o laço WHILE em vez de um simples IF?',
-                    code: 'while senha != "1234":\n    senha = input("Digite a senha: ")',
-                    options: [
-                        {
-                            letter: 'A',
-                            text: 'Quando queremos que o programa continue repetindo a pergunta ENQUANTO a condição for verdadeira.',
-                            isCorrect: true,
-                            explanation: 'Mandou muito bem! Enquanto o if testa apenas uma vez, o while repete o bloco várias vezes enquanto a condição continuar verdadeira.'
-                        },
-                        {
-                            letter: 'B',
-                            text: 'Quando queremos testar a condição apenas uma única vez e seguir em frente.',
-                            isCorrect: false,
-                            explanation: 'Para testar apenas uma vez sem repetir, usamos o comando if.'
-                        },
-                        {
-                            letter: 'C',
-                            text: 'Quando já sabemos de antemão a quantidade exata de repetições (ex: exatamente 10 vezes).',
-                            isCorrect: false,
-                            explanation: 'Quando sabemos o número exato de voltas, o laço "for com range()" é a opção mais comum e recomendada.'
-                        },
-                        {
-                            letter: 'D',
-                            text: 'Quando precisamos testar mais de três condições diferentes no mesmo código.',
-                            isCorrect: false,
-                            explanation: 'Para múltiplas condições usamos if / elif / else; o while serve exclusivamente para estruturas de repetição.'
-                        }
-                    ]
-                },
-                {
-                    id: 'hw3_q4',
-                    question: '4. Quantas vezes a frase "⚡ Treinando Python!" será impressa pelo laço for abaixo?',
+                    question: '3. Quantas vezes a frase "⚡ Treinando Python!" será impressa pelo laço for abaixo?',
                     code: 'for i in range(1, 4):\n    print("⚡ Treinando Python!")',
                     options: [
                         {
@@ -709,50 +1161,685 @@
                     ]
                 },
                 {
-                    id: 'hw3_q5',
-                    question: '5. Qual comando usamos dentro de um laço (while ou for) quando queremos PARAR e sair do loop imediatamente (por exemplo, quando o jogador acerta o número secreto)?',
+                    id: 'hw3_q4',
+                    question: '4. Observe a lista abaixo. Qual será a saída do comando print(frutas[0]) e qual método adiciona "Uva" no final da lista?',
+                    code: 'frutas = ["Maçã", "Banana", "Morango"]',
                     options: [
                         {
                             letter: 'A',
-                            text: 'break',
+                            text: 'Mostra "Maçã" (porque os índices começam no 0) e usamos frutas.append("Uva") para adicionar no final.',
                             isCorrect: true,
-                            explanation: 'Exato! O comando break ("freio / quebrar") encerra o laço na mesma hora e pula para o final do loop.'
+                            explanation: 'Perfeito! Toda lista em Python começa no índice 0 e o método .append() adiciona novos itens ao final.'
                         },
                         {
                             letter: 'B',
-                            text: 'stop',
+                            text: 'Mostra "Banana" e usamos frutas.add("Uva") para adicionar no final.',
                             isCorrect: false,
-                            explanation: 'Embora "stop" signifique parar em inglês, a palavra-chave reservada do Python para interromper loops é "break".'
+                            explanation: '"Banana" está no índice 1, e listas em Python usam .append() em vez de .add().'
                         },
                         {
                             letter: 'C',
-                            text: 'exit',
+                            text: 'Dá erro porque não existe índice 0 em Python.',
                             isCorrect: false,
-                            explanation: 'O comando exit() encerra o programa inteiro, enquanto o "break" interrompe apenas o laço de repetição mantendo o programa ativo.'
+                            explanation: 'Em Python, o primeiro elemento de qualquer lista fica sempre na posição 0.'
                         },
                         {
                             letter: 'D',
-                            text: 'pause',
+                            text: 'Mostra "Morango" e usamos frutas.pop("Uva") para adicionar.',
                             isCorrect: false,
-                            explanation: 'A palavra "pause" não é um comando nativo de controle de fluxo em Python; para sair do laço usamos "break".'
+                            explanation: '"Morango" está no índice 2, e o método .pop() serve para remover por posição, não para adicionar.'
+                        }
+                    ]
+                },
+                {
+                    id: 'hw3_q5',
+                    question: '5. Qual é a diferença entre usar lista.remove("Pizza") e lista.pop(1)?',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'O .remove("Pizza") apaga buscando pelo VALOR/NOME do item, enquanto o .pop(1) apaga quem estiver na POSIÇÃO de índice 1.',
+                            isCorrect: true,
+                            explanation: 'Exato! Usamos .remove() quando sabemos o nome do item e .pop() quando sabemos o número da gaveta (índice)!'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'O .remove() adiciona um item no início e o .pop() conta o tamanho da lista.',
+                            isCorrect: false,
+                            explanation: 'Ambos removem itens da lista; quem conta o tamanho da lista é a função len().'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'Não há diferença: ambos exigem um número inteiro dentro dos parênteses.',
+                            isCorrect: false,
+                            explanation: 'O .remove() recebe o valor (ex: texto "Pizza"), enquanto o .pop() recebe o índice numérico.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'O .pop(1) multiplica todos os itens da lista por 1.',
+                            isCorrect: false,
+                            explanation: 'O .pop(1) remove e devolve o elemento que estava no índice 1 da lista.'
                         }
                     ]
                 }
             ],
             practicalTask: {
-                title: '💻 Desafio Prático da Aula 03: Jogo da Adivinhação ou Cofre Blindado',
-                description: 'Escolha UMA das opções abaixo, teste no VS Code (PC) ou Pydroid 3 (Celular) usando while/for e try/except, e cole seu código abaixo!',
+                title: '💻 Desafio Prático da Aula 03: Listas, Laços e Blindagem',
+                description: 'Escolha UMA das opções abaixo, teste no VS Code (PC) ou Pydroid 3 (Celular) e cole seu código abaixo!',
                 options: [
                     {
-                        badge: '🎯 Opção 1: Jogo da Adivinhação com 3 Chances',
-                        text: 'Guarde um número secreto (ex: secreto = 7). Use um laço for ou while para dar 3 tentativas ao jogador. Use try/except ValueError para não quebrar se ele digitar letras, e if/else para dizer se ele acertou (usando break) ou errou!'
+                        badge: '🛒 Opção 1: Lista de Compras / Playlist dos Sonhos (Listas + for)',
+                        text: 'Crie uma lista vazia. Use um laço for com range(5) (ou while) para pedir 5 itens/músicas com input() e guardar com .append(). Depois mostre a lista numerada com for, o total com len(), e pergunte se o usuário quer remover algum item usando if item in lista e .remove()!'
                     },
                     {
-                        badge: '🏧 Opção 2: Caixa Eletrônico / Cofre Blindado',
-                        text: 'Comece com saldo = 100. Use um while para perguntar quanto o usuário quer sacar, protegendo com try/except ValueError. Se o saque for menor ou igual ao saldo, desconte e mostre o novo saldo; se for maior, avise "Saldo insuficiente!".'
+                        badge: '🎯 Opção 2: Jogo da Adivinhação ou Cofre Blindado (while/for + try/except)',
+                        text: 'Guarde um número secreto (ex: 7) ou saldo inicial (ex: 100). Use um laço for ou while para dar tentativas ao usuário, protegendo o int(input()) com try/except ValueError e usando if/else (e break) para verificar o resultado!'
                     }
                 ],
-                starterHint: '# Exemplo de começo (Jogo da Adivinhação):\nsecreto = 7\n\nfor tentativa in range(1, 4):\n    try:\n        chute = int(input(f"Tentativa {tentativa}/3 - Qual é o número secreto (1 a 10)? "))\n        if chute == secreto:\n            print("🎉 Parabéns! Você acertou em cheio!")\n            break\n        else:\n            print("❌ Ainda não! Tente de novo.")\n    except ValueError:\n        print("⚠️ Ops! Digite apenas números inteiros!")'
+                starterHint: '# Modelo Opção 1 (Lista / Playlist com for + if/else):\nplaylist = []\n\nfor i in range(3):\n    musica = input(f"Digite a {i+1}ª música: ")\n    playlist.append(musica)\n\nprint(f"\\n🎵 Sua playlist tem {len(playlist)} músicas:")\nfor pos, m in enumerate(playlist):\n    print(f"{pos + 1}. {m}")\n\nremover = input("\\nDeseja remover alguma música? Digite o nome (ou Enter p/ pular): ")\nif remover in playlist:\n    playlist.remove(remover)\n    print("✅ Música removida! Lista final:", playlist)\nelse:\n    print("👌 Playlist mantida:", playlist)'
+            }
+        },
+
+        aula04: {
+            id: 'hw_aula04',
+            lessonNumber: 4,
+            lessonTag: 'AULA 04 • FUNÇÕES (DEF / RETURN) E DICIONÁRIOS (DICT)',
+            title: 'Tarefa de Casa — Aula 04: Modularização com Funções e Dicionários',
+            subtitle: '5 questões rápidas sobre def, parâmetros, return e dicionários + 1 desafio prático',
+            dueInfo: 'Entregar antes da Aula 05 (25/11)',
+            questions: [
+                {
+                    id: 'hw4_q1',
+                    question: '1. Qual é a forma correta de definir uma função em Python que recebe um nome e devolve uma frase formatada?',
+                    code: 'def dar_boas_vindas(nome):\n    return f"Bem-vindo(a), {nome}!"',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'Usamos a palavra-chave def seguida do nome da função, parâmetros entre parênteses, dois-pontos (:) e o bloco recuado com return.',
+                            isCorrect: true,
+                            explanation: 'Perfeito! Essa é a anatomia exata de uma função com parâmetro e retorno em Python.'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'Usamos a palavra function sem dois-pontos e sem indentação.',
+                            isCorrect: false,
+                            explanation: 'Em Python usamos def, dois-pontos (:) no final do cabeçalho e indentação obrigatória.'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'Não precisamos chamar dar_boas_vindas("Ana") depois, pois o def já executa sozinho.',
+                            isCorrect: false,
+                            explanation: 'O def apenas define a função; para ela rodar é obrigatório chamá-la pelo nome com parênteses.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'O comando return apaga a variável nome do computador.',
+                            isCorrect: false,
+                            explanation: 'O return entrega o resultado calculado pela função para quem a chamou.'
+                        }
+                    ]
+                },
+                {
+                    id: 'hw4_q2',
+                    question: '2. O que será guardado na variável resultado após executar o código abaixo?',
+                    code: 'def dobrar(numero):\n    return numero * 2\n\nresultado = dobrar(6) + 3',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: '15 (porque dobrar(6) devolve 12 via return, e 12 + 3 = 15).',
+                            isCorrect: true,
+                            explanation: 'Exato! Graças ao return, o valor 12 substitui a chamada dobrar(6) e pode ser somado com 3!'
+                        },
+                        {
+                            letter: 'B',
+                            text: '6',
+                            isCorrect: false,
+                            explanation: 'A função multiplica 6 por 2 (dando 12) e depois somamos 3, resultando em 15.'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'Dá erro porque não podemos somar o retorno de uma função com outro número.',
+                            isCorrect: false,
+                            explanation: 'Quando a função usa return para devolver um número, podemos usá-lo em qualquer conta matemática!'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'None',
+                            isCorrect: false,
+                            explanation: 'Ela só devolveria None se tivéssemos esquecido o comando return.'
+                        }
+                    ]
+                },
+                {
+                    id: 'hw4_q3',
+                    question: '3. Observe o dicionário abaixo. Como acessamos o preço do "Hambúrguer" e como adicionamos "Suco" custando 7.0?',
+                    code: 'cardapio = {"Pizza": 35.0, "Hambúrguer": 22.0}',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'Acessamos com cardapio["Hambúrguer"] e adicionamos com cardapio["Suco"] = 7.0',
+                            isCorrect: true,
+                            explanation: 'Certíssimo! Em dicionários usamos a chave entre colchetes tanto para ler quanto para criar/atualizar valores!'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'Acessamos com cardapio[1] e adicionamos com cardapio.append("Suco", 7.0)',
+                            isCorrect: false,
+                            explanation: 'Dicionários usam chaves (etiquetas) em vez de índices numéricos e não possuem o método .append().'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'Acessamos com cardapio(22.0) e adicionamos com cardapio + "Suco"',
+                            isCorrect: false,
+                            explanation: 'Em dicionários a consulta é sempre feita pela chave entre colchetes.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'Não é possível adicionar novos itens em um dicionário depois que ele é criado.',
+                            isCorrect: false,
+                            explanation: 'Dicionários são mutáveis: basta atribuir dicionario["nova_chave"] = valor.'
+                        }
+                    ]
+                },
+                {
+                    id: 'hw4_q4',
+                    question: '4. O que acontece se tentarmos acessar produto["desconto"] quando a chave "desconto" NÃO existe no dicionário, e como evitamos esse erro?',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'Acontece um KeyError! Podemos evitar usando produto.get("desconto", 0).',
+                            isCorrect: true,
+                            explanation: 'Mandou muito bem! O KeyError ocorre quando a chave não existe, e o método .get() retorna um valor padrão com segurança.'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'Acontece um ZeroDivisionError! Evitamos usando range().',
+                            isCorrect: false,
+                            explanation: 'Chave inexistente em dicionário gera KeyError, e a solução segura é .get().'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'O Python apaga o dicionário inteiro automaticamente.',
+                            isCorrect: false,
+                            explanation: 'O Python não apaga o dicionário; ele interrompe a execução com KeyError se não usarmos .get() ou try/except.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'Acontece um SyntaxError que só se resolve trocando chaves por colchetes.',
+                            isCorrect: false,
+                            explanation: 'A sintaxe está correta; o erro em tempo de execução é KeyError.'
+                        }
+                    ]
+                },
+                {
+                    id: 'hw4_q5',
+                    question: '5. Temos uma lista de dicionários: alunos = [{"nome": "Leo", "nota": 8}, {"nome": "Mia", "nota": 10}]. O que o laço for aluno in alunos: print(aluno["nome"]) imprime?',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'Imprime "Leo" e depois "Mia".',
+                            isCorrect: true,
+                            explanation: 'Perfeito! A cada volta do for, a variável aluno representa um dicionário da lista, e aluno["nome"] pega o nome dele!'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'Imprime 8 e depois 10.',
+                            isCorrect: false,
+                            explanation: 'Para imprimir as notas teríamos que escrever aluno["nota"]; com aluno["nome"] ele imprime os nomes.'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'Dá erro porque listas não podem conter dicionários.',
+                            isCorrect: false,
+                            explanation: 'Listas de dicionários são uma das estruturas mais usadas em programação real!'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'Imprime apenas a palavra "nome" duas vezes.',
+                            isCorrect: false,
+                            explanation: 'aluno["nome"] busca o valor guardado dentro da chave "nome" de cada dicionário.'
+                        }
+                    ]
+                }
+            ],
+            practicalTask: {
+                title: '💻 Desafio Prático da Aula 04: Funções + Dicionários em Ação!',
+                description: 'Escolha UMA das opções abaixo, teste no VS Code (PC) ou Pydroid 3 (Celular) e cole seu código abaixo!',
+                options: [
+                    {
+                        badge: '🧙‍♂️ Opção 1: Ficha de Personagem / Pet Virtual (Dicionário + Função)',
+                        text: 'Crie um dicionário com pelo menos 4 chaves (ex: nome, classe, nivel, vida). Crie uma função def mostrar_ficha(heroi): que recebe o dicionário e imprime os dados formatados, e outra função que aumenta o nível ou vida do personagem!'
+                    },
+                    {
+                        badge: '🍔 Opção 2: Cardápio / Catálogo Inteligente (Lista de Dicionários + def)',
+                        text: 'Crie uma lista com 3 dicionários de produtos (cada um com "nome" e "preco"). Crie uma função def calcular_desconto(preco): que usa return para devolver o preço com 10% de desconto e mostre o cardápio com for!'
+                    }
+                ],
+                starterHint: '# Modelo combinando Dicionário e Funções (def + return):\ndef calcular_xp_proximo_nivel(nivel_atual):\n    return nivel_atual * 100\n\ndef mostrar_ficha(personagem):\n    xp_meta = calcular_xp_proximo_nivel(personagem["nivel"])\n    print(f"=== 🛡️ FICHA DE {personagem[\'nome\'].upper()} ===")\n    print(f"Classe: {personagem[\'classe\']} | Nível: {personagem[\'nivel\']}")\n    print(f"XP necessário p/ subir: {xp_meta} pts")\n\nheroi = {\n    "nome": input("Nome do seu herói: "),\n    "classe": input("Classe (Mago/Guerreiro/Arqueiro): "),\n    "nivel": 1\n}\n\nmostrar_ficha(heroi)'
+            }
+        },
+
+        aula05: {
+            id: 'hw_aula05',
+            lessonNumber: 5,
+            lessonTag: 'AULA 05 • INTERFACES VISUAIS COM FLET (BÁSICO E AVANÇADO)',
+            title: 'Tarefa de Casa — Aula 05: Criando Apps Visuais com Flet',
+            subtitle: '5 questões rápidas sobre widgets, eventos, layouts e temas no Flet + 1 desafio prático de interface',
+            dueInfo: 'Entregar antes da Aula 06 (02/12)',
+            questions: [
+                {
+                    id: 'hw5_q1',
+                    question: '1. Qual comando do Flet adiciona componentes visuais na janela inicial e qual comando atualiza a tela depois que alteramos um valor?',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'page.add() para adicionar componentes na tela e page.update() para atualizar a janela.',
+                            isCorrect: true,
+                            explanation: 'Perfeito! page.add() monta os elementos na janela e page.update() redesenha a interface após qualquer mudança!'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'page.append() para adicionar e page.refresh() para atualizar.',
+                            isCorrect: false,
+                            explanation: 'No Flet os métodos oficiais do objeto page são .add() e .update().'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'print() para adicionar na janela e input() para atualizar.',
+                            isCorrect: false,
+                            explanation: 'print() e input() funcionam apenas no terminal de texto.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'ft.Column() para atualizar e ft.Row() para fechar.',
+                            isCorrect: false,
+                            explanation: 'Column e Row são containers de layout (vertical e horizontal).'
+                        }
+                    ]
+                },
+                {
+                    id: 'hw5_q2',
+                    question: '2. Se criamos caixa_nome = ft.TextField(label="Digite seu nome") e msg = ft.Text(""), como copiamos o nome digitado para dentro de msg quando o botão é clicado?',
+                    code: 'def ao_clicar(e):\n    # Queremos colocar o texto digitado dentro do componente msg\n    ____________________________\n    page.update()',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'msg.value = f"Olá, {caixa_nome.value}!"',
+                            isCorrect: true,
+                            explanation: 'Exato! Lemos o que o usuário digitou usando caixa_nome.value e alteramos o texto exibido mudando msg.value!'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'msg = input(caixa_nome)',
+                            isCorrect: false,
+                            explanation: 'No Flet não usamos input(); acessamos a propriedade .value dos componentes.'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'caixa_nome.label = msg',
+                            isCorrect: false,
+                            explanation: '.label é apenas o título do campo de texto; quem guarda o conteúdo é .value.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'print(caixa_nome)',
+                            isCorrect: false,
+                            explanation: 'print() escreve apenas no terminal e não altera o componente visual ft.Text na janela.'
+                        }
+                    ]
+                },
+                {
+                    id: 'hw5_q3',
+                    question: '3. Qual é a função de ft.Column([...]) e ft.Row([...]) na organização da tela do aplicativo?',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'ft.Column organiza os controles na vertical (um abaixo do outro) e ft.Row organiza na horizontal (lado a lado).',
+                            isCorrect: true,
+                            explanation: 'Certíssimo! Combinar Column e Row permite montar qualquer tela profissional no Flet.'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'ft.Column cria um banco de dados e ft.Row apaga arquivos.',
+                            isCorrect: false,
+                            explanation: 'Ambos são widgets de layout visual.'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'ft.Column deixa o app no modo escuro e ft.Row muda a fonte.',
+                            isCorrect: false,
+                            explanation: 'Quem controla o modo escuro é page.theme_mode = ft.ThemeMode.DARK.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'Eles servem apenas para somar números inteiros.',
+                            isCorrect: false,
+                            explanation: 'Eles servem para posicionar elementos visuais na janela.'
+                        }
+                    ]
+                },
+                {
+                    id: 'hw5_q4',
+                    question: '4. Como personalizamos o visual do nosso app com modo escuro, cor de fundo e ícones nos botões?',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'Usando page.theme_mode = ft.ThemeMode.DARK, page.bgcolor = "#..." e icon=ft.Icons.STAR nos botões.',
+                            isCorrect: true,
+                            explanation: 'Mandou bem! Essas propriedades dão identidade visual moderna ao aplicativo da dupla.'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'Não é possível usar cores nem ícones no Flet.',
+                            isCorrect: false,
+                            explanation: 'O Flet possui suporte completo a cores hexadecimais, temas e centenas de ícones em ft.Icons.'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'Usando o comando break dentro do page.title.',
+                            isCorrect: false,
+                            explanation: 'break só é usado dentro de laços while ou for.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'Apenas instalando outro sistema operacional.',
+                            isCorrect: false,
+                            explanation: 'A estilização é feita diretamente no código Python do Flet.'
+                        }
+                    ]
+                },
+                {
+                    id: 'hw5_q5',
+                    question: '5. Na navegação entre abas com ft.NavigationBar, qual propriedade dos containers (ex: tela_inicio.visible = True / tela_cadastro.visible = False) usamos para alternar qual tela aparece?',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'A propriedade .visible (True para mostrar a tela da aba escolhida e False para esconder as outras), seguida de page.update().',
+                            isCorrect: true,
+                            explanation: 'Perfeito! Alternar .visible entre True e False é a técnica mais simples, rápida e segura para criar apps multi-telas!'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'O comando exit() para fechar o aplicativo toda vez que trocar de aba.',
+                            isCorrect: false,
+                            explanation: 'Fechar o app encerraria a sessão do usuário; usamos .visible para alternar suavemente.'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'O método .pop(0) para deletar a janela.',
+                            isCorrect: false,
+                            explanation: '.pop() é método de listas; nos controles do Flet usamos .visible.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'Não é possível ter mais de uma seção em um app Flet.',
+                            isCorrect: false,
+                            explanation: 'Com NavigationBar e containers visíveis/ocultos podemos ter várias abas no mesmo app!'
+                        }
+                    ]
+                }
+            ],
+            practicalTask: {
+                title: '💻 Desafio Prático da Aula 05: Meu Primeiro App Visual com Flet',
+                description: 'Escolha UMA das opções abaixo! Se estiver no PC com Flet instalado, teste com python app.py; se estiver no celular sem Flet, escreva a estrutura do código Flet seguindo o modelo abaixo!',
+                options: [
+                    {
+                        badge: '📱 Opção 1: Cartão / Calculadora Interativa no Flet',
+                        text: 'Crie uma janela Flet com título, cor de fundo ou tema escuro, 1 ou 2 campos ft.TextField, 1 botão ft.ElevatedButton com on_click e 1 ft.Text de resultado que atualiza com page.update()!'
+                    },
+                    {
+                        badge: '🌍 Opção 2: Esqueleto da Tela Inicial do Projeto ODS da Dupla',
+                        text: 'Monte o código Flet da tela principal do aplicativo da sua dupla (com título do app, um ft.TextField para cadastrar um item/dado na lista e um botão que adiciona e mostra na tela)!'
+                    }
+                ],
+                starterHint: 'import flet as ft\n\ndef main(page: ft.Page):\n    page.title = "Meu App Flet"\n    page.theme_mode = ft.ThemeMode.DARK\n\n    titulo = ft.Text("🚀 Calculadora de Metas", size=24, weight="bold")\n    campo_nome = ft.TextField(label="Qual é a sua meta de hoje?")\n    resposta = ft.Text("", size=18, color="cyan")\n\n    def salvar_meta(e):\n        if campo_nome.value.strip() == "":\n            resposta.value = "⚠️ Digite uma meta antes de salvar!"\n        else:\n            resposta.value = f"✅ Meta cadastrada: {campo_nome.value}"\n            campo_nome.value = ""\n        page.update()\n\n    botao = ft.ElevatedButton("Salvar Meta", on_click=salvar_meta)\n    page.add(ft.Column([titulo, campo_nome, botao, resposta]))\n\nft.app(target=main)'
+            }
+        },
+
+        aula06: {
+            id: 'hw_aula06',
+            lessonNumber: 6,
+            lessonTag: 'AULA 06 • SPRINT FINAL, INTEGRAÇÃO IA E PREPARAÇÃO DO PITCH',
+            title: 'Tarefa de Casa — Aula 06: Reta Final para a Feira de Soluções (09/12)',
+            subtitle: '5 questões rápidas de revisão de blindagem e Pitch + Registro do Código/Roteiro Final da Dupla',
+            dueInfo: 'Entregar antes da Feira Final (09/12)',
+            questions: [
+                {
+                    id: 'hw6_q1',
+                    question: '1. Para que serve o arquivo GEMINI.md na pasta do projeto da sua dupla?',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'Para dar contexto do projeto e definir regras pedagógicas para que a IA atue como tutora/copiloto sem entregar código complexo incompreensível.',
+                            isCorrect: true,
+                            explanation: 'Exato! O GEMINI.md garante que a IA conheça o objetivo do seu app e respeite as ferramentas que você domina.'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'Para substituir o arquivo principal .py do Python.',
+                            isCorrect: false,
+                            explanation: 'O GEMINI.md é um arquivo de instruções em Markdown para a IA; o código do app fica no arquivo .py.'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'Para deixar o computador sem acesso ao teclado.',
+                            isCorrect: false,
+                            explanation: 'Ele é apenas um documento de texto com diretrizes de contexto para o assistente de IA.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'Para apagar os comentários do código.',
+                            isCorrect: false,
+                            explanation: 'Pelo contrário, ele incentiva código bem comentado e didático.'
+                        }
+                    ]
+                },
+                {
+                    id: 'hw6_q2',
+                    question: '2. No Teste de Usabilidade Cruzado (Dupla A testa o app da Dupla B), o que devemos observar?',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'Se os botões e textos são claros e se o app está blindado contra cliques com campos vazios ou letras em campos numéricos.',
+                            isCorrect: true,
+                            explanation: 'Perfeito! Testar com outra dupla revela bugs e melhorias de usabilidade antes do grande dia da Feira!'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'Apenas se o computador do colega tem a mesma cor de gabinete.',
+                            isCorrect: false,
+                            explanation: 'O foco do teste de usabilidade é a experiência do usuário e a estabilidade do software.'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'Apagar o código da outra dupla sem avisar.',
+                            isCorrect: false,
+                            explanation: 'O teste cruzado é colaborativo e construtivo para ajudar os colegas a polirem seus apps.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'Ignorar qualquer erro ValueError que aparecer.',
+                            isCorrect: false,
+                            explanation: 'Todo ValueError encontrado no teste deve ser corrigido com validação ou try/except!'
+                        }
+                    ]
+                },
+                {
+                    id: 'hw6_q3',
+                    question: '3. Qual é a estrutura de 3 partes do Pitch que cada dupla apresentará no dia 09/12?',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: '1) O Problema (Dor real/ODS) → 2) A Solução (Demo ao vivo do App) → 3) A Arquitetura (Explicação do código Python).',
+                            isCorrect: true,
+                            explanation: 'Certíssimo! Essa estrutura de 3 atos deixa a apresentação profissional, dinâmica e objetiva!'
+                        },
+                        {
+                            letter: 'B',
+                            text: '1) Ligar o PC → 2) Desligar o PC → 3) Ir embora sem mostrar nada.',
+                            isCorrect: false,
+                            explanation: 'A Feira é o momento de brilhar mostrando o problema resolvido, o app funcionando e o código!'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'Falar apenas sobre a Aula 01 durante 20 minutos.',
+                            isCorrect: false,
+                            explanation: 'O pitch é focado no projeto da dupla e dura de 3 a 5 minutos.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'Mostrar apenas uma imagem estática sem abrir o código.',
+                            isCorrect: false,
+                            explanation: 'A demonstração do app e a Auditoria Viva do código são partes essenciais da apresentação.'
+                        }
+                    ]
+                },
+                {
+                    id: 'hw6_q4',
+                    question: '4. Na "Auditoria Viva" (defesa técnica), o que os professores podem perguntar para a dupla?',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'Onde estão a lista/dicionário, as funções (def), o laço (for/while) e o tratamento de erros (try/except) dentro do código do app.',
+                            isCorrect: true,
+                            explanation: 'Exato! Saber apontar e explicar cada bloco do seu próprio código comprova a sua autoria e aprendizado!'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'Apenas perguntas sobre capitais de países distantes.',
+                            isCorrect: false,
+                            explanation: 'A Auditoria Viva é sobre a lógica do código que vocês mesmos construíram.'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'Pedir para programar em linguagem de máquina binária 0 e 1 de olhos fechados.',
+                            isCorrect: false,
+                            explanation: 'As perguntas são tranquilas e baseadas exatamente no código Python do projeto da dupla.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'Nenhuma pergunta; é proibido falar sobre Python na feira.',
+                            isCorrect: false,
+                            explanation: 'Explicar como o Python faz o app funcionar é o ponto alto da defesa técnica!'
+                        }
+                    ]
+                },
+                {
+                    id: 'hw6_q5',
+                    question: '5. Qual checklist técnico garante nota máxima no código do projeto final?',
+                    options: [
+                        {
+                            letter: 'A',
+                            text: 'Ter interface Flet (ou fluxo completo), usar Lista/Dicionário, Funções (def), Condicionais/Laços e Blindagem (try/except ou validação de campos vazios).',
+                            isCorrect: true,
+                            explanation: 'Perfeito! Esse checklist reúne todas as ferramentas que aprendemos ao longo do curso!'
+                        },
+                        {
+                            letter: 'B',
+                            text: 'Ter apenas uma linha com print("Oi").',
+                            isCorrect: false,
+                            explanation: 'O projeto final integra os pilares aprendidos para resolver um problema real.'
+                        },
+                        {
+                            letter: 'C',
+                            text: 'Não usar nenhuma variável nem função.',
+                            isCorrect: false,
+                            explanation: 'Variáveis, coleções e funções são indispensáveis para o funcionamento do app.'
+                        },
+                        {
+                            letter: 'D',
+                            text: 'Deixar erros de sintaxe propositais para o app não abrir.',
+                            isCorrect: false,
+                            explanation: 'O código deve estar testado e rodando sem erros de sintaxe.'
+                        }
+                    ]
+                }
+            ],
+            practicalTask: {
+                title: '💻 Entrega Prévia da Aula 06: Código do App da Dupla + Roteiro de Pitch',
+                description: 'Cole abaixo a versão atual do código Python do aplicativo da sua dupla (ou o resumo estruturado do Problema + Solução + Código do seu projeto para a Feira do dia 09/12)!',
+                options: [
+                    {
+                        badge: '🚀 Opção 1: Código Python/Flet do Projeto Final da Dupla',
+                        text: 'Cole o código completo do aplicativo que você e sua dupla estão construindo para a Feira de Soluções, contendo listas/dicionários, funções (def) e proteção contra erros (try/except).'
+                    },
+                    {
+                        badge: '🎤 Opção 2: Roteiro do Pitch (3 Atos) + Funções Principais do App',
+                        text: 'Escreva em comentários (#) os 3 atos do seu Pitch (1. Problema/ODS, 2. Como o App resolve, 3. Quais estruturas Python usaram) seguido das funções principais do seu código!'
+                    }
+                ],
+                starterHint: '# PROJETO FINAL — TRILHANDO O CAMINHO DO CÓDIGO\n# Dupla: [Seu Nome] e [Nome da Dupla]\n# Tema / ODS: ...\n# Ato 1 (Problema): ...\n# Ato 2 (Solução): ...\n\nimport flet as ft\n\ndados_cadastrados = []\n\ndef main(page: ft.Page):\n    page.title = "Nosso App Final"\n    # Cole o restante do código do seu projeto aqui!'
+            }
+        },
+
+        aula07: {
+            id: 'hw_aula07',
+            lessonNumber: 7,
+            lessonTag: 'AULA 07 • FEIRA DE SOLUÇÕES, PÓS-TESTE T1 E CERTIFICAÇÃO',
+            title: 'Registro Final — Aula 07: Portfólio do Projeto & Conclusão da Trilha',
+            subtitle: '5 questões finais de consolidação (Pós-Teste Rápido) + Entrega Oficial do Código Final Apresentado',
+            dueInfo: 'Entrega Final — 09/12/2026',
+            questions: [
+                {
+                    id: 'hw7_q1',
+                    question: '1. Qual conjunto de estruturas Python forma a base completa de lógica que você dominou no projeto?',
+                    options: [
+                        { letter: 'A', text: 'Variáveis, Condicionais (if/elif/else), Tratamento de Erros (try/except), Laços (while/for), Listas, Funções (def) e Dicionários.', isCorrect: true, explanation: 'Parabéns! Você completou todos os pilares fundamentais da programação em Python!' },
+                        { letter: 'B', text: 'Apenas o comando print() sem variáveis.', isCorrect: false, explanation: 'Sua jornada cobriu muito mais do que o print(): você dominou lógica, estruturas de dados e interfaces!' },
+                        { letter: 'C', text: 'Apenas edição de imagens sem código.', isCorrect: false, explanation: 'Vocês programaram software real em Python com Flet!' },
+                        { letter: 'D', text: 'Nenhum comando de decisão ou repetição.', isCorrect: false, explanation: 'Decisão e repetição foram pilares essenciais de todas as aulas.' }
+                    ]
+                },
+                {
+                    id: 'hw7_q2',
+                    question: '2. Quando um aplicativo Flet precisa guardar vários cadastros estruturados (ex: nome, categoria e valor) em memória, qual é a melhor estrutura?',
+                    options: [
+                        { letter: 'A', text: 'Uma lista contendo dicionários: [{"nome": "...", "valor": 10}, ...]', isCorrect: true, explanation: 'Exato! Listas de dicionários permitem armazenar, listar com for e filtrar dados com clareza.' },
+                        { letter: 'B', text: 'Um único número inteiro.', isCorrect: false, explanation: 'Um número inteiro guarda apenas um valor simples.' },
+                        { letter: 'C', text: 'Um erro ZeroDivisionError.', isCorrect: false, explanation: 'ZeroDivisionError é uma exceção matemática.' },
+                        { letter: 'D', text: 'Um comentário vazio.', isCorrect: false, explanation: 'Comentários são ignorados pelo Python e não guardam dados em execução.' }
+                    ]
+                },
+                {
+                    id: 'hw7_q3',
+                    question: '3. Por que o uso de try / except é indispensável em aplicativos usados por pessoas reais?',
+                    options: [
+                        { letter: 'A', text: 'Porque impede que entradas inesperadas do usuário (como letras em campos numéricos) fechem ou travem o aplicativo.', isCorrect: true, explanation: 'Perfeito! Tratamento de exceções garante resiliência e boa experiência ao usuário.' },
+                        { letter: 'B', text: 'Porque deixa a fonte do texto maior.', isCorrect: false, explanation: 'Quem altera o tamanho da fonte no Flet é a propriedade size.' },
+                        { letter: 'C', text: 'Porque apaga todas as funções do arquivo.', isCorrect: false, explanation: 'O try/except protege as funções contra quebras inesperadas.' },
+                        { letter: 'D', text: 'Porque substitui o comando def.', isCorrect: false, explanation: 'def cria funções e try/except trata erros.' }
+                    ]
+                },
+                {
+                    id: 'hw7_q4',
+                    question: '4. No Flet, o que acontece quando o usuário clica em um botão configurado com on_click=salvar_dados?',
+                    options: [
+                        { letter: 'A', text: 'O Flet executa a função salvar_dados(e), que lê os campos (.value), processa a lógica e chama page.update() para atualizar a tela.', isCorrect: true, explanation: 'Certíssimo! Esse é o ciclo de eventos de toda aplicação gráfica moderna!' },
+                        { letter: 'B', text: 'O Python desliga o computador imediatamente.', isCorrect: false, explanation: 'O evento on_click dispara apenas a função Python associada ao botão.' },
+                        { letter: 'C', text: 'Nada acontece porque botões no Flet são apenas decorativos.', isCorrect: false, explanation: 'Com on_click os botões executam qualquer lógica Python que você programar.' },
+                        { letter: 'D', text: 'O código é apagado do arquivo .py.', isCorrect: false, explanation: 'O arquivo .py permanece intacto.' }
+                    ]
+                },
+                {
+                    id: 'hw7_q5',
+                    question: '5. Qual é a regra de ouro do Uso Ético e Crítico de IA que praticamos no projeto CEFET-MG / FAPEMIG?',
+                    options: [
+                        { letter: 'A', text: 'Usar a IA como copiloto e tutora, mas sempre compreender, testar, validar e saber explicar cada linha do nosso código.', isCorrect: true, explanation: 'Excelente! A autoria e o pensamento computacional são sempre seus!' },
+                        { letter: 'B', text: 'Copiar código sem ler e sem testar.', isCorrect: false, explanation: 'Todo código precisa ser compreendido e auditado pelo desenvolvedor.' },
+                        { letter: 'C', text: 'Nunca fazer perguntas nem testar o programa.', isCorrect: false, explanation: 'Questionar, testar e depurar são habilidades centrais da programação.' },
+                        { letter: 'D', text: 'Deixar o aplicativo com erros sem corrigir.', isCorrect: false, explanation: 'Sempre testamos e corrigimos os erros antes da entrega.' }
+                    ]
+                }
+            ],
+            practicalTask: {
+                title: '🏆 Portfólio Final (Aula 07): Código Oficial Apresentado na Feira + Reflexão',
+                description: 'Registre aqui a versão final oficial do código do aplicativo apresentado pela sua dupla na Feira de Soluções do dia 09/12 e deixe um comentário sobre o que mais gostou de aprender!',
+                options: [
+                    {
+                        badge: '🎓 Opção Única: Código Final do App da Dupla (Certificação 30h)',
+                        text: 'Cole o código Python/Flet final apresentado hoje na Feira de Soluções para ficar salvo no seu portfólio oficial do projeto Trilhando o Caminho do Código!'
+                    }
+                ],
+                starterHint: '# PORTFÓLIO OFICIAL — FEIRA DE SOLUÇÕES (09/12/2026)\n# Nome do App: ...\n# Dupla: ...\n\nimport flet as ft\n# Cole aqui a versão final do seu código!'
             }
         }
     };

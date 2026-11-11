@@ -3,171 +3,904 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aula 04 - Laços de Repetição com while e for</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Aula 04 — Funções (def/return) &amp; Dicionários (dict) | Trilhando o Caminho do Código</title>
     <link rel="stylesheet" href="slides-style.css">
+    <style>
+        .pillar-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin: 10px 0; }
+        .pillar-card { background: rgba(255,255,255,.04); border: 1.5px solid rgba(255,255,255,.12); border-radius: 16px; padding: 16px 14px; text-align: center; }
+        .pillar-icon { font-size: 2.1rem; margin-bottom: 6px; }
+        .pillar-name { font-family: 'JetBrains Mono', monospace; font-size: 1.05rem; font-weight: 800; color: #00e5ff; margin-bottom: 5px; }
+        .pillar-label { font-size: .78rem; color: #94a3b8; line-height: 1.45; }
+
+        .step-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(37,99,235,.22); border: 1px solid rgba(0,229,255,.35); border-radius: 100px; padding: 5px 16px; font-size: .75rem; font-weight: 700; color: #00e5ff; letter-spacing: .5px; margin-bottom: 6px; text-transform: uppercase; }
+        .engage-label { display: inline-flex; align-items: center; gap: 6px; background: rgba(245,158,11,.15); border: 1px solid rgba(245,158,11,.45); border-radius: 8px; padding: 4px 12px; font-size: .76rem; font-weight: 700; color: #f59e0b; margin-bottom: 6px; }
+
+        .prompt-code { background: #040916; border: 1px solid rgba(0,229,255,.25); border-radius: 10px; padding: 12px 16px; font-family: 'JetBrains Mono', monospace; font-size: .82rem; color: #a7f3d0; line-height: 1.65; white-space: pre-wrap; margin: 6px 0; }
+        .prompt-code .kw { color: #00e5ff; font-weight: 700; }
+        .prompt-code .str { color: #fde68a; }
+        .prompt-code .cm { color: #64748b; font-style: italic; }
+        .prompt-code .fn { color: #c084fc; }
+        .prompt-code .num { color: #fb923c; }
+
+        .mission-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .mission-card { border-radius: 16px; padding: 16px; border: 1.5px solid; cursor: pointer; transition: transform .22s ease, box-shadow .22s ease; }
+        .mission-card:hover { transform: translateY(-5px) scale(1.02); box-shadow: 0 14px 32px rgba(0,0,0,.45); }
+        .mission-card h4 { font-size: .95rem; font-weight: 800; margin-bottom: 6px; }
+        .mission-card p { font-size: .76rem; line-height: 1.5; color: #cbd5e1; }
+        .mission-atm { background: rgba(139,92,246,.08); border-color: rgba(139,92,246,.45); }
+        .mission-quiz { background: rgba(37,99,235,.08); border-color: rgba(37,99,235,.45); }
+        .mission-health { background: rgba(16,185,129,.08); border-color: rgba(16,185,129,.45); }
+
+        .stress-table { width: 100%; border-collapse: collapse; font-size: .8rem; margin-top: 8px; }
+        .stress-table th { background: rgba(37,99,235,.3); color: #00e5ff; font-weight: 700; padding: 9px 12px; text-align: left; border-bottom: 1px solid rgba(0,229,255,.3); }
+        .stress-table td { padding: 8px 12px; border-bottom: 1px solid rgba(255,255,255,.07); color: #cbd5e1; vertical-align: top; }
+        .stress-table tr:nth-child(even) td { background: rgba(255,255,255,.03); }
+
+        .summary-item { display: flex; align-items: flex-start; gap: 12px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 10px; padding: 9px 14px; }
+        .summary-check { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+        .summary-text { font-size: .82rem; color: #cbd5e1; line-height: 1.45; }
+        .summary-text strong { color: #fff; display: block; margin-bottom: 2px; }
+
+        .hw-gate-card {
+            background: radial-gradient(circle at 20% 20%, rgba(37, 99, 235, 0.22), rgba(10, 18, 38, 0.95));
+            border: 2px solid rgba(0, 229, 255, 0.45);
+            border-radius: 22px;
+            padding: 32px;
+            text-align: center;
+            max-width: 780px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            box-shadow: 0 20px 55px rgba(0, 0, 0, 0.55);
+        }
+        .hw-gate-icon { font-size: 3.4rem; }
+        .hw-gate-btn {
+            background: linear-gradient(135deg, #2563eb, #00e5ff);
+            color: #fff;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 229, 255, 0.35);
+            transition: transform .2s ease;
+        }
+        .hw-gate-btn:hover { transform: translateY(-3px) scale(1.02); }
+    </style>
 </head>
 <body>
-    <div class="progress-bar" id="progressBar"></div>
-    <div class="bg-glow">
-        <div class="glow-orb glow-orb-1"></div>
-        <div class="glow-orb glow-orb-2"></div>
-    </div>
 
+    <div class="bg-grid"></div>
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+    <div class="progress-bar-container"><div class="progress-bar" id="progressBar"></div></div>
+
+    <!-- Top Bar -->
     <header class="top-bar">
         <div class="brand-badge">
-            <span>⚡ TRILHANDO O CAMINHO DO CÓDIGO</span>
-            <span style="opacity:0.4">|</span>
-            <span>AULA 04</span>
+            <span class="cefet-tag">CEFET-MG &amp; FAPEMING</span>
+            <span style="opacity:.3">|</span>
+            <span>TRILHANDO O CAMINHO DO CÓDIGO</span>
+            <span style="opacity:.3">•</span>
+            <span style="color:#00e5ff">AULA 04</span>
         </div>
         <div class="top-controls">
-            <a href="../../index.html" class="control-btn">🏠 Menu</a>
+            <a href="../../index.html" class="control-btn">🏠 Classroom</a>
+            <button class="control-btn" data-open-homework="aula04" style="border-color:rgba(0,229,255,.45);color:#00e5ff">📝 Tarefa de Casa</button>
             <button class="control-btn" id="fullscreenToggle">⛶ Tela Cheia (F)</button>
         </div>
     </header>
 
     <main class="presentation-stage">
-        <!-- Slide 1: Capa -->
+
+        <!-- SLIDE 1 — CAPA DA AULA 04 -->
         <section class="slide active">
             <div class="slide-header">
-                <span class="slide-step">MÓDULO 04 • AUTOMAÇÃO & LOOPS</span>
-                <h1 class="slide-title">Laços de Repetição</h1>
-                <p class="slide-subtitle">Automatizando tarefas repetitivas com <code>while</code>, <code>for</code> e <code>range()</code></p>
+                <span class="slide-step">MÓDULO 04 • MODULARIZAÇÃO COM FUNÇÕES E ESTRUTURAS CHAVE-VALOR</span>
+                <h1 class="slide-title">Criando Superpoderes (<code>def</code>) &amp; Dicionários (<code>dict</code>)</h1>
+                <p class="slide-subtitle">Organize seu código em funções reutilizáveis e guarde dados com etiquetas claras <code>{chave: valor}</code>!</p>
             </div>
             <div class="slide-body">
-                <div class="grid-3">
-                    <div class="content-box accent-box">
-                        <div class="big-icon">🔄</div>
-                        <h4>Loop <code>while</code></h4>
-                        <p>Repete enquanto uma condição for verdadeira. Ideal quando não sabemos o número exato de repetições.</p>
+                <div class="pillar-grid">
+                    <div class="pillar-card" style="border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.06)">
+                        <div class="pillar-icon">🧩</div>
+                        <div class="pillar-name">def funcao():</div>
+                        <div class="pillar-label">Ensina um novo comando ao Python para usar quantas vezes quiser sem copiar e colar código!</div>
                     </div>
-                    <div class="content-box accent-box">
-                        <div class="big-icon">🔢</div>
-                        <h4>Loop <code>for</code></h4>
-                        <p>Itera sobre uma sequência ou intervalo definido de vezes com o auxílio de <code>range()</code>.</p>
+                    <div class="pillar-card" style="border-color:rgba(139,92,246,.4)">
+                        <div class="pillar-icon">🎁</div>
+                        <div class="pillar-name" style="color:#a78bfa">return</div>
+                        <div class="pillar-label">Devolve o resultado calculado pela função para guardarmos em variáveis ou fazermos novas contas.</div>
                     </div>
-                    <div class="content-box accent-box">
-                        <div class="big-icon">📊</div>
-                        <h4>Contadores e Acumuladores</h4>
-                        <p>Técnicas de contagem e somatório incremental dentro de laços de repetição.</p>
+                    <div class="pillar-card" style="border-color:rgba(16,185,129,.4)">
+                        <div class="pillar-icon">🗂️</div>
+                        <div class="pillar-name" style="color:#34d399">{"chave": valor}</div>
+                        <div class="pillar-label">Dicionários guardam informações com etiquetas (ex: <code>heroi["nome"]</code>, <code>heroi["vida"]</code>).</div>
                     </div>
+                    <div class="pillar-card" style="border-color:rgba(245,158,11,.45);background:rgba(245,158,11,.06)">
+                        <div class="pillar-icon">🚀</div>
+                        <div class="pillar-name" style="color:#fbbf24">Lista + Dict + def</div>
+                        <div class="pillar-label">A combinação profissional que prepara o motor do nosso aplicativo visual na próxima aula!</div>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:12px;font-size:.8rem;color:#94a3b8">
+                    ⚡ Começaremos agora com o <strong>Quiz Interativo de Revisão (10 questões rápidas)</strong> da Aula 03 (<code>try/except</code>, <code>while</code>, <code>for</code> e <code>Listas</code>)!
                 </div>
             </div>
         </section>
 
-        <!-- Slide 2: O Loop while -->
+        <!-- SLIDE 2 — BLOCO 1: QUIZ ESTILO NOTEBOOK LM (10 QUESTÕES DA AULA 03) -->
+        <section class="slide">
+            <div class="slide-header" style="margin-bottom:10px">
+                <span class="step-badge">⚡ Bloco 1 — Quiz Interativo de Aquecimento (10 Questões)</span>
+                <h2 class="slide-title" style="font-size:1.55rem">Relembrando: <code>try/except</code>, Laços (<code>while/for</code>) e <code>Listas []</code></h2>
+            </div>
+            <div class="slide-body" style="justify-content:flex-start">
+                <div id="quizAula04Container" data-trilhando-quiz="aula04"></div>
+            </div>
+        </section>
+
+        <!-- SLIDE 3 — TÓPICO 1: FUNÇÕES BÁSICO (EXPLICAÇÃO 1/2) -->
         <section class="slide">
             <div class="slide-header">
-                <span class="slide-step">CONCEITO 1 • LOOP WHILE</span>
-                <h2 class="slide-title">O Laço <code>while</code> (Enquanto)</h2>
-                <p class="slide-subtitle">Repetição baseada em uma condição lógica dinâmica</p>
+                <span class="step-badge">🧩 Tópico 1 • Funções — Explicação (1/2)</span>
+                <h2 class="slide-title">Por que criar Funções? O Comando <code>def</code></h2>
+                <p class="slide-subtitle">Regra DRY (Don't Repeat Yourself): em vez de repetir o mesmo bloco 10 vezes, crie uma receita e chame pelo nome!</p>
             </div>
             <div class="slide-body">
-                <div class="grid-2">
+                <div class="grid-2" style="gap:18px;align-items:start">
                     <div class="content-box warn-box">
-                        <h4>⚠️ Perigo do Loop Infinito!</h4>
-                        <p>Se a variável de controle não for atualizada dentro do bloco, o programa travará rodando para sempre.</p>
+                        <h4>😫 Sem Função (Código repetido e difícil de mudar)</h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.65">
+<span class="fn">print</span>(<span class="str">"===================="</span>)
+<span class="fn">print</span>(<span class="str">"🎮 BEM-VINDO AO JOGO"</span>)
+<span class="fn">print</span>(<span class="str">"===================="</span>)
+<span class="cm"># Se precisar mostrar 5 vezes, terá que copiar tudo!</span>
+                        </div>
                     </div>
-                    <div class="content-box accent-box">
-                        <h4>💻 Exemplo com Contador</h4>
-                        <div class="prompt-code">contador = <span class="num">1</span>
-
-<span class="kw">while</span> contador <= <span class="num">5</span>:
-    <span class="fn">print</span>(<span class="str">f"Tentativa número <span class="kw">{contador}</span>"</span>)
-    contador += <span class="num">1</span> <span class="cm"># Incremento essencial!</span>
-
-<span class="fn">print</span>(<span class="str">"Fim do laço!"</span>)</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 3: O Loop for e range() -->
-        <section class="slide">
-            <div class="slide-header">
-                <span class="slide-step">CONCEITO 2 • LOOP FOR E RANGE</span>
-                <h2 class="slide-title">O Laço <code>for</code> e a Função <code>range()</code></h2>
-                <p class="slide-subtitle">Iterando sobre sequências numéricas de forma simples e segura</p>
-            </div>
-            <div class="slide-body">
-                <div class="grid-2">
-                    <div class="content-box">
-                        <h4>📌 Entendendo o <code>range()</code></h4>
-                        <ul>
-                            <li><code>range(5)</code> ➔ 0, 1, 2, 3, 4</li>
-                            <li><code>range(1, 6)</code> ➔ 1, 2, 3, 4, 5</li>
-                            <li><code>range(0, 10, 2)</code> ➔ 0, 2, 4, 6, 8 (passo 2)</li>
-                        </ul>
-                    </div>
-                    <div class="content-box accent-box">
-                        <h4>💻 Exemplo Prático</h4>
-                        <div class="prompt-code"><span class="cm"># Imprimindo a tabuada do 5</span>
-<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">11</span>):
-    resultado = <span class="num">5</span> * i
-    <span class="fn">print</span>(<span class="str">f"5 x <span class="kw">{i}</span> = <span class="kw">{resultado}</span>"</span>)</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 4: Contadores e Acumuladores -->
-        <section class="slide">
-            <div class="slide-header">
-                <span class="slide-step">CONCEITO 3 • PADRÕES DE CÓDIGO</span>
-                <h2 class="slide-title">Acumuladores e Somatórios</h2>
-                <p class="slide-subtitle">Somando múltiplos dados inseridos pelo usuário</p>
-            </div>
-            <div class="slide-body">
-                <div class="content-box accent-box">
-                    <div class="prompt-code">soma_total = <span class="num">0.0</span>
-
-<span class="kw">for</span> item <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1</span>, <span class="num">4</span>):
-    preco = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">f"Digite o preço do produto <span class="kw">{item}</span>: R$ "</span>))
-    soma_total += preco <span class="cm"># Equivalente a: soma_total = soma_total + preco</span>
-
-<span class="fn">print</span>(<span class="str">f"🛒 Total da compra: R$ <span class="kw">{soma_total:.2f}</span>"</span>)</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Slide 5: Desafio Prático da Aula 04 -->
-        <section class="slide">
-            <div class="slide-header">
-                <span class="slide-step">PRÁTICA • DESAFIO 04</span>
-                <h2 class="slide-title">Desafio: Calculadora de Consumo de Energia</h2>
-                <p class="slide-subtitle">Construindo um utilitário para o projeto de sustentabilidade (ODS 7)</p>
-            </div>
-            <div class="slide-body">
-                <div class="grid-2">
                     <div class="content-box tip-box">
-                        <h4>🎯 Requisitos:</h4>
-                        <ul>
-                            <li>Perguntar quantos eletrodomésticos a escola possui.</li>
-                            <li>Usar um loop <code>for</code> para ler o consumo em kWh de cada um.</li>
-                            <li>Acumular o consumo total e calcular o custo estimado em reais.</li>
-                            <li>Exibir relatório final formatado.</li>
-                        </ul>
+                        <h4>✨ Com Função <code>def</code> (Definir 1x, Chamar sempre!)</h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.65">
+<span class="cm"># 1. DEFINIR (ensina a receita ao Python):</span>
+<span class="kw">def</span> <span class="fn">mostrar_painel</span>():
+    <span class="fn">print</span>(<span class="str">"===================="</span>)
+    <span class="fn">print</span>(<span class="str">"🎮 BEM-VINDO AO JOGO"</span>)
+    <span class="fn">print</span>(<span class="str">"===================="</span>)
+
+<span class="cm"># 2. CHAMAR (coloca a função em ação!):</span>
+<span class="fn">mostrar_painel</span>()
+<span class="fn">mostrar_painel</span>()
+                        </div>
                     </div>
-                    <div class="content-box accent-box">
-                        <h4>🤖 Prompt para Gemini CLI:</h4>
-                        <div class="prompt-code"><span class="str">"Como criar um loop while em Python que continue pedindo a entrada do usuário até que ele digite 'sair'?"</span></div>
+                </div>
+                <div class="content-box accent-box" style="margin-top:12px;padding:12px 16px;font-size:.88rem">
+                    ⚠️ <strong>Atenção:</strong> Só escrever <code>def mostrar_painel():</code> não imprime nada na tela! A função só roda quando <strong>chamamos</strong> <code>mostrar_painel()</code> com parênteses embaixo!
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 4 — TÓPICO 1: FUNÇÕES BÁSICO (EXPLICAÇÃO 2/2) — PARÂMETROS -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🧩 Tópico 1 • Funções — Explicação (2/2)</span>
+                <h2 class="slide-title">Passando Ingredientes: Parâmetros da Função</h2>
+                <p class="slide-subtitle">Parâmetros ficam dentro dos parênteses <code>( )</code> e permitem que a função trabalhe com dados diferentes a cada chamada!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div class="content-box" style="border-color:rgba(0,229,255,.35)">
+                        <h4 style="color:#00e5ff;margin-bottom:8px">1️⃣ Função com 1 Parâmetro</h4>
+                        <div class="prompt-code" style="font-size:.86rem;line-height:1.75">
+<span class="kw">def</span> <span class="fn">saudar_jogador</span>(nome):
+    <span class="fn">print</span>(<span class="str">f"⚔️ Olá, <span class="kw">{nome}</span>! Prepare-se!"</span>)
+
+<span class="cm"># Cada chamada envia um nome diferente:</span>
+<span class="fn">saudar_jogador</span>(<span class="str">"Ana"</span>)
+<span class="fn">saudar_jogador</span>(<span class="str">"Lucas"</span>)
+                        </div>
+                    </div>
+                    <div class="content-box" style="border-color:rgba(167,139,250,.4)">
+                        <h4 style="color:#a78bfa;margin-bottom:8px">2️⃣ Função com 2 ou mais Parâmetros</h4>
+                        <div class="prompt-code" style="font-size:.86rem;line-height:1.75">
+<span class="kw">def</span> <span class="fn">apresentar_heroi</span>(nome, nivel):
+    <span class="fn">print</span>(<span class="str">f"🛡️ Herói: <span class="kw">{nome}</span> | Nível: <span class="kw">{nivel}</span>"</span>)
+
+<span class="fn">apresentar_heroi</span>(<span class="str">"Zelda"</span>, <span class="num">15</span>)
+<span class="fn">apresentar_heroi</span>(<span class="str">"Link"</span>, <span class="num">20</span>)
+                        </div>
+                        <p style="font-size:.8rem;color:#cbd5e1;margin-top:8px">
+                            💡 Separe os parâmetros com vírgula <code>,</code> e envie na mesma quantidade quando chamar!
+                        </p>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- SLIDE 5 — TÓPICO 1: EXERCÍCIO BÁSICO DE FUNÇÃO (3/3) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(16,185,129,.18);border-color:#10b981;color:#6ee7b7">⚡ Tópico 1 • Exercício Básico de Função (3/3) — Mão na Massa!</span>
+                <h2 class="slide-title">Treino Relâmpago: Meu Primeiro Comando <code>def</code></h2>
+                <p class="slide-subtitle">Crie e chame sua própria função com parâmetros no editor!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="border-color:rgba(16,185,129,.45);background:rgba(16,185,129,.06);padding:16px">
+                        <h4 style="color:#34d399;font-size:1rem;margin-bottom:8px">🎯 Escolha UMA das missões rápidas:</h4>
+                        <p style="font-size:.88rem;color:#e2e8f0;line-height:1.65;margin-bottom:10px">
+                            <strong>Opção A — Megafone de Boas-Vindas:</strong><br>
+                            Crie a função <code>def gritar_gol(time):</code> que imprime <code>f"⚽ GOOOL DO {time}!!!"</code>. Depois chame a função 3 vezes passando 3 times diferentes!
+                        </p>
+                        <p style="font-size:.88rem;color:#e2e8f0;line-height:1.65;margin:0">
+                            <strong>Opção B — Cartão de Visita Gamer:</strong><br>
+                            Crie a função <code>def mostrar_status(nick, jogo):</code> que mostra o apelido e o jogo favorito. Chame para você e para sua dupla!
+                        </p>
+                    </div>
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:16px">
+                        <h4 style="font-size:.86rem;color:#94a3b8;margin-bottom:8px;text-transform:uppercase">Modelo de Referência:</h4>
+                        <div class="prompt-code" style="font-size:.86rem;line-height:1.75;padding:12px 14px">
+<span class="cm"># 1. Definindo a função com parâmetro</span>
+<span class="kw">def</span> <span class="fn">mostrar_status</span>(nick, jogo):
+    <span class="fn">print</span>(<span class="str">"------------------------"</span>)
+    <span class="fn">print</span>(<span class="str">f"🎮 Jogador: <span class="kw">{nick}</span>"</span>)
+    <span class="fn">print</span>(<span class="str">f"🏆 Jogo favorito: <span class="kw">{jogo}</span>"</span>)
+
+<span class="cm"># 2. Chamando a função 2 vezes</span>
+<span class="fn">mostrar_status</span>(<span class="str">"Shadow"</span>, <span class="str">"Minecraft"</span>)
+<span class="fn">mostrar_status</span>(<span class="str">"Fenix"</span>, <span class="str">"Valorant"</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 6 — TÓPICO 2: RETURN E ESCOPO (EXPLICAÇÃO 1/2) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🎁 Tópico 2 • Retorno (return) — Explicação (1/2)</span>
+                <h2 class="slide-title">A Diferença entre <code>print()</code> e <code>return</code></h2>
+                <p class="slide-subtitle">O <code>print()</code> apenas mostra na tela e esquece; o <code>return</code> <strong>entrega o valor</strong> para guardarmos em uma variável!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div class="content-box warn-box">
+                        <h4>📺 Apenas <code>print()</code> (Não devolve o valor)</h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.68">
+<span class="kw">def</span> <span class="fn">somar_sem_return</span>(a, b):
+    <span class="fn">print</span>(a + b)
+
+<span class="cm"># Mostra 8 na tela, mas NÃO entrega para a variável!</span>
+<span class="kw">resultado</span> = <span class="fn">somar_sem_return</span>(<span class="num">5</span>, <span class="num">3</span>)
+<span class="fn">print</span>(resultado) <span class="cm"># → Imprime None (Vazio!)</span>
+                        </div>
+                    </div>
+                    <div class="content-box tip-box">
+                        <h4>🎁 Com <code>return</code> (Devolve o resultado real!)</h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.68">
+<span class="kw">def</span> <span class="fn">somar</span>(a, b):
+    <span class="kw">return</span> a + b
+
+<span class="cm"># Agora a variável 'total' recebe o número 8!</span>
+<span class="kw">total</span> = <span class="fn">somar</span>(<span class="num">5</span>, <span class="num">3</span>)
+<span class="fn">print</span>(<span class="str">f"O dobro da soma é: <span class="kw">{total * 2}</span>"</span>) <span class="cm"># → 16!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 7 — TÓPICO 2: RETURN E ESCOPO (EXPLICAÇÃO 2/2) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🎁 Tópico 2 • Retorno &amp; Escopo — Explicação (2/2)</span>
+                <h2 class="slide-title">Escopo Local: O que nasce na função, fica na função!</h2>
+                <p class="slide-subtitle">Variáveis criadas dentro do <code>def</code> são invisíveis fora dele — por isso usamos o <code>return</code> para tirar o resultado de lá!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45)">
+                        <h4 style="color:#fca5a5;margin-bottom:8px">🚨 O Erro Clássico: <code>NameError</code></h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.65">
+<span class="kw">def</span> <span class="fn">calcular_bonus</span>(pontos):
+    <span class="kw">bonus</span> = pontos * <span class="num">2</span> <span class="cm"># 'bonus' nasceu aqui dentro!</span>
+    <span class="kw">return</span> bonus
+
+<span class="cm"># ERRADO: tentar imprimir 'bonus' direto fora da função</span>
+<span class="cm"># print(bonus) → 💥 NameError: 'bonus' is not defined!</span>
+
+<span class="cm"># CERTO: guardar o retorno da função em uma variável!</span>
+<span class="kw">meu_premio</span> = <span class="fn">calcular_bonus</span>(<span class="num">50</span>)
+<span class="fn">print</span>(<span class="str">f"Prêmio final: <span class="kw">{meu_premio}</span>"</span>) <span class="cm"># → 100!</span>
+                        </div>
+                    </div>
+                    <div class="content-box" style="border-color:rgba(0,229,255,.35)">
+                        <h4 style="color:#00e5ff;margin-bottom:8px">🧮 Exemplo Prático: Calculadora de Média</h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.65">
+<span class="kw">def</span> <span class="fn">calcular_media</span>(n1, n2):
+    <span class="kw">media</span> = (n1 + n2) / <span class="num">2</span>
+    <span class="kw">return</span> media
+
+<span class="kw">nota_final</span> = <span class="fn">calcular_media</span>(<span class="num">8.0</span>, <span class="num">9.0</span>)
+
+<span class="kw">if</span> nota_final &gt;= <span class="num">7.0</span>:
+    <span class="fn">print</span>(<span class="str">f"🎉 Aprovado com média <span class="kw">{nota_final}</span>!"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">f"📚 Média <span class="kw">{nota_final}</span>: Estude mais!"</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 8 — TÓPICO 2: EXERCÍCIO BÁSICO DE RETURN (3/3) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(16,185,129,.18);border-color:#10b981;color:#6ee7b7">⚡ Tópico 2 • Exercício Básico de Return (3/3) — Mão na Massa!</span>
+                <h2 class="slide-title">Treino Relâmpago: Máquina de Desconto com <code>return</code></h2>
+                <p class="slide-subtitle">Crie uma função que calcula e devolve um valor usando <code>return</code>!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="border-color:rgba(16,185,129,.45);background:rgba(16,185,129,.06);padding:16px">
+                        <h4 style="color:#34d399;font-size:1rem;margin-bottom:8px">🛒 Siga os 3 passos no editor:</h4>
+                        <ol style="font-size:.88rem;color:#e2e8f0;line-height:1.85;padding-left:20px;margin:0">
+                            <li>Crie a função <code>def aplicar_desconto(preco):</code> que devolve com <code>return preco - 10</code> (R$ 10 de desconto).</li>
+                            <li>Peça o preço de um produto (ou teste com <code> aplicar_desconto(80)</code>) e guarde o resultado na variável <code>valor_final</code>.</li>
+                            <li>Mostre o <code>valor_final</code> na tela com <code>print()</code>!</li>
+                        </ol>
+                    </div>
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:16px">
+                        <h4 style="font-size:.86rem;color:#94a3b8;margin-bottom:8px;text-transform:uppercase">Esqueleto para testar:</h4>
+                        <div class="prompt-code" style="font-size:.86rem;line-height:1.75;padding:12px 14px">
+<span class="kw">def</span> <span class="fn">aplicar_desconto</span>(preco):
+    <span class="kw">novo_preco</span> = preco - <span class="num">10</span>
+    <span class="kw">return</span> novo_preco
+
+<span class="cm"># Chamando e guardando o retorno na variável</span>
+<span class="kw">valor_final</span> = <span class="fn">aplicar_desconto</span>(<span class="num">85.0</span>)
+<span class="fn">print</span>(<span class="str">f"💰 Preço com cupom: R$ <span class="kw">{valor_final}</span>"</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 9 — TÓPICO 3: DICIONÁRIOS BÁSICO (EXPLICAÇÃO 1/2) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🗂️ Tópico 3 • Dicionários — Explicação Básica (1/2)</span>
+                <h2 class="slide-title">Lista vs Dicionário: O Poder do <code>{chave: valor}</code></h2>
+                <p class="slide-subtitle">Na lista buscamos pelo número da posição <code>[0]</code>; no Dicionário buscamos pelo nome da <strong>etiqueta (chave)</strong>!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div class="content-box warn-box">
+                        <h4>🤔 Com Lista (O que significa cada número?)</h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.68">
+<span class="kw">heroi_lista</span> = [<span class="str">"Link"</span>, <span class="num">100</span>, <span class="num">50</span>, <span class="str">"Espada"</span>]
+<span class="cm"># O que é 100? É a vida, o nível ou o ouro?</span>
+<span class="fn">print</span>(heroi_lista[<span class="num">1</span>])
+                        </div>
+                    </div>
+                    <div class="content-box tip-box">
+                        <h4>🗂️ Com Dicionário <code>{ }</code> (Tudo Etiquetado!)</h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.68">
+<span class="kw">heroi</span> = {
+    <span class="str">"nome"</span>: <span class="str">"Link"</span>,
+    <span class="str">"vida"</span>: <span class="num">100</span>,
+    <span class="str">"ouro"</span>: <span class="num">50</span>,
+    <span class="str">"arma"</span>: <span class="str">"Espada"</span>
+}
+<span class="fn">print</span>(heroi[<span class="str">"nome"</span>]) <span class="cm"># → Link</span>
+<span class="fn">print</span>(heroi[<span class="str">"vida"</span>]) <span class="cm"># → 100</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 10 — TÓPICO 3: DICIONÁRIOS BÁSICO (EXPLICAÇÃO 2/2) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🗂️ Tópico 3 • Dicionários — Explicação Básica (2/2)</span>
+                <h2 class="slide-title">Alterando Valores, Criando Chaves e Proteção com <code>.get()</code></h2>
+                <p class="slide-subtitle">Dicionários NÃO usam <code>.append()</code>! Basta atribuir <code>dicionario["nova_chave"] = valor</code></p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45)">
+                        <h4 style="color:#00e5ff;margin-bottom:8px">✏️ Atualizando e Criando Chaves</h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.68">
+<span class="kw">pet</span> = {<span class="str">"nome"</span>: <span class="str">"Rex"</span>, <span class="str">"fome"</span>: <span class="num">50</span>}
+
+<span class="cm"># 1. Alterando uma chave que já existe:</span>
+pet[<span class="str">"fome"</span>] = <span class="num">10</span>
+
+<span class="cm"># 2. Criando uma chave NOVA na hora:</span>
+pet[<span class="str">"brinquedo"</span>] = <span class="str">"Bolinha"</span>
+
+<span class="fn">print</span>(pet)
+<span class="cm"># {'nome': 'Rex', 'fome': 10, 'brinquedo': 'Bolinha'}</span>
+                        </div>
+                    </div>
+                    <div class="content-box" style="border-color:rgba(245,158,11,.45)">
+                        <h4 style="color:#fbbf24;margin-bottom:8px">🛡️ Evitando o <code>KeyError</code> com <code>.get()</code></h4>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.68">
+<span class="cm"># Se a chave não existir, colchetes dão erro:</span>
+<span class="cm"># print(pet["cor"]) → 💥 KeyError: 'cor'</span>
+
+<span class="cm"># Com .get(), se não existir, devolve o aviso padrão:</span>
+<span class="fn">print</span>(pet.<span class="fn">get</span>(<span class="str">"cor"</span>, <span class="str">"Cor não cadastrada"</span>))
+                        </div>
+                        <p style="font-size:.8rem;color:#cbd5e1;margin-top:8px">
+                            💡 Use <code>dicionario.get("chave", "padrão")</code> sempre que não tiver certeza se a chave existe!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 11 — TÓPICO 3: EXERCÍCIO BÁSICO DE DICIONÁRIO (3/3) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(16,185,129,.18);border-color:#10b981;color:#6ee7b7">⚡ Tópico 3 • Exercício Básico de Dicionário (3/3) — Mão na Massa!</span>
+                <h2 class="slide-title">Treino Relâmpago: Meu Perfil Secreto (<code>dict</code>)</h2>
+                <p class="slide-subtitle">Crie um dicionário, acesse chaves, atualize um valor e adicione uma chave nova!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="border-color:rgba(16,185,129,.45);background:rgba(16,185,129,.06);padding:16px">
+                        <h4 style="color:#34d399;font-size:1rem;margin-bottom:8px">🗂️ Siga os 4 passos no editor:</h4>
+                        <ol style="font-size:.88rem;color:#e2e8f0;line-height:1.85;padding-left:20px;margin:0">
+                            <li>Crie um dicionário <code>perfil</code> com 3 chaves: <code>"nome"</code>, <code>"idade"</code> e <code>"serie"</code>.</li>
+                            <li>Imprima uma frase usando <code>perfil["nome"]</code> e <code>perfil["serie"]</code>.</li>
+                            <li>Adicione uma chave nova: <code>perfil["hobby"] = "Programar"</code> (ou seu hobby favorito).</li>
+                            <li>Mostre o dicionário completo e teste buscar uma chave com <code>perfil.get("cidade", "BH")</code>!</li>
+                        </ol>
+                    </div>
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:16px">
+                        <h4 style="font-size:.86rem;color:#94a3b8;margin-bottom:8px;text-transform:uppercase">Esqueleto para completar:</h4>
+                        <div class="prompt-code" style="font-size:.86rem;line-height:1.72;padding:12px 14px">
+<span class="kw">perfil</span> = {
+    <span class="str">"nome"</span>: <span class="str">"Victor"</span>,
+    <span class="str">"idade"</span>: <span class="num">14</span>,
+    <span class="str">"serie"</span>: <span class="str">"9º Ano"</span>
+}
+
+<span class="fn">print</span>(<span class="str">f"Aluno: <span class="kw">{perfil['nome']}</span> (<span class="kw">{perfil['serie']}</span>)"</span>)
+
+<span class="cm"># Adicionando nova chave</span>
+perfil[<span class="str">"hobby"</span>] = <span class="str">"Jogar Futsal"</span>
+<span class="fn">print</span>(<span class="str">"Cidade:"</span>, perfil.<span class="fn">get</span>(<span class="str">"cidade"</span>, <span class="str">"Belo Horizonte"</span>))
+<span class="fn">print</span>(<span class="str">"Perfil completo:"</span>, perfil)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 12 — TÓPICO 4: INTEGRAÇÃO AVANÇADA (EXPLICAÇÃO 1/2) — LISTA DE DICIONÁRIOS -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(245,158,11,.16);border-color:#f59e0b;color:#fcd34d">🔥 Tópico 4 • Integração Avançada — Explicação (1/2)</span>
+                <h2 class="slide-title">A Dupla de Ouro: Lista de Dicionários!</h2>
+                <p class="slide-subtitle">Como o Instagram, o Spotify e o iFood guardam dados? Uma <strong>Lista</strong> onde cada item é um <strong>Dicionário</strong>!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45)">
+                        <h4 style="color:#00e5ff;margin-bottom:6px">📦 Vários Dicionários dentro de uma Lista</h4>
+                        <div class="prompt-code" style="font-size:.82rem;line-height:1.62">
+<span class="kw">cardapio</span> = [
+    {<span class="str">"item"</span>: <span class="str">"Pizza"</span>, <span class="str">"preco"</span>: <span class="num">40.0</span>},
+    {<span class="str">"item"</span>: <span class="str">"Suco"</span>,  <span class="str">"preco"</span>: <span class="num">8.0</span>},
+    {<span class="str">"item"</span>: <span class="str">"Açaí"</span>,  <span class="str">"preco"</span>: <span class="num">18.0</span>}
+]
+
+<span class="cm"># Percorrendo tudo com um simples for:</span>
+<span class="kw">for</span> produto <span class="kw">in</span> cardapio:
+    <span class="fn">print</span>(<span class="str">f"🍽️ <span class="kw">{produto['item']}</span> custa R$ <span class="kw">{produto['preco']}</span>"</span>)
+                        </div>
+                    </div>
+                    <div class="content-box" style="border-color:rgba(245,158,11,.4)">
+                        <h4 style="color:#fbbf24;margin-bottom:6px">➕ Cadastrando Novo Dicionário na Lista</h4>
+                        <div class="prompt-code" style="font-size:.82rem;line-height:1.62">
+<span class="cm"># Criamos um dicionário novo e damos .append() na lista!</span>
+<span class="kw">novo</span> = {<span class="str">"item"</span>: <span class="str">"Pastel"</span>, <span class="str">"preco"</span>: <span class="num">10.0</span>}
+cardapio.<span class="fn">append</span>(novo)
+
+<span class="fn">print</span>(<span class="str">f"Total no cardápio: <span class="kw">{len(cardapio)}</span> opções"</span>)
+                        </div>
+                        <p style="font-size:.8rem;color:#cbd5e1;margin-top:8px">
+                            🎯 <strong>Por que isso é tão importante?</strong> Nos nossos aplicativos Flet da próxima aula, cada cadastro do usuário será salvo exatamente assim!
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 13 — TÓPICO 4: INTEGRAÇÃO AVANÇADA (EXPLICAÇÃO 2/2) — FUNÇÕES + DICIONÁRIOS -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(245,158,11,.16);border-color:#f59e0b;color:#fcd34d">🔥 Tópico 4 • Integração Avançada — Explicação (2/2)</span>
+                <h2 class="slide-title">Conectando Funções (<code>def</code>) com Lista de Dicionários</h2>
+                <p class="slide-subtitle">Criamos funções especializadas para cadastrar e listar dados com código limpo e organizado!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45)">
+                        <span class="engage-label" style="margin-bottom:6px">⌨️ Engenharia de Software — sistema_escola.py</span>
+                        <div class="prompt-code" style="font-size:.8rem;line-height:1.58">
+<span class="kw">turma</span> = []
+
+<span class="kw">def</span> <span class="fn">cadastrar_aluno</span>(nome, nota):
+    <span class="kw">aluno</span> = {<span class="str">"nome"</span>: nome, <span class="str">"nota"</span>: nota}
+    turma.<span class="fn">append</span>(aluno)
+
+<span class="kw">def</span> <span class="fn">mostrar_aprovados</span>():
+    <span class="kw">for</span> a <span class="kw">in</span> turma:
+        <span class="kw">if</span> a[<span class="str">"nota"</span>] &gt;= <span class="num">7.0</span>:
+            <span class="fn">print</span>(<span class="str">f"✅ <span class="kw">{a['nome']}</span> aprovado com <span class="kw">{a['nota']}</span>!"</span>)
+
+<span class="fn">cadastrar_aluno</span>(<span class="str">"Bia"</span>, <span class="num">9.5</span>)
+<span class="fn">cadastrar_aluno</span>(<span class="str">"Caio"</span>, <span class="num">5.0</span>)
+<span class="fn">cadastrar_aluno</span>(<span class="str">"Duda"</span>, <span class="num">8.0</span>)
+<span class="fn">mostrar_aprovados</span>()
+                        </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="engage-label">❓ Perguntas Rápidas para a Turma</div>
+                        <div class="content-box" style="padding:12px 14px;font-size:.88rem">
+                            <strong>1. Quantos dicionários foram guardados dentro da lista <code>turma</code>?</strong>
+                        </div>
+                        <div class="content-box" style="padding:12px 14px;font-size:.88rem">
+                            <strong>2. Por que o nome de <code>"Caio"</code> não aparece quando chamamos <code>mostrar_aprovados()</code>?</strong>
+                        </div>
+                        <div class="content-box" style="padding:12px 14px;font-size:.88rem">
+                            <strong>3. Como fica fácil adicionar mais 5 alunos usando a função <code>cadastrar_aluno()</code>?</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 14 — TÓPICO 4: EXERCÍCIO FINAL INTEGRADOR (3/3) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(16,185,129,.2);border-color:#10b981;color:#6ee7b7">🏆 Tópico 4 • Exercício Final Integrador (3/3) — Usando Tudo!</span>
+                <h2 class="slide-title">Desafio Mestre: Funções + Dicionários + <code>for</code> + <code>if/else</code></h2>
+                <p class="slide-subtitle">Construa um mini-sistema de Loja / Inventário combinando tudo da Aula 04!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.05);padding:15px">
+                        <h4 style="color:#00e5ff;font-size:.96rem;margin-bottom:8px">🎯 Missão: Catálogo Inteligente com <code>def</code> e <code>dict</code></h4>
+                        <ol style="font-size:.85rem;color:#e2e8f0;line-height:1.75;padding-left:18px;margin:0">
+                            <li>Crie uma lista <code>loja = []</code> com 3 dicionários de produtos (cada um com <code>"nome"</code> e <code>"preco"</code>).</li>
+                            <li>Crie uma função <code>def com_desconto(preco):</code> que usa <code>return preco * 0.9</code> (10% de desconto).</li>
+                            <li>Percorra a lista com <code>for p in loja:</code>, chame a função e mostre o preço promocional de cada item!</li>
+                        </ol>
+                    </div>
+                    <div class="content-box" style="background:rgba(0,0,0,.48);padding:14px">
+                        <h4 style="font-size:.82rem;color:#94a3b8;margin-bottom:6px;text-transform:uppercase">Modelo Guia (def + return + lista de dicts + for):</h4>
+                        <div class="prompt-code" style="font-size:.8rem;line-height:1.62;padding:10px 12px">
+<span class="kw">def</span> <span class="fn">com_desconto</span>(preco):
+    <span class="kw">return</span> preco * <span class="num">0.9</span>
+
+<span class="kw">loja</span> = [
+    {<span class="str">"nome"</span>: <span class="str">"Fone Gamer"</span>, <span class="str">"preco"</span>: <span class="num">100.0</span>},
+    {<span class="str">"nome"</span>: <span class="str">"Mouse RGB"</span>,  <span class="str">"preco"</span>: <span class="num">60.0</span>},
+    {<span class="str">"nome"</span>: <span class="str">"Teclado"</span>,    <span class="str">"preco"</span>: <span class="num">150.0</span>}
+]
+
+<span class="kw">for</span> p <span class="kw">in</span> loja:
+    <span class="kw">promo</span> = <span class="fn">com_desconto</span>(p[<span class="str">"preco"</span>])
+    <span class="fn">print</span>(<span class="str">f"🏷️ <span class="kw">{p['nome']}</span>: de R$ <span class="kw">{p['preco']}</span> por R$ <span class="kw">{promo}</span>"</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 15 — INTERVALO -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="slide-step">☕ PAUSA</span>
+                <h2 class="slide-title">Intervalo — 15 Minutos</h2>
+                <p class="slide-subtitle">Descanse, tome água. Na volta: vamos criar sistemas completos com Funções e Dicionários usando IA!</p>
+            </div>
+            <div class="slide-body" style="display:flex;align-items:center;justify-content:center">
+                <div style="text-align:center;padding:30px">
+                    <div style="font-size:5rem;margin-bottom:16px">☕</div>
+                    <div style="font-size:1.3rem;font-weight:700;color:#f8fafc;margin-bottom:10px">Pausa para Intervalo</div>
+                    <div style="font-size:.9rem;color:#94a3b8;max-width:460px;margin:0 auto;line-height:1.6">Quando voltar, você e sua dupla vão usar a <strong style="color:#00e5ff">IA</strong> para estruturar o motor de dados do projeto com <code>def</code> e <code>dicionários</code>!</div>
+                    <div style="margin-top:20px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.3);border-radius:12px;padding:14px 24px;display:inline-block">
+                        <div style="font-size:.78rem;color:#94a3b8;margin-bottom:4px">DEIXE O VS CODE ABERTO</div>
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#00e5ff">aula04_funcoes_dicts.py</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 16 — BLOCO 4: 3 MISSÕES PRÁTICAS COM IA -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🤖 Bloco 4 — Desafio do Dia com IA (45 min)</span>
+                <h2 class="slide-title">Escolha a Sua Missão com Funções &amp; Dicionários!</h2>
+                <p class="slide-subtitle">Clique no card da missão escolhida para copiar o Prompt estruturado</p>
+            </div>
+            <div class="slide-body">
+                <div class="mission-grid">
+                    <div class="mission-card mission-atm" onclick="openMissionModal('rpg')">
+                        <div style="font-size:2rem;margin-bottom:8px">🧙‍♂️</div>
+                        <h4 style="color:#a78bfa">MISSÃO A — Criador de Herói RPG</h4>
+                        <p>Dicionário de personagem (<code>nome</code>, <code>classe</code>, <code>vida</code>, <code>xp</code>) com funções <code>def treinar()</code>, <code>def curar()</code> e <code>def mostrar_ficha()</code>!</p>
+                        <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.4);border-radius:100px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#c4b5fd">✨ Ver Prompt &amp; Instruções 🔍</div>
+                    </div>
+                    <div class="mission-card mission-quiz" onclick="openMissionModal('lanchonete')">
+                        <div style="font-size:2rem;margin-bottom:8px">🍔</div>
+                        <h4 style="color:#60a5fa">MISSÃO B — Caixa da Lanchonete Inteligente</h4>
+                        <p>Cardápio em dicionário + função <code>def calcular_pedido()</code> com <code>return</code> para somar os itens escolhidos pelo cliente!</p>
+                        <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(96,165,250,.18);border:1px solid rgba(96,165,250,.4);border-radius:100px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#93c5fd">✨ Ver Prompt &amp; Instruções 🔍</div>
+                    </div>
+                    <div class="mission-card mission-health" onclick="openMissionModal('ods_motor')">
+                        <div style="font-size:2rem;margin-bottom:8px">🌍</div>
+                        <h4 style="color:#34d399">MISSÃO C — Motor do Projeto ODS da Dupla</h4>
+                        <p>Lista de dicionários + funções de cadastro e listagem para o tema do aplicativo que sua dupla vai apresentar na Feira!</p>
+                        <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(52,211,153,.18);border:1px solid rgba(52,211,153,.4);border-radius:100px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#6ee7b7">✨ Ver Prompt &amp; Instruções 🔍</div>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:12px;font-size:.78rem;color:#94a3b8">
+                    💡 <strong>Dica:</strong> Clique em qualquer missão acima para copiar o Prompt e colar no Chat IA!
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 17 — BLOCO 5: QUEBRANDO O CÓDIGO (TESTE DE ESTRESSE) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">🔨 Bloco 5 — Operação Destruição (Teste de Estresse)</span>
+                <h2 class="slide-title">Os 3 Erros Famosos de Funções e Dicionários</h2>
+                <p class="slide-subtitle">Saiba reconhecer e consertar cada um deles em segundos!</p>
+            </div>
+            <div class="slide-body">
+                <table class="stress-table">
+                    <thead>
+                        <tr><th>Teste</th><th>O que fazer no código</th><th>Qual erro o Python dispara?</th><th>Como resolver?</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>1. Variável Local Fora da Função</td><td>Dar <code>print()</code> fora do <code>def</code> numa variável criada lá dentro</td><td><code style="color:#fca5a5">NameError</code></td><td>Usar <code>return</code> na função e guardar o retorno numa variável externa</td></tr>
+                        <tr><td>2. Esquecer um Parâmetro</td><td>Chamar <code>somar(5)</code> quando a função pede <code>def somar(a, b):</code></td><td><code style="color:#fca5a5">TypeError</code></td><td>Passar todos os argumentos pedidos pelos parênteses da função</td></tr>
+                        <tr><td>3. Chave Fantasma no Dict</td><td>Acessar <code>heroi["guilda"]</code> quando a chave não existe</td><td><code style="color:#fca5a5">KeyError</code></td><td>Usar <code>heroi.get("guilda", "Sem guilda")</code></td></tr>
+                    </tbody>
+                </table>
+                <div class="content-box accent-box" style="margin-top:12px;padding:12px 16px">
+                    <h4 style="font-size:.86rem;margin-bottom:4px">🤖 Prompt de Debugging para usar no Chat IA:</h4>
+                    <div class="prompt-code" style="font-size:.76rem;padding:8px 12px">"Meu código com funções e dicionários gerou o erro: [COLE O ERRO AQUI]. Explique em 2 frases o motivo e como corrigir."</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 18 — BLOCO 6: RESUMÃO DA AULA 04 -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="slide-step">BLOCO 6 • SÍNTESE DO DIA</span>
+                <h2 class="slide-title">Tudo que Dominamos na Aula 04!</h2>
+                <p class="slide-subtitle">Salve seus arquivos (<code>Ctrl + S</code>) na pasta da Aula 04!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:14px">
+                    <div style="display:flex;flex-direction:column;gap:8px">
+                        <div class="summary-item"><span class="summary-check">🧩</span><div class="summary-text"><strong>def nome(parametros): → Cria Funções</strong>Organiza o código em blocos reutilizáveis sem repetição</div></div>
+                        <div class="summary-item"><span class="summary-check">🎁</span><div class="summary-text"><strong>return valor → Devolve o Resultado</strong>Entrega o valor calculado pela função para guardarmos em variáveis</div></div>
+                        <div class="summary-item"><span class="summary-check">🗂️</span><div class="summary-text"><strong>dict = {"chave": valor} → Dados Etiquetados</strong>Acessamos por chave <code>d["chave"]</code> ou com segurança usando <code>d.get("chave")</code></div></div>
+                        <div class="summary-item"><span class="summary-check">🚀</span><div class="summary-text"><strong>Lista de Dicionários → [{...}, {...}]</strong>Guarda múltiplos cadastros estruturados prontos para percorrer com <code>for</code>!</div></div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:12px">
+                        <div class="content-box tip-box" style="padding:14px">
+                            <h4 style="font-size:.86rem;margin-bottom:6px">🚀 Próxima Aula (Aula 05 — 25/11):</h4>
+                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5"><strong>Interfaces Visuais com Flet (Básico &amp; Avançado)</strong> — Adeus tela preta do terminal! Vamos criar janelas gráficas, botões, campos de texto, ícones e navegação multi-telas!</p>
+                        </div>
+                        <div class="content-box accent-box" style="padding:14px">
+                            <h4 style="font-size:.86rem;margin-bottom:6px">🏠 Tarefa de Casa no Próximo Slide!</h4>
+                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5">5 questões rápidas sobre <code>def</code>, <code>return</code> e <code>Dicionários</code> + 1 desafio prático no Classroom!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 19 — CAPA / TRAVA ANTI-SPOILER DA TAREFA DE CASA DA AULA 04 -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="slide-step">🏠 ATIVIDADE PARA CASA • PROTEÇÃO ANTI-SPOILER</span>
+                <h2 class="slide-title">Tarefa de Casa — Aula 04</h2>
+                <p class="slide-subtitle">As questões estão protegidas nesta tela para não dar spoiler durante a aula!</p>
+            </div>
+            <div class="slide-body">
+                <div class="hw-gate-card">
+                    <div class="hw-gate-icon">🔒🧩</div>
+                    <span class="tr-badge-cyan">5 QUESTÕES DE MÚLTIPLA ESCOLHA + 1 PRÁTICA DE CÓDIGO</span>
+                    <h3 style="font-size:1.45rem;color:#fff;font-weight:800;">Missão de Casa: Funções &amp; Dicionários</h3>
+                    <p style="font-size:0.92rem;color:#cbd5e1;max-width:600px;line-height:1.6;">
+                        Entre com seu <strong>Nome Completo e Senha</strong> para responder às 5 questões sobre <code>def</code>, <code>return</code> e <code>dicionários</code>, testar seu código no <strong>PC (VS Code)</strong> ou <strong>Celular (Pydroid 3)</strong> e enviar para correção!
+                    </p>
+                    <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+                        <button type="button" class="hw-gate-btn" data-open-homework="aula04">
+                            🚀 Abrir Tarefa da Aula 04 Agora
+                        </button>
+                        <a href="../../index.html#tarefas" class="control-btn" style="padding:12px 20px;font-size:0.9rem;border-color:rgba(0,229,255,.4);color:#00e5ff;">
+                            📊 Ver Minhas Notas no Classroom
+                        </a>
+                    </div>
+                    <p style="font-size:0.76rem;color:#64748b;margin-top:4px;">
+                        💡 As questões só aparecem ao clicar no botão acima.
+                    </p>
+                </div>
+            </div>
+        </section>
+
     </main>
 
+    <!-- Bottom Navigation -->
     <footer class="bottom-nav">
-        <div class="slide-counter" id="slideCounter">1 / 5</div>
+        <div class="slide-counter" id="slideCounter">1 / 19</div>
         <div class="nav-buttons">
             <button class="nav-btn" id="prevBtn">← Anterior <span class="key-hint">←</span></button>
             <button class="nav-btn primary" id="nextBtn">Próximo → <span class="key-hint">→</span></button>
         </div>
     </footer>
 
+    <!-- Mission Prompt Modal -->
+    <div id="missionModal" style="display:none;position:fixed;inset:0;z-index:99998;background:rgba(5,10,25,.90);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;">
+        <div id="missionModalCard" style="background:#0b1329;border:1.5px solid rgba(0,229,255,.3);border-radius:20px;max-width:720px;width:100%;max-height:88vh;overflow-y:auto;padding:24px 28px;box-shadow:0 25px 60px rgba(0,0,0,.8);position:relative;">
+            <button id="missionModalClose" title="Fechar (Esc)" style="position:absolute;top:18px;right:20px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:1.2rem;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+            <div id="missionModalBody"></div>
+        </div>
+    </div>
+
     <script src="slides-engine.js"></script>
     <script src="classroom-engine.js"></script>
+    <script>
+    (function() {
+        var missionModal = document.getElementById('missionModal');
+        var missionBody  = document.getElementById('missionModalBody');
+        var missionClose = document.getElementById('missionModalClose');
+
+        var missionData = {
+            rpg: {
+                badge: '🧙‍♂️ MISSÃO A — CRIADOR DE HERÓI RPG',
+                badgeBg: 'rgba(167,139,250,.15)',
+                badgeColor: '#a78bfa',
+                badgeBorder: 'rgba(167,139,250,.4)',
+                title: 'Ficha Interativa de Personagem com Funções e Dict',
+                subtitle: 'Guarde os atributos do herói em um dicionário e crie funções para evoluir!',
+                prompt: `Atue como professor de Python para iniciantes.
+Crie um programa de RPG no terminal usando dicionário e funções (def):
+1. Crie um dicionário heroi com as chaves: "nome", "classe", "nivel" (começa em 1) e "vida" (começa em 100).
+2. Crie a função def mostrar_ficha(h): que exibe todos os dados do dicionário formatados.
+3. Crie a função def subir_nivel(h): que aumenta o nivel em +1 e a vida em +20.
+4. Use um menu while True para o jogador escolher: 1-Ver Ficha | 2-Treinar (subir_nivel) | 3-Sair.
+5. Máximo 35 linhas, sem bibliotecas externas, com comentários em português.`,
+                steps: [
+                    'Clique em "📋 Copiar Prompt" e cole no Chat IA.',
+                    'No VS Code, crie o arquivo <code>missao_heroi.py</code>.',
+                    'Cole o código gerado, salve (<code>Ctrl + S</code>) e teste no terminal ▶️!'
+                ],
+                questions: [
+                    'Quais são as chaves do dicionário <code>heroi</code>?',
+                    'O que a função <code>subir_nivel()</code> altera dentro do dicionário?'
+                ]
+            },
+            lanchonete: {
+                badge: '🍔 MISSÃO B — CAIXA DA LANCHONETE INTELIGENTE',
+                badgeBg: 'rgba(96,165,250,.15)',
+                badgeColor: '#60a5fa',
+                badgeBorder: 'rgba(96,165,250,.4)',
+                title: 'Cardápio com Dicionário e Cálculo com Return',
+                subtitle: 'Use um dicionário de preços e funções com return para fechar a conta!',
+                prompt: `Atue como professor de Python para iniciantes.
+Crie um sistema de Lanchonete usando dicionário e funções com return:
+1. Crie um dicionário cardapio com 4 lanches e seus preços.
+2. Crie uma função def aplicar_cupom(total): que usa return para devolver o valor com 10% de desconto se o total for maior que 30 reais.
+3. Mostre o cardápio com for, peça 2 itens ao cliente, some os valores buscando no dicionário com .get() e exiba o total final.
+4. Máximo 35 linhas, comentários em português.`,
+                steps: [
+                    'Clique em "📋 Copiar Prompt" e envie para a IA.',
+                    'No VS Code, crie o arquivo <code>missao_lanchonete.py</code>.',
+                    'Cole o código, salve (<code>Ctrl + S</code>) e execute ▶️!'
+                ],
+                questions: [
+                    'Como o <code>.get()</code> evita que o programa quebre se o cliente digitar um lanche que não existe?',
+                    'Qual valor o comando <code>return</code> devolve na função de cupom?'
+                ]
+            },
+            ods_motor: {
+                badge: '🌍 MISSÃO C — MOTOR DO PROJETO ODS DA DUPLA',
+                badgeBg: 'rgba(52,211,153,.15)',
+                badgeColor: '#34d399',
+                badgeBorder: 'rgba(52,211,153,.4)',
+                title: 'Base de Dados em Lista de Dicionários + Funções',
+                subtitle: 'Prepare o coração lógico do aplicativo que sua dupla vai transformar em Flet na Aula 05!',
+                prompt: `Atue como mentor de projetos em Python.
+Crie um sistema de cadastro usando Lista de Dicionários e Funções (def):
+1. Crie uma lista vazia registros = [].
+2. Crie uma função def adicionar_registro(titulo, categoria, valor): que cria um dicionário com essas 3 chaves e faz .append() na lista registros.
+3. Crie uma função def listar_registros(): que percorre a lista com for e mostra todos os dicionários cadastrados.
+4. Crie um menu while True com 1-Cadastrar | 2-Listar todos | 3-Sair, protegido com try/except.
+5. Máximo 38 linhas, comentários em português.`,
+                steps: [
+                    'Clique em "📋 Copiar Prompt" e envie para a IA.',
+                    'No VS Code, crie o arquivo <code>motor_projeto.py</code>.',
+                    'Teste com a sua dupla: esse código será a base do app Flet da próxima aula!'
+                ],
+                questions: [
+                    'Como cada registro é guardado dentro da lista <code>registros</code>?',
+                    'Por que separar em funções vai facilitar quando colocarmos botões visuais na próxima aula?'
+                ]
+            }
+        };
+
+        function escapeHtml(str) {
+            return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        window.openMissionModal = function(key) {
+            var data = missionData[key];
+            if (!data) return;
+            missionBody.innerHTML = `
+                <div style="display:inline-block;background:${data.badgeBg};color:${data.badgeColor};border:1px solid ${data.badgeBorder};padding:4px 14px;border-radius:100px;font-size:.73rem;font-weight:800;margin-bottom:10px">${data.badge}</div>
+                <h3 style="font-size:1.25rem;color:#f8fafc;margin-bottom:4px">${data.title}</h3>
+                <p style="font-size:.83rem;color:#94a3b8;margin-bottom:16px">${data.subtitle}</p>
+                <div style="background:rgba(0,0,0,.5);border:1px solid rgba(0,229,255,.3);border-radius:12px;padding:14px 16px;margin-bottom:16px">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                        <span style="font-size:.75rem;font-weight:800;color:#00e5ff;text-transform:uppercase">🤖 Prompt para copiar e colar na IA:</span>
+                        <button id="copyPromptBtn" style="background:rgba(0,229,255,.15);border:1px solid rgba(0,229,255,.4);color:#00e5ff;padding:4px 12px;border-radius:6px;font-size:.73rem;font-weight:700;cursor:pointer">📋 Copiar Prompt</button>
+                    </div>
+                    <pre style="font-family:'JetBrains Mono',monospace;font-size:.78rem;color:#a7f3d0;white-space:pre-wrap;line-height:1.6;margin:0">${escapeHtml(data.prompt)}</pre>
+                </div>
+                <div class="content-box tip-box" style="padding:14px;margin-bottom:14px">
+                    <h4 style="font-size:.85rem;margin-bottom:8px">🚀 Como fazer no VS Code:</h4>
+                    <ol style="font-size:.8rem;color:#cbd5e1;line-height:1.8;padding-left:18px;margin:0">
+                        ${data.steps.map(function(s) { return '<li>' + s + '</li>'; }).join('')}
+                    </ol>
+                </div>
+                <div style="background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:12px;padding:12px 16px">
+                    <h4 style="font-size:.82rem;color:#f59e0b;margin-bottom:6px">🕵️ Desafio Detetive:</h4>
+                    <ul style="font-size:.78rem;color:#cbd5e1;line-height:1.6;padding-left:16px;margin:0">
+                        ${data.questions.map(function(q) { return '<li>' + q + '</li>'; }).join('')}
+                    </ul>
+                </div>
+            `;
+            missionModal.style.display = 'flex';
+            var copyBtn = document.getElementById('copyPromptBtn');
+            if (copyBtn) {
+                copyBtn.addEventListener('click', function() {
+                    navigator.clipboard.writeText(data.prompt).then(function() {
+                        copyBtn.textContent = '✅ Copiado!';
+                        setTimeout(function() { copyBtn.textContent = '📋 Copiar Prompt'; }, 2000);
+                    });
+                });
+            }
+        };
+
+        function closeMissionModal() {
+            missionModal.style.display = 'none';
+            missionBody.innerHTML = '';
+        }
+        if (missionClose) missionClose.addEventListener('click', closeMissionModal);
+        if (missionModal) {
+            missionModal.addEventListener('click', function(e) {
+                if (e.target === missionModal) closeMissionModal();
+            });
+        }
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && missionModal.style.display === 'flex') closeMissionModal();
+        });
+    })();
+    </script>
 </body>
 </html>

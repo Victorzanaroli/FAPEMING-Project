@@ -80,12 +80,12 @@
         <!-- SLIDE 1 — CAPA DA AULA 03 -->
         <section class="slide active">
             <div class="slide-header">
-                <span class="slide-step">MÓDULO 03 • BLINDAGEM DE ERROS E LAÇOS DE REPETIÇÃO</span>
-                <h1 class="slide-title">Repetir Sem Cansar &amp; Defender de Erros</h1>
-                <p class="slide-subtitle">Tratamento de Exceções (<code>try/except</code>) e Repetições Automáticas (<code>while</code> e <code>for</code>)</p>
+                <span class="slide-step">MÓDULO 03 • BLINDAGEM DE ERROS, LAÇOS DE REPETIÇÃO E LISTAS</span>
+                <h1 class="slide-title">Blindar, Repetir &amp; Guardar Coleções</h1>
+                <p class="slide-subtitle">Tratamento de Exceções (<code>try/except</code>), Laços (<code>while</code> e <code>for</code>) e Estruturas de Dados (<code>Listas []</code>)</p>
             </div>
             <div class="slide-body">
-                <div class="pillar-grid">
+                <div class="pillar-grid" style="grid-template-columns:repeat(4,1fr);gap:14px">
                     <div class="pillar-card" style="border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.06)">
                         <div class="pillar-icon">🛡️</div>
                         <div class="pillar-name">try / except</div>
@@ -99,7 +99,12 @@
                     <div class="pillar-card" style="border-color:rgba(16,185,129,.4)">
                         <div class="pillar-icon">🚀</div>
                         <div class="pillar-name" style="color:#34d399">for + range()</div>
-                        <div class="pillar-label">Repete com contagem exata e programada (ex: contagem regressiva ou 3 tentativas).</div>
+                        <div class="pillar-label">Repete com contagem exata e programada ou percorre coleções inteiras automaticamente.</div>
+                    </div>
+                    <div class="pillar-card" style="border-color:rgba(245,158,11,.45);background:rgba(245,158,11,.06)">
+                        <div class="pillar-icon">📋</div>
+                        <div class="pillar-name" style="color:#fbbf24">Listas [ ]</div>
+                        <div class="pillar-label">Guarda dezenas de itens em uma única variável com <code>.append()</code>, <code>.remove()</code>, <code>.pop()</code> e <code>len()</code>!</div>
                     </div>
                 </div>
                 <div style="text-align:center;margin-top:12px;font-size:.8rem;color:#94a3b8">
@@ -494,57 +499,279 @@
             </div>
         </section>
 
-        <!-- SLIDE 9 — BLOCO 3: ENGENHARIA REVERSA (DETETIVE DE CÓDIGO) -->
+        <!-- SLIDE 12 — TÓPICO 4 • LISTAS BÁSICO (EXPLICAÇÃO 1/2): CONCEITO E ÍNDICES BASE 0 -->
         <section class="slide">
             <div class="slide-header">
-                <span class="step-badge">🔍 Bloco 3 — Engenharia Reversa (Missão Detetive)</span>
-                <h2 class="slide-title">Analisando o "Arcade Passatempo"</h2>
-                <p class="slide-subtitle">Descubra onde o loop se repete, onde o erro é tratado e quando o jogo acaba!</p>
+                <span class="step-badge">📋 Tópico 4 • Listas — Explicação Básica (1/2)</span>
+                <h2 class="slide-title">O Problema das 30 Variáveis &amp; Índices Base 0</h2>
+                <p class="slide-subtitle">Em vez de criar <code>aluno1</code>, <code>aluno2</code>... guardamos tudo em uma única lista com colchetes <code>[ ]</code>!</p>
             </div>
             <div class="slide-body">
                 <div class="grid-2" style="gap:16px;align-items:start">
-                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:12px 14px">
-                        <div class="prompt-code" style="font-size:.84rem;line-height:1.5;padding:10px 14px">
-<span class="kw">vidas</span> = <span class="num">3</span>
-<span class="kw">pontos</span> = <span class="num">0</span>
-<span class="fn">print</span>(<span class="str">"🎮 BEM-VINDO AO DESAFIO DA SORTE!"</span>)
-
-<span class="kw">while</span> vidas &gt; <span class="num">0</span>:
-    <span class="fn">print</span>(<span class="str">f"❤️ Vidas: <span class="kw">{vidas}</span> | ⭐ Pontos: <span class="kw">{pontos}</span>"</span>)
-    <span class="kw">try</span>:
-        <span class="kw">chute</span> = <span class="fn">int</span>(<span class="fn">input</span>(<span class="str">"Adivinhe o número (1 a 5): "</span>))
-        <span class="kw">if</span> chute &lt; <span class="num">1</span> <span class="kw">or</span> chute &gt; <span class="num">5</span>:
-            <span class="fn">print</span>(<span class="str">"⚠️ Fora do intervalo (1 a 5)!"</span>)
-            <span class="kw">continue</span>
-        <span class="kw">if</span> chute == <span class="num">3</span>:
-            <span class="fn">print</span>(<span class="str">"🎉 ACERTOU! +100 pontos!"</span>)
-            pontos += <span class="num">100</span>
-        <span class="kw">else</span>:
-            <span class="fn">print</span>(<span class="str">"❌ Errou! Perdeu 1 vida."</span>)
-            vidas -= <span class="num">1</span>
-    <span class="kw">except</span> <span class="fn">ValueError</span>:
-        <span class="fn">print</span>(<span class="str">"🚨 Digite apenas números inteiros!"</span>)
-
-<span class="fn">print</span>(<span class="str">f"💥 GAME OVER! Pontuação: <span class="kw">{pontos}</span>"</span>)
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="content-box warn-box" style="padding:12px 14px">
+                            <h4 style="font-size:.88rem;margin-bottom:4px">😫 Sem Lista (Impossível escalar)</h4>
+                            <div class="prompt-code" style="font-size:.82rem;line-height:1.5;padding:8px 12px">
+<span class="kw">aluno1</span> = <span class="str">"Ana"</span>
+<span class="kw">aluno2</span> = <span class="str">"Bruno"</span>
+<span class="kw">aluno3</span> = <span class="str">"Carla"</span> <span class="cm"># Imagina 300 alunos!</span>
+                            </div>
+                        </div>
+                        <div class="content-box tip-box" style="padding:12px 14px">
+                            <h4 style="font-size:.88rem;margin-bottom:4px">🎉 Com Lista (Tudo em 1 variável!)</h4>
+                            <div class="prompt-code" style="font-size:.86rem;line-height:1.65;padding:10px 12px">
+<span class="kw">alunos</span> = [<span class="str">"Ana"</span>, <span class="str">"Bruno"</span>, <span class="str">"Carla"</span>]
+<span class="fn">print</span>(alunos[<span class="num">0</span>])  <span class="cm"># → Ana (1º item!)</span>
+<span class="fn">print</span>(alunos[<span class="num">2</span>])  <span class="cm"># → Carla (3º item!)</span>
+<span class="fn">print</span>(alunos[<span class="num">-1</span>]) <span class="cm"># → Carla (último item!)</span>
+                            </div>
                         </div>
                     </div>
-                    <div style="display:flex;flex-direction:column;gap:12px">
-                        <div class="engage-label" style="margin-bottom:4px">❓ Perguntas para a Turma</div>
-                        <div class="content-box" style="padding:14px 16px;font-size:.94rem">
-                            <strong>1. O que acontece se o jogador digitar <code>"três"</code> por extenso? Ele perde uma vida?</strong>
-                        </div>
-                        <div class="content-box" style="padding:14px 16px;font-size:.94rem">
-                            <strong>2. Qual linha do código impede que o jogador perca vida se digitar o número <code>9</code>?</strong>
-                        </div>
-                        <div class="content-box" style="padding:14px 16px;font-size:.94rem">
-                            <strong>3. O que precisa acontecer no jogo para o laço <code>while</code> parar de rodar?</strong>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                        <div class="content-box" style="padding:14px 16px">
+                            <h4 style="color:#fbbf24;font-size:.92rem;margin-bottom:8px">🔢 Regra de Ouro: A Contagem Começa no ZERO!</h4>
+                            <table class="stress-table" style="margin-bottom:10px">
+                                <thead>
+                                    <tr><th>Posição Humana</th><th>Índice Python</th><th>Valor Guardado</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td>1º elemento</td><td><code style="color:#00e5ff;font-weight:700">alunos[0]</code></td><td><code>"Ana"</code></td></tr>
+                                    <tr><td>2º elemento</td><td><code style="color:#00e5ff;font-weight:700">alunos[1]</code></td><td><code>"Bruno"</code></td></tr>
+                                    <tr><td>3º elemento</td><td><code style="color:#00e5ff;font-weight:700">alunos[2]</code></td><td><code>"Carla"</code></td></tr>
+                                </tbody>
+                            </table>
+                            <div style="font-size:.84rem;color:#fca5a5;background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);padding:8px 12px;border-radius:8px">
+                                🚨 <strong>Cuidado com o <code>IndexError</code>:</strong> Se a lista tem 3 itens (índices 0, 1 e 2), tentar acessar <code>alunos[3]</code> quebra o programa!
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 9 — INTERVALO -->
+        <!-- SLIDE 13 — TÓPICO 4 • LISTAS BÁSICO (EXPLICAÇÃO 2/2): 4 MÉTODOS ESSENCIAIS -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge">📋 Tópico 4 • Listas — Explicação Básica (2/2)</span>
+                <h2 class="slide-title">Os 4 Comandos Essenciais de Toda Lista</h2>
+                <p class="slide-subtitle">Adicionar no fim (<code>.append</code>), remover por nome (<code>.remove</code>), remover por posição (<code>.pop</code>) e medir tamanho (<code>len</code>)</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div style="display:flex;flex-direction:column;gap:8px">
+                        <div class="summary-item" style="padding:10px 14px">
+                            <span class="summary-check" style="font-size:1.1rem">➕</span>
+                            <div class="summary-text"><strong>lista.append(item) → Adiciona no FINAL</strong>Ex: <code>playlist.append("Imagine")</code></div>
+                        </div>
+                        <div class="summary-item" style="padding:10px 14px">
+                            <span class="summary-check" style="font-size:1.1rem">🗑️</span>
+                            <div class="summary-text"><strong>lista.remove(valor) → Remove pelo NOME</strong>Ex: <code>playlist.remove("Imagine")</code></div>
+                        </div>
+                        <div class="summary-item" style="padding:10px 14px">
+                            <span class="summary-check" style="font-size:1.1rem">🎯</span>
+                            <div class="summary-text"><strong>lista.pop(indice) → Remove pela POSIÇÃO</strong>Ex: <code>playlist.pop(0)</code> (remove o 1º da fila)</div>
+                        </div>
+                        <div class="summary-item" style="padding:10px 14px">
+                            <span class="summary-check" style="font-size:1.1rem">📏</span>
+                            <div class="summary-text"><strong>len(lista) → Conta quantos itens existem</strong>Ex: <code>print(len(playlist))</code></div>
+                        </div>
+                    </div>
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:14px 16px">
+                        <span class="engage-label" style="margin-bottom:6px">⌨️ Live Coding — playlist.py</span>
+                        <div class="prompt-code" style="font-size:.84rem;line-height:1.68;padding:10px 14px">
+<span class="kw">playlist</span> = [] <span class="cm"># Começa vazia</span>
+
+<span class="cm"># Adicionando com .append()</span>
+playlist.<span class="fn">append</span>(<span class="str">"Bohemian Rhapsody"</span>)
+playlist.<span class="fn">append</span>(<span class="str">"Blinding Lights"</span>)
+playlist.<span class="fn">append</span>(<span class="str">"Evidências"</span>)
+
+<span class="fn">print</span>(<span class="str">f"Total: <span class="kw">{len(playlist)}</span> músicas"</span>)
+<span class="fn">print</span>(<span class="str">"Primeira da fila:"</span>, playlist[<span class="num">0</span>])
+
+<span class="cm"># Removendo pelo nome vs pela posição</span>
+playlist.<span class="fn">remove</span>(<span class="str">"Blinding Lights"</span>)
+<span class="kw">tocando</span> = playlist.<span class="fn">pop</span>(<span class="num">0</span>)
+<span class="fn">print</span>(<span class="str">"Tocando agora:"</span>, tocando)
+<span class="fn">print</span>(<span class="str">"Restante na fila:"</span>, playlist)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 14 — TÓPICO 4 • LISTAS BÁSICO (EXERCÍCIO 3/3): MINHAS COMIDAS FAVORITAS -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(16,185,129,.18);border-color:#10b981;color:#6ee7b7">⚡ Tópico 4 • Exercício Básico de Lista (3/3) — Mão na Massa!</span>
+                <h2 class="slide-title">Treino Relâmpago: Minhas Comidas Favoritas</h2>
+                <p class="slide-subtitle">Pratique criar uma lista vazia, adicionar com <code>.append()</code>, medir com <code>len()</code> e remover com <code>.remove()</code>!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="border-color:rgba(16,185,129,.45);background:rgba(16,185,129,.06);padding:16px">
+                        <h4 style="color:#34d399;font-size:1rem;margin-bottom:8px">🍕 Siga os 5 passos no seu editor:</h4>
+                        <ol style="font-size:.88rem;color:#e2e8f0;line-height:1.85;padding-left:20px;margin:0">
+                            <li>Crie uma lista vazia chamada <code>comidas = []</code></li>
+                            <li>Use <code>comidas.append(...)</code> <strong>3 vezes</strong> para adicionar suas 3 comidas favoritas</li>
+                            <li>Mostre a lista completa com <code>print(comidas)</code> e o tamanho com <code>len(comidas)</code></li>
+                            <li>Mostre apenas a sua comida <strong>número 1</strong> usando <code>comidas[0]</code></li>
+                            <li>Remova uma comida com <code>.remove()</code> e imprima a lista atualizada!</li>
+                        </ol>
+                    </div>
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:16px">
+                        <h4 style="font-size:.86rem;color:#94a3b8;margin-bottom:8px;text-transform:uppercase">Esqueleto para completar:</h4>
+                        <div class="prompt-code" style="font-size:.86rem;line-height:1.75;padding:12px 14px">
+<span class="kw">comidas</span> = []
+
+comidas.<span class="fn">append</span>(<span class="str">"Pizza"</span>)
+comidas.<span class="fn">append</span>(<span class="str">"Lasanha"</span>)
+comidas.<span class="fn">append</span>(<span class="str">"Açaí"</span>)
+
+<span class="fn">print</span>(<span class="str">"Cardápio:"</span>, comidas)
+<span class="fn">print</span>(<span class="str">"Quantidade:"</span>, <span class="fn">len</span>(comidas))
+<span class="fn">print</span>(<span class="str">"Minha favorita (índice 0):"</span>, comidas[<span class="num">0</span>])
+
+comidas.<span class="fn">remove</span>(<span class="str">"Lasanha"</span>)
+<span class="fn">print</span>(<span class="str">"Cardápio atualizado:"</span>, comidas)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 15 — TÓPICO 4 • LISTAS AVANÇADO (EXPLICAÇÃO 1/2): USANDO FOR NA LISTA -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(245,158,11,.16);border-color:#f59e0b;color:#fcd34d">🔥 Tópico 4 • Listas Avançado — Explicação (1/2)</span>
+                <h2 class="slide-title">Casamento Perfeito: Percorrendo Listas com <code>for</code></h2>
+                <p class="slide-subtitle">Em vez de dar <code>print(lista[0])</code>, <code>print(lista[1])</code>... o laço <code>for</code> visita cada item sozinho!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:18px;align-items:start">
+                    <div class="content-box" style="border-color:rgba(0,229,255,.35)">
+                        <h4 style="color:#00e5ff;font-size:.95rem;margin-bottom:8px">1️⃣ Forma Direta: <code>for item in lista:</code></h4>
+                        <p style="font-size:.84rem;color:#cbd5e1;margin-bottom:8px">A variável do <code>for</code> assume o valor de cada elemento da lista, um por volta:</p>
+                        <div class="prompt-code" style="font-size:.86rem;line-height:1.75;padding:10px 14px">
+<span class="kw">jogos</span> = [<span class="str">"Minecraft"</span>, <span class="str">"Roblox"</span>, <span class="str">"Valorant"</span>]
+
+<span class="kw">for</span> jogo <span class="kw">in</span> jogos:
+    <span class="fn">print</span>(<span class="str">f"🎮 Eu curto jogar: <span class="kw">{jogo}</span>"</span>)
+                        </div>
+                        <div style="margin-top:8px;font-size:.8rem;color:#94a3b8">
+                            💡 Funciona se a lista tiver 3 itens ou 3.000 itens!
+                        </div>
+                    </div>
+                    <div class="content-box" style="border-color:rgba(245,158,11,.4)">
+                        <h4 style="color:#fbbf24;font-size:.95rem;margin-bottom:8px">2️⃣ Com Posição Numerada: <code>enumerate()</code></h4>
+                        <p style="font-size:.84rem;color:#cbd5e1;margin-bottom:8px">Quer mostrar o número da posição junto com o nome? Use <code>enumerate()</code> com <code>i + 1</code>:</p>
+                        <div class="prompt-code" style="font-size:.86rem;line-height:1.75;padding:10px 14px">
+<span class="kw">jogos</span> = [<span class="str">"Minecraft"</span>, <span class="str">"Roblox"</span>, <span class="str">"Valorant"</span>]
+
+<span class="kw">for</span> i, jogo <span class="kw">in</span> <span class="fn">enumerate</span>(jogos):
+    <span class="fn">print</span>(<span class="str">f"<span class="kw">{i + 1}</span>º lugar: <span class="kw">{jogo}</span>"</span>)
+<span class="cm"># Mostra: 1º lugar: Minecraft, 2º lugar: Roblox...</span>
+                        </div>
+                        <div style="margin-top:8px;font-size:.8rem;color:#fcd34d">
+                            🎯 Somamos <code>i + 1</code> para o usuário ver 1, 2, 3 em vez de 0, 1, 2!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 16 — TÓPICO 4 • LISTAS AVANÇADO (EXPLICAÇÃO 2/2): FOR + IF/ELSE + IN NA LISTA -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(245,158,11,.16);border-color:#f59e0b;color:#fcd34d">🔥 Tópico 4 • Listas Avançado — Explicação (2/2)</span>
+                <h2 class="slide-title">Combinando Tudo: <code>for</code> + <code>if / else</code> + <code>lista</code></h2>
+                <p class="slide-subtitle">Podemos preencher uma lista com <code>for</code>, filtrar itens com <code>if/else</code> e testar se algo está na lista com <code>in</code>!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:12px 14px">
+                        <span class="engage-label" style="margin-bottom:6px">🔍 Exemplo 1: Filtrando Notas com for + if/else</span>
+                        <div class="prompt-code" style="font-size:.82rem;line-height:1.6;padding:10px 12px">
+<span class="kw">notas</span> = [<span class="num">8.5</span>, <span class="num">4.0</span>, <span class="num">9.0</span>, <span class="num">5.5</span>, <span class="num">7.0</span>]
+<span class="kw">aprovados</span> = []
+
+<span class="kw">for</span> nota <span class="kw">in</span> notas:
+    <span class="kw">if</span> nota &gt;= <span class="num">6.0</span>:
+        <span class="fn">print</span>(<span class="str">f"✅ Nota <span class="kw">{nota}</span>: APROVADO!"</span>)
+        aprovados.<span class="fn">append</span>(nota)
+    <span class="kw">else</span>:
+        <span class="fn">print</span>(<span class="str">f"⚠️ Nota <span class="kw">{nota}</span>: Recuperação"</span>)
+
+<span class="fn">print</span>(<span class="str">f"Total de aprovados: <span class="kw">{len(aprovados)}</span>"</span>)
+                        </div>
+                    </div>
+                    <div class="content-box" style="background:rgba(0,0,0,.45);padding:12px 14px">
+                        <span class="engage-label" style="margin-bottom:6px">🎵 Exemplo 2: Busca Segura com <code>if item in lista:</code></span>
+                        <div class="prompt-code" style="font-size:.82rem;line-height:1.6;padding:10px 12px">
+<span class="kw">playlist</span> = []
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">3</span>):
+    <span class="kw">m</span> = <span class="fn">input</span>(<span class="str">f"Digite a <span class="kw">{i+1}</span>ª música: "</span>)
+    playlist.<span class="fn">append</span>(m)
+
+<span class="kw">busca</span> = <span class="fn">input</span>(<span class="str">"Qual música quer remover? "</span>)
+<span class="cm"># O operador 'in' evita erro se a música não existir!</span>
+<span class="kw">if</span> busca <span class="kw">in</span> playlist:
+    playlist.<span class="fn">remove</span>(busca)
+    <span class="fn">print</span>(<span class="str">"✅ Removida! Nova lista:"</span>, playlist)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"❌ Essa música não está na playlist!"</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 17 — TÓPICO 4 • EXERCÍCIO FINAL INTEGRADOR (FOR + IF/ELSE + LISTA) -->
+        <section class="slide">
+            <div class="slide-header">
+                <span class="step-badge" style="background:rgba(16,185,129,.2);border-color:#10b981;color:#6ee7b7">🏆 Tópico 4 • Exercício Final Integrador (3/3) — Usando Tudo!</span>
+                <h2 class="slide-title">Desafio Mestre: <code>for</code> + <code>if / else</code> + <code>lista</code></h2>
+                <p class="slide-subtitle">Junte tudo que aprendemos hoje em um único programa completo!</p>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2" style="gap:16px;align-items:start">
+                    <div class="content-box" style="border-color:rgba(0,229,255,.4);background:rgba(0,229,255,.05);padding:15px">
+                        <h4 style="color:#00e5ff;font-size:.96rem;margin-bottom:8px">🎯 Missão: Radar de Preços / Notas da Turma</h4>
+                        <ol style="font-size:.85rem;color:#e2e8f0;line-height:1.75;padding-left:18px;margin:0">
+                            <li>Crie uma lista vazia <code>precos = []</code> (ou <code>notas = []</code>).</li>
+                            <li>Use um laço <code>for i in range(4):</code> para pedir 4 valores ao usuário (use <code>try/except</code> para proteger o <code>float(input())</code>) e adicione na lista com <code>.append()</code>.</li>
+                            <li>Depois, percorra a lista com <code>for valor in precos:</code>.</li>
+                            <li>Dentro do <code>for</code>, use <code>if / else</code>: se o valor for maior ou igual a <code>50</code>, mostre <code>"🔥 Item Caro"</code>; senão, mostre <code>"✅ Preço Bom"</code>!</li>
+                        </ol>
+                    </div>
+                    <div class="content-box" style="background:rgba(0,0,0,.48);padding:14px">
+                        <h4 style="font-size:.82rem;color:#94a3b8;margin-bottom:6px;text-transform:uppercase">Modelo Guia (for + try/except + lista + if/else):</h4>
+                        <div class="prompt-code" style="font-size:.8rem;line-height:1.58;padding:10px 12px">
+<span class="kw">precos</span> = []
+
+<span class="cm"># 1. Coletando 4 preços com for + try/except + append</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">4</span>):
+    <span class="kw">try</span>:
+        <span class="kw">p</span> = <span class="fn">float</span>(<span class="fn">input</span>(<span class="str">f"Preço do <span class="kw">{i+1}</span>º item: R$ "</span>))
+        precos.<span class="fn">append</span>(p)
+    <span class="kw">except</span> <span class="fn">ValueError</span>:
+        <span class="fn">print</span>(<span class="str">"⚠️ Valor inválido! Adicionado R$ 0."</span>)
+        precos.<span class="fn">append</span>(<span class="num">0.0</span>)
+
+<span class="cm"># 2. Analisando a lista com for + if/else</span>
+<span class="fn">print</span>(<span class="str">f"\n📊 Analisando <span class="kw">{len(precos)}</span> itens:"</span>)
+<span class="kw">for</span> valor <span class="kw">in</span> precos:
+    <span class="kw">if</span> valor &gt;= <span class="num">50</span>:
+        <span class="fn">print</span>(<span class="str">f"R$ <span class="kw">{valor}</span> → 🔥 Item Caro!"</span>)
+    <span class="kw">else</span>:
+        <span class="fn">print</span>(<span class="str">f"R$ <span class="kw">{valor}</span> → ✅ Preço Bom!"</span>)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SLIDE 18 — INTERVALO -->
         <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">☕ PAUSA</span>
@@ -555,105 +782,105 @@
                 <div style="text-align:center;padding:30px">
                     <div style="font-size:5rem;margin-bottom:16px">☕</div>
                     <div style="font-size:1.3rem;font-weight:700;color:#f8fafc;margin-bottom:10px">Pausa para Intervalo</div>
-                    <div style="font-size:.9rem;color:#94a3b8;max-width:420px;margin:0 auto;line-height:1.6">Quando voltar, você vai usar a <strong style="color:#00e5ff">IA</strong> para criar um programa completo com <code>try/except</code> e laços de repetição no VS Code.</div>
+                    <div style="font-size:.9rem;color:#94a3b8;max-width:460px;margin:0 auto;line-height:1.6">Quando voltar, você vai usar a <strong style="color:#00e5ff">IA</strong> para construir um projeto integrando <code>try/except</code>, laços (<code>while/for</code>) e <code>Listas</code> no VS Code!</div>
                     <div style="margin-top:20px;background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.3);border-radius:12px;padding:14px 24px;display:inline-block">
                         <div style="font-size:.78rem;color:#94a3b8;margin-bottom:4px">DEIXE O VS CODE ABERTO</div>
-                        <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#00e5ff">aula03_loops.py</div>
+                        <div style="font-family:'JetBrains Mono',monospace;font-size:.9rem;color:#00e5ff">aula03_listas_loops.py</div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 10 — BLOCO 4: 3 MISSÕES PRÁTICAS COM IA -->
+        <!-- SLIDE 19 — BLOCO 4: 3 MISSÕES PRÁTICAS COM IA -->
         <section class="slide">
             <div class="slide-header">
-                <span class="step-badge">🤖 Bloco 4 — Desafio do Dia com IA (50 min)</span>
+                <span class="step-badge">🤖 Bloco 4 — Desafio do Dia com IA (45 min)</span>
                 <h2 class="slide-title">Escolha a Sua Missão Prática!</h2>
-                <p class="slide-subtitle">Clique no card da missão escolhida para copiar o Prompt estruturado</p>
+                <p class="slide-subtitle">Clique no card da missão escolhida para copiar o Prompt estruturado (Laços + Listas + Blindagem)</p>
             </div>
             <div class="slide-body">
                 <div class="mission-grid">
-                    <div class="mission-card mission-atm" onclick="openMissionModal('atm')">
-                        <div style="font-size:2rem;margin-bottom:8px">🏧</div>
-                        <h4 style="color:#a78bfa">MISSÃO A — Caixa Eletrônico Blindado</h4>
-                        <p>Menu interativo com <code>while True</code> (Ver Saldo, Sacar, Depositar e Sair) protegido contra erros com <code>try/except</code>.</p>
+                    <div class="mission-card mission-atm" onclick="openMissionModal('carrinho')">
+                        <div style="font-size:2rem;margin-bottom:8px">🛒</div>
+                        <h4 style="color:#a78bfa">MISSÃO A — Carrinho de Compras Blindado</h4>
+                        <p>Menu interativo com <code>while True</code> e <code>lista</code> para Adicionar item (<code>.append</code>), Remover (<code>.remove</code>), Listar com <code>for</code> e Sair!</p>
                         <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(167,139,250,.18);border:1px solid rgba(167,139,250,.4);border-radius:100px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#c4b5fd">✨ Ver Prompt &amp; Instruções 🔍</div>
                     </div>
-                    <div class="mission-card mission-quiz" onclick="openMissionModal('quiz_loop')">
+                    <div class="mission-card mission-quiz" onclick="openMissionModal('ranking')">
                         <div style="font-size:2rem;margin-bottom:8px">🎮</div>
-                        <h4 style="color:#60a5fa">MISSÃO B — O Quiz Implacável</h4>
-                        <p>Game show com 3 perguntas onde o laço <code>while</code> repete a pergunta se o jogador digitar uma opção inválida!</p>
+                        <h4 style="color:#60a5fa">MISSÃO B — Hall da Fama Gamer</h4>
+                        <p>Usa <code>for</code> para cadastrar jogadores na lista, mostra o Top 3 numerado, destaca o campeão (<code>jogadores[0]</code>) e elimina com <code>.pop()</code>!</p>
                         <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(96,165,250,.18);border:1px solid rgba(96,165,250,.4);border-radius:100px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#93c5fd">✨ Ver Prompt &amp; Instruções 🔍</div>
                     </div>
-                    <div class="mission-card mission-health" onclick="openMissionModal('health')">
-                        <div style="font-size:2rem;margin-bottom:8px">❤️‍🩹</div>
-                        <h4 style="color:#34d399">MISSÃO C — Monitor Cardíaco</h4>
-                        <p>Usa laço <code>for</code> para ler 4 medições de batimentos (bpm) com <code>try/except</code>, calcula a média e classifica a saúde.</p>
+                    <div class="mission-card mission-health" onclick="openMissionModal('atm')">
+                        <div style="font-size:2rem;margin-bottom:8px">🏧</div>
+                        <h4 style="color:#34d399">MISSÃO C — Caixa Eletrônico com Extrato em Lista</h4>
+                        <p>Caixa eletrônico protegido com <code>try/except</code> que guarda cada saque e depósito dentro de uma lista <code>extrato = []</code>!</p>
                         <div style="margin-top:12px;display:inline-flex;align-items:center;gap:6px;background:rgba(52,211,153,.18);border:1px solid rgba(52,211,153,.4);border-radius:100px;padding:4px 12px;font-size:.7rem;font-weight:700;color:#6ee7b7">✨ Ver Prompt &amp; Instruções 🔍</div>
                     </div>
                 </div>
                 <div style="text-align:center;margin-top:12px;font-size:.78rem;color:#94a3b8">
-                    💡 <strong>Dica:</strong> Clique em qualquer missão acima para copiar o Prompt e colar no Gemini ou ChatGPT!
+                    💡 <strong>Dica:</strong> Clique em qualquer missão acima para copiar o Prompt e colar no Chat IA ou Gemini!
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 11 — BLOCO 5: QUEBRANDO O CÓDIGO (TESTE DE ESTRESSE) -->
+        <!-- SLIDE 20 — BLOCO 5: QUEBRANDO O CÓDIGO (TESTE DE ESTRESSE) -->
         <section class="slide">
             <div class="slide-header">
                 <span class="step-badge">🔨 Bloco 5 — Operação Destruição (Teste de Estresse)</span>
                 <h2 class="slide-title">Tente Quebrar o Seu Código!</h2>
-                <p class="slide-subtitle">Verifique se o seu <code>try/except</code> e o seu <code>while</code> resistem a entradas malucas</p>
+                <p class="slide-subtitle">Teste os erros mais famosos de Conversão (<code>ValueError</code>) e de Listas (<code>IndexError</code>)</p>
             </div>
             <div class="slide-body">
                 <table class="stress-table">
                     <thead>
-                        <tr><th>Teste</th><th>O que fazer no terminal</th><th>Qual erro o Python dispara?</th><th>Como o seu código reagiu?</th></tr>
+                        <tr><th>Teste</th><th>O que fazer no código / terminal</th><th>Qual erro o Python dispara?</th><th>Como proteger?</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td>1. Texto em Número</td><td>Digitar <code>"dez"</code> no campo numérico</td><td><code style="color:#fca5a5">ValueError</code></td><td>O <code>except</code> mostrou aviso sem fechar o programa?</td></tr>
-                        <tr><td>2. Divisão por Zero</td><td>Tentar dividir um número por <code>0</code></td><td><code style="color:#fca5a5">ZeroDivisionError</code></td><td>Tem proteção ou o programa travou?</td></tr>
-                        <tr><td>3. Enter Vazio</td><td>Apertar <kbd>Enter</kbd> sem digitar nada</td><td><code style="color:#fca5a5">ValueError</code></td><td>O laço <code>while</code> pediu para digitar novamente?</td></tr>
+                        <tr><td>1. Texto em Número</td><td>Digitar <code>"dez"</code> dentro de <code>int(input())</code></td><td><code style="color:#fca5a5">ValueError</code></td><td>Envolver com <code>try / except ValueError</code></td></tr>
+                        <tr><td>2. Gaveta Fantasma</td><td>Acessar <code>lista[99]</code> numa lista de 3 itens</td><td><code style="color:#fca5a5">IndexError</code></td><td>Checar <code>len(lista)</code> ou usar <code>try/except</code></td></tr>
+                        <tr><td>3. Remover Inexistente</td><td>Fazer <code>lista.remove("X")</code> quando <code>"X"</code> não está lá</td><td><code style="color:#fca5a5">ValueError</code></td><td>Testar antes com <code>if "X" in lista:</code></td></tr>
+                        <tr><td>4. Índice Negativo</td><td>Testar <code>print(lista[-1])</code></td><td><code style="color:#6ee7b7">Funciona! (Sem erro)</code></td><td>Mostra o <strong>último item</strong> da lista!</td></tr>
                     </tbody>
                 </table>
                 <div class="content-box accent-box" style="margin-top:12px;padding:12px 16px">
                     <h4 style="font-size:.86rem;margin-bottom:4px">🤖 Prompt de Debugging para usar na IA se aparecer erro vermelho:</h4>
-                    <div class="prompt-code" style="font-size:.76rem;padding:8px 12px">"Meu código Python gerou o seguinte erro no terminal: [COLE O ERRO AQUI]. Explique em 2 frases o que causou a falha e como adicionar um try/except para resolver."</div>
+                    <div class="prompt-code" style="font-size:.76rem;padding:8px 12px">"Meu código Python com listas e laços gerou este erro: [COLE O ERRO AQUI]. Explique em 2 frases por que aconteceu e como corrigir."</div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 12 — BLOCO 6: RESUMÃO DA AULA 03 -->
+        <!-- SLIDE 21 — BLOCO 6: RESUMÃO DA AULA 03 -->
         <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">BLOCO 6 • SÍNTESE DO DIA</span>
-                <h2 class="slide-title">Sintaxes Dominadas na Aula 03</h2>
+                <h2 class="slide-title">Tudo que Dominamos na Aula 03!</h2>
                 <p class="slide-subtitle">Salve seus arquivos (<code>Ctrl + S</code>) na pasta da Aula 03!</p>
             </div>
             <div class="slide-body">
                 <div class="grid-2" style="gap:14px">
                     <div style="display:flex;flex-direction:column;gap:8px">
-                        <div class="summary-item"><span class="summary-check">🛡️</span><div class="summary-text"><strong>try / except → Escudo Anti-Crash</strong>Tenta rodar o código e captura erros sem fechar o programa</div></div>
-                        <div class="summary-item"><span class="summary-check">⚠️</span><div class="summary-text"><strong>ValueError → Erro de Conversão</strong>Acontece quando tentamos converter letras em <code>int()</code> ou <code>float()</code></div></div>
-                        <div class="summary-item"><span class="summary-check">🔁</span><div class="summary-text"><strong>while condicao: → Repetição Condicional</strong>Repete o bloco enquanto a condição continuar verdadeira</div></div>
-                        <div class="summary-item"><span class="summary-check">🛑</span><div class="summary-text"><strong>break → Parada Imediata</strong>Encerra o laço <code>while</code> ou <code>for</code> na mesma hora</div></div>
-                        <div class="summary-item"><span class="summary-check">🚀</span><div class="summary-text"><strong>for i in range(início, fim): → Repetição Contada</strong>Executa um número programado de repetições</div></div>
+                        <div class="summary-item"><span class="summary-check">🛡️</span><div class="summary-text"><strong>try / except ValueError → Escudo Anti-Crash</strong>Impede que o programa feche se o usuário digitar texto em campo numérico</div></div>
+                        <div class="summary-item"><span class="summary-check">🔁</span><div class="summary-text"><strong>while &amp; break → Repetição Condicional</strong>Repete enquanto a condição for verdadeira e para na hora com <code>break</code></div></div>
+                        <div class="summary-item"><span class="summary-check">📋</span><div class="summary-text"><strong>lista = [ ] → Coleção com Índice Base 0</strong><code>.append()</code> adiciona, <code>.remove()</code> apaga por valor, <code>.pop()</code> por posição e <code>len()</code> conta</div></div>
+                        <div class="summary-item"><span class="summary-check">🚀</span><div class="summary-text"><strong>for item in lista: → Percorre e Filtra</strong>Combinado com <code>if/else</code> e <code>in</code>, analisa qualquer lista automaticamente!</div></div>
                     </div>
                     <div style="display:flex;flex-direction:column;gap:12px">
                         <div class="content-box tip-box" style="padding:14px">
-                            <h4 style="font-size:.86rem;margin-bottom:6px">🚀 Próxima Aula (Aula 04):</h4>
-                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5"><strong>Estruturas de Dados: Listas (<code>list</code>)</strong> — Vamos aprender a guardar dezenas de itens, músicas ou produtos dentro de uma única variável!</p>
+                            <h4 style="font-size:.86rem;margin-bottom:6px">🚀 Próxima Aula (Aula 04 — 18/11):</h4>
+                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5"><strong>Funções (<code>def</code> / <code>return</code>) &amp; Dicionários (<code>dict</code>)</strong> — Vamos aprender a criar nossos próprios comandos reutilizáveis e guardar dados com etiquetas <code>{chave: valor}</code>!</p>
                         </div>
                         <div class="content-box accent-box" style="padding:14px">
                             <h4 style="font-size:.86rem;margin-bottom:6px">🏠 Tarefa de Casa no Próximo Slide!</h4>
-                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5">5 questões rápidas sobre <code>try/except</code>, <code>while</code> e <code>for</code> + 1 desafio prático simples para colar no Classroom!</p>
+                            <p style="font-size:.8rem;color:#cbd5e1;line-height:1.5">5 questões rápidas sobre <code>try/except</code>, <code>while/for</code> e <code>Listas</code> + 1 desafio prático para enviar no Classroom!</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SLIDE 13 — CAPA / TRAVA ANTI-SPOILER DA TAREFA DE CASA DA AULA 03 -->
+        <!-- SLIDE 22 — CAPA / TRAVA ANTI-SPOILER DA TAREFA DE CASA DA AULA 03 -->
         <section class="slide">
             <div class="slide-header">
                 <span class="slide-step">🏠 ATIVIDADE PARA CASA • PROTEÇÃO ANTI-SPOILER</span>
@@ -664,9 +891,9 @@
                 <div class="hw-gate-card">
                     <div class="hw-gate-icon">🔒🛡️</div>
                     <span class="tr-badge-cyan">5 QUESTÕES DE MÚLTIPLA ESCOLHA + 1 PRÁTICA DE CÓDIGO</span>
-                    <h3 style="font-size:1.45rem;color:#fff;font-weight:800;">Missão de Casa: Blindagem &amp; Loops</h3>
+                    <h3 style="font-size:1.45rem;color:#fff;font-weight:800;">Missão de Casa: Blindagem, Loops &amp; Listas</h3>
                     <p style="font-size:0.92rem;color:#cbd5e1;max-width:600px;line-height:1.6;">
-                        Entre com seu <strong>Nome Completo e Senha</strong> para responder às 5 questões sobre <code>try/except</code>, <code>while</code> e <code>for</code>, testar seu código no <strong>PC (VS Code)</strong> ou <strong>Celular (Pydroid 3)</strong> e enviar para correção!
+                        Entre com seu <strong>Nome Completo e Senha</strong> para responder às 5 questões sobre <code>try/except</code>, <code>while/for</code> e <code>Listas</code>, testar seu código no <strong>PC (VS Code)</strong> ou <strong>Celular (Pydroid 3)</strong> e enviar para correção!
                     </p>
                     <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
                         <button type="button" class="hw-gate-btn" data-open-homework="aula03">
@@ -687,7 +914,7 @@
 
     <!-- Bottom Navigation -->
     <footer class="bottom-nav">
-        <div class="slide-counter" id="slideCounter">1 / 17</div>
+        <div class="slide-counter" id="slideCounter">1 / 22</div>
         <div class="nav-buttons">
             <button class="nav-btn" id="prevBtn">← Anterior <span class="key-hint">←</span></button>
             <button class="nav-btn primary" id="nextBtn">Próximo → <span class="key-hint">→</span></button>
@@ -711,77 +938,75 @@
         var missionClose = document.getElementById('missionModalClose');
 
         var missionData = {
-            atm: {
-                badge: '🏧 MISSÃO A — CAIXA ELETRÔNICO BLINDADO',
+            carrinho: {
+                badge: '🛒 MISSÃO A — CARRINHO DE COMPRAS BLINDADO',
                 badgeBg: 'rgba(167,139,250,.15)',
                 badgeColor: '#a78bfa',
                 badgeBorder: 'rgba(167,139,250,.4)',
-                title: 'Simulador de Caixa Eletrônico Seguro',
-                subtitle: 'Crie um menu bancário com while True e proteção contra erros usando try/except!',
+                title: 'Gerenciador de Compras com Lista e While',
+                subtitle: 'Crie um menu interativo que adiciona, remove e lista produtos sem quebrar!',
                 prompt: `Atue como professor de Python para iniciantes.
-Crie um programa de Caixa Eletrônico simples no terminal do VS Code.
-Regras:
-1. O programa deve ter um saldo inicial de R$ 500,00.
-2. Use um laço while True com o menu: 1-Ver Saldo | 2-Sacar | 3-Depositar | 4-Sair (usando break).
-3. Use try/except ValueError para tratar entradas não numéricas no saque e depósito.
-4. Não permita sacar mais do que o saldo disponível (use if/else para isso).
-5. Máximo 30 linhas, sem bibliotecas externas, com comentários explicativos em português.`,
+Crie um programa de Lista de Compras no terminal usando lista, while, for e if/else:
+1. Comece com uma lista vazia: carrinho = []
+2. Use um laço while True com menu: 1-Adicionar item (.append) | 2-Remover item (.remove, verificando antes com if item in carrinho) | 3-Ver carrinho numerado (usando for e len) | 4-Sair (break).
+3. Use try/except ValueError para ler a opção do menu com segurança.
+4. Máximo 35 linhas, sem bibliotecas externas, com comentários em português.`,
                 steps: [
-                    'Clique em "📋 Copiar Prompt" e cole no Gemini ou ChatGPT.',
-                    'No VS Code, crie o arquivo <code>missao_caixa.py</code>.',
+                    'Clique em "📋 Copiar Prompt" e cole no Chat IA ou Gemini.',
+                    'No VS Code, crie o arquivo <code>missao_carrinho.py</code>.',
                     'Cole o código gerado, salve (<code>Ctrl + S</code>) e teste no terminal ▶️!'
                 ],
                 questions: [
-                    'Onde está o <code>try/except</code> que impede o programa de travar se alguém digitar letras?',
-                    'Qual comando faz o programa sair do <code>while True</code> quando o usuário escolhe a opção 4?'
+                    'Como o <code>if item in carrinho:</code> evita que o <code>.remove()</code> dê erro?',
+                    'Qual comando mostra quantos itens existem no carrinho?'
                 ]
             },
-            quiz_loop: {
-                badge: '🎮 MISSÃO B — O QUIZ IMPLACÁVEL',
+            ranking: {
+                badge: '🎮 MISSÃO B — HALL DA FAMA GAMER',
                 badgeBg: 'rgba(96,165,250,.15)',
                 badgeColor: '#60a5fa',
                 badgeBorder: 'rgba(96,165,250,.4)',
-                title: 'Game Show com Validação de Resposta',
-                subtitle: 'Crie um quiz que repete a pergunta enquanto o jogador não digitar uma alternativa válida!',
-                prompt: `Atue como um apresentador animado de game show.
-Crie um programa Python para rodar no terminal do VS Code com as regras:
-1. Faça 3 perguntas de múltipla escolha (A, B, C, D) para o usuário.
-2. Para cada pergunta, use um laço while que só aceita as letras A, B, C ou D.
-3. Se o usuário digitar algo diferente, avise e repita a pergunta até ele digitar uma opção válida.
-4. Ao final, use if/elif/else para dar um troféu de acordo com a nota (3 acertos, 2 acertos, etc.).
-5. Máximo 35 linhas, sem bibliotecas externas, com comentários em português.`,
-                steps: [
-                    'Clique em "📋 Copiar Prompt" e envie para a IA.',
-                    'No VS Code, crie o arquivo <code>missao_quiz_loop.py</code>.',
-                    'Cole o código, salve (<code>Ctrl + S</code>) e execute ▶️!'
-                ],
-                questions: [
-                    'O que acontece se você digitar a letra "Z" na hora de responder?',
-                    'Como o <code>while</code> sabe que você finalmente digitou A, B, C ou D?'
-                ]
-            },
-            health: {
-                badge: '❤️‍🩹 MISSÃO C — MONITOR DE SAÚDE PESSOAL',
-                badgeBg: 'rgba(52,211,153,.15)',
-                badgeColor: '#34d399',
-                badgeBorder: 'rgba(52,211,153,.4)',
-                title: 'Assistente de Monitoramento Cardíaco',
-                subtitle: 'Use laço for e try/except para coletar batimentos cardíacos e calcular a média!',
-                prompt: `Atue como desenvolvedor de apps de saúde.
-Crie um assistente de monitoramento cardíaco no VS Code:
-1. Use um laço for para pedir ao usuário 4 medições de frequência cardíaca (bpm).
-2. Use try/except ValueError para rejeitar entradas não numéricas.
-3. Calcule e exiba a média das 4 medições.
-4. Use if/elif/else para classificar a média: <60 ("Repouso/Atleta"), 60-100 ("Normal"), >100 ("Elevado").
+                title: 'Ranking de Torneio de E-Sports',
+                subtitle: 'Cadastre competidores com for, destaque o líder [0] e elimine com .pop()!',
+                prompt: `Atue como organizador de um torneio de games.
+Crie um programa Python simples no terminal:
+1. Crie uma lista vazia jogadores = [] e use um laço for para pedir o nome de 4 jogadores com .append().
+2. Exiba o Ranking completo numerado usando for e enumerate().
+3. Destaque o grande campeão usando jogadores[0] e o último colocado usando jogadores[-1].
+4. Peça um índice para eliminar um jogador com .pop(indice) protegido por try/except (ValueError e IndexError).
 5. Máximo 30 linhas, comentários em português.`,
                 steps: [
                     'Clique em "📋 Copiar Prompt" e envie para a IA.',
-                    'No VS Code, crie o arquivo <code>missao_saude.py</code>.',
+                    'No VS Code, crie o arquivo <code>missao_ranking.py</code>.',
+                    'Cole o código, salve (<code>Ctrl + S</code>) e execute ▶️!'
+                ],
+                questions: [
+                    'Por que o campeão está em <code>jogadores[0]</code> e não em <code>jogadores[1]</code>?',
+                    'O que acontece se você digitar o índice 99 no <code>.pop()</code>?'
+                ]
+            },
+            atm: {
+                badge: '🏧 MISSÃO C — CAIXA ELETRÔNICO COM EXTRATO EM LISTA',
+                badgeBg: 'rgba(52,211,153,.15)',
+                badgeColor: '#34d399',
+                badgeBorder: 'rgba(52,211,153,.4)',
+                title: 'Simulador Bancário com Histórico de Operações',
+                subtitle: 'Combine while True, try/except e uma lista de extrato!',
+                prompt: `Atue como professor de Python para iniciantes.
+Crie um programa de Caixa Eletrônico com Histórico em Lista:
+1. Comece com saldo = 500.0 e uma lista vazia historico = [].
+2. Use while True com menu: 1-Ver Saldo e Histórico (usando for na lista historico) | 2-Sacar | 3-Depositar | 4-Sair (break).
+3. Use try/except ValueError nos valores de saque e depósito.
+4. A cada saque ou depósito válido, adicione uma frase na lista historico com .append() (ex: "Saque de R$ 50").
+5. Máximo 35 linhas, sem bibliotecas externas, com comentários em português.`,
+                steps: [
+                    'Clique em "📋 Copiar Prompt" e envie para a IA.',
+                    'No VS Code, crie o arquivo <code>missao_caixa.py</code>.',
                     'Cole o código, salve (<code>Ctrl + S</code>) e teste no terminal ▶️!'
                 ],
                 questions: [
-                    'Quantas vezes o laço <code>for</code> repete a pergunta de medição?',
-                    'Como a média é calculada ao final do laço?'
+                    'Onde a lista <code>historico</code> guarda cada movimentação feita?',
+                    'Como o <code>for</code> exibe todas as operações na opção 1?'
                 ]
             }
         };
