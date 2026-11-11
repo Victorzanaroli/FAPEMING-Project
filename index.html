@@ -3053,7 +3053,8 @@
             var container = document.getElementById('adminViewContainer');
             if (!container) return;
             var user = window.TrilhandoClassroom.getCurrentUser();
-            if (!user || user.role !== 'admin') {
+            var isAdm = Boolean(user && (user.role === 'admin' || user.id === 'adm_trilhando_unico' || user.username === 'trilhando-adm'));
+            if (!isAdm) {
                 container.innerHTML = `<div class="panel-box">Acesso restrito aos professores administradores.</div>`;
                 return;
             }
@@ -3325,7 +3326,8 @@
             var container = document.getElementById('adminChamadaViewContainer');
             if (!container) return;
             var user = window.TrilhandoClassroom.getCurrentUser();
-            if (!user || user.role !== 'admin') {
+            var isAdm = Boolean(user && (user.role === 'admin' || user.id === 'adm_trilhando_unico' || user.username === 'trilhando-adm'));
+            if (!isAdm) {
                 container.innerHTML = `<div class="panel-box">Acesso restrito aos professores administradores.</div>`;
                 return;
             }
@@ -3639,11 +3641,13 @@
             var container = document.getElementById('adminCorrecoesViewContainer');
             if (!container) return;
             var user = window.TrilhandoClassroom.getCurrentUser();
-            if (!user || user.role !== 'admin') {
+            var isAdm = Boolean(user && (user.role === 'admin' || user.id === 'adm_trilhando_unico' || user.username === 'trilhando-adm'));
+            if (!isAdm) {
                 container.innerHTML = `<div class="panel-box">Acesso restrito aos professores administradores.</div>`;
                 return;
             }
 
+            var homeworks = window.TrilhandoClassroom.HOMEWORKS_BY_LESSON || {};
             var allUsers = window.TrilhandoClassroom.getUsers();
             var students = allUsers.filter(function(u) { return u.role === 'student'; });
             var allSubs = window.TrilhandoClassroom.getSubmissions();
