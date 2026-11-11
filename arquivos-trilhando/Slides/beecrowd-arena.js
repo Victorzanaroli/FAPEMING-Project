@@ -3013,7 +3013,90 @@ SUA MISSÃO E DIRETRIZ DE RESPOSTA INTELIGENTE:
 2. TOM DE VOZ:
    - Responda sempre em português do Brasil, com tom didático, profissional, encorajador, claro e direto para estudantes e aprendizes de Python.`;
 
-    const chatHistorySession = [];
+    // =========================================================================
+    // GESTÃO DO HISTÓRICO DO CHAT POR USUÁRIO (ISOLAMENTO TOTAL POR CONTA)
+    // =========================================================================
+    const STORAGE_KEY_CHAT_HISTORIES = 'trilhando_chat_histories_v1';
+    let chatHistoriesMemory = null;
+
+    function resolveChatUserId(explicitUserId) {
+        if (explicitUserId && typeof explicitUserId === 'string' && explicitUserId.trim()) {
+            return explicitUserId.trim();
+        }
+        try {
+            if (window.TrilhandoClassroom && typeof window.TrilhandoClassroom.getCurrentUser === 'function') {
+                const u = window.TrilhandoClassroom.getCurrentUser();
+                if (u && u.id) return String(u.id).trim();
+            }
+        } catch (e) {}
+        return 'anon';
+    }
+
+    function resolveStudentName(explicitName, userId) {
+        if (explicitName && typeof explicitName === 'string' && explicitName.trim()) {
+            return explicitName.trim();
+        }
+        try {
+            if (window.TrilhandoClassroom && typeof window.TrilhandoClassroom.getCurrentUser === 'function') {
+                const u = window.TrilhandoClassroom.getCurrentUser();
+                if (u) {
+                    if (u.role === 'admin') return u.fullName || 'Professor / Administrador';
+                    return u.fullName || u.username || ('Aluno #' + String(u.id));
+                }
+            }
+        } catch (e) {}
+        return (userId && userId !== 'anon') ? ('Aluno #' + userId) : 'Estudante';
+    }
+
+    function loadAllChatHistories() {
+        if (chatHistoriesMemory) return chatHistoriesMemory;
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY_CHAT_HISTORIES);
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                if (parsed && typeof parsed === 'object') {
+                    chatHistoriesMemory = parsed;
+                    return chatHistoriesMemory;
+                }
+            }
+        } catch (e) {}
+        chatHistoriesMemory = {};
+        return chatHistoriesMemory;
+    }
+
+    function saveAllChatHistories() {
+        if (!chatHistoriesMemory) return;
+        try {
+            localStorage.setItem(STORAGE_KEY_CHAT_HISTORIES, JSON.stringify(chatHistoriesMemory));
+        } catch (e) {}
+    }
+
+    function getUserChatHistory(explicitUserId) {
+        const uid = resolveChatUserId(explicitUserId);
+        const all = loadAllChatHistories();
+        if (!Array.isArray(all[uid])) {
+            all[uid] = [];
+        }
+        return all[uid];
+    }
+
+    function pushUserChatMessage(explicitUserId, msgObj) {
+        const uid = resolveChatUserId(explicitUserId);
+        const history = getUserChatHistory(uid);
+        history.push(msgObj);
+        // Limita a 60 mensagens por usuário para preservar performance e localStorage
+        if (history.length > 60) {
+            history.splice(0, history.length - 60);
+        }
+        saveAllChatHistories();
+    }
+
+    function clearUserChatHistory(explicitUserId) {
+        const uid = resolveChatUserId(explicitUserId);
+        const all = loadAllChatHistories();
+        all[uid] = [];
+        saveAllChatHistories();
+    }
 
     function sendToGoogleFormsWebhook(studentName, promptText, responseText) {
         const cfg = window.TrilhandoClassroom.getChatbotConfig();
@@ -3021,8 +3104,9 @@ SUA MISSÃO E DIRETRIZ DE RESPOSTA INTELIGENTE:
         if (!formUrl || !formUrl.startsWith('http')) return;
 
         try {
+            const resolvedName = resolveStudentName(studentName);
             const formData = new URLSearchParams();
-            formData.append(cfg.entryNome || 'entry.1009783107', studentName);
+            formData.append(cfg.entryNome || 'entry.1009783107', resolvedName);
             formData.append(cfg.entryPrompt || 'entry.1559793013', promptText);
             formData.append(cfg.entryResposta || 'entry.2041274618', responseText);
 
@@ -3106,7 +3190,7 @@ SUA MISSÃO E DIRETRIZ DE RESPOSTA INTELIGENTE:
         }
     }
 
-    async function askGeminiApiAsync(promptText, studentName) {
+    async function askGeminiApiAsync(promptText, studentName, explicitUserId) {
         const cfg = window.TrilhandoClassroom.getChatbotConfig();
         let fallbackKey = '';
         try {
@@ -3114,10 +3198,16 @@ SUA MISSÃO E DIRETRIZ DE RESPOSTA INTELIGENTE:
         } catch (e) {}
         const apiKey = ((cfg && cfg.geminiApiKey) ? String(cfg.geminiApiKey).trim() : '') || fallbackKey;
 
-        chatHistorySession.push({
+        const uid = resolveChatUserId(explicitUserId);
+        const targetStudentName = resolveStudentName(studentName, uid);
+
+        // Registra o prompt do usuário no histórico ISOLADO deste usuário
+        pushUserChatMessage(uid, {
             role: 'user',
             parts: [{ text: promptText }]
         });
+
+        const userHistory = getUserChatHistory(uid);
 
         // CAMADA 1: API Oficial Google Gemini Flash (suporta chaves AQ... e AIza...)
         if (apiKey && apiKey.length >= 20) {
@@ -3136,7 +3226,7 @@ SUA MISSÃO E DIRETRIZ DE RESPOSTA INTELIGENTE:
                         system_instruction: {
                             parts: [{ text: CHAT_SYSTEM_INSTRUCTION }]
                         },
-                        contents: chatHistorySession.slice(-12),
+                        contents: userHistory.slice(-12),
                         generationConfig: {
                             temperature: 0.25,
                             topP: 0.95,
@@ -3164,11 +3254,11 @@ SUA MISSÃO E DIRETRIZ DE RESPOSTA INTELIGENTE:
                             .join('');
                         const reply = cleanAiReplyText(joinedText);
                         if (reply) {
-                            chatHistorySession.push({
+                            pushUserChatMessage(uid, {
                                 role: 'model',
                                 parts: [{ text: reply }]
                             });
-                            sendToGoogleFormsWebhook(studentName, promptText, reply);
+                            sendToGoogleFormsWebhook(targetStudentName, promptText, reply);
                             return reply;
                         }
                     }
@@ -3182,7 +3272,7 @@ SUA MISSÃO E DIRETRIZ DE RESPOSTA INTELIGENTE:
         const openAiMessages = [
             { role: 'system', content: CHAT_SYSTEM_INSTRUCTION }
         ];
-        const recentHistory = chatHistorySession.slice(-10);
+        const recentHistory = userHistory.slice(-10);
         for (let i = 0; i < recentHistory.length; i++) {
             const msg = recentHistory[i];
             const txt = (msg.parts && msg.parts[0] && msg.parts[0].text) ? msg.parts[0].text : '';
@@ -3215,11 +3305,11 @@ SUA MISSÃO E DIRETRIZ DE RESPOSTA INTELIGENTE:
                         data.choices[0].message.content;
                     const reply = cleanAiReplyText(rawReply);
                     if (reply) {
-                        chatHistorySession.push({
+                        pushUserChatMessage(uid, {
                             role: 'model',
                             parts: [{ text: reply }]
                         });
-                        sendToGoogleFormsWebhook(studentName, promptText, reply);
+                        sendToGoogleFormsWebhook(targetStudentName, promptText, reply);
                         return reply;
                     }
                 }
@@ -3232,17 +3322,17 @@ SUA MISSÃO E DIRETRIZ DE RESPOSTA INTELIGENTE:
         try {
             const directUrl = 'https://text.pollinations.ai/' + encodeURIComponent(
                 'Voce e o tutor de Python do projeto Trilhando o Caminho do Codigo. Responda em portugues de forma didatica ao aluno ' +
-                (studentName || '') + ': ' + promptText
+                (targetStudentName || '') + ': ' + promptText
             );
             const res = await fetchWithTimeout(directUrl, { method: 'GET' }, 15000);
             if (res.ok) {
                 const txt = cleanAiReplyText(await res.text());
                 if (txt && txt.length > 5) {
-                    chatHistorySession.push({
+                    pushUserChatMessage(uid, {
                         role: 'model',
                         parts: [{ text: txt }]
                     });
-                    sendToGoogleFormsWebhook(studentName, promptText, txt);
+                    sendToGoogleFormsWebhook(targetStudentName, promptText, txt);
                     return txt;
                 }
             }
@@ -3252,12 +3342,12 @@ SUA MISSÃO E DIRETRIZ DE RESPOSTA INTELIGENTE:
 
         // CAMADA 3: Contingência Offline Pedagógica Instantânea (se a escola estiver sem internet externa)
         await new Promise(r => setTimeout(r, 350));
-        const fallbackReply = generateSmartTutorFallbackResponse(promptText, studentName);
-        chatHistorySession.push({
+        const fallbackReply = generateSmartTutorFallbackResponse(promptText, targetStudentName);
+        pushUserChatMessage(uid, {
             role: 'model',
             parts: [{ text: fallbackReply }]
         });
-        sendToGoogleFormsWebhook(studentName, promptText, fallbackReply);
+        sendToGoogleFormsWebhook(targetStudentName, promptText, fallbackReply);
         return fallbackReply;
     }
 
@@ -3319,7 +3409,7 @@ SUA MISSÃO E DIRETRIZ DE RESPOSTA INTELIGENTE:
         judgeChallengeSubmissionAsync,
         askGeminiApiAsync,
         formatMarkdownMessage,
-        getChatHistory: () => chatHistorySession,
-        clearChatHistory: () => { chatHistorySession.length = 0; }
+        getChatHistory: (uid) => getUserChatHistory(uid),
+        clearChatHistory: (uid) => clearUserChatHistory(uid)
     };
 })();

@@ -1646,6 +1646,8 @@
                 if (logoutBtn) {
                     logoutBtn.addEventListener('click', function() {
                         window.TrilhandoClassroom.setCurrentUser(null);
+                        chatIaMountedUserKey = null;
+                        chatIaDraftText = '';
                         if (activeTab === 'admin' || activeTab === 'admin-chamada' || activeTab === 'admin-correcoes') {
                             switchTab('aulas');
                         }
@@ -2869,8 +2871,9 @@
             if (!container || !msgBox || !window.TrilhandoBeecrowd) return false;
 
             var user = window.TrilhandoClassroom.getCurrentUser();
-            var activeStudentName = user ? user.fullName : '';
-            var history = window.TrilhandoBeecrowd.getChatHistory();
+            var activeUserId = user ? user.id : 'anon';
+            var activeStudentName = user ? (user.role === 'admin' ? (user.fullName || 'Professor / Administrador') : (user.fullName || user.username || 'Estudante')) : 'Estudante';
+            var history = window.TrilhandoBeecrowd.getChatHistory(activeUserId);
 
             msgBox.innerHTML = buildChatMessagesHtml(activeStudentName, history);
             msgBox.scrollTop = msgBox.scrollHeight;
@@ -2894,7 +2897,8 @@
 
             var user = window.TrilhandoClassroom.getCurrentUser();
             var isAdm = Boolean(user && user.role === 'admin');
-            var activeStudentName = user ? user.fullName : '';
+            var activeUserId = user ? user.id : 'anon';
+            var activeStudentName = user ? (isAdm ? (user.fullName || 'Professor / Administrador') : (user.fullName || user.username || 'Estudante')) : 'Estudante';
             var userKey = (user ? user.id + ':' + user.role : 'anon');
 
             // Se a estrutura do chat já está montada para este usuário, atualiza APENAS as mensagens
@@ -2906,7 +2910,7 @@
 
             chatIaMountedUserKey = userKey;
             var chatCfg = window.TrilhandoClassroom.getChatbotConfig();
-            var history = window.TrilhandoBeecrowd.getChatHistory();
+            var history = window.TrilhandoBeecrowd.getChatHistory(activeUserId);
 
             var admConfigBarHtml = isAdm ? `
                 <details style="margin-bottom:12px;background:rgba(37,99,235,0.1);border:1px solid rgba(56,189,248,0.3);border-radius:10px;padding:10px 14px;">
@@ -2972,14 +2976,18 @@
                 chip.addEventListener('click', function() {
                     var qText = chip.getAttribute('data-chat-quick');
                     var currentU = window.TrilhandoClassroom.getCurrentUser();
-                    sendPromptToChatIa(qText, currentU ? currentU.fullName : activeStudentName);
+                    var sName = currentU ? (currentU.fullName || currentU.username) : activeStudentName;
+                    var sId = currentU ? currentU.id : activeUserId;
+                    sendPromptToChatIa(qText, sName, sId);
                 });
             });
 
             var clearBtn = document.getElementById('stClearChatBtn');
             if (clearBtn) {
                 clearBtn.addEventListener('click', function() {
-                    window.TrilhandoBeecrowd.clearChatHistory();
+                    var currentU = window.TrilhandoClassroom.getCurrentUser();
+                    var sId = currentU ? currentU.id : activeUserId;
+                    window.TrilhandoBeecrowd.clearChatHistory(sId);
                     updateChatIaMessagesOnly();
                 });
             }
@@ -2999,7 +3007,9 @@
                 chatIaDraftText = '';
                 promptInp.style.height = 'auto';
                 var currentU = window.TrilhandoClassroom.getCurrentUser();
-                sendPromptToChatIa(text, currentU ? currentU.fullName : activeStudentName);
+                var sName = currentU ? (currentU.fullName || currentU.username) : activeStudentName;
+                var sId = currentU ? currentU.id : activeUserId;
+                sendPromptToChatIa(text, sName, sId);
             }
 
             if (sendBtn) sendBtn.addEventListener('click', triggerSend);
@@ -3034,10 +3044,14 @@
             }
         }
 
-        async function sendPromptToChatIa(promptText, studentName) {
+        async function sendPromptToChatIa(promptText, studentName, userId) {
             if (chatIaSending) return;
             chatIaSending = true;
-            var reqPromise = window.TrilhandoBeecrowd.askGeminiApiAsync(promptText, studentName);
+            var currentU = window.TrilhandoClassroom.getCurrentUser();
+            var finalUserId = userId || (currentU ? currentU.id : 'anon');
+            var finalStudentName = studentName || (currentU ? (currentU.fullName || currentU.username) : 'Estudante');
+
+            var reqPromise = window.TrilhandoBeecrowd.askGeminiApiAsync(promptText, finalStudentName, finalUserId);
             updateChatIaMessagesOnly();
             await reqPromise;
             chatIaSending = false;
