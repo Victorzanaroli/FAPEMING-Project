@@ -30,11 +30,6 @@
     // Padrão inicial de quizzes liberados: vazio (o quiz começa trancado para os alunos durante a aula de apresentação)
     const DEFAULT_UNLOCKED_QUIZZES = [];
 
-    // Limpa qualquer sessão legada persistida no localStorage para garantir que a tela de login sempre apareça em novos acessos
-    try {
-        localStorage.removeItem(STORAGE_KEY_SESSION);
-    } catch (e) {}
-
     // Cronograma oficial de aulas atualizado (conclusão em 09/12/2026)
     const LESSONS_SCHEDULE = [
         { key: 'aula01', shortLabel: 'A1', label: 'Aula 01', date: '07/10', topic: 'Abertura, T0 & Prompt' },
@@ -2457,13 +2452,14 @@
 
     function getCurrentUser() {
         try {
-            const raw = sessionStorage.getItem(STORAGE_KEY_SESSION);
+            const raw = sessionStorage.getItem(STORAGE_KEY_SESSION) || localStorage.getItem(STORAGE_KEY_SESSION);
             if (raw) {
                 const u = JSON.parse(raw);
                 if (u && u.role !== 'admin') {
                     const deletedIds = new Set(getDeletedUserIds());
                     if (deletedIds.has(u.id)) {
                         sessionStorage.removeItem(STORAGE_KEY_SESSION);
+                        localStorage.removeItem(STORAGE_KEY_SESSION);
                         return null;
                     }
                 }
@@ -2474,16 +2470,15 @@
     }
 
     function setCurrentUser(user) {
-        try {
-            localStorage.removeItem(STORAGE_KEY_SESSION);
-        } catch (e) {}
         if (!user) {
             try {
                 sessionStorage.removeItem(STORAGE_KEY_SESSION);
+                localStorage.removeItem(STORAGE_KEY_SESSION);
             } catch (e) {}
         } else {
             try {
                 sessionStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(user));
+                localStorage.setItem(STORAGE_KEY_SESSION, JSON.stringify(user));
             } catch (e) {}
             addRecentUser(user);
         }
@@ -2563,12 +2558,16 @@
         const cfg = getCloudConfig();
         if (!cfg.enabled || !cfg.supabaseUrl || !cfg.supabaseKey) return false;
         try {
+            const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+            const timer = controller ? setTimeout(() => controller.abort(), 3500) : null;
             const res = await fetch(`${cfg.supabaseUrl}/rest/v1/trilhando_sync?id=eq.main_state&select=*`, {
                 headers: {
                     'apikey': cfg.supabaseKey,
                     'Authorization': `Bearer ${cfg.supabaseKey}`
-                }
+                },
+                signal: controller ? controller.signal : undefined
             });
+            if (timer) clearTimeout(timer);
             if (!res.ok) return false;
             const rows = await res.json();
             if (rows && rows.length > 0) {
@@ -2780,17 +2779,23 @@
             delete LOGIN_ATTEMPTS_MAP[normKey];
         }
 
-        // 1. MODO PROFESSOR / ADM
-        if (mode === 'admin') {
+        const isAdmAlias = [
+            'admin', 'adm', 'professor', 'professores', 'tutores', 'trilhando',
+            'trilhandoadm', 'trilhandoocaminhodocodigo'
+        ].includes(normKey);
+
+        // 1. MODO PROFESSOR / ADM (ou login geral com credencial de equipe)
+        if (mode === 'admin' || (mode === 'login' && isAdmAlias)) {
             const adm = users.find(u =>
                 u.role === 'admin' && (
+                    isAdmAlias ||
                     normalizeName(u.fullName) === norm ||
                     normalizeUsernameKey(u.fullName) === normKey ||
                     (u.username && (normalizeName(u.username) === norm || normalizeUsernameKey(u.username) === normKey))
                 )
             );
             if (!adm) {
-                return { ok: false, error: 'Usuário de Administrador inválido. Use "Trilhando o Caminho do Código" (ou "trilhando-adm").' };
+                return { ok: false, error: 'Usuário de Administrador inválido. Use "Trilhando o Caminho do Código", "admin" ou "trilhando-adm".' };
             }
             if (adm.password !== cleanPass) {
                 registerFailedAttempt();

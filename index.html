@@ -2003,6 +2003,9 @@
                 });
             }
         }
+
+        // Render Tab: Minhas Notas & Correções (Boletim Escolar)
+        function renderNotasView() {
             var container = document.getElementById('notasViewContainer');
             if (!container) return;
             var user = window.TrilhandoClassroom.getCurrentUser();
@@ -4267,26 +4270,39 @@
             }
 
             var gateForm = document.getElementById('loginGateForm');
-            if (gateForm) {
-                gateForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    var fullName = document.getElementById('gateFullName').value;
-                    var password = document.getElementById('gatePassword').value;
-                    var confirmEl = document.getElementById('gatePasswordConfirm');
-                    var confirmPassword = confirmEl ? confirmEl.value : password;
-                    var submitBtn = document.getElementById('gateSubmitBtn');
-                    var origLabel = submitBtn ? submitBtn.textContent : '';
-                    if (submitBtn) submitBtn.textContent = '⏳ Verificando na nuvem...';
+            var gateSubmitBtn = document.getElementById('gateSubmitBtn');
 
-                    await window.TrilhandoClassroom.pullFromCloudAsync(true);
+            async function handleGateSubmit(e) {
+                if (e && e.preventDefault) e.preventDefault();
+                var fullName = (document.getElementById('gateFullName').value || '').trim();
+                var password = (document.getElementById('gatePassword').value || '').trim();
+                var confirmEl = document.getElementById('gatePasswordConfirm');
+                var confirmPassword = confirmEl ? (confirmEl.value || '').trim() : password;
+                var submitBtn = document.getElementById('gateSubmitBtn');
+                var origLabel = submitBtn ? submitBtn.textContent : '';
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.textContent = '⏳ Verificando na nuvem...';
+                }
 
+                try {
+                    if (window.TrilhandoClassroom && window.TrilhandoClassroom.pullFromCloudAsync) {
+                        await Promise.race([
+                            window.TrilhandoClassroom.pullFromCloudAsync(true),
+                            new Promise(function(r) { setTimeout(r, 3000); })
+                        ]).catch(function() {});
+                    }
+                } catch (cloudErr) {
+                    console.warn('Sync cloud warning:', cloudErr);
+                }
+
+                try {
                     var res = window.TrilhandoClassroom.loginOrRegister({
                         fullName: fullName,
                         password: password,
                         confirmPassword: gateMode === 'register' ? confirmPassword : password,
                         mode: gateMode
                     });
-                    if (submitBtn) submitBtn.textContent = origLabel;
 
                     var errBox = document.getElementById('gateErrorBox');
                     if (!res.ok) {
@@ -4299,10 +4315,27 @@
                         if (res.user.role === 'admin') {
                             switchTab('admin');
                         } else {
-                            renderAllViews();
+                            switchTab('aulas');
                         }
+                        renderAllViews();
                     }
-                });
+                } catch (loginErr) {
+                    console.error('Login error:', loginErr);
+                    var errBox = document.getElementById('gateErrorBox');
+                    if (errBox) errBox.innerHTML = `<div class="tr-auth-alert">⚠️ Erro ao processar login: ${escapeHtml(loginErr.message || 'Tente novamente')}</div>`;
+                } finally {
+                    if (submitBtn) {
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = origLabel;
+                    }
+                }
+            }
+
+            if (gateForm) {
+                gateForm.addEventListener('submit', handleGateSubmit);
+            }
+            if (gateSubmitBtn) {
+                gateSubmitBtn.addEventListener('click', handleGateSubmit);
             }
 
             // Tab clicks
@@ -4330,10 +4363,24 @@
             });
 
             var pAuthSubmit = document.getElementById('pAuthSubmitBtn');
-            if (pAuthSubmit) {
-                pAuthSubmit.addEventListener('click', function() {
-                    var fullName = document.getElementById('pAuthFullName').value;
-                    var password = document.getElementById('pAuthPassword').value;
+            async function handlePortalAuthSubmit() {
+                var fullName = (document.getElementById('pAuthFullName').value || '').trim();
+                var password = (document.getElementById('pAuthPassword').value || '').trim();
+                var origLabel = pAuthSubmit ? pAuthSubmit.textContent : '';
+                if (pAuthSubmit) {
+                    pAuthSubmit.disabled = true;
+                    pAuthSubmit.textContent = '⏳ Verificando...';
+                }
+                try {
+                    if (window.TrilhandoClassroom && window.TrilhandoClassroom.pullFromCloudAsync) {
+                        await Promise.race([
+                            window.TrilhandoClassroom.pullFromCloudAsync(true),
+                            new Promise(function(r) { setTimeout(r, 2500); })
+                        ]).catch(function() {});
+                    }
+                } catch (e) {}
+
+                try {
                     var res = window.TrilhandoClassroom.loginOrRegister({
                         fullName: fullName,
                         password: password,
@@ -4348,11 +4395,35 @@
                         if (res.user.role === 'admin') {
                             switchTab('admin');
                         } else {
-                            renderAllViews();
+                            switchTab('aulas');
                         }
+                        renderAllViews();
                     }
-                });
+                } catch (err) {
+                    var errBox = document.getElementById('pAuthErrorBox');
+                    if (errBox) errBox.innerHTML = `<div class="tr-auth-alert">⚠️ ${escapeHtml(err.message)}</div>`;
+                } finally {
+                    if (pAuthSubmit) {
+                        pAuthSubmit.disabled = false;
+                        pAuthSubmit.textContent = origLabel;
+                    }
+                }
             }
+
+            if (pAuthSubmit) {
+                pAuthSubmit.addEventListener('click', handlePortalAuthSubmit);
+            }
+            ['pAuthFullName', 'pAuthPassword'].forEach(function(id) {
+                var inp = document.getElementById(id);
+                if (inp) {
+                    inp.addEventListener('keydown', function(e) {
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            handlePortalAuthSubmit();
+                        }
+                    });
+                }
+            });
 
             window.addEventListener('trilhando:authchange', function() { renderAllViews(false); });
             window.addEventListener('trilhando:datasync', function() { renderAllViews(true); });
